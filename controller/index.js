@@ -7,3 +7,6 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signup');
 };
+exports.map = (req, res) => {
+    res.render('map');
+};
