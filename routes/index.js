@@ -7,5 +7,6 @@ router.get('/', main);
 router.get('/login', login);
 router.get('/signup', signup);
 router.get('/myPage', myPage);
+router.get('/myPage', map);
 
 module.exports = router;
