@@ -13,3 +13,7 @@ exports.myPage = (req, res) => {
 exports.map = (req, res) => {
     res.render('map');
 };
+
+exports.calender = (req, res) => {
+    res.render('calender');
+};
