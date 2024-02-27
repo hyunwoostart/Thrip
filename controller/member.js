@@ -45,8 +45,14 @@ exports.find = async (req, res) => {
 
 // 정보수정
 exports.update = async (req, res) => {
-    const { pw, email, tel } = req.body;
     const { id } = req.user;
-    const result = await Member.update({ password: pw }, { where: { id } });
+    if (req.body.pw) {
+        const { pw, email, tel } = req.body;
+        const password = await bcrypt.hash(pw, 11);
+        const result = await Member.update({ password, email, tel }, { where: id });
+    } else {
+        const { email, tel } = req.body;
+        const result = await Member.update({ email, tel }, { where: { id } });
+    }
     res.json({ success: true, message: '회원 정보 수정이 완료되었습니다.' });
 };
