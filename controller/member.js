@@ -7,7 +7,6 @@ exports.login = async (req, res) => {
     const { userId, pw } = req.body;
     // 검색
     const result = await Member.findOne({ where: { userId } });
-    console.log('result', result.username);
     if (result) {
         const password = await bcrypt.compare(pw, result.password);
         if (password) {
@@ -35,4 +34,19 @@ exports.signup = async (req, res) => {
         const result = await Member.create({ userId, username, userId, password, email, tel });
         res.json({ success: true, message: '회원가입 완료' });
     }
+};
+
+// 회원조회
+exports.find = async (req, res) => {
+    const { id } = req.user;
+    const result = await Member.findOne({ where: id });
+    res.json({ success: true, result });
+};
+
+// 정보수정
+exports.update = async (req, res) => {
+    const { pw, email, tel } = req.body;
+    const { id } = req.user;
+    const result = await Member.update({ password: pw }, { where: { id } });
+    res.json({ success: true, message: '회원 정보 수정이 완료되었습니다.' });
 };
