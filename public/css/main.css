@@ -1,0 +1,20 @@
+/* 헤더 */
+header {display: flex;}
+header .gnb {display: flex;}
+header .gnb ul {display: flex;}
+
+.main {padding: 0 20px;}
+
+/* 탭메뉴 */
+.tab_menu .tab_nav {display: flex; padding: 20px 0;}
+.tab_menu .tab_nav li + li {margin-left: 25px;}
+.tab_menu .tab_nav li a {font-weight: 700; color: #8d8d8d;}
+.tab_menu .tab_nav li.on a{color: #278eff;}
+
+.container_rec h2 {padding-bottom: 16px; font-weight: 700;}
+.container_rec ul {display: flex;}
+.container_rec ul li {width: 33%;}
+.container_rec ul li + li {margin-left: 20px;}
+.container_rec ul li div img {border-radius: 15px;}
+
+.container_best ul li div img {display: flex; border-radius: 15px;}
