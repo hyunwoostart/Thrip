@@ -1,5 +1,6 @@
 const express = require('express');
-const { main, login, signup, myPage } = require('../controller');
+const { main, login, signup, myPage, map } = require('../controller');
+
 const router = express.Router();
 
 router.get('/', main);
