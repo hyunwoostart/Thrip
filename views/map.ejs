@@ -2,17 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>키워드로 장소검색하기</title>
+        <title>지도</title>
         <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
         ></script>
     </head>
     <body>
+        <h1>장소검색하기 및 두 지점 사이의 거리 구하기</h1>
         <div id="map" style="width: 100%; height: 350px"></div>
         <input id="place_name" />
         <input type="button" onclick="keyword()" value="검색" />
         <div id="select"></div>
+        <div id="result"></div>
 
         <script>
             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -29,6 +31,8 @@
 
             //출발지와 도착지를 담는 배열입니다.
             let array = [];
+            //array배열에 정보를 담은 객체 넣어주기
+            let obj = { x: 0, y: 0, place_name: '' };
             // 출발지와 도착지 사이의 거리를 담는 변수입니다.
             let distance = 0;
             // 출발지 도착지 배열 담는 함수
@@ -50,7 +54,7 @@
                         Math.sin(dLon / 2) *
                         Math.sin(dLon / 2);
                 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                var d = R * c; // Distance in km
+                var d = (R * c).toFixed(1); // Distance in km
                 return d;
             }
 
@@ -60,11 +64,6 @@
             //검색하는 함수입니다.
             function keyword() {
                 var place_name = document.getElementById('place_name').value;
-                // document.getElementById('select').innerText = place_name;
-                // 전역변수
-                //  = place_name;
-                // console.log(search);
-                // 키워드로 장소를 검색합니다
                 ps.keywordSearch(place_name, placesSearchCB);
             }
 
@@ -80,8 +79,6 @@
                         bounds.extend(
                             new kakao.maps.LatLng(data[i].y, data[i].x)
                         );
-                        console.log(data[i]);
-                        // 수정
                     }
 
                     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
@@ -99,34 +96,40 @@
 
                 // 마커에 클릭이벤트를 등록합니다
                 kakao.maps.event.addListener(marker, 'click', function () {
-                    console.log(marker);
+                    // console.log(place.x);
                     document.getElementById(
                         'select'
-                    ).innerHTML = `<div>위치 : ${place.place_name}<br>위도 : ${marker.n.La} <br> 경도 :${marker.n.Ma} </div>`;
+                    ).innerHTML = `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
                     // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                     infowindow.setContent(
                         '<div style="padding:5px;font-size:12px;">' +
-                            place.place_name +
-                            '</div>'
+                            place.place_name,
+                        '</div>'
                     );
                     infowindow.open(map, marker);
-                    //array배열에 정보를 담은 객체 넣어주기
-                    let obj = {
-                        name: place.place_name,
-                        la: marker.n.La,
-                        ma: marker.n.Ma,
+                    //좌표 담는 객체 안에 x,y로 저장합니다.
+                    obj = {
+                        x: place.x,
+                        y: place.y,
+                        place_name: place.place_name,
                     };
                     pushArray(obj, array);
                     console.log(array);
-                    if (array.length === 2) {
+                    if (array.length >= 2) {
+                        document.getElementById(
+                            'select'
+                        ).innerHTML = `<div>${array[0].place_name} ----거리 측정 중----> ${array[1].place_name} </div>`;
                         console.log('두개의 좌표 사이의 거리 측정 시작');
                         distance = getDistance(
-                            array[0].la,
-                            array[0].ma,
-                            array[1].la,
-                            array[1].ma
+                            array[0].x,
+                            array[0].y,
+                            array[1].x,
+                            array[1].y
                         );
                         console.log(distance);
+                        document.getElementById(
+                            'result'
+                        ).innerHTML = `<div>총 거리 : ${distance}km</div>`;
                     }
                 });
             }
