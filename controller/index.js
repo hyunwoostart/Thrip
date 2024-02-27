@@ -7,3 +7,13 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signup');
 };
+exports.myPage = (req, res) => {
+    res.render('myPage');
+};
+exports.map = (req, res) => {
+    res.render('map');
+};
+
+exports.calender = (req, res) => {
+    res.render('calender');
+};

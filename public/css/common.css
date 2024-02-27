@@ -1,7 +1,25 @@
 @font-face {
-    font-family: 'SUITE-Regular';
+    font-family: 'SUITE';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SUITE';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SUITE';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SUITE';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Heavy.woff2') format('woff2');
+    font-weight: 900;
     font-style: normal;
 }
 html,
@@ -86,19 +104,44 @@ mark,
 audio,
 video {
     box-sizing: border-box;
-    font-size: 14px;
-    font-family: 'SUITE-Regular', sans-serif;
+    font-size: 16px;
+    font-family: 'SUITE', sans-serif;
+    color: #333;
+}
+body {
+    min-width: 320px;
+}
+
+/* form */
+form {
+    margin: 0 20px;
 }
 label {
-    display: inline-block;
+    display: block;
     color: #666;
     margin-bottom: 8px;
 }
 input {
+    display: block;
     width: 100%;
+    font-size: 1rem;
+    font-family: 'SUITE', sans-serif;
     line-height: 4rem;
-    padding-left: 1.5rem;
+    padding-left: 1.2rem;
     border: 1px solid #999;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+button {
+    width: 100%;
+    margin: 20px 0 0 0;
+    padding: 0;
+    font-size: 1rem;
+    font-family: 'SUITE', sans-serif;
+    line-height: 4rem;
+    background: #278eff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
 }
