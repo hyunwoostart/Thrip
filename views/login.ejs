@@ -6,7 +6,7 @@
         <title>로그인</title>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
-        <link rel="stylesheet" href="../public/css/login.css" />
+        <link rel="stylesheet" href="../public/css/member.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -16,7 +16,7 @@
             <input type="text" id="userId" placeholder="아이디를 입력하세요" />
             <label for="pw">비밀번호</label>
             <input type="password" id="pw" placeholder="비밀번호를 입력하세요" />
-            <button type="button" onclick="loginFunc()">로그인</button>
+            <button type="button" class="btn" onclick="loginFunc()">로그인</button>
         </form>
         <script>
             async function loginFunc() {

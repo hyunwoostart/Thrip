@@ -1,36 +1,37 @@
 const { DataTypes } = require('sequelize');
 
-const MemberModel = (sequelize) => {
-    return sequelize.define('member', {
+const GroupModel = (sequelize) => {
+    return sequelize.define('group', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
-        username: {
-            type: DataTypes.STRING(31),
-        },
-        userId: {
-            type: DataTypes.STRING(31),
+        depDate: {
+            type: DataTypes.DATE,
             allowNull: false,
         },
-        password: {
-            type: DataTypes.STRING,
+        arrDate: {
+            type: DataTypes.DATE,
             allowNull: false,
         },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        tel: {
+        dueDate: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        mySchedule: {
+        dueName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        groupMember: {
             type: DataTypes.JSON,
+            allowNull: false,
+        },
+        groupMemo: {
+            type: DataTypes.INTEGER,
         },
     });
 };
 
-module.exports = MemberModel;
+module.exports = GroupModel;

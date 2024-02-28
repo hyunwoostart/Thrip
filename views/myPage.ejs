@@ -6,6 +6,7 @@
         <title>회원가입</title>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/member.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -17,13 +18,17 @@
             <label for="pw">비밀번호</label>
             <input type="password" id="pw" placeholder="비밀번호를 입력하세요" required /><br />
             <label for="confirmPw">비밀번호 확인</label>
-            <input type="password" id="confirmPw" placeholder="비밀번호를 다시 입력하세요" required /><br />
             <div class="diffPw"></div>
+            <input type="password" id="confirmPw" placeholder="비밀번호를 다시 입력하세요" required /><br />
             <label for="email">이메일</label>
             <input type="email" id="email" placeholder="이메일을 입력하세요" required /><br />
             <label for="tel">전화번호</label>
             <input type="number" id="tel" placeholder="전화번호를 입력하세요" required /><br />
-            <button type="button" onclick="updateFunc()">회원 정보 수정</button>
+            <div class="btnRow">
+                <button type="button" class="btn row2" onclick="updateFunc()">수정</button>
+                <button type="button" class="btn row2 disable" onclick="cancel()">취소</button>
+            </div>
+            <button type="button" class="withdraw" onclick="deleteFunc()">회원 탈퇴</button>
         </form>
         <script>
             const form = document.forms['my-form'];
@@ -78,6 +83,33 @@
                 if (res.data.success) {
                     alert(res.data.message);
                     document.location.reload();
+                }
+            }
+
+            function cancel() {
+                if (!confirm('수정을 취소하시겠습니까?')) {
+                    return;
+                }
+                document.location.reload();
+            }
+
+            async function deleteFunc() {
+                if (!confirm('정말 탈퇴하시겠습니까?')) {
+                    return;
+                }
+                if (!confirm('진짜 탈퇴하시겠습니까?')) {
+                    return;
+                }
+                const res = await axios({
+                    method: 'DELETE',
+                    url: '/api/member/delete',
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                if (res.data.success) {
+                    alert('탈퇴 완료되었습니다.');
+                    document.location.href = '/';
                 }
             }
         </script>

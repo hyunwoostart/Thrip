@@ -10,6 +10,9 @@ exports.signup = (req, res) => {
 exports.myPage = (req, res) => {
     res.render('myPage');
 };
+exports.checklist = (req, res) => {
+    res.render('checklist');
+};
 exports.map = (req, res) => {
     res.render('map');
 };
