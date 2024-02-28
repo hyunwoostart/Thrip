@@ -24,211 +24,301 @@
                         <li style="display: none;"><a href="#none"><img src="../public/img/common/ico_log.png" alt="회원"></a></li>
                     </ul>
                 </nav>
-                <!-- <nav class="gnb mo_menu">
-                    <ul>
-                        <li><a href="#none">추천</a></li>
-                        <li><a href="#none">내 여행</a></li>
-                    </ul>
-                    <div class="btn_menu">
-                        <img src="" alt="">
-                    </div>
-                </nav> -->
             </header>
             <div class="main">
-                <div class="tab_menu">
-                    <ul class="tab_nav">
-                        <li class="on"><a href="#tab_rec">추천</a></li>
-                        <li><a href="#tab_mytrip">내 여행</a></li>
-                    </ul>
-                    <div class="tab_cnt">
-                        <div id="tab_rec">
-                              <!-- 내 여행 content -->
-                              <div class="container_trip">
-                                <div class="trip_box">
-                                    <div class="trip_cnt">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <th>일</th>
-                                                    <th>월</th>
-                                                    <th>화</th>
-                                                    <th>수</th>
-                                                    <th>목</th>
-                                                    <th>금</th>
-                                                    <th>토</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>3</td>
-                                                    <td>4</td>
-                                                    <td>5</td>
-                                                    <td>6</td>
-                                                    <td>7</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="trip_schedule">
-                                            <strong>부산여행</strong>
-                                            <span></span>
-                                            <p></p>
-                                            <p></p>
-                                            <p></p>
-                                        </div>
-                                    </div>
-                                    <div class="trip_supplies">
-                                        <strong>여행 준비물</strong>
-                                        <input type="checkbox"> 캐리어
-                                        <input type="checkbox"> 스킨케어
-                                        <input type="checkbox"> 여벌 옷
-                                        <input type="checkbox"> 지갑
-                                        <input type="checkbox"> 카메라
-                                    </div>
-                                </div>
-                                <div class="trip_new" style="display: none;">
-                                    <button type="button">새로운 일정 생성</button>
+                <ul class="tab_menu">
+                    <li class="on"><a href="#none">추천</a></li>
+                    <li><a href="#none">내 여행</a></li>
+                </ul>
+                <div class="tab_cnt">
+                    <!-- 내 여행 -->
+                    <div class="container_trip">
+                        <div class="trip_box">
+                            <div class="trip_cnt">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>일</th>
+                                            <th>월</th>
+                                            <th>화</th>
+                                            <th>수</th>
+                                            <th>목</th>
+                                            <th>금</th>
+                                            <th>토</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="trip_schedule">
+                                    <h3>부산여행</h3>
+                                    <span>3월 5일 09:00 ~ 3월 7일 20:00</span>
+                                    <p>09:00 부산역</p>
+                                    <p>11:00 어떤 카페</p>
+                                    <p>13:00 어떤 식당</p>
                                 </div>
                             </div>
-                            <!-- 추천 content -->
-                            <div class="container_rec">
-                                <h2>추천 여행지</h2>
-                                <ul>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_rectrip01.png" alt="">
-                                            <div>
-                                                <p>Sea Diving</p>
-                                                <p><span>1.1</span>km boat</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_rectrip02.png" alt="">
-                                            <div>
-                                                <p>Beach Adventure</p>
-                                                <p><span>2</span>km away</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_rectrip02.png" alt="">
-                                            <div>
-                                                <p></p>
-                                                <p><span>1.1</span> km away</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="container_upcoming">
-                                <h2>다가오는 여행 일정</h2>
-                                <ul>
-                                    <li>
-                                        <div class="box_upcoming">
-                                            <p>제주 여행</p>
-                                            <strong>Breakfast</strong>
-                                            <span>March 21 , 2021 - 8 AM</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="box_upcoming">
-                                            <p>공주들의 생일파티</p>
-                                            <strong>Visiting Louvre Museum</strong>
-                                            <span>March 21 , 2021 - 10 AM</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="box_upcoming">
-                                            <p>춘천 여행</p>
-                                            <strong>Lunch</strong>
-                                            <span>March 21 , 2021 - 1 PM</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="container_best">
-                                <h2>BEST 여행 일정</h2>
-                                <ul>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_best01.png" alt="">
-                                            <div>
-                                                <div>
-                                                    <strong>Mount Bromo</strong>
-                                                    <span>5 km away</span>
-                                                </div>
-                                                <div>
-                                                    4.7<span><i></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_best01.png" alt="">
-                                            <div>
-                                                <div>
-                                                    <strong>Mount Bromo</strong>
-                                                    <span>5 km away</span>
-                                                </div>
-                                                <div>
-                                                    4.7<span><i></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_best01.png" alt="">
-                                            <div>
-                                                <div>
-                                                    <strong>Mount Bromo</strong>
-                                                    <span>5 km away</span>
-                                                </div>
-                                                <div>
-                                                    4.7<span><i></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_best01.png" alt="">
-                                            <div>
-                                                <div>
-                                                    <strong>Mount Bromo</strong>
-                                                    <span>5 km away</span>
-                                                </div>
-                                                <div>
-                                                    4.7<span><i></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="../public/img/main/img_best01.png" alt="">
-                                            <div>
-                                                <div>
-                                                    <strong>Mount Bromo</strong>
-                                                    <span>5 km away</span>
-                                                </div>
-                                                <div>
-                                                    4.7<span><i></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="btn_wrap">
-                                
+                            <div class="trip_supplies">
+                                <h3>여행 준비물</h3>
+                                <div class="input_chk">
+                                    <input type="checkbox" id="item01" name="item01" checked/>
+                                    <label for="item01">캐리어</label>
+                                </div>
+                                <div class="input_chk">
+                                    <input type="checkbox" id="item02" name="item02" />
+                                    <label for="item02">스킨케어</label>
+                                </div>
+                                <div class="input_chk">
+                                    <input type="checkbox" id="item03" name="item03" />
+                                    <label for="item03">여벌 옷</label>
+                                </div>
+                                <div class="input_chk">
+                                    <input type="checkbox" id="item04" name="item04" />
+                                    <label for="item04">지갑</label>
+                                </div>
+                                <div class="input_chk">
+                                    <input type="checkbox" id="item05" name="item05" />
+                                    <label for="item05">카메라</label>
+                                </div>
                             </div>
                         </div>
+                        <div class="trip_new" style="display: none;">
+                            <button type="button">새로운 일정 생성</button>
+                        </div>
                     </div>
+                    <!--// 내 여행 -->
+
+                    <!-- 추천 여행지 -->
+                    <div class="container_rec">
+                        <h3>추천 여행지</h3>
+                        <ul>
+                            <li>
+                                <div class="rec_cnt">
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_rectrip01.png" alt="">
+                                        <div class="rec_txt">
+                                            <strong>Sea Diving</strong>
+                                            <p><span>1.1</span>km boat</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rec_cnt">
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_rectrip02.png" alt="">
+                                        <div class="rec_txt">
+                                            <strong>Beach Adventure</strong>
+                                            <p><span>2</span>km away</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rec_cnt">
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_rectrip02.png" alt="">
+                                        <div class="rec_txt">
+                                            <strong>Beach Adventure</strong>
+                                            <p><span>2</span>km away</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--// 추천 여행지 -->
+
+                    <!-- 카테고리 추천 -->
+                    <div class="container_category">
+                        <ul>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate01.png" alt="">
+                                        </div>
+                                        <div class="txt_category">관광명소</div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate02.png" alt="">
+                                        </div>
+                                        <div class="txt_category">카페</div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate03.png" alt="">
+                                        </div>
+                                        <div class="txt_category">맛집</div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate04.png" alt="">
+                                        </div>
+                                        <div class="txt_category">레저</div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--// 카테고리 추천 -->
+
+                    <!-- 다가오는 여행 일정 -->
+                    <div class="container_upcoming">
+                        <h3>다가오는 여행 일정</h3>
+                        <ul>
+                            <li>
+                                <div class="trip_schedule">
+                                    <a href="#none">
+                                        <p>제주 여행</p>
+                                        <strong>Breakfast</strong>
+                                        <span>March 21 , 2021 - 8 AM</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="trip_schedule">
+                                    <a href="#none">
+                                        <p>공주들의 생일파티</p>
+                                        <strong>Visiting Louvre Museum</strong>
+                                        <span>March 21 , 2021 - 10 AM</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="trip_schedule">
+                                    <a href="#none">
+                                        <p>춘천 여행</p>
+                                        <strong>Lunch</strong>
+                                        <span>March 21 , 2021 - 1 PM</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--// 다가오는 여행 일정 -->
+
+                    <!-- BEST 여행 일정 -->
+                    <div class="container_best">
+                        <h3>BEST 여행 일정</h3>
+                        <ul>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <div class="best_txt">
+                                            <div>
+                                                <strong>Mount Bromo</strong>
+                                                <span>5 km away</span>
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    <span>4.7<i></i></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <div class="best_txt">
+                                            <div>
+                                                <strong>Mount Bromo</strong>
+                                                <span>5 km away</span>
+                                            </div>
+                                            <div>
+                                                <span>4.7<i></i></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <div class="best_txt">
+                                            <div>
+                                                <strong>Mount Bromo</strong>
+                                                <span>5 km away</span>
+                                            </div>
+                                            <div>
+                                                <span>4.7<i></i></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <div class="best_txt">
+                                            <div>
+                                                <strong>Mount Bromo</strong>
+                                                <span>5 km away</span>
+                                            </div>
+                                            <div>
+                                                <span>4.7<i></i></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <div class="best_txt">
+                                            <div>
+                                                <strong>Mount Bromo</strong>
+                                                <span>5 km away</span>
+                                            </div>
+                                            <div>
+                                                <span>4.7<i></i></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--// BEST 여행 일정 -->
                 </div>
+            </div>
+            <!-- 하단 메뉴 : 고정 -->
+            <div class="btn_wrap">
+                <ul>
+                    <li>
+                        <a href="#none">홈</a>
+                        <a href="#none">지도</a>
+                        <a href="#none">채팅</a>
+                        <a href="#none">MY</a>
+                    </li>
+                </ul>
             </div>
             <!-- <footer>
                 <address>Time Travel</address>
