@@ -1,3 +1,8 @@
+
+/* 공통 */
+#wrap {position: relative; overflow: hidden;}
+[class^="container_"] {margin-bottom: 40px;}
+
 /* 헤더 */
 header {display: flex;}
 header .gnb {display: flex;}
@@ -6,15 +11,65 @@ header .gnb ul {display: flex;}
 .main {padding: 0 20px;}
 
 /* 탭메뉴 */
-.tab_menu .tab_nav {display: flex; padding: 20px 0;}
-.tab_menu .tab_nav li + li {margin-left: 25px;}
-.tab_menu .tab_nav li a {font-weight: 700; color: #8d8d8d;}
-.tab_menu .tab_nav li.on a{color: #278eff;}
+.tab_menu {display: flex; padding: 20px 0;}
+.tab_menu li + li {margin-left: 25px;}
+.tab_menu li a {font-size: 1.2rem; font-weight: 700; color: #8d8d8d;}
+.tab_menu li.on a {color: #278eff;}
+.tab_menu li.on a::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
-.container_rec h2 {padding-bottom: 16px; font-weight: 700;}
+/* 내 여행 */
+.trip_cnt table {width: 100%; margin-bottom: 24px;}
+.trip_cnt table tr th {padding-bottom: 14px; color: #9c9c9c;}
+.trip_cnt table tr td {text-align: center; font-weight: 700;}
+.trip_cnt table tr td.on {border-radius: 50%; background: #278eff; color: #fff;}
+
+/* 내 여행 - 스케줄 박스 */
+.trip_schedule {padding: 18px 20px; margin-bottom: 30px; border: 1px solid #ececec; border-radius: 15px;}
+.trip_schedule h3 {margin-bottom: 4px;}
+.trip_schedule span {display: block;}
+.trip_schedule p {margin-top: 10px;}
+
+/* 내 여행 - 여행 준비물 */
+.trip_supplies .input_chk {display: flex; margin-bottom: 16px;}
+.trip_supplies .input_chk input {margin: 0; padding: 0; width: 18px; height: 18px;}
+.trip_supplies .input_chk label {margin: 0 0 0 16px;}
+
+/* 추천 여행지 */
 .container_rec ul {display: flex;}
-.container_rec ul li {width: 33%;}
+.container_rec ul li {width: 50%;}
+.container_rec ul li::before {content: ''; display: block; background: linear-gradient(359.43deg, #000000 -17.3%, rgba(0, 0, 0, 0) 57.52%);}
 .container_rec ul li + li {margin-left: 20px;}
-.container_rec ul li div img {border-radius: 15px;}
+.container_rec ul li div img {min-width: 124px; border-radius: 15px;}
+.container_rec ul li .rec_cnt {position: relative;}
+.container_rec ul li .rec_cnt .rec_txt {position: absolute; left: 10px; bottom: 24px;}
+.container_rec ul li .rec_cnt .rec_txt strong {font-size: 1.2rem;}
+.container_rec ul li .rec_cnt .rec_txt p {margin-top: 6px;}
+.container_rec ul li .rec_cnt .rec_txt strong, 
+.container_rec ul li .rec_cnt .rec_txt p, 
+.container_rec ul li .rec_cnt .rec_txt p span {color: #fff;}
 
+/* 카테고리 추천 */
+.container_category ul {display: flex; justify-content: space-between; width: 100%;}
+.container_category ul li .img_catewrap {padding: 10px; margin-bottom: 6px; border-radius: 15px; background: #ffcEbf;}
+.container_category ul li + li {margin-left: 28px;}
+.container_category ul li div a {text-align: center;}
+/* .container_category ul li div a img {width: 32px;} */
+
+/* 다가오는 여행 일정 */
+.container_upcoming .trip_schedule strong {display: block; padding: 4px 0; font-size: 1.2rem; font-weight: 700;}
+.container_upcoming .trip_schedule p {color: #6b6868;}
+.container_upcoming .trip_schedule p, 
+.container_upcoming .trip_schedule span {margin: 0;}
+
+/* BEST 여행 일정 */
+.container_best ul li {margin-bottom: 16px;}
+.container_best ul li div {position: relative;}
 .container_best ul li div img {display: flex; border-radius: 15px;}
+.container_best ul li div .best_txt {position: absolute; bottom: 16px; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; width: 100%;}
+.container_best ul li div .best_txt strong {margin-bottom: 4px; font-size: 1.2rem;}
+.container_best ul li div .best_txt strong,
+.container_best ul li div .best_txt span {display: block; color: #fff;}
+
+/* 하단 메뉴 */
+/* .btn_wrap {position: fixed; bottom: 0; padding: 15px; background-color: #fff; width: 100%;}
+.btn_wrap ul {display: flex;} */
