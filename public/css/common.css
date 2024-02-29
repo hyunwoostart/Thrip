@@ -143,7 +143,7 @@ label {
     color: #666;
     margin-bottom: 8px;
 }
-input {
+input, textarea {
     display: block;
     width: 100%;
     font-size: 1rem;
