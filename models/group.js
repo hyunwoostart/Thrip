@@ -20,16 +20,15 @@ const GroupModel = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        dueName: {
+        groupName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         groupMember: {
             type: DataTypes.JSON,
-            allowNull: false,
         },
         groupMemo: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
         },
     });
 };

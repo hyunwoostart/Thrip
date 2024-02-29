@@ -1,0 +1,35 @@
+#header {padding: 16px; height: 100px;}
+#header .gnb .main_menu {display: flex; justify-content: space-between; align-items: center;}
+#header .gnb .main_menu li a {display: block; width: 24px; height: 20px; background-size: cover; background-repeat: no-repeat;}
+#header .gnb .main_menu li a.ico_back {height: 12px; background-image: url('../img/common/ico_back.png');}
+#header .gnb .main_menu li a.ico_ham {background-image: url('../img/common/ico_ham.png');}
+
+
+.calendarBox {margin: 0 20px;}
+
+/* 달력 */
+#month {display: inline-block; position: relative; float: left; margin-left: 10px; margin-top: 20px; margin-bottom: 20px;}
+#month h2 {font-size: 20px; font-weight: normal; margin: 0px;}
+
+.icon1 {display: inline-block; position: relative; float: right; margin-right: 10px; width: 20px; margin-top: 23px; margin-bottom: 20px;}
+.calendarBox table {border-collapse: collapse; border: none; width: 100%;}
+.calendarBox th {border: none; height: 30px; padding: 8px; font-weight: normal; text-align: center;}
+.calendarBox td {border: none; height: 70px; padding: 8px; text-align: center;}
+.calendarBox .date:hover {background-color: rgb(200, 194, 194); border-radius: 10%; color: black;}
+
+/* 오늘 날짜 배경색 지정 */
+.calendarBox #today {color: rgb(255, 153, 0);}
+
+.hide {display: none;}
+.dateBox {display: flex; justify-content: space-evenly;}
+.material-symbols-outlined {font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;}
+
+#schedule-form input {margin-bottom: 20px; font-size: 1.2rem;}
+#schedule-form label {margin-bottom: 12px; font-size: 1.2rem; font-weight: 700; color: #333;} 
+#schedule-form textarea {padding: 5% 1.2rem; font-size: 1.2rem; line-height: 1.4rem; resize: none;}
+#schedule-form input::placeholder, #schedule-form textarea::placeholder {color: #8d8d8d;}
+
+#memberSearch {position: relative;}
+#memberSearch::after {content: ''; display: block; width: 32px; height: 32px; position: absolute; background: url('../img/common/ico_search.png') center/cover no-repeat;}
+
+

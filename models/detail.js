@@ -10,22 +10,21 @@ const DetailModel = (sequelize) => {
         },
         category: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        detailOrder: {
-            type: DataTypes.DATE,
-            allowNull: false,
+            // allowNull: false,
         },
         arrTime: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.TIME,
             allowNull: false,
         },
         place: {
             type: DataTypes.JSON,
             allowNull: false,
         },
-        detailMemo: {
+        distance: {
             type: DataTypes.INTEGER,
+        },
+        detailMemo: {
+            type: DataTypes.STRING,
         },
     });
 };
