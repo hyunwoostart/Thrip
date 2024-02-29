@@ -116,15 +116,17 @@
                     pushArray(obj, array);
                     console.log(array);
                     if (array.length >= 2) {
-                        document.getElementById(
-                            'select'
-                        ).innerHTML = `<div>${array[0].place_name} ----거리 측정 중----> ${array[1].place_name} </div>`;
+                        document.getElementById('select').innerHTML = `<div>${
+                            array[array.length - 1].place_name
+                        } ----거리 측정 중----> ${
+                            array[array.length].place_name
+                        } </div>`;
                         console.log('두개의 좌표 사이의 거리 측정 시작');
                         distance = getDistance(
-                            array[0].x,
-                            array[0].y,
-                            array[1].x,
-                            array[1].y
+                            array[array.length - 2].x,
+                            array[array.length - 2].y,
+                            array[array.length - 1].x,
+                            array[array.length - 1].y
                         );
                         console.log(distance);
                         document.getElementById(

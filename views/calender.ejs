@@ -126,17 +126,17 @@
             const selectMonth = document.querySelector('#select-month');
 
             //선택한 연도와 월 변수에 저장하는 함수 & 선택한 연도와 월에 따라 달력 다르게 표시
-            function changeYear() {
+            async function changeYear() {
                 year = selectYear.options[selectYear.selectedIndex].value;
                 console.log(year);
-                printCalendar(year, month);
-                runGetSelectedDate();
+                await printCalendar(year, month);
+                await runGetSelectedDate();
             }
-            function changeMonth() {
+            async function changeMonth() {
                 month = selectMonth.options[selectMonth.selectedIndex].value;
                 console.log(month);
-                printCalendar(year, month);
-                runGetSelectedDate();
+                await printCalendar(year, month - 1);
+                await runGetSelectedDate();
             }
 
             function printYearMonth() {
@@ -202,7 +202,6 @@
                     lastDate = last[1] = 29;
 
                 var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구합니다.
-                var prevLastDate = last[month - 1]; //지난 월에 마지막이 몇일인지 구합니다.
 
                 //③ 현재 월의 달력에 필요한 행의 개수를 구합니다.
                 var row = Math.ceil((theDay + lastDate) / 7); //필요한 행수
