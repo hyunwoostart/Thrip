@@ -105,6 +105,7 @@ function displayMarker(place) {
 
 async function register() {
     const data = {
+        category: null,
         arrTime: document.querySelector('#arrTime').value,
         place: obj,
         distance: distance * 1000,

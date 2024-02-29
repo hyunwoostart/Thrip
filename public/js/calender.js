@@ -92,8 +92,7 @@ function printCalendar() {
     var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     /*현재 연도가 윤년(4년 주기이고 100년 주기는 제외합니다.
                 또는 400년 주기)일경우 2월에 마지막 날짜는 29가 되어야 합니다.*/
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
-        lastDate = last[1] = 29;
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) lastDate = last[1] = 29;
 
     var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구합니다.
 
@@ -170,10 +169,10 @@ async function getSelectedDate() {
 
 // // selectedDate = { year, m, date, day } 입력받는다.
 async function runGetSelectedDate() {
-    var departureDate = await getSelectedDate();
+    departureDate = await getSelectedDate();
     console.log('dep', departureDate);
     if (departureDate) {
-        var arrivalDate = await getSelectedDate();
+        arrivalDate = await getSelectedDate();
         console.log('arr', arrivalDate);
     }
 }
@@ -182,3 +181,56 @@ async function runGetSelectedDate() {
 printYearMonth();
 printCalendar();
 runGetSelectedDate();
+let depDate;
+let arrDate;
+function selectDep() {
+    depDate = `${departureDate.year}-${String(departureDate.m).padStart(2, '0')}-${String(departureDate.date).padStart(
+        2,
+        '0'
+    )}`;
+    document.querySelector('#selectDep').classList.add('hide');
+    document.querySelector('#selectArr').classList.remove('hide');
+    console.log(depDate);
+}
+function selectArr() {
+    arrDate = `${arrivalDate.year}-${String(arrivalDate.m).padStart(2, '0')}-${String(arrivalDate.date).padStart(
+        2,
+        '0'
+    )}`;
+    document.querySelector('.depDate').textContent = `${String(departureDate.m).padStart(2, '0')}월 ${String(
+        departureDate.date
+    ).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(arrivalDate.m).padStart(2, '0')}월 ${String(
+        arrivalDate.date
+    ).padStart(2, '0')}일`;
+    console.log(arrDate);
+    document.querySelector('#selectArr').classList.add('hide');
+    document.querySelector('.calendarBox').classList.add('hide');
+    document.querySelector('.scheduleBox').classList.remove('hide');
+}
+function selectReset() {
+    depDate = '';
+    arrDate = '';
+    document.querySelector('.scheduleBox').classList.add('hide');
+    document.querySelector('#selectDep').classList.remove('hide');
+    document.querySelector('.calendarBox').classList.remove('hide');
+}
+
+async function register() {
+    const stDate = new Date(departureDate.year, departureDate.m, departureDate.date);
+    const endDate = new Date(arrivalDate.year, arrivalDate.m, arrivalDate.date);
+    const dueDate = (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
+    const data = {
+        depDate,
+        arrDate,
+        dueDate: dueDate + 1,
+        groupName: document.querySelector('#groupName').value,
+        groupMemo: document.querySelector('#groupMemo').value,
+    };
+    const res = axios({
+        method: 'POST',
+        url: '/api/schedule/groupWrite',
+        data,
+    });
+    document.location.href = '/map';
+}
