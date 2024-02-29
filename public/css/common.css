@@ -186,3 +186,7 @@ input[type="checkbox"] {
     margin-bottom: 10px;
     box-sizing: border-box;
 }
+
+.blind {
+    display: none;
+}
