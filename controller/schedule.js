@@ -21,3 +21,24 @@ exports.detailWrite = async (req, res) => {
     const result = await Detail.create({ arrTime, place, distance, detailMemo });
     res.json({ success: true, message: '일정 상세 등록 완료' });
 };
+
+// 체크리스트 불러오기
+exports.findChk = async (req, res) => {
+    // const result = await Checklist.findByPk(id);
+    const result = await Checklist.findAll({ order: [['id', 'asc']] });
+    res.json({ success: true, result });
+};
+
+// 체크리스트 업데이트
+exports.updateChk = async (req, res) => {
+    const { id, isActive } = req.body;
+    const result = await Checklist.update({ isActive }, { where: { id } });
+    res.json({ success: true, message: '리스트 수정 완료' });
+};
+
+// 체크리스트 추가
+exports.addChk = async (req, res) => {
+    const { listName } = req.body;
+    const result = await Checklist.create({ listName });
+    res.json({ success: true, result, message: '리스트 추가 완료' });
+};
