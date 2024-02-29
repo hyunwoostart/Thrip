@@ -10,7 +10,14 @@ exports.detail = async (req, res) => {
 };
 
 // 일정 추가
-exports.write = async (req, res) => {
+exports.groupWrite = async (req, res) => {
     const { depDate, arrDate, dueDate, groupName, groupMemo } = req.body;
     const result = await post.create({});
+};
+
+exports.detailWrite = async (req, res) => {
+    // const { category } = req.body;
+    const { arrTime, place, distance, detailMemo } = req.body;
+    const result = await Detail.create({ arrTime, place, distance, detailMemo });
+    res.json({ success: true, message: '일정 상세 등록 완료' });
 };
