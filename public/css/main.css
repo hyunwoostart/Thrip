@@ -1,6 +1,6 @@
 
 /* 공통 */
-#wrap {position: relative; overflow: hidden;}
+#wrap {position: relative; overflow: hidden; padding-bottom: 52px;}
 [class^="container_"] {margin-bottom: 40px;}
 
 /* 헤더 */
@@ -8,6 +8,7 @@ header {display: flex;}
 header .gnb {display: flex;}
 header .gnb ul {display: flex;}
 
+/* 메인 */
 .main {padding: 0 20px;}
 
 /* 탭메뉴 */
@@ -19,9 +20,9 @@ header .gnb ul {display: flex;}
 
 /* 내 여행 */
 .trip_cnt table {width: 100%; margin-bottom: 24px;}
-.trip_cnt table tr th {padding-bottom: 14px; color: #9c9c9c;}
+.trip_cnt table tr th {padding-bottom: 20px; color: #9c9c9c;}
 .trip_cnt table tr td {text-align: center; font-weight: 700;}
-.trip_cnt table tr td.on {border-radius: 50%; background: #278eff; color: #fff;}
+/* .trip_cnt table tr td.on a {padding: 15% 28.17%; display: inline-block; border-radius: 50%; background: #278eff; color: #fff;} */
 
 /* 내 여행 - 스케줄 박스 */
 .trip_schedule {padding: 18px 20px; margin-bottom: 30px; border: 1px solid #ececec; border-radius: 15px;}
@@ -30,17 +31,16 @@ header .gnb ul {display: flex;}
 .trip_schedule p {margin-top: 10px;}
 
 /* 내 여행 - 여행 준비물 */
-.trip_supplies .input_chk {display: flex; margin-bottom: 16px;}
+.trip_supplies .input_chk {display: flex; margin: 0 0 16px 20px;}
 .trip_supplies .input_chk input {margin: 0; padding: 0; width: 18px; height: 18px;}
 .trip_supplies .input_chk label {margin: 0 0 0 16px;}
 
 /* 추천 여행지 */
 .container_rec ul {display: flex;}
 .container_rec ul li {width: 50%;}
-.container_rec ul li::before {content: ''; display: block; background: linear-gradient(359.43deg, #000000 -17.3%, rgba(0, 0, 0, 0) 57.52%);}
-.container_rec ul li + li {margin-left: 20px;}
 .container_rec ul li div img {min-width: 124px; border-radius: 15px;}
-.container_rec ul li .rec_cnt {position: relative;}
+.container_rec ul li .rec_cnt {position: relative; width: 100%;}
+.container_rec ul li .rec_cnt::before {content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; border-radius: 15px; background: linear-gradient(359.43deg, #000000 -17.3%, rgba(0, 0, 0, 0) 57.52%);}
 .container_rec ul li .rec_cnt .rec_txt {position: absolute; left: 10px; bottom: 24px;}
 .container_rec ul li .rec_cnt .rec_txt strong {font-size: 1.2rem;}
 .container_rec ul li .rec_cnt .rec_txt p {margin-top: 6px;}
@@ -53,7 +53,6 @@ header .gnb ul {display: flex;}
 .container_category ul li .img_catewrap {padding: 10px; margin-bottom: 6px; border-radius: 15px; background: #ffcEbf;}
 .container_category ul li + li {margin-left: 28px;}
 .container_category ul li div a {text-align: center;}
-/* .container_category ul li div a img {width: 32px;} */
 
 /* 다가오는 여행 일정 */
 .container_upcoming .trip_schedule strong {display: block; padding: 4px 0; font-size: 1.2rem; font-weight: 700;}
@@ -63,13 +62,26 @@ header .gnb ul {display: flex;}
 
 /* BEST 여행 일정 */
 .container_best ul li {margin-bottom: 16px;}
-.container_best ul li div {position: relative;}
-.container_best ul li div img {display: flex; border-radius: 15px;}
-.container_best ul li div .best_txt {position: absolute; bottom: 16px; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; width: 100%;}
-.container_best ul li div .best_txt strong {margin-bottom: 4px; font-size: 1.2rem;}
-.container_best ul li div .best_txt strong,
-.container_best ul li div .best_txt span {display: block; color: #fff;}
+.container_best ul li .best_cnt {position: relative;}
+.container_best ul li .best_cnt::before {content: ''; position: absolute; bottom: 0; width: 100%; height: 100%; border-radius: 15px; background: linear-gradient(359.43deg, #000000 -17.3%, rgba(0, 0, 0, 0) 57.52%);}
+.container_best ul li .best_cnt img {display: flex; border-radius: 15px;}
+.container_best ul li .best_cnt .best_txt {position: absolute; bottom: 16px; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; width: 100%;}
+.container_best ul li .best_cnt .best_txt strong {margin-bottom: 4px; font-size: 1.2rem;}
+.container_best ul li .best_cnt .best_txt strong,
+.container_best ul li .best_cnt .best_txt span {display: block; color: #fff;}
+.container_best ul li .best_cnt .best_txt .rate_view span {display: flex; align-items: center;}
+.container_best ul li .best_cnt .best_txt .rate_view span i {display: inline-block; margin-left: 6px; width: 18px; height: 18px; background: url('../img/main/ico_star.svg') center/cover no-repeat;}
 
 /* 하단 메뉴 */
-/* .btn_wrap {position: fixed; bottom: 0; padding: 15px; background-color: #fff; width: 100%;}
-.btn_wrap ul {display: flex;} */
+.btn_wrap {position: fixed; bottom: 0; padding: 15px 20px; width: 100%; background-color: #fff; z-index: 1000;} 
+.btn_wrap ul {display: flex; justify-content: space-between; align-items: center;}
+.btn_wrap ul li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
+.btn_wrap ul li a.ico_home {background-image: url('../img/common/ico_home.svg');}
+.btn_wrap ul li a.ico_maps {background-image: url('../img/common/ico_maps.svg');}
+.btn_wrap ul li a.ico_chat {background-image: url('../img/common/ico_chat.svg');}
+.btn_wrap ul li a.ico_my {background-image: url('../img/common/ico_my.svg');}
+
+.btn_wrap ul li.on a.ico_home {background-image: url('../img/common/ico_onhome.svg');}
+.btn_wrap ul li.on a.ico_maps {background-image: url('../img/common/ico_onmaps.svg');}
+.btn_wrap ul li.on a.ico_chat {background-image: url('../img/common/ico_onchat.svg');}
+.btn_wrap ul li.on a.ico_my {background-image: url('../img/common/ico_onmy.svg');}
