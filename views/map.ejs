@@ -117,9 +117,9 @@
                     console.log(array);
                     if (array.length >= 2) {
                         document.getElementById('select').innerHTML = `<div>${
-                            array[array.length - 1].place_name
+                            array[array.length - 2].place_name
                         } ----거리 측정 중----> ${
-                            array[array.length].place_name
+                            array[array.length - 1].place_name
                         } </div>`;
                         console.log('두개의 좌표 사이의 거리 측정 시작');
                         distance = getDistance(
