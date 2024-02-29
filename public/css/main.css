@@ -31,7 +31,7 @@ header .gnb ul {display: flex;}
 .trip_schedule p {margin-top: 10px;}
 
 /* 내 여행 - 여행 준비물 */
-.trip_supplies .input_chk {display: flex; margin-bottom: 16px;}
+.trip_supplies .input_chk {display: flex; margin: 0 0 16px 20px;}
 .trip_supplies .input_chk input {margin: 0; padding: 0; width: 18px; height: 18px;}
 .trip_supplies .input_chk label {margin: 0 0 0 16px;}
 
@@ -75,7 +75,7 @@ header .gnb ul {display: flex;}
 /* 하단 메뉴 */
 .btn_wrap {position: fixed; bottom: 0; padding: 15px 20px; width: 100%; background-color: #fff; z-index: 1000;} 
 .btn_wrap ul {display: flex; justify-content: space-between; align-items: center;}
-.btn_wrap ul li a {display: block; width: 24px; height: 24px; background-size: center cover; background-repeat: no-repeat;}
+.btn_wrap ul li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
 .btn_wrap ul li a.ico_home {background-image: url('../img/common/ico_home.svg');}
 .btn_wrap ul li a.ico_maps {background-image: url('../img/common/ico_maps.svg');}
 .btn_wrap ul li a.ico_chat {background-image: url('../img/common/ico_chat.svg');}
