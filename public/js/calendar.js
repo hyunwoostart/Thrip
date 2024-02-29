@@ -3,7 +3,10 @@ var currentDate = new Date();
 
 // 현재 월을 가져옴
 var currentMonth = currentDate.getMonth();
+console.log('입력받는 달 currentMonth', currentMonth);
 var currentMonthName = currentMonth + 1 + '월';
+console.log('달력상 currentMonthName', currentMonthName);
+//
 
 // 현재 연도를 가져옴
 var currentYear = currentDate.getFullYear();
@@ -13,65 +16,39 @@ var currentYearName = currentYear + '년';
 // 기본으로는 현재 연도와 달로 설정해 놓는다.
 var year;
 var month;
+
 // 일자와 요일
 var departureDate;
 var arrivalDate;
 
-const selectYear = document.querySelector('#select-year');
-const selectMonth = document.querySelector('#select-month');
+const selectYear = document.querySelector('#selectYear');
+const selectMonth = document.querySelector('#selectMonth');
 
-//선택한 연도와 월 변수에 저장하는 함수 & 선택한 연도와 월에 따라 달력 다르게 표시
-async function changeYear() {
-    year = selectYear.options[selectYear.selectedIndex].value;
-    console.log(year);
-    await printCalendar(year, month);
-    await runGetSelectedDate();
-}
-async function changeMonth() {
-    month = selectMonth.options[selectMonth.selectedIndex].value;
-    console.log(month);
-    await printCalendar(year, month - 1);
-    await runGetSelectedDate();
-}
-
-function printYearMonth() {
+//연도와 월 select에 option 만드는 함수
+function makeSelect() {
     //현재 년과 월을 사용해서 셀렉트 박스의 option 목록 동적 생성
     // 년도 선택
-    isYearOptionExisted = false;
-    selectYear.addEventListener('focus', () => {
-        if (!isYearOptionExisted) {
-            isYearOptionExisted = true;
-            for (var i = currentYear; i <= currentYear + 50; i++) {
-                // option element 생성
-                const yearOption = document.createElement('option');
-                yearOption.setAttribute('value', i);
-                yearOption.innerText = i;
-                selectYear.appendChild(yearOption);
-            }
-        }
-        changeYear();
-    });
+    for (var i = currentYear; i <= currentYear + 50; i++) {
+        // option element 생성
+        const yearOption = document.createElement('option');
+        yearOption.setAttribute('value', i);
+        yearOption.innerText = i;
+        selectYear.appendChild(yearOption);
+    }
     // 월 선택
-    isMonthOptionExisted = false;
-    selectMonth.addEventListener('focus', () => {
-        if (!isMonthOptionExisted) {
-            isMonthOptionExisted = true;
-            for (var i = 1; i <= 12; i++) {
-                // option element 생성
-                const monthOption = document.createElement('option');
-                monthOption.setAttribute('value', i);
-                monthOption.innerText = i;
-                selectMonth.appendChild(monthOption);
-            }
-        }
-        changeMonth();
-    });
+    for (var i = 1; i <= 12; i++) {
+        // option element 생성
+        const monthOption = document.createElement('option');
+        monthOption.setAttribute('value', i);
+        monthOption.innerText = i;
+        selectMonth.appendChild(monthOption);
+    }
 }
 
 //이번 달 달력 그리기
 calendar_box = document.getElementById('calendar');
-
-function printCalendar() {
+//달력 만드는 함수
+function printCalendar(year, month) {
     //① 현재 날짜와 현재 달에 1일의 날짜 객체를 생성합니다.
     var date = new Date(); //날짜 객체 생성
     var nowY = date.getFullYear(); //현재 연도
@@ -92,7 +69,8 @@ function printCalendar() {
     var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     /*현재 연도가 윤년(4년 주기이고 100년 주기는 제외합니다.
                 또는 400년 주기)일경우 2월에 마지막 날짜는 29가 되어야 합니다.*/
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) lastDate = last[1] = 29;
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+        lastDate = last[1] = 29;
 
     var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구합니다.
 
@@ -146,6 +124,23 @@ function printCalendar() {
     calendar_box.innerHTML = calendar;
 }
 
+//연도 변경하면 달력 다시 그리는 함수
+selectYear.addEventListener('change', () => {
+    year = selectYear.options[selectYear.selectedIndex].value;
+
+    m = Number(selectMonth.options[selectMonth.selectedIndex].value);
+    month = m - 1;
+    printCalendar(year, month);
+});
+//월 변경하면 달력 다시 그리는 함수
+selectMonth.addEventListener('change', () => {
+    year = selectYear.options[selectYear.selectedIndex].value;
+
+    m = Number(selectMonth.options[selectMonth.selectedIndex].value);
+    month = m - 1;
+    printCalendar(year, month);
+});
+
 //날짜 선택해서 띄우기
 async function getSelectedDate() {
     return new Promise((resolve) => {
@@ -158,7 +153,7 @@ async function getSelectedDate() {
             if (e.target.tagName === 'TD') {
                 var date = e.target.innerText;
                 var day = dList[e.target.cellIndex];
-                var m = month + 1;
+                var m = month;
                 selectedDate = { year, m, date, day };
                 // Resolve the promise with the selectedDate object
                 resolve(selectedDate);
@@ -178,31 +173,32 @@ async function runGetSelectedDate() {
 }
 
 //함수 실행
-printYearMonth();
-printCalendar();
+printCalendar(year, month);
+makeSelect();
 runGetSelectedDate();
+
 let depDate;
 let arrDate;
 function selectDep() {
-    depDate = `${departureDate.year}-${String(departureDate.m).padStart(2, '0')}-${String(departureDate.date).padStart(
+    depDate = `${departureDate.year}-${String(departureDate.m).padStart(
         2,
         '0'
-    )}`;
+    )}-${String(departureDate.date).padStart(2, '0')}`;
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
     console.log(depDate);
 }
 function selectArr() {
-    arrDate = `${arrivalDate.year}-${String(arrivalDate.m).padStart(2, '0')}-${String(arrivalDate.date).padStart(
+    arrDate = `${arrivalDate.year}-${String(arrivalDate.m).padStart(
         2,
         '0'
-    )}`;
-    document.querySelector('.depDate').textContent = `${String(departureDate.m).padStart(2, '0')}월 ${String(
-        departureDate.date
-    ).padStart(2, '0')}일`;
-    document.querySelector('.arrDate').textContent = `${String(arrivalDate.m).padStart(2, '0')}월 ${String(
-        arrivalDate.date
-    ).padStart(2, '0')}일`;
+    )}-${String(arrivalDate.date).padStart(2, '0')}`;
+    document.querySelector('.depDate').textContent = `${String(
+        departureDate.m
+    ).padStart(2, '0')}월 ${String(departureDate.date).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(
+        arrivalDate.m
+    ).padStart(2, '0')}월 ${String(arrivalDate.date).padStart(2, '0')}일`;
     console.log(arrDate);
     document.querySelector('#selectArr').classList.add('hide');
     document.querySelector('.calendarBox').classList.add('hide');
@@ -217,9 +213,14 @@ function selectReset() {
 }
 
 async function register() {
-    const stDate = new Date(departureDate.year, departureDate.m, departureDate.date);
+    const stDate = new Date(
+        departureDate.year,
+        departureDate.m,
+        departureDate.date
+    );
     const endDate = new Date(arrivalDate.year, arrivalDate.m, arrivalDate.date);
-    const dueDate = (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
+    const dueDate =
+        (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
         depDate,
         arrDate,

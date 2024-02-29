@@ -17,6 +17,6 @@ exports.map = (req, res) => {
     res.render('map');
 };
 
-exports.calender = (req, res) => {
-    res.render('calender');
+exports.calendar = (req, res) => {
+    res.render('calendar');
 };

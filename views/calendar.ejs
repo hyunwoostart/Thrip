@@ -12,23 +12,37 @@
         />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
-        <link rel="stylesheet" href="../public/css/calender.css" />
+        <link rel="stylesheet" href="../public/css/calendar.css" />
     </head>
     <body>
         <div class="calendarBox">
             <div id="select">
                 <div id="year">
-                    <select id="select-year" onchange="changeYear()" aria-placeholder="연도"></select>
+                    <select id="selectYear" aria-placeholder="연도"></select>
                 </div>
                 <div id="month">
-                    <select id="select-month" onchange="changeMonth()" aria-placeholder="월"></select>
+                    <select id="selectMonth" aria-placeholder="월"></select>
                 </div>
             </div>
             <div id="departure"></div>
             <div id="arrive"></div>
             <div id="calendar"></div>
-            <button type="button" onclick="selectDep()" class="btn" id="selectDep">출발일 선택</button>
-            <button type="button" onclick="selectArr()" class="btn hide" id="selectArr">도착일 선택</button>
+            <button
+                type="button"
+                onclick="selectDep()"
+                class="btn"
+                id="selectDep"
+            >
+                출발일 선택
+            </button>
+            <button
+                type="button"
+                onclick="selectArr()"
+                class="btn hide"
+                id="selectArr"
+            >
+                도착일 선택
+            </button>
         </div>
         <div class="scheduleBox hide">
             <div class="dateBox">
@@ -36,17 +50,25 @@
                 <span class="material-symbols-outlined"> arrow_right_alt </span>
                 <div class="arrDate"></div>
             </div>
-            <button type="button" onclick="selectReset()" id="selectReset">다시 선택</button>
+            <button type="button" onclick="selectReset()" id="selectReset">
+                다시 선택
+            </button>
             <form id="schedule-form">
                 <label for="groupName">일정명</label>
                 <input type="text" id="groupName" placeholder="일정명" />
                 <label for="memberSearch">멤버 추가</label>
-                <input type="text" id="memberSearch" placeholder="아이디 추가" />
+                <input
+                    type="text"
+                    id="memberSearch"
+                    placeholder="아이디 추가"
+                />
                 <label for="groupMemo">메모</label>
                 <input type="text" id="groupMemo" placeholder="메모" />
-                <button type="button" onclick="register()" class="btn">등록</button>
+                <button type="button" onclick="register()" class="btn">
+                    등록
+                </button>
             </form>
         </div>
-        <script src="../public/js/calender.js"></script>
+        <script src="../public/js/calendar.js"></script>
     </body>
 </html>
