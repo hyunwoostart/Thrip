@@ -4,33 +4,84 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>체크리스트</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="../public/css/main.css" />
     </head>
     <body>
-        <form id="checklist-form">
+        <div class="trip_supplies">
             <h3>여행이름</h3>
-            <div>
-                <input type="checkbox" class="checklist" id="check01" name="check01" />
-                <label for="check01">리스트01</label>
-            </div>
-            <div>
-                <input type="checkbox" class="checklist" id="check02" name="check02" />
-                <label for="check02">리스트02</label>
-            </div>
-            <div>
-                <input type="checkbox" class="checklist" id="check03" name="check03" />
-                <label for="check03">리스트03</label>
-            </div>
-            <div>
-                <input type="checkbox" class="checklist" id="check04" name="check04" />
-                <label for="check04">리스트04</label>
-            </div>
-            <div>
-                <input type="checkbox" class="checklist" id="check05" name="check05" />
-                <label for="check05">리스트05</label>
-            </div>
-        </form>
+        </div>
+        <button type="button" onclick="showInput()" class="btn" id="showBtn">+ 리스트 추가하기</button>
+        <div class="addBox hide">
+            <input type="text" placeholder="새 리스트 내용" id="addName" />
+            <button type="button" onclick="addList()" class="btn" id="addBtn">등록</button>
+        </div>
+        <script>
+            const list = document.querySelector('.trip_supplies');
+            (async function () {
+                const res = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/findChk',
+                });
+                for (let i = 0; i < res.data.result.length; i++) {
+                    const { id, listName, isActive } = res.data.result[i];
+                    let html;
+                    if (Boolean(isActive)) {
+                        html = `
+								<div class="input_chk" onclick="isChecked(${id})">
+									<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+									<label for="check${id}">${listName}</label>
+									<input type="hidden" id="${id}" />
+								</div>
+								`;
+                    } else {
+                        html = `
+								<div class="input_chk" onclick="isChecked(${id})">
+									<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+									<label for="check${id}">${listName}</label>
+									<input type="hidden" id="${id}" />
+								</div>
+								`;
+                    }
+                    list.insertAdjacentHTML('beforeend', html);
+                }
+            })();
+
+            async function isChecked(id) {
+                const res = await axios({
+                    method: 'PATCH',
+                    url: '/api/schedule/updateChk',
+                    data: {
+                        id,
+                        isActive: Number(document.querySelector(`#check${id}`).checked),
+                    },
+                });
+            }
+            function showInput() {
+                document.querySelector('#showBtn').classList.add('hide');
+                document.querySelector('.addBox').classList.remove('hide');
+            }
+
+            async function addList() {
+                const addName = document.querySelector('#addName').value;
+                const res = await axios({
+                    method: 'POST',
+                    url: '/api/schedule/addChk',
+                    data: { listName: addName },
+                });
+                const { id, listName } = res.data.result;
+                const html = `
+            	<div class="input_chk">
+            		<input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
+            		<label for="check${id}">${listName}</label>
+            		<input type="hidden" id="${id}" />
+            	</div>
+            	`;
+                list.insertAdjacentHTML('beforeend', html);
+                document.querySelector('#addName').value = '';
+            }
+        </script>
     </body>
 </html>
