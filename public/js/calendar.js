@@ -3,19 +3,13 @@ var currentDate = new Date();
 
 // 현재 월을 가져옴
 var currentMonth = currentDate.getMonth();
-console.log('입력받는 달 currentMonth', currentMonth);
-var currentMonthName = currentMonth + 1 + '월';
-console.log('달력상 currentMonthName', currentMonthName);
-//
 
 // 현재 연도를 가져옴
 var currentYear = currentDate.getFullYear();
-var currentYearName = currentYear + '년';
 
 //사용자가 선택한 연도와 달 입력 받는 변수
-// 기본으로는 현재 연도와 달로 설정해 놓는다.
-var year;
-var month;
+var year = currentYear;
+var month = currentMonth;
 
 // 일자와 요일
 var departureDate;
@@ -54,7 +48,7 @@ function printCalendar(year, month) {
     var nowY = date.getFullYear(); //현재 연도
     var nowM = date.getMonth(); //현재 월
     var nowD = date.getDate(); //현재 일
-
+    // 기본으로는 현재 연도와 달로 설정해 놓는다.
     year = year != undefined ? year : nowY;
     month = month != undefined ? month : nowM;
     console.log(year, month);
@@ -127,7 +121,6 @@ function printCalendar(year, month) {
 //연도 변경하면 달력 다시 그리는 함수
 selectYear.addEventListener('change', () => {
     year = selectYear.options[selectYear.selectedIndex].value;
-
     m = Number(selectMonth.options[selectMonth.selectedIndex].value);
     month = m - 1;
     printCalendar(year, month);
@@ -135,7 +128,6 @@ selectYear.addEventListener('change', () => {
 //월 변경하면 달력 다시 그리는 함수
 selectMonth.addEventListener('change', () => {
     year = selectYear.options[selectYear.selectedIndex].value;
-
     m = Number(selectMonth.options[selectMonth.selectedIndex].value);
     month = m - 1;
     printCalendar(year, month);
@@ -145,11 +137,9 @@ selectMonth.addEventListener('change', () => {
 async function getSelectedDate() {
     return new Promise((resolve) => {
         var selectedDate = {};
-
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
             var dList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-
             if (e.target.tagName === 'TD') {
                 var date = e.target.innerText;
                 var day = dList[e.target.cellIndex];
@@ -162,12 +152,15 @@ async function getSelectedDate() {
     });
 }
 
-// // selectedDate = { year, m, date, day } 입력받는다.
-async function runGetSelectedDate() {
-    departureDate = await getSelectedDate();
-    console.log('dep', departureDate);
-    if (departureDate) {
-        arrivalDate = await getSelectedDate();
+function updateDates(dateObject) {
+    if (!isDepartureDateSelected) {
+        // 출발일 선택
+        departureDate = dateObject;
+        isDepartureDateSelected = true;
+        console.log('dep', departureDate);
+    } else {
+        // 도착일 선택
+        arrivalDate = dateObject;
         console.log('arr', arrivalDate);
     }
 }
@@ -228,10 +221,14 @@ async function register() {
         groupName: document.querySelector('#groupName').value,
         groupMemo: document.querySelector('#groupMemo').value,
     };
-    const res = axios({
+    const res = await axios({
         method: 'POST',
         url: '/api/schedule/groupWrite',
         data,
     });
     document.location.href = '/map';
+}
+async function runGetSelectedDate() {
+    // 이제 사용자가 버튼을 클릭할 때까지 날짜를 업데이트하지 않음
+    await getSelectedDate().then(updateDates);
 }
