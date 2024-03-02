@@ -154,6 +154,7 @@ async function register() {
         place: obj,
         distance: distance * 1000,
         detailMemo: document.querySelector('#detailMemo').value,
+        groupId: localStorage.getItem('groupId'),
     };
     const res = await axios({
         method: 'POST',

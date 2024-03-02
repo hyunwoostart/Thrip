@@ -1,16 +1,5 @@
 const express = require('express');
-const {
-    main,
-    login,
-    signup,
-    myPage,
-    map,
-    calendar,
-    checklist,
-    triplist,
-    tripdetail,
-    chat,
-} = require('../controller');
+const { main, login, signup, myPage, map, calendar, checklist, chat, triplist, tripdetail } = require('../controller');
 const router = express.Router();
 
 router.get('/', main);

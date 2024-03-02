@@ -6,13 +6,13 @@
         <title>일정 리스트</title>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
-        <link rel="stylesheet" href="../public/css/calendar.css" />
-        <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/trip.css" />
+        <!-- <link rel="stylesheet" href="../public/css/main.css" /> -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-        <div id="wrap">
+        <div id="wrap" class="trip_detail">
             <!-- 헤더 -->
             <header class="mo_header">
                 <nav class="gnb">
@@ -31,72 +31,72 @@
                 </nav>
             </header>
             <!--// 헤더 -->
-            
-            <div class="top_cnt">
-                <h3>부산여행</h3>
-                <button class="btn btn_chklist">체크리스트</button>    
-            </div>
+            <!-- 컨텐츠 -->
+            <div class="main">
+                <div class="main_txt">
+                    <h3>부산여행</h3>
+                    <button class="btn btn_chklist" onclick="goChecklist()">체크리스트</button>
+                </div>
 
-            <!-- 여행 일정 상세 목록 -->
-            <div class="container_tripdetail">
-                <ul>
-                    <li>
-                        <div class="list_detail">
-                            <a href="#none">
-                                <strong>부산역</strong>
-                                <span>09:00</span>
-                                <i class="blind">화살표</i>
-                            </a>
-                        </div>
-                        <div>
-                            <div class="map_cnt"></div>
-                            <p>다음 장소까지 이동 시간 <span>10</span>분</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_detail">
-                            <a href="#none">
-                                <strong>어떤 카페</strong>
-                                <span>11:00</span>
-                                <i class="blind">화살표</i>
-                            </a>
-                            <div>
-                                <div class="map_cnt"></div>
-                                <p>다음 장소까지 이동 시간 <span>10</span>분</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_detail">
-                            <a href="#none">
-                                <strong>어떤 음식점</strong>
-                                <span>13:00</span>
-                                <i class="blind">화살표</i>
-                            </a>
-                            <div>
-                                <div class="map_cnt"></div>
-                                <p>다음 장소까지 이동 시간 <span>10</span>분</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_detail">
-                            <a href="#none">
-                                <strong>어떤 숙소</strong>
-                                <span>15:00</span>
-                                <i class="blind">화살표</i>
-                            </a>
-                            <div>
-                                <div class="map_cnt"></div>
-                                <p>다음 장소까지 이동 시간 <span>10</span>분</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <!-- 여행 일정 상세 목록 -->
+                <div class="container_tripdetail">
+                    <ul></ul>
+                </div>
+                <!--// 여행 일정 리스트 -->
             </div>
-            <!--// 여행 일정 리스트 -->
+            <!--// 컨텐츠 -->
         </div>
-        <script src="../public/js/calendar.js"></script>
+        <script>
+            const list = document.querySelector('.container_tripdetail ul');
+            (async function () {
+                const res = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/detail',
+                    params: {
+                        groupId: localStorage.getItem('groupId'),
+                    },
+                });
+                for (let i = 0; i < res.data.result.length; i++) {
+                    console.log(res.data.result[i]);
+                    const { arrTime, detailMemo, groupId, distance, place } = res.data.result[i];
+                    html = `
+					<li>
+						<div class="list_detail">
+							<div>
+								<strong>${place.place_name}</strong>
+								<span>${arrTime}</span>
+								<i class="ico_accord"></i>
+							</div>
+							<div class="map_cnt">
+								<div class="maps">
+									<img src="../public/img//main/img_ex.png" alt="" />
+								</div>
+								<p>다음 장소까지 이동 시간 <span>${distance}</span>분</p>
+							</div>
+						</div>
+					</li>
+					`;
+                    list.insertAdjacentHTML('beforeend', html);
+                }
+            })();
+            function goChecklist() {
+                document.location.href = '/checklist';
+            }
+            // 아코디언 메뉴
+            document.querySelectorAll('.container_tripdetail ul li').forEach(function (item) {
+                item.addEventListener('click', function () {
+                    document
+                        .querySelectorAll('.container_tripdetail ul li')
+                        .forEach((tab) => tab.classList.remove('on'));
+                    this.classList.add('on');
+
+                    // .map_cnt의 토글
+                    var showMap = this.classList.contains('on');
+                    document.querySelectorAll('.container_tripdetail ul li .map_cnt').forEach(function (map) {
+                        map.style.display = showMap ? 'block' : 'none';
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
-

@@ -36,40 +36,44 @@
             let userId;
             let username;
             (async function () {
-                // 접속 중인 멤버 정보 저장
-                const res = await axios({
-                    method: 'GET',
-                    url: '/api/member/find',
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    },
-                });
-                userId = res.data.result.id;
-                username = res.data.result.username;
-                // 채팅 리스트 불러오기
-                const res2 = await axios({
-                    method: 'GET',
-                    url: '/api/schedule/scheduleList',
-                    params: {
-                        id: userId,
-                    },
-                });
-                if (res2.data.result.length === 0) {
-                    const div = document.createElement('div');
-                    const p = document.createElement('p');
-                    div.classList.add('noList');
-                    p.textContent = '참여중인 채팅방이 없습니다.';
-                    div.appendChild(p);
-                    main.appendChild(div);
-                } else {
-                    for (let i = 0; i < res2.data.result.length; i++) {
+                try {
+                    // 접속 중인 멤버 정보 저장
+                    const res = await axios({
+                        method: 'GET',
+                        url: '/api/member/find',
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        },
+                    });
+                    userId = res.data.result.id;
+                    username = res.data.result.username;
+                    // 채팅 리스트 불러오기
+                    const res2 = await axios({
+                        method: 'GET',
+                        url: '/api/schedule/scheduleList',
+                        params: {
+                            id: userId,
+                        },
+                    });
+                    if (res2.data.result.length === 0) {
                         const div = document.createElement('div');
-                        const { id, groupName } = res2.data.result[i];
-                        const html = `<button type="button" class="enter" onclick="enter(${id})">${groupName}</button>`;
-                        div.classList.add('chatBox');
-                        div.insertAdjacentHTML('beforeend', html);
+                        const p = document.createElement('p');
+                        div.classList.add('noList');
+                        p.textContent = '참여중인 채팅방이 없습니다.';
+                        div.appendChild(p);
                         main.appendChild(div);
+                    } else {
+                        for (let i = 0; i < res2.data.result.length; i++) {
+                            const div = document.createElement('div');
+                            const { id, groupName } = res2.data.result[i];
+                            const html = `<button type="button" class="enter" onclick="enter(${id})">${groupName}</button>`;
+                            div.classList.add('chatBox');
+                            div.insertAdjacentHTML('beforeend', html);
+                            main.appendChild(div);
+                        }
                     }
+                } catch (error) {
+                    document.location.href = '/login';
                 }
             })();
 

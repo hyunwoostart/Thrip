@@ -33,18 +33,22 @@
         <script>
             const form = document.forms['my-form'];
             (async function () {
-                const res = await axios({
-                    method: 'GET',
-                    url: '/api/member/find',
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    },
-                });
-                const { username, userId, password, email, tel } = res.data.result;
-                form.username.value = username;
-                form.userId.value = userId;
-                form.email.value = email;
-                form.tel.value = tel;
+                try {
+                    const res = await axios({
+                        method: 'GET',
+                        url: '/api/member/find',
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        },
+                    });
+                    const { username, userId, password, email, tel } = res.data.result;
+                    form.username.value = username;
+                    form.userId.value = userId;
+                    form.email.value = email;
+                    form.tel.value = tel;
+                } catch (error) {
+                    document.location.href = '/login';
+                }
             })();
 
             form.confirmPw.addEventListener('keyup', function () {
