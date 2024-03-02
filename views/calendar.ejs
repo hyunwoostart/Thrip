@@ -36,7 +36,10 @@
             <div class="container_calendar">
                 <div class="calendar_box">
                     <div id="year">
-                        <select id="selectYear" aria-placeholder="연도"></select>
+                        <select
+                            id="selectYear"
+                            aria-placeholder="연도"
+                        ></select>
                     </div>
                     <div id="month">
                         <select id="selectMonth" aria-placeholder="월"></select>
@@ -45,8 +48,22 @@
                 <div id="departure"></div>
                 <div id="arrive"></div>
                 <div id="calendar"></div>
-                <button type="button" onclick="selectDep()" class="btn" id="selectDep">출발일 선택</button>
-                <button type="button" onclick="selectArr()" class="btn hide" id="selectArr">도착일 선택</button>
+                <button
+                    type="button"
+                    onclick="selectDep()"
+                    class="btn"
+                    id="selectDep"
+                >
+                    출발일 선택
+                </button>
+                <button
+                    type="button"
+                    onclick="selectArr()"
+                    class="btn hide"
+                    id="selectArr"
+                >
+                    도착일 선택
+                </button>
             </div>
             <!--// 달력 일자 선택 -->
 
@@ -58,6 +75,8 @@
                     <!-- <span class="material-symbols-outlined">arrow_right_alt</span> -->
                     <div class="arrDate"></div>
                 </div>
+
+
                 <button type="button" onclick="selectReset()" id="selectReset">다시 선택</button>
                 <form id="schedule-form">
                     <div class="input_txt">
@@ -72,9 +91,17 @@
                     </div>
                     <div class="input_txt">
                         <label for="groupMemo">메모</label>
-                        <textarea name="" id="groupMemo" cols="30" rows="10" placeholder="메모"></textarea>
+                        <textarea
+                            name=""
+                            id="groupMemo"
+                            cols="30"
+                            rows="10"
+                            placeholder="메모"
+                        ></textarea>
                     </div>
-                    <button type="button" onclick="register()" class="btn">등록</button>
+                    <button type="button" onclick="register()" class="btn">
+                        등록
+                    </button>
                 </form>
             </div>
             <!--// 여행 일정 선택 -->

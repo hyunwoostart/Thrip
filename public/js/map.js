@@ -1,14 +1,21 @@
+//==================지도 api======================================
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var mapContainer;
+var mapOption;
+var map;
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+function makeMap() {
+    mapContainer = document.querySelector('.map'); // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
     };
 
-// 지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);
+    // 지도를 생성합니다
+    map = new kakao.maps.Map(mapContainer, mapOption);
+}
+makeMap();
 
 //출발지와 도착지를 담는 배열입니다.
 let array = [];
@@ -30,7 +37,10 @@ function getDistance(lat1, lng1, lat2, lng2) {
     var dLon = deg2rad(lng2 - lng1);
     var a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        Math.cos(deg2rad(lat1)) *
+            Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = (R * c).toFixed(1); // Distance in km
     return d;
@@ -41,6 +51,8 @@ var ps = new kakao.maps.services.Places();
 
 //검색하는 함수입니다.
 function keyword() {
+    document.querySelector('.map').classList.remove('hide');
+    map.relayout();
     var place_name = document.getElementById('place_name').value;
     ps.keywordSearch(place_name, placesSearchCB);
 }
@@ -74,10 +86,13 @@ function displayMarker(place) {
     kakao.maps.event.addListener(marker, 'click', function () {
         // console.log(place.x);
         document.getElementById(
-            'select'
+            'place_name'
         ).innerHTML = `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name, '</div>');
+        infowindow.setContent(
+            '<div style="padding:5px;font-size:12px;">' + place.place_name,
+            '</div>'
+        );
         infowindow.open(map, marker);
         //좌표 담는 객체 안에 x,y로 저장합니다.
         obj = {
@@ -89,7 +104,9 @@ function displayMarker(place) {
         if (array.length >= 2) {
             document.getElementById('select').innerHTML = `<div>${
                 array[array.length - 2].place_name
-            } ----거리 측정 중----> ${array[array.length - 1].place_name} </div>`;
+            } ----거리 측정 중----> ${
+                array[array.length - 1].place_name
+            } </div>`;
             console.log('두개의 좌표 사이의 거리 측정 시작');
             distance = getDistance(
                 array[array.length - 2].x,
@@ -98,11 +115,38 @@ function displayMarker(place) {
                 array[array.length - 1].y
             );
             console.log(distance);
-            document.getElementById('result').innerHTML = `<div>총 거리 : ${distance}km</div>`;
+            document.getElementById(
+                'result'
+            ).innerHTML = `<div>총 거리 : ${distance}km</div>`;
         }
     });
 }
+//========================================================================
 
+//==================여행 세부일정 js ======================================
+//일정 추가하기
+var i = document.querySelectorAll('.detail-scheduel').length;
+
+function insert() {
+    var target = document.querySelector('#schedule-form');
+    document.querySelector('.map').remove(); //지도 지우기
+    i = document.querySelectorAll('.detail-scheduel').length + 1; //+1
+    var addCode = `<div id="schedule-form">
+    <div class="detail-scheduel">
+    <div class="index">${i}</div>
+    <input type="time" id="arrTime" />
+    <button type="button" onclick="showMap()">지도</button>
+    <div class="map hide" style="width: 100vw; height: 350px"></div>
+    <input id="place_name" />
+    <input type="button" onclick="keyword()" value="검색" />
+    <div id="select"></div>
+    <div id="result"></div>
+    <input type="text" id="detailMemo" placeholder="메모" />
+    </div>
+    </div>`;
+    target.insertAdjacentHTML('beforeend', addCode);
+    makeMap();
+}
 async function register() {
     const data = {
         category: null,
@@ -119,3 +163,5 @@ async function register() {
     });
     console.log(res);
 }
+
+//========================================================================
