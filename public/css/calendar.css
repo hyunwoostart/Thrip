@@ -4,8 +4,7 @@
 .mo_header .gnb .main_menu li a.ico_back {height: 12px; background-image: url('../img/common/ico_arrow.png');}
 .mo_header .gnb .main_menu li a.ico_ham {background-image: url('../img/common/ico_ham.png');}
 
-/* 메인 */
-.container_calendar, .container_schedule {margin: 52px 20px 0;}
+/* 메인 컨텐츠 */
 .container_calendar .calendar_box {display: flex; justify-content: space-around; align-items: center;}
 .container_calendar select {padding: 20px; border: none; cursor: pointer; font-size: 2rem;}
 
@@ -26,9 +25,6 @@
 .date_box {display: flex; justify-content: space-evenly; align-items: center; padding: 20px 0;}
 .date_box div {font-size: 2rem;}
 
-
-/* .material-symbols-outlined {font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;}*/
-
 #schedule-form {padding: 20px 0;}
 #schedule-form input {margin-bottom: 20px; font-size: 1.2rem;}
 #schedule-form label {margin-bottom: 12px; font-size: 1.2rem; font-weight: 700; color: #333;}
@@ -37,8 +33,15 @@
 
 .input_txt {position: relative;}
 #memberSearch {position: relative;}
-.btn_search {position: absolute; border: none; top: 55%; right: 22px; width: 22px; height: 22px; background: url("../img/common/ico_search.png") center/cover no-repeat; cursor: pointer;}
 
-.btn.btn_addtrip {background-color: #2fcc59;}
+/* 버튼 스타일 - btn_ */
+.input_wrap {position: relative;}
+.input_wrap .btn_holder {position: absolute; border: none; top: 50%; transform: translateY(-50%); right: 22px; width: 22px; height: 22px; background-size: cover; background-position: center; background-repeat: no-repeat; background-color: #fff; cursor: pointer;}
+.input_wrap .btn_holder.btn_search {background-image: url("../img/common/ico_search.png");}
+.input_wrap .btn_holder.btn_marker {background-image: url("../img/common/ico_marker.png"); width: 20px; height: 27px;}
+
+.btn_addtrip {background-color: #2fcc59;}
+.btn_addtrip span {position: relative; color: #fff;}
+.btn_addtrip span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plus.png') center/cover no-repeat;}
 
 .calendar .container_schedule .ico_back {transform: rotate(180deg); background-image: url("../img/common/ico_arrowb.png");display: block;width: 24px;height: 12px;background-size: cover;background-repeat: no-repeat;}

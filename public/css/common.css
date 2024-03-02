@@ -148,7 +148,18 @@ input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-famil
 /* 공통 - 레이아웃 */
 #wrap {position: relative; overflow: hidden; padding-bottom: 52px;} 
 [class^="container_"] {margin-bottom: 40px;} 
-.main {padding: 0 20px;}
+.main {margin-top: 52px; padding: 0 20px;}
+
+/* 헤더 */
+/* header {display: flex;}
+header .gnb {display: flex;}
+header .gnb ul {display: flex;} */
+
+.mo_header {position: fixed; top: 0; padding: 15px 20px; width: 100%; height: 52px; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 1000;}
+.mo_header .gnb .main_menu {display: flex; justify-content: space-between; align-items: center;}
+.mo_header .gnb .main_menu li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
+.mo_header .gnb .main_menu li a.ico_back {height: 12px; background-image: url('../img/common/ico_arrow.png');}
+.mo_header .gnb .main_menu li a.ico_ham {background-image: url('../img/common/ico_ham.png');}
 
 /* 공통 - 하단 메뉴 */
 .btn_wrap {position: fixed; bottom: 0; padding: 15px 20px; width: 100%; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 1000;} 
