@@ -232,6 +232,22 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
 });
 
 let groupMember = [];
+(async function () {
+    try {
+        const res = await axios({
+            method: 'GET',
+            url: '/api/member/find',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        const { id } = res.data.result;
+        groupMember.push(id);
+    } catch (error) {
+        document.location.href = '/login';
+    }
+})();
+
 function addId(i) {
     groupMember.push(i);
     console.log(groupMember);
