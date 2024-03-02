@@ -1,6 +1,7 @@
 const { Member } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 
 // 로그인
 exports.login = async (req, res) => {
@@ -40,7 +41,14 @@ exports.signup = async (req, res) => {
 exports.find = async (req, res) => {
     const { id } = req.user;
     const result = await Member.findOne({ where: id });
-    console.log(result.mySchedule);
+    res.json({ success: true, result });
+};
+
+// 아이디로 회원 조회
+exports.findId = async (req, res) => {
+    const { userId } = req.query;
+    console.log(userId);
+    const result = await Member.findAll({ where: { userId: { [Op.like]: '%' + userId + '%' } } });
     res.json({ success: true, result });
 };
 
