@@ -9,6 +9,7 @@ const {
     checklist,
     triplist,
     tripdetail,
+    chatlist,
 } = require('../controller');
 const router = express.Router();
 
