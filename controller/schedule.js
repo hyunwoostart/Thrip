@@ -18,7 +18,7 @@ exports.findGroup = async (req, res) => {
 
 // 일정 상세 내용 조회
 exports.detail = async (req, res) => {
-    const result = await Group.findByPk(req.params.id, { include: [{ model: [Detail, Checklist] }] });
+    const result = await Detail.findAll({ where: { groupId: req.query.groupId } });
     res.json({ success: true, result });
 };
 
@@ -47,8 +47,7 @@ exports.detailWrite = async (req, res) => {
 
 // 체크리스트 불러오기
 exports.findChk = async (req, res) => {
-    // const result = await Checklist.findByPk(id);
-    const result = await Checklist.findAll({ order: [['id', 'asc']] });
+    const result = await Checklist.findAll({ where: { groupId: req.query.groupId } });
     res.json({ success: true, result });
 };
 
@@ -61,8 +60,8 @@ exports.updateChk = async (req, res) => {
 
 // 체크리스트 추가
 exports.addChk = async (req, res) => {
-    const { listName } = req.body;
-    const result = await Checklist.create({ listName });
+    const { listName, groupId } = req.body;
+    const result = await Checklist.create({ listName, groupId });
     res.json({ success: true, result, message: '리스트 추가 완료' });
 };
 
