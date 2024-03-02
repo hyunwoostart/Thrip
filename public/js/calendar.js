@@ -232,7 +232,3 @@ async function register() {
     });
     document.location.href = '/map';
 }
-// async function runGetSelectedDate() {
-//     // 이제 사용자가 버튼을 클릭할 때까지 날짜를 업데이트하지 않음
-//     await getSelectedDate().then(updateDates);
-// }
