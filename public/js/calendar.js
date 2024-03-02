@@ -151,7 +151,7 @@ async function getSelectedDate() {
         });
     });
 }
-
+var isDepartureDateSelected = false;
 function updateDates(dateObject) {
     if (!isDepartureDateSelected) {
         // 출발일 선택
