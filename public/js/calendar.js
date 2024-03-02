@@ -194,15 +194,15 @@ function selectArr() {
     ).padStart(2, '0')}월 ${String(arrivalDate.date).padStart(2, '0')}일`;
     console.log(arrDate);
     document.querySelector('#selectArr').classList.add('hide');
-    document.querySelector('.calendarBox').classList.add('hide');
-    document.querySelector('.scheduleBox').classList.remove('hide');
+    document.querySelector('.container_calendar').classList.add('hide');
+    document.querySelector('.container_schedule').classList.remove('hide');
 }
 function selectReset() {
     depDate = '';
     arrDate = '';
-    document.querySelector('.scheduleBox').classList.add('hide');
+    document.querySelector('.container_schedule').classList.add('hide');
     document.querySelector('#selectDep').classList.remove('hide');
-    document.querySelector('.calendarBox').classList.remove('hide');
+    document.querySelector('.container_calendar').classList.remove('hide');
 }
 
 async function register() {

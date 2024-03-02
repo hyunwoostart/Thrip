@@ -430,26 +430,34 @@
                 clickable: true,
                 },
             });
+            // 페이지 로드 시 스와이퍼 초기화
+            document.addEventListener("DOMContentLoaded", function () {
+                initSwiper();
+            });
+
+            // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
+            document.querySelectorAll('.tab_menu').forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    initSwiper();
+                });
+            });
 
             /* 하단 메뉴 스크립트 */
             function toggleOn() {
-                if (this.classList.contains('on')) {
-                    this.classList.remove('on');
-                } else {
+                if (!this.classList.contains('on')) { 
+                    // 현재 요소에 'on' 클래스를 추가하고, 다른 형제 요소들은 'on' 클래스를 제거
                     this.classList.add('on');
+                    document.querySelectorAll('.btn_wrap ul li').forEach(function(li) {
+                        if (li !== this) {
+                            li.classList.remove('on');
+                        }
+                    }, this);
                 }
-            
-                document.querySelectorAll('.btn_wrap ul li').forEach(function(li) {
-                    if (li !== this) {
-                        li.classList.remove('on');
-                    }
-                }, this);
             }
 
             document.querySelectorAll('.btn_wrap ul li').forEach(function(li) {
                 li.addEventListener('click', toggleOn);
             });
-
         </script>
     </body>
 </html>
