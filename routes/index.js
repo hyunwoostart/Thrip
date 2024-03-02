@@ -17,6 +17,8 @@ router.get('/login', login);
 router.get('/signup', signup);
 router.get('/myPage', myPage);
 router.get('/checklist', checklist);
+router.get('/chatlist', chatlist);
+router.get('/chat', chat);
 router.get('/map', map);
 router.get('/calendar', calendar);
 router.get('/triplist', triplist);
