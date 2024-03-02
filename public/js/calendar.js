@@ -134,9 +134,9 @@ selectMonth.addEventListener('change', () => {
 });
 
 //날짜 선택해서 띄우기
+var selectedDate = {};
 async function getSelectedDate() {
     return new Promise((resolve) => {
-        var selectedDate = {};
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
             var dList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -147,52 +147,59 @@ async function getSelectedDate() {
                 selectedDate = { year, m, date, day };
                 // Resolve the promise with the selectedDate object
                 resolve(selectedDate);
+                console.log(selectedDate);
             }
         });
     });
-}
-var isDepartureDateSelected = false;
-function updateDates(dateObject) {
-    if (!isDepartureDateSelected) {
-        // 출발일 선택
-        departureDate = dateObject;
-        isDepartureDateSelected = true;
-        console.log('dep', departureDate);
-    } else {
-        // 도착일 선택
-        arrivalDate = dateObject;
-        console.log('arr', arrivalDate);
-    }
 }
 
 //함수 실행
 printCalendar(year, month);
 makeSelect();
-runGetSelectedDate();
-
+getSelectedDate();
+let dep = {};
+let arr = {};
 let depDate;
 let arrDate;
 function selectDep() {
-    depDate = `${departureDate.year}-${String(departureDate.m).padStart(
+    //출발일 선택
+    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
-    )}-${String(departureDate.date).padStart(2, '0')}`;
+    )}-${String(selectedDate.date).padStart(2, '0')}`;
+    console.log('depDate', depDate);
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
-    console.log(depDate);
+    dep = {
+        year: selectedDate.year,
+        m: selectedDate.m,
+        date: Number(selectedDate.date),
+    };
+    console.log('dep', dep);
 }
 function selectArr() {
-    arrDate = `${arrivalDate.year}-${String(arrivalDate.m).padStart(
+    //도착일 선택
+    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
-    )}-${String(arrivalDate.date).padStart(2, '0')}`;
-    document.querySelector('.depDate').textContent = `${String(
-        departureDate.m
-    ).padStart(2, '0')}월 ${String(departureDate.date).padStart(2, '0')}일`;
-    document.querySelector('.arrDate').textContent = `${String(
-        arrivalDate.m
-    ).padStart(2, '0')}월 ${String(arrivalDate.date).padStart(2, '0')}일`;
+    )}-${String(selectedDate.date).padStart(2, '0')}`;
     console.log(arrDate);
+    arr = {
+        year: selectedDate.year,
+        m: selectedDate.m,
+        date: Number(selectedDate.date),
+    };
+
+    //창 맨 위에 일정 띄우기
+    document.querySelector('.depDate').textContent = `${String(dep.m).padStart(
+        2,
+        '0'
+    )}월 ${String(dep.date).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(arr.m).padStart(
+        2,
+        '0'
+    )}월 ${String(arr.date).padStart(2, '0')}일`;
+
     document.querySelector('#selectArr').classList.add('hide');
     document.querySelector('.calendarBox').classList.add('hide');
     document.querySelector('.scheduleBox').classList.remove('hide');
@@ -206,12 +213,9 @@ function selectReset() {
 }
 
 async function register() {
-    const stDate = new Date(
-        departureDate.year,
-        departureDate.m,
-        departureDate.date
-    );
-    const endDate = new Date(arrivalDate.year, arrivalDate.m, arrivalDate.date);
+    const stDate = new Date(dep.year, dep.m, dep.date);
+    const endDate = new Date(arr.year, arr.m, arr.date);
+    console.log('stDate', stDate, 'endDate', endDate);
     const dueDate =
         (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
@@ -228,7 +232,7 @@ async function register() {
     });
     document.location.href = '/map';
 }
-async function runGetSelectedDate() {
-    // 이제 사용자가 버튼을 클릭할 때까지 날짜를 업데이트하지 않음
-    await getSelectedDate().then(updateDates);
-}
+// async function runGetSelectedDate() {
+//     // 이제 사용자가 버튼을 클릭할 때까지 날짜를 업데이트하지 않음
+//     await getSelectedDate().then(updateDates);
+// }
