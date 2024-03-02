@@ -3,9 +3,6 @@ header {display: flex;}
 header .gnb {display: flex;}
 header .gnb ul {display: flex;}
 
-/* 메인 */
-.main {padding: 0 20px;}
-
 /* 탭메뉴 */
 .tab_menu {display: flex; padding: 20px 0;}
 .tab_menu li + li {margin-left: 25px;}
