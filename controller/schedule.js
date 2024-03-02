@@ -1,8 +1,11 @@
-const { Group, Detail, Checklist, Chat } = require('../models');
+const { Member, Group, Detail, Checklist, Chat } = require('../models');
 
 // 내 일정 리스트 조회
 exports.scheduleList = async (req, res) => {
-    const result = await Group.findAll();
+    const { id } = req.query;
+    const find = await Member.findOne({ where: { id } });
+    const result = await Group.findAll({ where: { id: find.mySchedule } });
+    console.log(result[0].id);
     res.json({ success: true, result, message: '일정 리스트 조회 완료' });
 };
 
@@ -20,8 +23,14 @@ exports.detail = async (req, res) => {
 
 // 일정 추가
 exports.groupWrite = async (req, res) => {
-    const { depDate, arrDate, dueDate, groupName, groupMemo } = req.body;
-    const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMemo });
+    const { depDate, arrDate, dueDate, groupName, groupMember, groupMemo } = req.body;
+    const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMember, groupMemo });
+    const memberList = await Member.findAll({ where: { id: groupMember } });
+    for (let i = 0; i < memberList.length; i++) {
+        const member = await Member.findOne({ where: { id: memberList[i].id } });
+        const groupList = member.groupList.push(result.id);
+        const addMem = await Member.update({ groupList }, { where: { id: memberList[i].id } });
+    }
     res.json({ success: true, message: '날짜 등록 완료' });
 };
 
