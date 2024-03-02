@@ -20,3 +20,11 @@ exports.map = (req, res) => {
 exports.calendar = (req, res) => {
     res.render('calendar');
 };
+
+exports.triplist = (req, res) => {
+    res.render('triplist');
+};
+
+exports.tripdetail = (req, res) => {
+    res.render('tripdetail');
+};

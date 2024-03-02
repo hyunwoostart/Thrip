@@ -3,14 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>일정 생성</title>
-        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
+        <title>일정 리스트</title>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/calendar.css" />
+        <link rel="stylesheet" href="../public/css/main.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     </head>
     <body>
         <div id="wrap">
@@ -46,39 +45,53 @@
                 <div id="departure"></div>
                 <div id="arrive"></div>
                 <div id="calendar"></div>
-                <button type="button" onclick="selectDep()" class="btn" id="selectDep">출발일 선택</button>
-                <button type="button" onclick="selectArr()" class="btn hide" id="selectArr">도착일 선택</button>
             </div>
             <!--// 달력 일자 선택 -->
 
-            <!-- 여행 일정 선택 -->
-            <div class="container_schedule">
-                <div class="date_box">
-                    <div class="depDate dep_date"></div>
-                    <i class="ico_back"></i>
-                    <!-- <span class="material-symbols-outlined">arrow_right_alt</span> -->
-                    <div class="arrDate"></div>
-                </div>
-                <button type="button" onclick="selectReset()" id="selectReset" class="hide">다시 선택</button>
-                <form id="schedule-form">
-                    <div class="input_txt">
-                        <label for="groupName">일정명</label>
-                        <input type="text" id="groupName" placeholder="일정명" />    
-                    </div>
-                    <div class="input_txt">
-                        <label for="memberSearch">멤버 추가</label>
-                        <input type="text" id="memberSearch" placeholder="아이디 추가"/>
-                        <button class="btn_search"></button>
-                    </div>
-                    <div class="input_txt">
-                        <label for="groupMemo">메모</label>
-                        <textarea name="" id="groupMemo" cols="30" rows="10" placeholder="메모"></textarea>
-                    </div>
-                    <button type="button" onclick="register()" class="btn">등록</button>
-                </form>
+            <!-- 여행 일정 리스트 -->
+            <div class="container_upcoming">
+                <ul>
+                    <li>
+                        <div class="trip_schedule">
+                            <a href="#none">
+                                <p>Session 1</p>
+                                <strong>부산여행</strong>
+                                <span>March 21 , 2021 - 8 AM</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="trip_schedule">
+                            <a href="#none">
+                                <p>Session 2</p>
+                                <strong>제주도 여행</strong>
+                                <span>March 21 , 2021 - 10 AM</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="trip_schedule">
+                            <a href="#none">
+                                <p>Session 3</p>
+                                <strong>Lunch</strong>
+                                <span>March 21 , 2021 - 1 PM</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="trip_schedule">
+                            <a href="#none">
+                                <p>Session 4</p>
+                                <strong>Break</strong>
+                                <span>March 21 , 2021 - 2 PM</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <!--// 여행 일정 선택 -->
+            <!--// 여행 일정 리스트 -->
         </div>
         <script src="../public/js/calendar.js"></script>
     </body>
 </html>
+

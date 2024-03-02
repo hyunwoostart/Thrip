@@ -7,6 +7,8 @@ const {
     map,
     calendar,
     checklist,
+    triplist,
+    tripdetail,
 } = require('../controller');
 const router = express.Router();
 
@@ -17,5 +19,7 @@ router.get('/myPage', myPage);
 router.get('/checklist', checklist);
 router.get('/map', map);
 router.get('/calendar', calendar);
+router.get('/triplist', triplist);
+router.get('/tripdetail', tripdetail);
 
 module.exports = router;
