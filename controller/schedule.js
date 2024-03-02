@@ -1,3 +1,4 @@
+const { Types } = require('mysql2');
 const { Member, Group, Detail, Checklist, Chat } = require('../models');
 
 // 내 일정 리스트 조회
@@ -25,18 +26,22 @@ exports.detail = async (req, res) => {
 exports.groupWrite = async (req, res) => {
     const { depDate, arrDate, dueDate, groupName, groupMember, groupMemo } = req.body;
     const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMember, groupMemo });
-    const memberList = await Member.findAll({ where: { id: groupMember } });
-    for (let i = 0; i < memberList.length; i++) {
-        const member = await Member.findOne({ where: { id: memberList[i].id } });
-        const groupList = member.groupList.push(result.id);
-        const addMem = await Member.update({ groupList }, { where: { id: memberList[i].id } });
+    console.log(groupMember);
+    for (let i = 0; i < groupMember.length; i++) {
+        const newList = [];
+        const member = await Member.findOne({ where: { id: groupMember[i] } });
+        for (let i = 0; i < member.mySchedule.length; i++) {
+            newList.push(member.mySchedule[i]);
+        }
+        newList.push(result.id);
+        const addMem = await Member.update({ mySchedule: newList }, { where: { id: groupMember[i] } });
     }
-    res.json({ success: true, message: '날짜 등록 완료' });
+    res.json({ success: true, result, message: '날짜 등록 완료' });
 };
 
 exports.detailWrite = async (req, res) => {
-    const { category, arrTime, place, distance, detailMemo } = req.body;
-    const result = await Detail.create({ arrTime, place, distance, detailMemo });
+    const { category, arrTime, place, distance, detailMemo, groupId } = req.body;
+    const result = await Detail.create({ arrTime, place, distance, detailMemo, groupId });
     res.json({ success: true, message: '일정 상세 등록 완료' });
 };
 
