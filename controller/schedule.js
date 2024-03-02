@@ -1,7 +1,16 @@
-const { Group, Detail, Checklist } = require('../models');
+const { Group, Detail, Checklist, Chat } = require('../models');
 
 // 내 일정 리스트 조회
-exports.scheduleList = async (req, res) => {};
+exports.scheduleList = async (req, res) => {
+    const result = await Group.findAll();
+    res.json({ success: true, result, message: '일정 리스트 조회 완료' });
+};
+
+// 일정 하나 조회
+exports.findGroup = async (req, res) => {
+    const result = await Group.findOne({ where: { id: req.query.id } });
+    res.json({ success: true, result, message: '일정 조회 완료' });
+};
 
 // 일정 상세 내용 조회
 exports.detail = async (req, res) => {
@@ -41,4 +50,18 @@ exports.addChk = async (req, res) => {
     const { listName } = req.body;
     const result = await Checklist.create({ listName });
     res.json({ success: true, result, message: '리스트 추가 완료' });
+};
+
+// 채팅 조회
+exports.findChat = async (req, res) => {
+    const { groupId } = req.query;
+    const result = await Chat.findAll({ where: { groupId } });
+    res.json({ success: true, result, message: '채팅 목록 조회 완료' });
+};
+
+// 채팅 추가
+exports.chat = async (req, res) => {
+    const { userId, username, chatMsg, groupId } = req.body;
+    const result = await Chat.create({ userId, username, chatMsg, groupId });
+    res.json({ success: true, result, message: '채팅 추가 완료' });
 };

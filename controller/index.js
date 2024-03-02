@@ -13,6 +13,12 @@ exports.myPage = (req, res) => {
 exports.checklist = (req, res) => {
     res.render('checklist');
 };
+exports.chatlist = (req, res) => {
+    res.render('chatlist');
+};
+exports.chat = (req, res) => {
+    res.render('chat');
+};
 exports.map = (req, res) => {
     res.render('map');
 };
