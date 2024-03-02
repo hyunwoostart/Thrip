@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>일정 리스트</title>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/calendar.css" />
+        <link rel="stylesheet" href="../public/css/main.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="wrap">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="main_menu">
+                        <li>
+                            <a href="#none" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+            
+            <div class="top_cnt">
+                <h3>부산여행</h3>
+                <button class="btn btn_chklist">체크리스트</button>    
+            </div>
+
+            <!-- 여행 일정 상세 목록 -->
+            <div class="container_tripdetail">
+                <ul>
+                    <li>
+                        <div class="list_detail">
+                            <a href="#none">
+                                <strong>부산역</strong>
+                                <span>09:00</span>
+                                <i class="blind">화살표</i>
+                            </a>
+                        </div>
+                        <div>
+                            <div class="map_cnt"></div>
+                            <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list_detail">
+                            <a href="#none">
+                                <strong>어떤 카페</strong>
+                                <span>11:00</span>
+                                <i class="blind">화살표</i>
+                            </a>
+                            <div>
+                                <div class="map_cnt"></div>
+                                <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list_detail">
+                            <a href="#none">
+                                <strong>어떤 음식점</strong>
+                                <span>13:00</span>
+                                <i class="blind">화살표</i>
+                            </a>
+                            <div>
+                                <div class="map_cnt"></div>
+                                <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list_detail">
+                            <a href="#none">
+                                <strong>어떤 숙소</strong>
+                                <span>15:00</span>
+                                <i class="blind">화살표</i>
+                            </a>
+                            <div>
+                                <div class="map_cnt"></div>
+                                <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--// 여행 일정 리스트 -->
+        </div>
+        <script src="../public/js/calendar.js"></script>
+    </body>
+</html>
+
