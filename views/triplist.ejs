@@ -6,13 +6,13 @@
         <title>일정 리스트</title>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
-        <link rel="stylesheet" href="../public/css/calendar.css" />
-        <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/trip.css" />
+        <!-- <link rel="stylesheet" href="../public/css/main.css" /> -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-        <div id="wrap">
+        <div id="wrap" class="trip_list">
             <!-- 헤더 -->
             <header class="mo_header">
                 <nav class="gnb">
@@ -32,64 +32,66 @@
             </header>
             <!--// 헤더 -->
 
-            <!-- 달력 일자 선택 -->
-            <div class="container_calendar">
-                <div class="calender_box">
-                    <div id="year">
-                        <select id="selectYear" aria-placeholder="연도"></select>
+            <div class="main">
+                <!-- 달력 일자 선택 -->
+                <div class="container_calendar">
+                    <div class="calendar_box">
+                        <div id="year">
+                            <select id="selectYear" aria-placeholder="연도"></select>
+                        </div>
+                        <div id="month">
+                            <select id="selectMonth" aria-placeholder="월"></select>
+                        </div>
                     </div>
-                    <div id="month">
-                        <select id="selectMonth" aria-placeholder="월"></select>
-                    </div>
+                    <div id="departure"></div>
+                    <div id="arrive"></div>
+                    <div id="calendar"></div>
                 </div>
-                <div id="departure"></div>
-                <div id="arrive"></div>
-                <div id="calendar"></div>
-            </div>
-            <!--// 달력 일자 선택 -->
+                <!--// 달력 일자 선택 -->
 
-            <!-- 여행 일정 리스트 -->
-            <div class="container_upcoming">
-                <ul>
-                    <li>
-                        <div class="trip_schedule">
-                            <a href="#none">
-                                <p>Session 1</p>
-                                <strong>부산여행</strong>
-                                <span>March 21 , 2021 - 8 AM</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="trip_schedule">
-                            <a href="#none">
-                                <p>Session 2</p>
-                                <strong>제주도 여행</strong>
-                                <span>March 21 , 2021 - 10 AM</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="trip_schedule">
-                            <a href="#none">
-                                <p>Session 3</p>
-                                <strong>Lunch</strong>
-                                <span>March 21 , 2021 - 1 PM</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="trip_schedule">
-                            <a href="#none">
-                                <p>Session 4</p>
-                                <strong>Break</strong>
-                                <span>March 21 , 2021 - 2 PM</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+                <!-- 여행 일정 리스트 -->
+                <div class="container_upcoming">
+                    <ul>
+                        <li>
+                            <div class="trip_schedule">
+                                <a href="#none">
+                                    <p>Session 1</p>
+                                    <strong>부산여행</strong>
+                                    <span>March 21 , 2021 - 8 AM</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="trip_schedule">
+                                <a href="#none">
+                                    <p>Session 2</p>
+                                    <strong>제주도 여행</strong>
+                                    <span>March 21 , 2021 - 10 AM</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="trip_schedule">
+                                <a href="#none">
+                                    <p>Session 3</p>
+                                    <strong>Lunch</strong>
+                                    <span>March 21 , 2021 - 1 PM</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="trip_schedule">
+                                <a href="#none">
+                                    <p>Session 4</p>
+                                    <strong>Break</strong>
+                                    <span>March 21 , 2021 - 2 PM</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--// 여행 일정 리스트 -->
             </div>
-            <!--// 여행 일정 리스트 -->
         </div>
         <script src="../public/js/calendar.js"></script>
     </body>

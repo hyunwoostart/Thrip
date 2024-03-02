@@ -6,7 +6,7 @@
 
 /* 메인 */
 .container_calendar, .container_schedule {margin: 52px 20px 0;}
-.container_calendar .calender_box {display: flex; justify-content: space-around; align-items: center;}
+.container_calendar .calendar_box {display: flex; justify-content: space-around; align-items: center;}
 .container_calendar select {padding: 20px; border: none; cursor: pointer; font-size: 2rem;}
 
 
@@ -41,4 +41,4 @@
 
 .btn.btn_addtrip {background-color: #2fcc59;}
 
-.ico_back {transform: rotate(180deg); background-image: url("../img/common/ico_arrowb.png");display: block;width: 24px;height: 12px;background-size: cover;background-repeat: no-repeat;}
+.calendar .container_schedule .ico_back {transform: rotate(180deg); background-image: url("../img/common/ico_arrowb.png");display: block;width: 24px;height: 12px;background-size: cover;background-repeat: no-repeat;}
