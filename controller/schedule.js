@@ -40,8 +40,16 @@ exports.groupWrite = async (req, res) => {
 };
 
 exports.detailWrite = async (req, res) => {
-    const { category, arrTime, place, distance, detailMemo, groupId } = req.body;
-    const result = await Detail.create({ arrTime, place, distance, detailMemo, groupId });
+    const { category, detailOrder, arrTime, place, distance, detailMemo, groupId } = req.body;
+    const find = await Detail.findOne({ where: { category, detailOrder } });
+    if (find) {
+        const result = await Detail.update(
+            { arrTime, place, distance, detailMemo, groupId },
+            { where: { category, detailOrder } }
+        );
+    } else {
+        const result = await Detail.create({ category, detailOrder, arrTime, place, distance, detailMemo, groupId });
+    }
     res.json({ success: true, message: '일정 상세 등록 완료' });
 };
 

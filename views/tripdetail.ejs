@@ -59,19 +59,21 @@
                 for (let i = 0; i < res.data.result.length; i++) {
                     console.log(res.data.result[i]);
                     const { arrTime, detailMemo, groupId, distance, place } = res.data.result[i];
+                    const showTime = arrTime.substring(0, 5);
+                    console.log(showTime);
                     html = `
 					<li>
 						<div class="list_detail">
 							<div>
 								<strong>${place.place_name}</strong>
-								<span>${arrTime}</span>
+								<span>${showTime}</span>
 								<i class="ico_accord"></i>
 							</div>
 							<div class="map_cnt">
 								<div class="maps">
 									<img src="../public/img//main/img_ex.png" alt="" />
 								</div>
-								<p>다음 장소까지 이동 시간 <span>${distance}</span>분</p>
+								<p>다음 장소까지 이동 시간 <span>${distance * 4}</span>분</p>
 							</div>
 						</div>
 					</li>
