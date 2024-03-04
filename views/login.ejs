@@ -10,11 +10,11 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-        <div id="wrap">
+        <div id="wrap" class="login_page">
             <!-- 헤더 -->
             <header class="mo_header">
                 <nav class="gnb">
-                    <ul class="main_menu">
+                    <ul class="sub_menu">
                         <li>
                             <a href="#none" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
@@ -31,7 +31,7 @@
             <!--// 헤더 -->
             <!-- 컨텐츠 -->
             <div class="main">
-                <h1>TIme Travel<br />로그인</h1>
+                <h1>Time Travel<br />로그인</h1>
                 <form id="login-form">
                     <label for="userId">아이디</label>
                     <input type="text" id="userId" placeholder="아이디를 입력하세요" />
@@ -39,6 +39,11 @@
                     <input type="password" id="pw" placeholder="비밀번호를 입력하세요" />
                     <button type="button" class="btn" onclick="loginFunc()">로그인</button>
                 </form>
+                <ul class="login_wrap">
+                    <li><a href="#none">비밀번호 찾기</a></li>
+                    <li><a href="#none">아이디 찾기</a></li>
+                    <li><a href="#none">회원가입</a></li>
+                </ul>
             </div>
             <!--// 컨텐츠 -->
         </div>

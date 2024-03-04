@@ -25,18 +25,39 @@ exports.detail = async (req, res) => {
 // 일정 추가
 exports.groupWrite = async (req, res) => {
     const { depDate, arrDate, dueDate, groupName, groupMember, groupMemo } = req.body;
-    const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMember, groupMemo });
-    console.log(groupMember);
-    for (let i = 0; i < groupMember.length; i++) {
-        const newList = [];
-        const member = await Member.findOne({ where: { id: groupMember[i] } });
-        for (let i = 0; i < member.mySchedule.length; i++) {
-            newList.push(member.mySchedule[i]);
+    if (req.body.id) {
+        const id = Number(req.body.id);
+        console.log('존재');
+        const result = await Group.update(
+            { depDate, arrDate, dueDate, groupName, groupMember, groupMemo },
+            { where: { id } }
+        );
+        for (let i = 0; i < groupMember.length; i++) {
+            const newList = [];
+            const member = await Member.findOne({ where: { id: groupMember[i] } });
+            for (let i = 0; i < member.mySchedule.length; i++) {
+                newList.push(member.mySchedule[i]);
+            }
+            if (!newList.includes(id)) {
+                newList.push(id);
+            }
+            const addMem = await Member.update({ mySchedule: newList }, { where: { id: groupMember[i] } });
         }
-        newList.push(result.id);
-        const addMem = await Member.update({ mySchedule: newList }, { where: { id: groupMember[i] } });
+        res.json({ success: true, result: { id }, message: '일정 생성 완료' });
+    } else {
+        console.log('없음');
+        const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMember, groupMemo });
+        for (let i = 0; i < groupMember.length; i++) {
+            const newList = [];
+            const member = await Member.findOne({ where: { id: groupMember[i] } });
+            for (let i = 0; i < member.mySchedule.length; i++) {
+                newList.push(member.mySchedule[i]);
+            }
+            newList.push(result.id);
+            const addMem = await Member.update({ mySchedule: newList }, { where: { id: groupMember[i] } });
+        }
+        res.json({ success: true, result, message: '일정 생성 완료' });
     }
-    res.json({ success: true, result, message: '날짜 등록 완료' });
 };
 
 exports.detailWrite = async (req, res) => {

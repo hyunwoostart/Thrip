@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/trip.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/triplist.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
@@ -16,7 +17,7 @@
             <!-- 헤더 -->
             <header class="mo_header">
                 <nav class="gnb">
-                    <ul class="main_menu">
+                    <ul class="sub_menu">
                         <li>
                             <a href="#none" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
@@ -31,21 +32,26 @@
                 </nav>
             </header>
             <!--// 헤더 -->
-
             <div class="main">
                 <!-- 달력 일자 선택 -->
-                <div class="container_calendar">
-                    <div class="calendar_box">
-                        <div id="year">
-                            <select id="selectYear" aria-placeholder="연도"></select>
-                        </div>
-                        <div id="month">
-                            <select id="selectMonth" aria-placeholder="월"></select>
-                        </div>
+                <div class="sec_cal">
+                    <div class="cal_nav">
+                        <a href="javascript:;" class="nav-btn go-prev">prev</a>
+                        <div class="year-month"></div>
+                        <a href="javascript:;" class="nav-btn go-next">next</a>
                     </div>
-                    <div id="departure"></div>
-                    <div id="arrive"></div>
-                    <div id="calendar"></div>
+                    <div class="cal_wrap">
+                        <div class="days">
+                            <div class="day">MON</div>
+                            <div class="day">TUE</div>
+                            <div class="day">WED</div>
+                            <div class="day">THU</div>
+                            <div class="day">FRI</div>
+                            <div class="day">SAT</div>
+                            <div class="day">SUN</div>
+                        </div>
+                        <div class="dates"></div>
+                    </div>
                 </div>
                 <!--// 달력 일자 선택 -->
 
@@ -54,52 +60,9 @@
                     <ul></ul>
                 </div>
                 <!--// 여행 일정 리스트 -->
+                <button type="button" onclick="insert()" class="btn btn_trip"><span>일정 추가하기</span></button>
             </div>
         </div>
-        <!-- <script src="../public/js/calendar.js"></script> -->
-        <script>
-            const list = document.querySelector('.container_upcoming ul');
-            (async function () {
-                try {
-                    const res = await axios({
-                        method: 'GET',
-                        url: '/api/member/find',
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
-                        },
-                    });
-                    const { mySchedule } = res.data.result;
-                    console.log(mySchedule);
-                    for (i = 0; i < mySchedule.length; i++) {
-                        const res2 = await axios({
-                            method: 'GET',
-                            url: '/api/schedule/findGroup',
-                            params: {
-                                id: mySchedule[i],
-                            },
-                        });
-                        console.log(res2.data.result);
-                        const { groupName, depDate, arrDate, id } = res2.data.result;
-                        const html = `
-					<li>
-						<div class="trip_schedule">
-							<div onclick="goDetail(${id})">
-								<strong>${groupName}</strong>
-								<span>March 21 , 2021 - 8 AM</span>
-							</div>
-						</div>
-					</li>
-					`;
-                        list.insertAdjacentHTML('beforeend', html);
-                    }
-                } catch (error) {
-                    document.location.href = '/login';
-                }
-            })();
-            function goDetail(id) {
-                localStorage.setItem('groupId', id);
-                document.location.href = '/tripdetail';
-            }
-        </script>
+        <script src="../public/js/triplist.js"></script>
     </body>
 </html>

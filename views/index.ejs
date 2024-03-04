@@ -11,9 +11,9 @@
         <link rel="stylesheet" href="../public/css/main.css" />
     </head>
     <body>
-        <div id="wrap">
+        <div id="wrap" class="main_wrap">
             <!-- 헤더 -->
-            <header style="display: none">
+            <!-- <header class="pc_header">
                 <h1><a href="#none">Time Travel</a></h1>
                 <nav class="gnb pc_menu">
                     <ul class="main_menu">
@@ -22,22 +22,108 @@
                         <li><a href="#none">소개</a></li>
                     </ul>
                     <ul class="sub_menu">
-                        <li><a href="#none">로그인</a></li>
-                        <li><a href="#none">회원가입</a></li>
-                        <li style="display: none">
-                            <a href="#none"><img src="../public/img/common/ico_log.png" alt="회원" /></a>
+                        <li><a href="#none" class="info_txt">로그인</a></li>
+                        <li><a href="#none" class="info_txt">회원가입</a></li>
+                        <li><a href="#none" class="info_txt">로그아웃</a></li>
+                        <li><a href="" class="ico_ham"><span class="blind">메뉴</span></a></li>
+                    </ul>
+                </nav>
+            </header> -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <h1><a href="#index.ejs">Time Travel</a></h1>
+                    <ul class="main_menu">
+                        <li><a href="#none">내 여행</a></li>
+                        <li><a href="#none">채팅</a></li>
+                        <li><a href="#none">소개</a></li>
+                    </ul>
+                    <ul class="sub_menu">
+                        <li>
+                            <ul class="login_wrap">
+                                <li><a href="#none" class="info_txt">로그인</a></li>
+                                <li><a href="#none" class="info_txt">회원가입</a></li>
+                                <!-- <li><a href="#none" class="info_txt">로그아웃</a></li> -->
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
                         </li>
                     </ul>
                 </nav>
             </header>
             <!--// 헤더 -->
+            
+            <!-- 사이드 메뉴 : 마이 페이지 -->
+            <div class="menu_side" style="display: none;">
+                <a href="" class="btn btn_close">
+                    <span class="blind">닫기 버튼</span>
+                </a>
+                <!-- 마이페이지 : 사용자 정보  -->
+                <div class="container_myinfo">
+                    <div class="my_photo">
+                        <img src="../public/img//common/img_myphoto.png" alt="">
+                    </div>
+                    <div class="my_info">
+                        <ul class="login_wrap">
+                            <li><a href="#none" class="info_txt">로그인</a></li>
+                            <li><a href="#none" class="info_txt">회원가입</a></li>
+                            <li><a href="#none" class="info_txt">로그아웃</a></li>
+                        </ul>
+                        <span class="nick_name blind info_txt">닉네임</span>
+                        <button class="btn btn_retouch">개인정보 수정</button>
+                    </div>
+                </div>
+                <!--// 마이페이지 : 사용자 정보  -->
+
+                <!-- 마이 페이지 : 메뉴 리스트 -->
+                <div class="container_mylist">
+                    <ul>
+                        <li>
+                            <div>
+                                <a href="#none">
+                                    내 여행 일정
+                                    <i class="ico_accord"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="#none">
+                                    내 여행 일정
+                                    <i class="ico_accord"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="#none">
+                                    내 여행 일정
+                                    <i class="ico_accord"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="#none">
+                                    Time Travel 소개
+                                    <i class="ico_accord"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--// 마이 페이지 : 메뉴 리스트 -->
+            </div>
+            <!--// 사이드 메뉴 : 마이 페이지 -->
 
             <!-- 메인 -->
             <div class="main">
                 <!-- 메인 탭 : 메뉴 -->
                 <ul class="tab_menu">
-                    <li class="rectrip_cnt on"><a href="#none">추천</a></li>
-                    <li class="mytrip_cnt"><a href="#none">내 여행</a></li>
+                    <li class="rectrip_cnt on">추천</li>
+                    <li class="mytrip_cnt">내 여행</li>
                 </ul>
                 <!--// 메인 : 탭 메뉴 -->
 
@@ -323,68 +409,6 @@
                     <!--// BEST 여행 일정 -->
                 </div>
                 <!--// 메인 : 탭컨텐츠 -->
-
-                <!-- 사이드 메뉴 : 마이 페이지 -->
-                <div class="menu_side">
-                    <a href="" class="btn btn_close">
-                        <span class="blind">닫기 버튼</span>
-                    </a>
-                    <!-- 마이페이지 : 사용자 정보  -->
-                    <div class="container_myinfo">
-                        <div class="my_photo">
-                            <img src="../public/img//common/img_myphoto.png" alt="">
-                        </div>
-                        <div class="my_info">
-                            <ul class="login_wrap">
-                                <li><a href="#none" class="info_txt">로그인</a></li>
-                                <li><a href="#none" class="info_txt">회원가입</a></li>
-                            </ul>
-                            <span class="nick_name blind info_txt">닉네임</span>
-                            <button class="btn btn_retouch">개인정보 수정</button>
-                        </div>
-                    </div>
-                    <!--// 마이페이지 : 사용자 정보  -->
-
-                    <!-- 마이 페이지 : 메뉴 리스트 -->
-                    <div class="container_mylist">
-                        <ul>
-                            <li>
-                                <div>
-                                    <a href="#none">
-                                        내 여행 일정
-                                        <i class="ico_accord"></i>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <a href="#none">
-                                        내 여행 일정
-                                        <i class="ico_accord"></i>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <a href="#none">
-                                        내 여행 일정
-                                        <i class="ico_accord"></i>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <a href="#none">
-                                        Time Travel 소개
-                                        <i class="ico_accord"></i>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--// 마이 페이지 : 메뉴 리스트 -->
-                </div>
-                <!--// 사이드 메뉴 : 마이 페이지 -->
             </div>
             <!--// 메인 -->
 
@@ -456,7 +480,7 @@
             })();
             // 개인정보 수정 랜딩
             editBtn.addEventListener('click', (e) => {
-                document.location.href = '/myPage';
+                document.location.href = '/mypage';
             });
             /* 탭메뉴 스크립트 */
             document.addEventListener('DOMContentLoaded', function () {

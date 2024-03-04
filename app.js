@@ -31,7 +31,12 @@ io.on('connection', (socket) => {
     // 채팅 입력
     socket.on('msg', (res) => {
         const { chatMsg, userId, username } = res;
-        io.to(socket.roomId).emit('newMsg', { chatMsg, userId, username, roomId: socket.roomId });
+        io.to(socket.roomId).emit('newMsg', {
+            chatMsg,
+            userId,
+            username,
+            roomId: socket.roomId,
+        });
     });
 });
 

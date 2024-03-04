@@ -22,7 +22,7 @@ form button {
     overflow: hidden;
     border: none;
     background-color: transparent;
-    background: transparent url('../img/icon_send_chat.png') no-repeat 100% 100% / contain;
+    background: transparent url('../img/common/ico_sendchat.png') no-repeat 100% 100% / contain;
     color: transparent;
 }
 #main {
