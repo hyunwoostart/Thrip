@@ -11,31 +11,31 @@ const list = document.querySelector('.container_upcoming ul');
         });
         const { mySchedule } = res.data.result;
         console.log(mySchedule);
-        if (mySchedule) {
-            for (i = 0; i < mySchedule.length; i++) {
-                const res2 = await axios({
-                    method: 'GET',
-                    url: '/api/schedule/findGroup',
-                    params: {
-                        id: mySchedule[i],
-                    },
-                });
-                console.log(res2.data.result);
-                const { groupName, depDate, arrDate, id } = res2.data.result;
-                const html = `
-                        <li>
-                            <div class="trip_schedule">
-                                <div onclick="goDetail(${id})">
-                                    <strong>${groupName}</strong>
-                                    <span>March 21 , 2021 - 8 AM</span>
-                                </div>
-                            </div>
-                        </li>
-                        `;
-                list.insertAdjacentHTML('beforeend', html);
-                console.log(list[0].depDate);
-            }
-        }
+        // if (mySchedule) {
+        //     for (i = 0; i < mySchedule.length; i++) {
+        //         const res2 = await axios({
+        //             method: 'GET',
+        //             url: '/api/schedule/findGroup',
+        //             params: {
+        //                 id: mySchedule[i],
+        //             },
+        //         });
+        //         console.log(res2.data.result);
+        //         const { groupName, depDate, arrDate, id } = res2.data.result;
+        //         const html = `
+        //                 <li>
+        //                     <div class="trip_schedule">
+        //                         <div onclick="goDetail(${id})">
+        //                             <strong>${groupName}</strong>
+        //                             <span>March 21 , 2021 - 8 AM</span>
+        //                         </div>
+        //                     </div>
+        //                 </li>
+        //                 `;
+        //         list.insertAdjacentHTML('beforeend', html);
+        //         console.log(list[0].depDate);
+        //     }
+        // }
     } catch (error) {
         document.location.href = '/login';
     }
