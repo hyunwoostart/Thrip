@@ -4,55 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>지도</title>
+        <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/main.css" />
         <link rel="stylesheet" href="../public/css/calendar.css" />
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
         <div id="wrap">
-            <!-- 헤더 -->
-            <header class="mo_header">
-                <nav class="gnb">
-                    <ul class="main_menu">
-                        <li>
-                            <a href="#none" class="ico_back">
-                                <span class="blind">뒤로 가기</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#none" class="ico_ham">
-                                <span class="blind">메뉴</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-            <!--// 헤더 -->
-            <!-- 컨텐츠 -->
-            <div class="main">
-                <div id="schedule-form">
-                    <div class="detail-scheduel">
-                        <div class="index">1</div>
-                        <input type="time" id="arrTime" />
-                        <button type="button" onclick="showMap()">지도</button>
-                        <div class="map hide" style="width: 100vw; height: 350px"></div>
-                        <div class="input_wrap">
-                            <input id="place_name" />
-                            <button class="btn_holder btn_marker" id="markerBtn"></button>
-                        </div>
-                        <input type="button" onclick="keyword()" value="검색" />
-                        <div id="select"></div>
-                        <div id="result"></div>
-                        <input type="text" id="detailMemo" placeholder="메모" />
-                    </div>
-                </div>
-                <button type="button" onclick="insert()" class="btn btn_addtrip"><span>일정 추가하기</span></button>
-                <button type="button" onclick="register()" class="btn">장소 등록</button>
-            </div>
-            <!--// 컨텐츠 -->
+            <ul class="tab_menu"></ul>
         </div>
+        <button type="button" onclick="insert()" class="btn btn_addtrip">일정 추가하기</button>
+        <button type="button" onclick="register()" class="btn">전체 일정 입력 완료</button>
         <script src="../public/js/map.js"></script>
     </body>
 </html>

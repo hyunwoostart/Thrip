@@ -10,7 +10,11 @@ const DetailModel = (sequelize) => {
         },
         category: {
             type: DataTypes.INTEGER,
-            // allowNull: false,
+            allowNull: false,
+        },
+        detailOrder: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
         arrTime: {
             type: DataTypes.TIME,
