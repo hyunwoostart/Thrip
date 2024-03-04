@@ -18,5 +18,8 @@
 .trip_detail .main .container_tripdetail strong {display: block; font-size: 1.2rem; font-weight: 700;}
 .trip_detail .main .container_tripdetail span {color: #97ADB6;}
 
-.btn.btn_addtrip {background-color: #2fcc59;}
+
+.trip_txtwrap .btn_trip,
+.btn_chklist {width: 100px;}
+.btn.btn_trip {background-color: #2fcc59;}
 .btn.btn_chklist {position: relative; width: 100px;}
