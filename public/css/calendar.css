@@ -40,9 +40,5 @@
 .input_wrap .btn_holder.btn_search {background-image: url("../img/common/ico_search.png");}
 .input_wrap .btn_holder.btn_marker {background-image: url("../img/common/ico_marker.png"); width: 20px; height: 27px;}
 
-.btn_trip {background-color: #2fcc59;}
-.btn_trip span {position: relative; color: #fff;}
-.btn_trip span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plus.png') center/cover no-repeat;}
-
 .calendar .container_schedule .ico_back {transform: rotate(180deg); background-image: url("../img/common/ico_arrowb.png");display: block;width: 24px;height: 12px;background-size: cover;background-repeat: no-repeat;}
 
