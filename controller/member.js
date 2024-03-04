@@ -1,6 +1,7 @@
 const { Member } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 
 // 로그인
 exports.login = async (req, res) => {
@@ -23,7 +24,7 @@ exports.login = async (req, res) => {
 
 // 회원가입
 exports.signup = async (req, res) => {
-    const { username, userId, pw, email, tel } = req.body;
+    const { username, userId, pw, email, tel, mySchedule } = req.body;
     // 존재여부 확인
     const find = await Member.findOne({ where: { userId } });
     if (find) {
@@ -31,7 +32,7 @@ exports.signup = async (req, res) => {
     } else {
         const password = await bcrypt.hash(pw, 11);
         // 생성
-        const result = await Member.create({ userId, username, userId, password, email, tel });
+        const result = await Member.create({ userId, username, userId, password, email, tel, mySchedule });
         res.json({ success: true, message: '회원가입 완료' });
     }
 };
@@ -40,6 +41,14 @@ exports.signup = async (req, res) => {
 exports.find = async (req, res) => {
     const { id } = req.user;
     const result = await Member.findOne({ where: id });
+    res.json({ success: true, result });
+};
+
+// 아이디로 회원 조회
+exports.findId = async (req, res) => {
+    const { userId } = req.query;
+    console.log(userId);
+    const result = await Member.findAll({ where: { userId: { [Op.like]: '%' + userId + '%' } } });
     res.json({ success: true, result });
 };
 

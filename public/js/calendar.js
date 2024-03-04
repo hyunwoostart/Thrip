@@ -3,19 +3,13 @@ var currentDate = new Date();
 
 // 현재 월을 가져옴
 var currentMonth = currentDate.getMonth();
-console.log('입력받는 달 currentMonth', currentMonth);
-var currentMonthName = currentMonth + 1 + '월';
-console.log('달력상 currentMonthName', currentMonthName);
-//
 
 // 현재 연도를 가져옴
 var currentYear = currentDate.getFullYear();
-var currentYearName = currentYear + '년';
 
 //사용자가 선택한 연도와 달 입력 받는 변수
-// 기본으로는 현재 연도와 달로 설정해 놓는다.
-var year;
-var month;
+var year = currentYear;
+var month = currentMonth;
 
 // 일자와 요일
 var departureDate;
@@ -32,16 +26,27 @@ function makeSelect() {
         // option element 생성
         const yearOption = document.createElement('option');
         yearOption.setAttribute('value', i);
+        yearOption.setAttribute('id', i);
         yearOption.innerText = i;
         selectYear.appendChild(yearOption);
+        document
+            .getElementById(currentYear)
+            .setAttribute('selected', 'selected');
     }
     // 월 선택
     for (var i = 1; i <= 12; i++) {
         // option element 생성
         const monthOption = document.createElement('option');
         monthOption.setAttribute('value', i);
+        monthOption.setAttribute('id', i);
         monthOption.innerText = i;
         selectMonth.appendChild(monthOption);
+        var m = (currentMonth + 1).toString();
+        var element = document.getElementById(m);
+
+        if (element) {
+            element.setAttribute('selected', 'selected');
+        }
     }
 }
 
@@ -54,7 +59,7 @@ function printCalendar(year, month) {
     var nowY = date.getFullYear(); //현재 연도
     var nowM = date.getMonth(); //현재 월
     var nowD = date.getDate(); //현재 일
-
+    // 기본으로는 현재 연도와 달로 설정해 놓는다.
     year = year != undefined ? year : nowY;
     month = month != undefined ? month : nowM;
     console.log(year, month);
@@ -105,8 +110,7 @@ function printCalendar(year, month) {
             /*행이 첫 줄이고 현재 월의 1일의 요일 이전은 모두 빈열로 표기하고 날짜가 마지막 일보다 크면 빈열로 표기됩니다.*/
             // console.log(k);
             if ((i == 1 && k < theDay) || dNum > lastDate) {
-                // console.log(prevLastDate);
-                calendar += '<td> 고민중.. </td>';
+                calendar += '<td>  </td>';
             } else {
                 // 오늘 날짜에 대한 스타일 적용
                 if (dNum === nowD) {
@@ -127,7 +131,6 @@ function printCalendar(year, month) {
 //연도 변경하면 달력 다시 그리는 함수
 selectYear.addEventListener('change', () => {
     year = selectYear.options[selectYear.selectedIndex].value;
-
     m = Number(selectMonth.options[selectMonth.selectedIndex].value);
     month = m - 1;
     printCalendar(year, month);
@@ -135,21 +138,18 @@ selectYear.addEventListener('change', () => {
 //월 변경하면 달력 다시 그리는 함수
 selectMonth.addEventListener('change', () => {
     year = selectYear.options[selectYear.selectedIndex].value;
-
     m = Number(selectMonth.options[selectMonth.selectedIndex].value);
     month = m - 1;
     printCalendar(year, month);
 });
 
 //날짜 선택해서 띄우기
+var selectedDate = {};
 async function getSelectedDate() {
     return new Promise((resolve) => {
-        var selectedDate = {};
-
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
             var dList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-
             if (e.target.tagName === 'TD') {
                 var date = e.target.innerText;
                 var day = dList[e.target.cellIndex];
@@ -157,68 +157,119 @@ async function getSelectedDate() {
                 selectedDate = { year, m, date, day };
                 // Resolve the promise with the selectedDate object
                 resolve(selectedDate);
+                console.log(selectedDate);
             }
         });
     });
 }
 
-// // selectedDate = { year, m, date, day } 입력받는다.
-async function runGetSelectedDate() {
-    departureDate = await getSelectedDate();
-    console.log('dep', departureDate);
-    if (departureDate) {
-        arrivalDate = await getSelectedDate();
-        console.log('arr', arrivalDate);
-    }
-}
-
 //함수 실행
 printCalendar(year, month);
 makeSelect();
-runGetSelectedDate();
-
+getSelectedDate();
+let dep = {};
+let arr = {};
 let depDate;
 let arrDate;
 function selectDep() {
-    depDate = `${departureDate.year}-${String(departureDate.m).padStart(
+    //출발일 선택
+    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
-    )}-${String(departureDate.date).padStart(2, '0')}`;
+    )}-${String(selectedDate.date).padStart(2, '0')}`;
+    console.log('depDate', depDate);
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
-    console.log(depDate);
+    dep = {
+        year: selectedDate.year,
+        m: selectedDate.m,
+        date: Number(selectedDate.date),
+    };
+    console.log('dep', dep);
 }
 function selectArr() {
-    arrDate = `${arrivalDate.year}-${String(arrivalDate.m).padStart(
+    //도착일 선택
+    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
-    )}-${String(arrivalDate.date).padStart(2, '0')}`;
-    document.querySelector('.depDate').textContent = `${String(
-        departureDate.m
-    ).padStart(2, '0')}월 ${String(departureDate.date).padStart(2, '0')}일`;
-    document.querySelector('.arrDate').textContent = `${String(
-        arrivalDate.m
-    ).padStart(2, '0')}월 ${String(arrivalDate.date).padStart(2, '0')}일`;
+    )}-${String(selectedDate.date).padStart(2, '0')}`;
     console.log(arrDate);
+    arr = {
+        year: selectedDate.year,
+        m: selectedDate.m,
+        date: Number(selectedDate.date),
+    };
+
+    //창 맨 위에 일정 띄우기
+    document.querySelector('.depDate').textContent = `${String(dep.m).padStart(
+        2,
+        '0'
+    )}월 ${String(dep.date).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(arr.m).padStart(
+        2,
+        '0'
+    )}월 ${String(arr.date).padStart(2, '0')}일`;
+
     document.querySelector('#selectArr').classList.add('hide');
-    document.querySelector('.calendarBox').classList.add('hide');
-    document.querySelector('.scheduleBox').classList.remove('hide');
+    document.querySelector('.container_calendar').classList.add('hide');
+    document.querySelector('.container_schedule').classList.remove('hide');
 }
 function selectReset() {
     depDate = '';
     arrDate = '';
-    document.querySelector('.scheduleBox').classList.add('hide');
+    document.querySelector('.container_schedule').classList.add('hide');
     document.querySelector('#selectDep').classList.remove('hide');
-    document.querySelector('.calendarBox').classList.remove('hide');
+    document.querySelector('.container_calendar').classList.remove('hide');
+}
+document
+    .querySelector('#searchBtn')
+    .addEventListener('click', async function (e) {
+        e.preventDefault();
+        const res = await axios({
+            method: 'GET',
+            url: '/api/member/findId',
+            params: {
+                userId: document.querySelector('#memberSearch').value,
+            },
+        });
+        console.log('res', res.data.result);
+        const resultBox = document.querySelector('.search_result');
+        resultBox.innerHTML = '';
+        for (let i = 0; i < res.data.result.length; i++) {
+            const { id, userId } = res.data.result[i];
+            const html = `
+		<button type="button" onclick="addId(${id})" class="result_id">${userId}</button>
+		`;
+            resultBox.insertAdjacentHTML('beforeend', html);
+        }
+    });
+
+let groupMember = [];
+(async function () {
+    try {
+        const res = await axios({
+            method: 'GET',
+            url: '/api/member/find',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        const { id } = res.data.result;
+        groupMember.push(id);
+    } catch (error) {
+        document.location.href = '/login';
+    }
+})();
+
+function addId(i) {
+    groupMember.push(i);
+    console.log(groupMember);
 }
 
 async function register() {
-    const stDate = new Date(
-        departureDate.year,
-        departureDate.m,
-        departureDate.date
-    );
-    const endDate = new Date(arrivalDate.year, arrivalDate.m, arrivalDate.date);
+    const stDate = new Date(dep.year, dep.m, dep.date);
+    const endDate = new Date(arr.year, arr.m, arr.date);
+    console.log('stDate', stDate, 'endDate', endDate);
     const dueDate =
         (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
@@ -226,12 +277,14 @@ async function register() {
         arrDate,
         dueDate: dueDate + 1,
         groupName: document.querySelector('#groupName').value,
+        groupMember,
         groupMemo: document.querySelector('#groupMemo').value,
     };
-    const res = axios({
+    const res = await axios({
         method: 'POST',
         url: '/api/schedule/groupWrite',
         data,
     });
+    localStorage.setItem('groupId', res.data.result.id);
     document.location.href = '/map';
 }

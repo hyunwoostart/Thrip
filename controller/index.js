@@ -13,10 +13,21 @@ exports.myPage = (req, res) => {
 exports.checklist = (req, res) => {
     res.render('checklist');
 };
+exports.chat = (req, res) => {
+    res.render('chat');
+};
 exports.map = (req, res) => {
     res.render('map');
 };
 
 exports.calendar = (req, res) => {
     res.render('calendar');
+};
+
+exports.triplist = (req, res) => {
+    res.render('triplist');
+};
+
+exports.tripdetail = (req, res) => {
+    res.render('tripdetail');
 };

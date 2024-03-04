@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>채팅방</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/chat.css" />
+    </head>
+    <body>
+        <div id="main">
+            <h3>채팅방 리스트</h3>
+        </div>
+        <div id="body" hidden>
+            <div class="tit">
+                <h3 class="chatName"></h3>
+                <button class="golist" onclick="goList()">돌아가기</button>
+            </div>
+
+            <div class="msg"></div>
+            <form id="chat-form">
+                <input type="text" id="chatMsg" placeholder="메세지를 입력하세요." />
+                <button class="chatBtn">전송</button>
+            </form>
+        </div>
+        <script>
+            const socket = io();
+            const form = document.querySelector('#chat-form');
+            const msg = document.querySelector('.msg');
+            const main = document.querySelector('#main');
+            const body = document.querySelector('#body');
+            const chatBtn = document.querySelector('.chatBtn');
+            let userId;
+            let username;
+            (async function () {
+                try {
+                    // 접속 중인 멤버 정보 저장
+                    const res = await axios({
+                        method: 'GET',
+                        url: '/api/member/find',
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        },
+                    });
+                    userId = res.data.result.id;
+                    username = res.data.result.username;
+                    // 채팅 리스트 불러오기
+                    const res2 = await axios({
+                        method: 'GET',
+                        url: '/api/schedule/scheduleList',
+                        params: {
+                            id: userId,
+                        },
+                    });
+                    if (res2.data.result.length === 0) {
+                        const div = document.createElement('div');
+                        const p = document.createElement('p');
+                        div.classList.add('noList');
+                        p.textContent = '참여중인 채팅방이 없습니다.';
+                        div.appendChild(p);
+                        main.appendChild(div);
+                    } else {
+                        for (let i = 0; i < res2.data.result.length; i++) {
+                            const div = document.createElement('div');
+                            const { id, groupName } = res2.data.result[i];
+                            const html = `<button type="button" class="enter" onclick="enter(${id})">${groupName}</button>`;
+                            div.classList.add('chatBox');
+                            div.insertAdjacentHTML('beforeend', html);
+                            main.appendChild(div);
+                        }
+                    }
+                } catch (error) {
+                    document.location.href = '/login';
+                }
+            })();
+
+            // 채팅 목록으로 돌아가기
+            function goList() {
+                document.location.reload();
+            }
+
+            // 채팅 내용 DB저장 함수
+            async function saveChat(writerId, writerName, msg, roomId) {
+                const res = await axios({
+                    method: 'POST',
+                    url: '/api/schedule/chat',
+                    data: {
+                        userId: writerId,
+                        username: writerName,
+                        chatMsg: msg,
+                        groupId: roomId,
+                    },
+                });
+            }
+
+            // 채팅방 리스트 불러오기
+            // 추후 추가
+
+            // 채팅방 입장
+            async function enter(roomId) {
+                socket.emit('enter', { roomId });
+                main.hidden = true;
+                body.hidden = false;
+                // 채팅방 이름 불러오기
+                const res = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/findGroup',
+                    params: {
+                        id: roomId,
+                    },
+                });
+                const html = ``;
+                document.querySelector('.chatName').textContent = res.data.result.groupName;
+
+                // 채팅 내용 불러오기
+                const res2 = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/findChat',
+                    params: {
+                        groupId: roomId,
+                    },
+                });
+                for (let i = 0; i < res2.data.result.length; i++) {
+                    const result = res2.data.result[i];
+                    const div = document.createElement('div');
+                    const writer = document.createElement('p');
+                    const message = document.createElement('p');
+                    if (userId == result.userId) {
+                        div.classList.add('me');
+                    } else {
+                        div.classList.add('you');
+                    }
+                    writer.classList.add('writer');
+                    message.classList.add('message');
+                    writer.textContent = result.username;
+                    message.textContent = result.chatMsg;
+                    div.append(writer, message);
+                    msg.appendChild(div);
+                }
+            }
+
+            // 채팅 입력
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const chatMsg = document.querySelector('#chatMsg');
+                socket.emit('msg', { chatMsg: chatMsg.value, userId, username });
+                chatMsg.value = '';
+            });
+            // 채팅 표시
+            socket.on('newMsg', (res) => {
+                const div = document.createElement('div');
+                const writer = document.createElement('p');
+                const message = document.createElement('p');
+                if (userId == res.userId) {
+                    div.classList.add('me');
+                } else {
+                    div.classList.add('you');
+                }
+                writer.classList.add('writer');
+                message.classList.add('message');
+                writer.textContent = res.username;
+                message.textContent = res.chatMsg;
+                div.append(writer, message);
+                msg.appendChild(div);
+                saveChat(res.userId, res.username, res.chatMsg, res.roomId);
+            });
+        </script>
+    </body>
+</html>
