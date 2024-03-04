@@ -28,23 +28,10 @@
     background-image: url('../img/common/ico_ham.png');
 }
 
-/* 메인 */
-.container_calendar,
-.container_schedule {
-    margin: 52px 20px 0;
-}
-.container_calendar .calendar_box {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.container_calendar select {
-    padding: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 2rem;
-}
 
+/* 메인 컨텐츠 */
+.container_calendar .calendar_box {display: flex; justify-content: space-around; align-items: center;}
+.container_calendar select {padding: 20px; border: none; cursor: pointer; font-size: 2rem;}
 /* 달력 */
 #month h2 {
     font-size: 20px;
@@ -73,6 +60,7 @@
 .container_calendar #today {
     color: rgb(255, 153, 0);
 }
+
 
 .date_box {
     display: flex;
@@ -140,6 +128,25 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+#schedule-form {padding: 20px 0;}
+#schedule-form input {margin-bottom: 20px; font-size: 1.2rem;}
+#schedule-form label {margin-bottom: 12px; font-size: 1.2rem; font-weight: 700; color: #333;}
+#schedule-form textarea {padding: 5% 1.2rem; font-size: 1.2rem; line-height: 1.4rem; resize: none;}
+#schedule-form input::placeholder, #schedule-form textarea::placeholder {color: #8d8d8d;}
+
+.input_txt {position: relative;}
+#memberSearch {position: relative;}
+
+/* 버튼 스타일 - btn_ */
+.input_wrap {position: relative;}
+.input_wrap .btn_holder {position: absolute; border: none; top: 50%; transform: translateY(-50%); right: 22px; width: 22px; height: 22px; background-size: cover; background-position: center; background-repeat: no-repeat; background-color: #fff; cursor: pointer;}
+.input_wrap .btn_holder.btn_search {background-image: url("../img/common/ico_search.png");}
+.input_wrap .btn_holder.btn_marker {background-image: url("../img/common/ico_marker.png"); width: 20px; height: 27px;}
+
+.btn_addtrip {background-color: #2fcc59;}
+.btn_addtrip span {position: relative; color: #fff;}
+.btn_addtrip span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plus.png') center/cover no-repeat;}
 
 .map {
     width: 100vw;

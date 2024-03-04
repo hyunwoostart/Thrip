@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/trip.css" />
-        <!-- <link rel="stylesheet" href="../public/css/main.css" /> -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
@@ -35,17 +34,73 @@
             <div class="main">
                 <div class="main_txt">
                     <h3>부산여행</h3>
-                    <button class="btn btn_chklist" onclick="goChecklist()">체크리스트</button>
+                    <button class="btn btn_chklist">체크리스트</button>    
                 </div>
-
+    
                 <!-- 여행 일정 상세 목록 -->
                 <div class="container_tripdetail">
-                    <ul></ul>
+                    <ul>
+                        <li class="on">
+                            <div class="list_detail">
+                                <a href="#none">
+                                    <strong>부산역</strong>
+                                    <span>09:00</span>
+                                    <i class="ico_accord"></i>
+                                </a>
+                                <div class="map_cnt">
+                                    <div class="maps">
+                                        <img src="../public/img//main/img_ex.png" alt="">
+                                    </div>
+                                    <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list_detail">
+                                <a href="#none">
+                                    <strong>어떤 카페</strong>
+                                    <span>11:00</span>
+                                    <i class="ico_accord"></i>
+                                </a>
+                                <div class="map_cnt">
+                                    <div class="maps"></div>
+                                    <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list_detail">
+                                <a href="#none">
+                                    <strong>어떤 음식점</strong>
+                                    <span>13:00</span>
+                                    <i class="ico_accord"></i>
+                                </a>
+                                <div class="map_cnt">
+                                    <div class="maps"></div>
+                                    <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list_detail">
+                                <a href="#none">
+                                    <strong>어떤 숙소</strong>
+                                    <span>15:00</span>
+                                    <i class="ico_accord"></i>
+                                </a>
+                                <div class="map_cnt">
+                                    <div class="maps"></div>
+                                    <p>다음 장소까지 이동 시간 <span>10</span>분</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
                 <!--// 여행 일정 리스트 -->
             </div>
             <!--// 컨텐츠 -->
         </div>
+        <script src="../public/js/calendar.js"></script>
         <script>
             const list = document.querySelector('.container_tripdetail ul');
             (async function () {
@@ -85,20 +140,31 @@
                 document.location.href = '/checklist';
             }
             // 아코디언 메뉴
-            document.querySelectorAll('.container_tripdetail ul li').forEach(function (item) {
-                item.addEventListener('click', function () {
-                    document
-                        .querySelectorAll('.container_tripdetail ul li')
-                        .forEach((tab) => tab.classList.remove('on'));
-                    this.classList.add('on');
-
-                    // .map_cnt의 토글
-                    var showMap = this.classList.contains('on');
-                    document.querySelectorAll('.container_tripdetail ul li .map_cnt').forEach(function (map) {
-                        map.style.display = showMap ? 'block' : 'none';
-                    });
+            document.querySelectorAll('.container_tripdetail ul li').forEach(function(item, index) {
+                item.addEventListener('click', function() {
+                    // 클릭한 요소에 'on' 클래스를 추가 또는 제거하여 토글 기능 구현
+                    this.classList.toggle('on');
+                
+                    // 다른 요소들의 'on' 클래스 제거
+                    const siblings = this.parentElement.children;
+                    for (let i = 0; i < siblings.length; i++) {
+                        if (siblings[i] !== this && siblings[i].classList.contains('on')) {
+                            siblings[i].classList.remove('on');
+                        }
+                    }
+                    // 클릭한 요소의 맵 표시
+                    const maps = document.querySelectorAll('.map_cnt');
+                    for (let i = 0; i < maps.length; i++) {
+                        maps[i].style.display = 'none';
+                    }
+                    // 클릭한 요소의 인덱스에 해당하는 맵만 표시
+                    if (this.classList.contains('on')) {
+                        maps[index].style.display = 'block';
+                    }
                 });
             });
         </script>
     </body>
 </html>
+
+
