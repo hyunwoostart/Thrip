@@ -73,7 +73,6 @@ function placesSearchCB(data, status, pagination) {
         map.setBounds(bounds);
     }
 }
-
 // 지도에 마커를 표시하는 함수입니다
 function displayMarker(place) {
     // 마커를 생성하고 지도에 표시합니다
@@ -81,26 +80,28 @@ function displayMarker(place) {
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x),
     });
-
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function () {
-        // console.log(place.x);
-        document.getElementById(
-            'place_name'
-        ).innerHTML = `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
+        console.log(place.place_name, place.x, place.y);
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infowindow.setContent(
-            '<div style="padding:5px;font-size:12px;">' + place.place_name,
-            '</div>'
+            '<div style="padding:5px;font-size:12px;">' +
+                place.place_name +
+                '</div>'
         );
         infowindow.open(map, marker);
-        //좌표 담는 객체 안에 x,y로 저장합니다.
-        obj = {
-            x: place.x,
-            y: place.y,
-            place_name: place.place_name,
-        };
-        pushArray(obj, array);
+        document.getElementById(
+            'select'
+        ).textContent = `장소 : ${place.place_name} 위도 : ${place.x} 경도 : ${place.y}`;
+        document.getElementById('select').addEventListener('click', () => {
+            // 현재 선택된 장소의 정보를 obj 객체에 저장합니다.
+            obj.x = place.x;
+            obj.y = place.y;
+            obj.place_name = place.place_name;
+
+            pushArray(obj, array);
+            console.log(array);
+        });
         if (array.length >= 2) {
             document.getElementById('select').innerHTML = `<div>${
                 array[array.length - 2].place_name
@@ -121,6 +122,7 @@ function displayMarker(place) {
         }
     });
 }
+
 //========================================================================
 
 //==================여행 세부일정 js ======================================

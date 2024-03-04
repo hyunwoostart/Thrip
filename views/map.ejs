@@ -19,15 +19,13 @@
                 <div class="detail-scheduel">
                     <div class="index">1</div>
                     <input type="time" id="arrTime" />
-                    <button type="button" onclick="showMap()">지도</button>
+                    <input id="place_name" />
+                    <input type="button" onclick="keyword()" value="검색" />
                     <div
                         class="map hide"
                         style="width: 100vw; height: 350px"
                     ></div>
-                    <input id="place_name" />
-                    <input type="button" onclick="keyword()" value="검색" />
-                    <div id="select"></div>
-                    <div id="result"></div>
+                    <a href="#" id="select"></a>
                     <input type="text" id="detailMemo" placeholder="메모" />
                 </div>
             </div>
