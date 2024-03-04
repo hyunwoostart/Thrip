@@ -6,14 +6,14 @@
 .main_txt .btn {margin: 0;}
 
 .trip_detail .main .container_tripdetail {margin-top: 10px;}
-.trip_detail .main .container_tripdetail ul li {position: relative; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #D5DDE0;}
-.trip_detail .main .container_tripdetail ul li::before {content: ''; position: absolute; width: 30px; height: 30px; background: url("../img//common/ico_place.png") center/cover no-repeat;}
+.trip_detail .main .container_tripdetail ul li {position: relative; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #D5DDE0; cursor: pointer;}
+.trip_detail .main .container_tripdetail ul li::before {content: ''; position: absolute; width: 30px; height: 30px; background: url("../img/common/ico_place.png") center/cover no-repeat;}
 .trip_detail .main .container_tripdetail ul li > div {margin-left: 42px;}
 .trip_detail .main .container_tripdetail .map_cnt {padding: 10px 0;}
 .trip_detail .main .container_tripdetail .map_cnt p {padding-top: 4px;}
-.trip_detail .main .container_tripdetail ul li .list_detail a {position: relative; display: block;}
-.trip_detail .main .container_tripdetail ul li .list_detail a i.ico_accord {position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; background: url('../img/common/ico_accord.png') center/cover no-repeat;}
-.trip_detail .main .container_tripdetail ul li.on .list_detail a i.ico_accord {transform: translateY(-50%) rotate(180deg);}
+.trip_detail .main .container_tripdetail ul li .list_detail {position: relative; display: block;}
+.trip_detail .main .container_tripdetail ul li .list_detail i.ico_accord {position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; background: url('../img/common/ico_accord.png') center/cover no-repeat;}
+.trip_detail .main .container_tripdetail ul li.on .list_detail i.ico_accord {transform: translateY(-50%) rotate(180deg);}
 /* .trip_detail .main .container_tripdetail ul li .maps img {width: 200px; margin: 0 auto;} */
 .trip_detail .main .container_tripdetail strong {display: block; font-size: 1.2rem; font-weight: 700;}
 .trip_detail .main .container_tripdetail span {color: #97ADB6;}
