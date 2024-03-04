@@ -10,3 +10,7 @@ button.disable {background-color: #ccc; color: #333;}
 button.withdraw {display: block; background: none; border: none; color: #278eff; line-height: 1.5; text-align: center; margin: 20px auto;} 
 
 /* 버튼 스타일 end */
+
+/* 로그인 */
+#wrap.login_page .login_wrap {display: flex; justify-content: space-between; margin: 0 auto; padding-top: 20px; width: 50%;}
+#wrap.login_page .login_wrap li:hover {text-decoration: underline;}
