@@ -185,3 +185,8 @@ header .gnb ul {display: flex;} */
 .container_upcoming .trip_schedule p {color: #6b6868;}
 .container_upcoming .trip_schedule p, 
 .container_upcoming .trip_schedule span {margin: 0;}
+
+/* 버튼 스타일 - btn_ */
+.btn_trip {background-color: #2fcc59;}
+.btn_trip span {position: relative; color: #fff;}
+.btn_trip span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plus.png') center/cover no-repeat;}
