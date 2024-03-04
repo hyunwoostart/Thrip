@@ -4,15 +4,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>메인</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     </head>
     <body>
         <div id="wrap">
             <!-- 헤더 -->
-            <header style="display: none;">
+            <header style="display: none">
                 <h1><a href="#none">Time Travel</a></h1>
                 <nav class="gnb pc_menu">
                     <ul class="main_menu">
@@ -23,7 +24,9 @@
                     <ul class="sub_menu">
                         <li><a href="#none">로그인</a></li>
                         <li><a href="#none">회원가입</a></li>
-                        <li style="display: none;"><a href="#none"><img src="../public/img/common/ico_log.png" alt="회원"></a></li>
+                        <li style="display: none">
+                            <a href="#none"><img src="../public/img/common/ico_log.png" alt="회원" /></a>
+                        </li>
                     </ul>
                 </nav>
             </header>
@@ -31,10 +34,14 @@
 
             <!-- 메인 -->
             <div class="main">
+                <!-- 메인 탭 : 메뉴 -->
                 <ul class="tab_menu">
                     <li class="rectrip_cnt on"><a href="#none">추천</a></li>
                     <li class="mytrip_cnt"><a href="#none">내 여행</a></li>
                 </ul>
+                <!--// 메인 : 탭 메뉴 -->
+
+                <!-- 메인 : 탭컨텐츠 -->
                 <div class="tab_cnt">
                     <!-- 내 여행 -->
                     <div class="container_trip">
@@ -75,7 +82,7 @@
                             <div class="trip_supplies">
                                 <h3>여행 준비물</h3>
                                 <div class="input_chk">
-                                    <input type="checkbox" id="item01" name="item01" checked/>
+                                    <input type="checkbox" id="item01" name="item01" checked />
                                     <label for="item01">캐리어</label>
                                 </div>
                                 <div class="input_chk">
@@ -96,7 +103,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="trip_new" style="display: none;">
+                        <div class="trip_new" style="display: none">
                             <button type="button">새로운 일정 생성</button>
                         </div>
                     </div>
@@ -109,7 +116,7 @@
                             <li class="swiper-slide">
                                 <div class="rec_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_rectrip01.png" alt="">
+                                        <img src="../public/img/main/img_rectrip01.png" alt="" />
                                         <div class="rec_txt">
                                             <strong>Sea Diving</strong>
                                             <p><span>1.1</span>km boat</p>
@@ -120,7 +127,7 @@
                             <li class="swiper-slide">
                                 <div class="rec_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_rectrip02.png" alt="">
+                                        <img src="../public/img/main/img_rectrip02.png" alt="" />
                                         <div class="rec_txt">
                                             <strong>Beach Adventure</strong>
                                             <p><span>2</span>km away</p>
@@ -131,7 +138,7 @@
                             <li class="swiper-slide">
                                 <div class="rec_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_rectrip02.png" alt="">
+                                        <img src="../public/img/main/img_rectrip02.png" alt="" />
                                         <div class="rec_txt">
                                             <strong>Beach Adventure</strong>
                                             <p><span>2</span>km away</p>
@@ -150,7 +157,7 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate01.png" alt="">
+                                            <img src="../public/img/main/img_cate01.png" alt="" />
                                         </div>
                                         <div class="txt_category">관광명소</div>
                                     </a>
@@ -160,7 +167,7 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate02.png" alt="">
+                                            <img src="../public/img/main/img_cate02.png" alt="" />
                                         </div>
                                         <div class="txt_category">카페</div>
                                     </a>
@@ -170,7 +177,7 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate03.png" alt="">
+                                            <img src="../public/img/main/img_cate03.png" alt="" />
                                         </div>
                                         <div class="txt_category">맛집</div>
                                     </a>
@@ -180,7 +187,7 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate04.png" alt="">
+                                            <img src="../public/img/main/img_cate04.png" alt="" />
                                         </div>
                                         <div class="txt_category">레저</div>
                                     </a>
@@ -232,7 +239,7 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <img src="../public/img/main/img_best01.png" alt="" />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -250,7 +257,7 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <img src="../public/img/main/img_best01.png" alt="" />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -266,7 +273,7 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <img src="../public/img/main/img_best01.png" alt="" />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -282,7 +289,7 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <img src="../public/img/main/img_best01.png" alt="" />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -298,7 +305,7 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="">
+                                        <img src="../public/img/main/img_best01.png" alt="" />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -315,6 +322,69 @@
                     </div>
                     <!--// BEST 여행 일정 -->
                 </div>
+                <!--// 메인 : 탭컨텐츠 -->
+
+                <!-- 사이드 메뉴 : 마이 페이지 -->
+                <div class="menu_side">
+                    <a href="" class="btn btn_close">
+                        <span class="blind">닫기 버튼</span>
+                    </a>
+                    <!-- 마이페이지 : 사용자 정보  -->
+                    <div class="container_myinfo">
+                        <div class="my_photo">
+                            <img src="../public/img//common/img_myphoto.png" alt="">
+                        </div>
+                        <div class="my_info">
+                            <ul class="login_wrap">
+                                <li><a href="#none" class="info_txt">로그인</a></li>
+                                <li><a href="#none" class="info_txt">회원가입</a></li>
+                            </ul>
+                            <span class="nick_name blind info_txt">닉네임</span>
+                            <button class="btn btn_retouch">개인정보 수정</button>
+                        </div>
+                    </div>
+                    <!--// 마이페이지 : 사용자 정보  -->
+
+                    <!-- 마이 페이지 : 메뉴 리스트 -->
+                    <div class="container_mylist">
+                        <ul>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        내 여행 일정
+                                        <i class="ico_accord"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        내 여행 일정
+                                        <i class="ico_accord"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        내 여행 일정
+                                        <i class="ico_accord"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        Time Travel 소개
+                                        <i class="ico_accord"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--// 마이 페이지 : 메뉴 리스트 -->
+                </div>
+                <!--// 사이드 메뉴 : 마이 페이지 -->
             </div>
             <!--// 메인 -->
 
@@ -345,52 +415,6 @@
             </div>
             <!--// 하단 메뉴 : 고정 -->
 
-            <!-- 사이드 메뉴 : 마이 페이지 -->
-                <a href="" class="btn btn_close">
-                    <i class="blind">닫기</i>
-                    <!-- <img src="" alt=""> -->
-                </a>
-                <div class="container_myinfo">
-                    <div class="my_photo">
-                        <img src="../public/img//common/img_myphoto.png" alt="">
-                    </div>
-                    <div class="my_info">
-                        <span class="nick_name">로그인 / 회원가입</span>
-                        <button class="btn btn_retouch">개인정보 수정</button>
-                    </div>
-                </div>
-                <!-- 마이 페이지 메뉴 리스트 -->
-                <div class="container_mylist">
-                    <ul>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    <strong>내 여행 일정</strong>
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    <strong>내 여행 일정</strong>
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    <strong>내 여행 일정</strong>
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!--// 마이 페이지 메뉴 리스트 -->
-            <!--// 사이드 메뉴 : 마이 페이지 -->
-
             <!-- 푸터 -->
             <!-- <footer>
                 <address>Time Travel</address>
@@ -400,55 +424,95 @@
         <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
+            const info = document.querySelector('.my_info');
+            const myName = document.querySelector('.nick_name');
+            const editBtn = document.querySelector('.btn_retouch');
+            // 로그인 여부 확인
+            (async function () {
+                console.log(Boolean(localStorage.getItem('token')));
+                if (!localStorage.getItem('token')) {
+                    editBtn.hidden = true;
+                    info.addEventListener('click', () => {
+                        document.location.href = '/login';
+                    });
+                } else {
+                    try {
+                        const res = await axios({
+                            method: 'GET',
+                            url: '/api/member/find',
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            },
+                        });
+                        editBtn.hidden = false;
+                        myName.textContent = res.data.result.username;
+                    } catch (error) {
+                        editBtn.hidden = true;
+                        info.addEventListener('click', () => {
+                            document.location.href = '/login';
+                        });
+                    }
+                }
+            })();
+            // 개인정보 수정 랜딩
+            editBtn.addEventListener('click', (e) => {
+                document.location.href = '/myPage';
+            });
             /* 탭메뉴 스크립트 */
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 // 모든 컨테이너 숨기기
                 let containers = document.querySelectorAll('.tab_cnt > div');
-                containers.forEach(function(container) {
+                containers.forEach(function (container) {
                     container.style.display = 'none';
                 });
                 // 기본
                 showRectripCnt(); // 추천 컨테이너 표시
-            
+
                 // 탭 메뉴 클릭 이벤트 처리
-                document.querySelectorAll('.tab_menu li').forEach(function(item) {
-                    item.addEventListener('click', function() {
+                document.querySelectorAll('.tab_menu li').forEach(function (item) {
+                    item.addEventListener('click', function () {
                         // 모든 탭 메뉴 항목의 'on' 클래스 제거
-                        document.querySelectorAll('.tab_menu li').forEach(tab => tab.classList.remove('on'));
+                        document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
                         // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
                         this.classList.add('on');
-                    
+
                         // 내 여행 탭을 클릭했는지 확인
                         if (this.classList.contains('mytrip_cnt')) {
                             hideContainers(); // 모든 컨테이너 숨기기
                             // 내 여행 컨테이너 표시
-                            document.querySelectorAll('.container_trip, .container_upcoming').forEach(container => container.style.display = 'block');
+                            document
+                                .querySelectorAll('.container_trip, .container_upcoming')
+                                .forEach((container) => (container.style.display = 'block'));
                         } else if (this.classList.contains('rectrip_cnt')) {
-                            hideContainers(); 
+                            hideContainers();
                             showRectripCnt();
                         }
                     });
                 });
-            
+
                 // 모든 컨테이너 숨기는 함수
                 function hideContainers() {
-                    document.querySelectorAll('.tab_cnt > div').forEach(container => container.style.display = 'none');
+                    document
+                        .querySelectorAll('.tab_cnt > div')
+                        .forEach((container) => (container.style.display = 'none'));
                 }
-            
+
                 // 추천 컨테이너 표시하는 함수
                 function showRectripCnt() {
-                    document.querySelectorAll('.container_rec, .container_category, .container_best').forEach(container => container.style.display = 'block');
+                    document
+                        .querySelectorAll('.container_rec, .container_category, .container_best')
+                        .forEach((container) => (container.style.display = 'block'));
                 }
             });
-            
+
             /* 추천 여행지 스와이퍼 슬라이드*/
-            var swiper = new Swiper(".my_swiper", {
+            var swiper = new Swiper('.my_swiper', {
                 slidesPerView: 2,
                 spaceBetween: 20,
                 // centeredSlides: true,
                 autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
+                    delay: 2500,
+                    disableOnInteraction: false,
                 },
                 speed: 1500,
                 loop: true,
@@ -472,14 +536,14 @@
                 },
                 */
                 pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
+                    el: '.swiper-pagination',
+                    clickable: true,
                 },
             });
-            // 페이지 로드 시 스와이퍼 초기화
-            document.addEventListener("DOMContentLoaded", function () {
-                initSwiper();
-            });
+            // 페이지 로드 시 스와이퍼 초기화 (임시주석)
+            // document.addEventListener('DOMContentLoaded', function () {
+            //     initSwiper();
+            // });
 
             // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
             document.querySelectorAll('.tab_menu').forEach(function (tab) {
@@ -490,10 +554,10 @@
 
             /* 하단 메뉴 스크립트 */
             function toggleOn() {
-                if (!this.classList.contains('on')) { 
+                if (!this.classList.contains('on')) {
                     // 현재 요소에 'on' 클래스를 추가하고, 다른 형제 요소들은 'on' 클래스를 제거
                     this.classList.add('on');
-                    document.querySelectorAll('.btn_wrap ul li').forEach(function(li) {
+                    document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
                         if (li !== this) {
                             li.classList.remove('on');
                         }
@@ -501,7 +565,7 @@
                 }
             }
 
-            document.querySelectorAll('.btn_wrap ul li').forEach(function(li) {
+            document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
                 li.addEventListener('click', toggleOn);
             });
         </script>
