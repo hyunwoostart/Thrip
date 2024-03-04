@@ -7,8 +7,8 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signup');
 };
-exports.myPage = (req, res) => {
-    res.render('myPage');
+exports.mypage = (req, res) => {
+    res.render('mypage');
 };
 exports.checklist = (req, res) => {
     res.render('checklist');

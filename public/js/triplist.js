@@ -1,5 +1,8 @@
 // 여행 목록
 const list = document.querySelector('.container_upcoming ul');
+const dates = [];
+const depObject = [];
+const arrObject = [];
 (async function () {
     try {
         const res = await axios({
@@ -10,7 +13,6 @@ const list = document.querySelector('.container_upcoming ul');
             },
         });
         const { mySchedule } = res.data.result;
-        console.log(mySchedule);
         if (mySchedule) {
             for (i = 0; i < mySchedule.length; i++) {
                 const res2 = await axios({
@@ -21,18 +23,34 @@ const list = document.querySelector('.container_upcoming ul');
                     },
                 });
                 const { groupName, depDate, arrDate, id } = res2.data.result;
+                dates.push({ groupName, depDate, arrDate, id });
                 const html = `
                         <li>
                             <div class="trip_schedule">
                                 <div onclick="goDetail(${id})">
                                     <strong>${groupName}</strong>
-                                    <span>March 21 , 2021 - 8 AM</span>
+                                    <span>${depDate} - ${arrDate}</span>
                                 </div>
                             </div>
                         </li>
                         `;
                 list.insertAdjacentHTML('beforeend', html);
             }
+            for (i = 0; i < dates.length; i++) {
+                const dep = new Date(dates[i].depDate);
+                const year = dep.getFullYear();
+                const month = dep.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+                const day = dep.getDate();
+                depObject.push({ year, month, day });
+
+                const arr = new Date(dates[i].arrDate);
+                const arrYear = arr.getFullYear();
+                const arrMonth = arr.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+                const arrDay = arr.getDate();
+                arrObject.push({ arrYear, arrMonth, arrDay });
+            }
+            console.log('1', depObject);
+            calendarInit();
         }
     } catch (error) {
         document.location.href = '/login';
@@ -48,19 +66,38 @@ function insert() {
 }
 
 //달력
-$(document).ready(function () {
-    calendarInit();
-});
 /*
-    달력 렌더링 할 때 필요한 정보 목록 
+달력 렌더링 할 때 필요한 정보 목록 
 
-    현재 월(초기값 : 현재 시간)
-    금월 마지막일 날짜와 요일
-    전월 마지막일 날짜와 요일
+현재 월(초기값 : 현재 시간)
+금월 마지막일 날짜와 요일
+전월 마지막일 날짜와 요일
 */
+var y = 2024;
+var m = 2;
+var d = 23;
+var a = 26;
 
 function calendarInit() {
-    // 날짜 정보 가져오기
+    // function selected() {
+    //     for (let d = 0; d < depObject.length; d++) {
+    //         if (
+    //             currentYear === depObject[d].year &&
+    //             currentMonth === depObject[d].month
+    //         ) {
+    //             console.log(true);
+    //             // for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
+    //             //     console.log(depObject[d].day);
+    //             //     console.log(arrObject[d].arrDay);
+    //             //     // var elements = document.getElementsByClassName(i);
+    //             //     // console.log(elements);
+    //             //     // elements.classList.add('selected');
+    //             // }
+    //         }
+    //     }
+    // }
+    // console.log(arrObject[0].arrDay);
+    // // 날짜 정보 가져오기
     var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
     var utc = date.getTime() + date.getTimezoneOffset() * 60 * 1000; // uct 표준시 도출
     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
@@ -72,9 +109,6 @@ function calendarInit() {
     var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
     var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
     var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-
-    // kst 기준 현재시간
-    // console.log(thisMonth);
 
     // 캘린더 렌더링
     renderCalender(thisMonth);
@@ -107,17 +141,32 @@ function calendarInit() {
         // 지난달
         for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
             calendar.innerHTML =
-                calendar.innerHTML + '<div class="day prev disable">' + i + '<div class="select"></div></div>';
+                calendar.innerHTML +
+                '<div class="day prev disable ' +
+                i +
+                '">' +
+                i +
+                '<div class="select"></div></div>';
         }
         // 이번달
         for (var i = 1; i <= nextDate; i++) {
             calendar.innerHTML =
-                calendar.innerHTML + '<div class="day current">' + i + '<div class="select"></div></div>';
+                calendar.innerHTML +
+                '<div class="day current ' +
+                i +
+                '">' +
+                i +
+                '<div class="select"></div></div>';
         }
         // 다음달
         for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
             calendar.innerHTML =
-                calendar.innerHTML + '<div class="day next disable">' + i + '<div class="select"></div></div>';
+                calendar.innerHTML +
+                '<div class="day next disable ' +
+                i +
+                '">' +
+                i +
+                '<div class="select"></div></div>';
         }
 
         // 오늘 날짜 표기
@@ -139,4 +188,5 @@ function calendarInit() {
         thisMonth = new Date(currentYear, currentMonth + 1, 1);
         renderCalender(thisMonth);
     });
+    // selected();
 }

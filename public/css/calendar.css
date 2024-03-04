@@ -1,13 +1,13 @@
-.mo_header {position: fixed; top: 0; padding: 15px 20px; width: 100%; height: 52px; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 1000;}
-.mo_header .gnb .main_menu {display: flex; justify-content: space-between; align-items: center;}
-.mo_header .gnb .main_menu li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
-.mo_header .gnb .main_menu li a.ico_back {height: 12px; background-image: url('../img/common/ico_arrow.png');}
-.mo_header .gnb .main_menu li a.ico_ham {background-image: url('../img/common/ico_ham.png');}
+.mo_header {position: fixed; top: 0; padding: 25px 20px; width: 100%; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 1000;}
+.mo_header .gnb,
+.mo_header .gnb .sub_menu {display: flex; justify-content: space-between; align-items: center;}
+.mo_header .gnb .sub_menu li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
+.mo_header .gnb .sub_menu li .ico_back {height: 12px; background-image: url('../img/common/ico_arrow.png');}
+.mo_header .gnb .sub_menu li .ico_ham {background-image: url('../img/common/ico_ham.png');}
 
 /* 메인 컨텐츠 */
 .container_calendar .calendar_box {display: flex; justify-content: space-around; align-items: center;}
 .container_calendar select {padding: 20px; border: none; cursor: pointer; font-size: 2rem;}
-
 
 /* 달력 */
 #month h2 {font-size: 20px; margin: 0px;}
