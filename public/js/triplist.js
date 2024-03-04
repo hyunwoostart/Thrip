@@ -24,7 +24,6 @@ const arrObject = [];
                 });
                 const { groupName, depDate, arrDate, id } = res2.data.result;
                 dates.push({ groupName, depDate, arrDate, id });
-
                 const html = `
                         <li>
                             <div class="trip_schedule">
@@ -60,6 +59,10 @@ const arrObject = [];
 function goDetail(id) {
     localStorage.setItem('groupId', id);
     document.location.href = '/tripdetail';
+}
+function insert() {
+    localStorage.removeItem('groupId');
+    document.location.href = '/calendar';
 }
 
 //달력
@@ -100,11 +103,7 @@ function calendarInit() {
     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
     var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
-    var thisMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
+    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     // 달력에서 표기하는 날짜 객체
 
     var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연

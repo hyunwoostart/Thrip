@@ -45,6 +45,18 @@
         <script>
             const list = document.querySelector('.trip_supplies');
             (async function () {
+                try {
+                    const res2 = await axios({
+                        method: 'GET',
+                        url: '/api/schedule/findGroup',
+                        params: {
+                            id: localStorage.getItem('groupId'),
+                        },
+                    });
+                    list.querySelector('h3').textContent = res2.data.result.groupName;
+                } catch {
+                    document.location.href = '/login';
+                }
                 const res = await axios({
                     method: 'GET',
                     url: '/api/schedule/findChk',
@@ -57,20 +69,20 @@
                     let html;
                     if (Boolean(isActive)) {
                         html = `
-								<div class="input_chk" onclick="isChecked(${id})">
-									<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-									<label for="check${id}">${listName}</label>
-									<input type="hidden" id="${id}" />
-								</div>
-								`;
+            				<div class="input_chk" onclick="isChecked(${id})">
+            					<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+            					<label for="check${id}">${listName}</label>
+            					<input type="hidden" id="${id}" />
+            				</div>
+            				`;
                     } else {
                         html = `
-								<div class="input_chk" onclick="isChecked(${id})">
-									<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-									<label for="check${id}">${listName}</label>
-									<input type="hidden" id="${id}" />
-								</div>
-								`;
+            				<div class="input_chk" onclick="isChecked(${id})">
+            					<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+            					<label for="check${id}">${listName}</label>
+            					<input type="hidden" id="${id}" />
+            				</div>
+            				`;
                     }
                     list.insertAdjacentHTML('beforeend', html);
                 }
@@ -103,12 +115,12 @@
                 });
                 const { id, listName } = res.data.result;
                 const html = `
-            	<div class="input_chk">
-            		<input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
-            		<label for="check${id}">${listName}</label>
-            		<input type="hidden" id="${id}" />
-            	</div>
-            	`;
+                    	<div class="input_chk" onclick="isChecked(${id})">
+                    		<input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
+                    		<label for="check${id}">${listName}</label>
+                    		<input type="hidden" id="${id}" />
+                    	</div>
+                    	`;
                 list.insertAdjacentHTML('beforeend', html);
                 document.querySelector('#addName').value = '';
             }
