@@ -91,7 +91,6 @@ function displayMarker(place) {
     });
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function () {
-
         // console.log(place.x);
         form.querySelector('.select').innerHTML = place.place_name;
         // `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
@@ -139,7 +138,6 @@ function displayMarker(place) {
         console.log(nowIndex);
     });
 }
-
 
 // 마커 이름 클릭 이벤트
 function selectFunc() {
@@ -255,9 +253,8 @@ function selectFunc() {
         localStorage.setItem('category', 1);
         tabForm = document.querySelectorAll('.schedule-form')[0];
         form = tabForm.querySelectorAll('.detail-schedule')[0];
-        console.log(tabForm);
     } catch (error) {
-        // document.location.href = '/login';
+        document.location.href = '/login';
     }
 })();
 

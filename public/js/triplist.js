@@ -11,31 +11,29 @@ const list = document.querySelector('.container_upcoming ul');
         });
         const { mySchedule } = res.data.result;
         console.log(mySchedule);
-        // if (mySchedule) {
-        //     for (i = 0; i < mySchedule.length; i++) {
-        //         const res2 = await axios({
-        //             method: 'GET',
-        //             url: '/api/schedule/findGroup',
-        //             params: {
-        //                 id: mySchedule[i],
-        //             },
-        //         });
-        //         console.log(res2.data.result);
-        //         const { groupName, depDate, arrDate, id } = res2.data.result;
-        //         const html = `
-        //                 <li>
-        //                     <div class="trip_schedule">
-        //                         <div onclick="goDetail(${id})">
-        //                             <strong>${groupName}</strong>
-        //                             <span>March 21 , 2021 - 8 AM</span>
-        //                         </div>
-        //                     </div>
-        //                 </li>
-        //                 `;
-        //         list.insertAdjacentHTML('beforeend', html);
-        //         console.log(list[0].depDate);
-        //     }
-        // }
+        if (mySchedule) {
+            for (i = 0; i < mySchedule.length; i++) {
+                const res2 = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/findGroup',
+                    params: {
+                        id: mySchedule[i],
+                    },
+                });
+                const { groupName, depDate, arrDate, id } = res2.data.result;
+                const html = `
+                        <li>
+                            <div class="trip_schedule">
+                                <div onclick="goDetail(${id})">
+                                    <strong>${groupName}</strong>
+                                    <span>March 21 , 2021 - 8 AM</span>
+                                </div>
+                            </div>
+                        </li>
+                        `;
+                list.insertAdjacentHTML('beforeend', html);
+            }
+        }
     } catch (error) {
         document.location.href = '/login';
     }
@@ -43,6 +41,10 @@ const list = document.querySelector('.container_upcoming ul');
 function goDetail(id) {
     localStorage.setItem('groupId', id);
     document.location.href = '/tripdetail';
+}
+function insert() {
+    localStorage.removeItem('groupId');
+    document.location.href = '/calendar';
 }
 
 //달력
@@ -64,11 +66,7 @@ function calendarInit() {
     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
     var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
-    var thisMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
+    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     // 달력에서 표기하는 날짜 객체
 
     var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
@@ -109,26 +107,17 @@ function calendarInit() {
         // 지난달
         for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
             calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day prev disable">' +
-                i +
-                '<div class="select"></div></div>';
+                calendar.innerHTML + '<div class="day prev disable">' + i + '<div class="select"></div></div>';
         }
         // 이번달
         for (var i = 1; i <= nextDate; i++) {
             calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day current">' +
-                i +
-                '<div class="select"></div></div>';
+                calendar.innerHTML + '<div class="day current">' + i + '<div class="select"></div></div>';
         }
         // 다음달
         for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
             calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day next disable">' +
-                i +
-                '<div class="select"></div></div>';
+                calendar.innerHTML + '<div class="day next disable">' + i + '<div class="select"></div></div>';
         }
 
         // 오늘 날짜 표기
