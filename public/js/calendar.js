@@ -114,7 +114,8 @@ function printCalendar(year, month) {
             } else {
                 // 오늘 날짜에 대한 스타일 적용
                 if (dNum === nowD) {
-                    calendar += "<td id='today' class='date'>" + dNum + '</td>';
+                    calendar +=
+                        `<td id='today' class='date '>` + dNum + '</td>';
                 } else {
                     calendar += '<td class="date">' + dNum + '</td>';
                 }
@@ -201,14 +202,12 @@ function selectArr() {
     };
 
     //창 맨 위에 일정 띄우기
-    document.querySelector('.depDate').textContent = `${String(dep.m).padStart(
-        2,
-        '0'
-    )}월 ${String(dep.date).padStart(2, '0')}일`;
-    document.querySelector('.arrDate').textContent = `${String(arr.m).padStart(
-        2,
-        '0'
-    )}월 ${String(arr.date).padStart(2, '0')}일`;
+    document.querySelector('.depDate').textContent = `${String(
+        dep.m + 1
+    ).padStart(2, '0')}월 ${String(dep.date).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(
+        arr.m + 1
+    ).padStart(2, '0')}월 ${String(arr.date).padStart(2, '0')}일`;
 
     document.querySelector('#selectArr').classList.add('hide');
     document.querySelector('.container_calendar').classList.add('hide');
