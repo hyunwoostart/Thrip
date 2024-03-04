@@ -28,7 +28,7 @@
 #schedule-form {padding: 20px 0;}
 #schedule-form input {margin-bottom: 20px; font-size: 1.2rem;}
 #schedule-form label {margin-bottom: 12px; font-size: 1.2rem; font-weight: 700; color: #333;}
-#schedule-form textarea {padding: 5% 1.2rem; font-size: 1.2rem; line-height: 1.4rem; resize: none;}
+#schedule-form textarea {padding: 1.2rem; font-size: 1.2rem; line-height: 1.4rem; resize: none;}
 #schedule-form input::placeholder, #schedule-form textarea::placeholder {color: #8d8d8d;}
 
 .input_txt {position: relative;}
