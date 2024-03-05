@@ -15,13 +15,33 @@
         <link rel="stylesheet" href="../public/css/calendar.css" />
     </head>
     <body>
-        <div id="wrap">
+        <div id="wrap" class="maps_wrap">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="#none" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
             <div class="main">
                 <ul class="tab_menu"></ul>
             </div>
         </div>
-        <button type="button" onclick="insert()" class="btn btn_trip"><span>일정 추가하기</span></button>
-        <button type="button" onclick="register()" class="btn">전체 일정 입력 완료</button>
+        <div class="create_btnwrap">
+            <button type="button" onclick="insert()" class="btn btn_trip"><span>일정 추가하기</span></button>
+            <button type="button" onclick="register()" class="btn">전체 일정 입력 완료</button>    
+        </div>
         <script src="../public/js/map.js"></script>
     </body>
 </html>

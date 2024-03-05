@@ -22,8 +22,8 @@
 
 /* 탭메뉴 */
 .tab_menu {display: flex; padding: 20px 0;}
+.tab_menu li {font-size: 1.2rem; font-weight: 700; color: #8d8d8d; word-break: keep-all; cursor: pointer;}
 .tab_menu li + li {margin-left: 25px;}
-.tab_menu li {font-size: 1.2rem; font-weight: 700; color: #8d8d8d; cursor: pointer;}
 .tab_menu li.on {color: #278eff;}
 .tab_menu li.on::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
