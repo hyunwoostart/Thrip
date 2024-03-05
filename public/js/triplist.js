@@ -49,7 +49,6 @@ const arrObject = [];
                 const arrDay = arr.getDate();
                 arrObject.push({ arrYear, arrMonth, arrDay });
             }
-            console.log('1', depObject);
             calendarInit();
         }
     } catch (error) {
@@ -73,37 +72,43 @@ function insert() {
 금월 마지막일 날짜와 요일
 전월 마지막일 날짜와 요일
 */
-var y = 2024;
-var m = 2;
-var d = 23;
-var a = 26;
+function active() {
+    var activeElements = document.getElementsByClassName('active');
+    const dot = `<span class="material-symbols-outlined" style="font-size: 14px;">
+    fiber_manual_record
+    </span>`;
+    for (var i = 0; i < activeElements.length; i++) {
+        activeElements[i].insertAdjacentHTML('beforeend', dot);
+    }
+}
 
 function calendarInit() {
-    // function selected() {
-    //     for (let d = 0; d < depObject.length; d++) {
-    //         if (
-    //             currentYear === depObject[d].year &&
-    //             currentMonth === depObject[d].month
-    //         ) {
-    //             console.log(true);
-    //             // for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
-    //             //     console.log(depObject[d].day);
-    //             //     console.log(arrObject[d].arrDay);
-    //             //     // var elements = document.getElementsByClassName(i);
-    //             //     // console.log(elements);
-    //             //     // elements.classList.add('selected');
-    //             // }
-    //         }
-    //     }
-    // }
-    // console.log(arrObject[0].arrDay);
+    function selected() {
+        for (let d = 0; d < depObject.length; d++) {
+            if (
+                currentYear === depObject[d].year &&
+                currentMonth === depObject[d].month
+            ) {
+                console.log(true);
+                for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
+                    var a = document.getElementsByClassName(i);
+                    a[0].classList.add('active');
+                }
+            }
+        }
+    }
+
     // // 날짜 정보 가져오기
     var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
     var utc = date.getTime() + date.getTimezoneOffset() * 60 * 1000; // uct 표준시 도출
     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
     var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
-    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    var thisMonth = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+    );
     // 달력에서 표기하는 날짜 객체
 
     var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
@@ -146,7 +151,7 @@ function calendarInit() {
                 i +
                 '">' +
                 i +
-                '<div class="select"></div></div>';
+                '</div>';
         }
         // 이번달
         for (var i = 1; i <= nextDate; i++) {
@@ -156,7 +161,7 @@ function calendarInit() {
                 i +
                 '">' +
                 i +
-                '<div class="select"></div></div>';
+                '</div>';
         }
         // 다음달
         for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
@@ -166,7 +171,7 @@ function calendarInit() {
                 i +
                 '">' +
                 i +
-                '<div class="select"></div></div>';
+                '</div>';
         }
 
         // 오늘 날짜 표기
@@ -175,6 +180,8 @@ function calendarInit() {
             var currentMonthDate = document.querySelectorAll('.dates .current');
             currentMonthDate[todayDate - 1].classList.add('today');
         }
+        selected();
+        active();
     }
 
     // 이전달로 이동
@@ -188,5 +195,4 @@ function calendarInit() {
         thisMonth = new Date(currentYear, currentMonth + 1, 1);
         renderCalender(thisMonth);
     });
-    // selected();
 }
