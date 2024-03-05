@@ -101,39 +101,14 @@
                                     </table>
                                 </div>
                                 <div class="trip_schedule">
-                                    <h3>부산여행</h3>
-                                    <span>3월 5일 09:00 ~ 3월 7일 20:00</span>
-                                    <p>09:00 부산역</p>
-                                    <p>11:00 어떤 카페</p>
-                                    <p>13:00 어떤 식당</p>
+                                    <h3>새로운 일정을 생성해주세요</h3>
+                                    <span></span>
                                 </div>
                             </div>
-                            <div class="trip_supplies">
-                                <h3>여행 준비물</h3>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item01" name="item01" checked />
-                                    <label for="item01">캐리어</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item02" name="item02" />
-                                    <label for="item02">스킨케어</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item03" name="item03" />
-                                    <label for="item03">여벌 옷</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item04" name="item04" />
-                                    <label for="item04">지갑</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item05" name="item05" />
-                                    <label for="item05">카메라</label>
-                                </div>
-                            </div>
+                            <div class="trip_supplies"></div>
                         </div>
                         <div class="trip_new">
-                            <button type="button" class="btn">+ 일정 생성하기</button>
+                            <button type="button" class="btn" onclick="newSchedule()">+ 일정 생성하기</button>
                         </div>
                     </div>
                     <!--// 내 여행 -->
@@ -228,36 +203,8 @@
 
                     <!-- 다가오는 여행 일정 -->
                     <div class="container_upcoming">
-                        <h3>다가오는 여행 일정</h3>
-                        <ul>
-                            <li>
-                                <div class="trip_schedule">
-                                    <a href="#none">
-                                        <p>제주 여행</p>
-                                        <strong>Breakfast</strong>
-                                        <span>March 21 , 2021 - 8 AM</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="trip_schedule">
-                                    <a href="#none">
-                                        <p>공주들의 생일파티</p>
-                                        <strong>Visiting Louvre Museum</strong>
-                                        <span>March 21 , 2021 - 10 AM</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="trip_schedule">
-                                    <a href="#none">
-                                        <p>춘천 여행</p>
-                                        <strong>Lunch</strong>
-                                        <span>March 21 , 2021 - 1 PM</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        <h3></h3>
+                        <ul></ul>
                     </div>
                     <!--// 다가오는 여행 일정 -->
 
@@ -370,18 +317,10 @@
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>
         <script>
-            const info = document.querySelector('.my_info');
-            const myName = document.querySelector('.menu_side .info_txt');
-            const editBtn = document.querySelector('.btn_retouch');
+            let scheduleIndex = [];
             // 로그인 여부 확인
             (async function () {
-                console.log(Boolean(localStorage.getItem('token')));
-                if (!localStorage.getItem('token')) {
-                    editBtn.hidden = true;
-                    info.addEventListener('click', () => {
-                        document.location.href = '/login';
-                    });
-                } else {
+                if (localStorage.getItem('token')) {
                     try {
                         const res = await axios({
                             method: 'GET',
@@ -390,9 +329,7 @@
                                 Authorization: `Bearer ${localStorage.getItem('token')}`,
                             },
                         });
-                        editBtn.hidden = false;
-                        const { mySchedule, username } = res.data.result;
-                        myName.textContent = username;
+                        const { mySchedule } = res.data.result;
                         if (mySchedule) {
                             for (i = 0; i < mySchedule.length; i++) {
                                 const res2 = await axios({
@@ -402,37 +339,140 @@
                                         id: mySchedule[i],
                                     },
                                 });
-                                const nowDate = new Date();
-                                const { groupName, depDate, arrDate, id } = res2.data.result;
+                                const now = new Date();
+                                const YEAR = now.getFullYear();
+                                const MONTH = now.getMonth();
+                                const DATE = now.getDate();
+                                const depM = Number(res2.data.result.depDate.substring(5, 7));
+                                const depD = Number(res2.data.result.depDate.substring(8, 10));
+                                const arrY = Number(res2.data.result.arrDate.substring(0, 4));
+                                const arrM = Number(res2.data.result.arrDate.substring(5, 7));
+                                const arrD = Number(res2.data.result.arrDate.substring(8, 10));
+                                console.log(arrY, arrM, arrD);
+                                if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
+                                    scheduleIndex.push(res2.data.result.id);
+                                    console.log(scheduleIndex);
+                                }
+                                console.log(scheduleIndex);
+                            }
+                            if (scheduleIndex.length >= 2) {
+                                document.querySelector('.container_upcoming h3').textContent = `다가오는 여행 일정`;
+                            }
+                            for (let j = 0; j < scheduleIndex.length; j++) {
                                 const res3 = await axios({
+                                    method: 'GET',
+                                    url: '/api/schedule/findGroup',
+                                    params: {
+                                        id: scheduleIndex[j],
+                                    },
+                                });
+                                const res4 = await axios({
                                     mehod: 'GET',
                                     url: '/api/schedule/detail',
                                     params: {
-                                        groupId: mySchedule[i],
+                                        groupId: scheduleIndex[j],
                                     },
                                 });
-                                console.log(res3.data.result);
-                                for (let j = 0; j < res3.data.result.length; j++) {
-                                    const { category, detailOrder, arrTime, place } = res3.data.result[j];
-                                    if (category === 1) {
-                                        detailHtml = `${arrTime.substring(0, 5)} ${place.place_name}`;
-                                        console.log(detailHtml);
+                                const { groupName, depDate, arrDate } = res3.data.result;
+                                console.log(groupName);
+                                if (j === 0) {
+                                    document.querySelector('.trip_schedule h3').textContent = groupName;
+                                    document.querySelector('.trip_schedule span').textContent = `${depDate.substring(
+                                        5,
+                                        7
+                                    )}월 ${depDate.substring(8, 10)}일 ~ ${arrDate.substring(
+                                        5,
+                                        7
+                                    )}월 ${arrDate.substring(8, 10)}일`;
+                                    for (let k = 0; k < res4.data.result.length; k++) {
+                                        console.log(k);
+                                        const { category, detailOrder, arrTime, place } = res4.data.result[k];
+                                        if (category === 1) {
+                                            const p = document.createElement('p');
+                                            p.textContent = `${arrTime.substring(0, 5)} ${place.place_name}`;
+                                            document.querySelector('.trip_schedule').appendChild(p);
+                                            console.log(p);
+                                        }
                                     }
+                                    const res5 = await axios({
+                                        method: 'GET',
+                                        url: '/api/schedule/findChk',
+                                        params: {
+                                            groupId: scheduleIndex[j],
+                                        },
+                                    });
+                                    console.log(res5.data.result);
+                                    if (res5.data.result.length != 0) {
+                                        const h3 = document.createElement('h3');
+                                        h3.textContent = `${groupName} 체크리스트`;
+                                        document.querySelector('.trip_supplies').appendChild(h3);
+                                        for (let k = 0; k < res5.data.result.length; k++) {
+                                            const { id, listName, isActive } = res5.data.result[k];
+                                            console.log(listName);
+                                            let chkHtml;
+                                            if (Boolean(isActive)) {
+                                                chkHtml = `
+													<div class="input_chk" onclick="isChecked(${id})">
+														<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+														<label for="check${id}">${listName}</label>
+														<input type="hidden" id="${id}" />
+													</div>
+													`;
+                                            } else {
+                                                chkHtml = `
+													<div class="input_chk" onclick="isChecked(${id})">
+														<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+														<label for="check${id}">${listName}</label>
+														<input type="hidden" id="${id}" />
+													</div>
+													`;
+                                            }
+                                            document
+                                                .querySelector('.trip_supplies')
+                                                .insertAdjacentHTML('beforeend', chkHtml);
+                                        }
+                                    }
+                                } else {
+                                    const upcoming = document.querySelector('.container_upcoming ul');
+                                    ucHtml = `
+									<li>
+										<div class="trip_schedule">
+											<strong>${groupName}</strong>
+											<span>${depDate.substring(5, 7)}월 ${depDate.substring(8, 10)}일 ~ ${arrDate.substring(5, 7)}월 ${arrDate.substring(
+                                        8,
+                                        10
+                                    )}일</span>
+										</div>
+									</li>
+									`;
+                                    upcoming.insertAdjacentHTML('beforeend', ucHtml);
                                 }
                             }
                         }
                     } catch (error) {
-                        editBtn.hidden = true;
+                        localStorage.clear();
                         info.addEventListener('click', () => {
                             document.location.href = '/login';
                         });
                     }
                 }
             })();
-            // 개인정보 수정 랜딩
-            editBtn.addEventListener('click', (e) => {
-                document.location.href = '/mypage';
-            });
+            // 체크리스트 클릭
+            async function isChecked(id) {
+                const res = await axios({
+                    method: 'PATCH',
+                    url: '/api/schedule/updateChk',
+                    data: {
+                        id,
+                        isActive: Number(document.querySelector(`#check${id}`).checked),
+                    },
+                });
+            }
+            // 일정 생성
+            function newSchedule() {
+                localStorage.removeItem('groupId');
+                document.location.href = '/calendar';
+            }
             /* 탭메뉴 스크립트 */
             document.addEventListener('DOMContentLoaded', function () {
                 // 모든 컨테이너 숨기기
@@ -492,24 +532,24 @@
                 speed: 1500,
                 loop: true,
                 /*
-                        breakpoints: {
-                        748: {
-                            slidesPerView: 3,
-                            spaceBetween: 250,
-                        },
-                        1060: {
-                            slidesPerView: 3,
-                            spaceBetween: 350,
-                        },
-                        1500: {
-                            slidesPerView: 4,
-                            spaceBetween: 350,
-                        },
-                        1700: {
-                            slidesPerView: 4,
-                            spaceBetween: 350,
-                        },
-                        */
+                              breakpoints: {
+                              748: {
+                                  slidesPerView: 3,
+                                  spaceBetween: 250,
+                              },
+                              1060: {
+                                  slidesPerView: 3,
+                                  spaceBetween: 350,
+                              },
+                              1500: {
+                                  slidesPerView: 4,
+                                  spaceBetween: 350,
+                              },
+                              1700: {
+                                  slidesPerView: 4,
+                                  spaceBetween: 350,
+                              },
+                              */
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
@@ -523,7 +563,7 @@
             // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
             document.querySelectorAll('.tab_menu').forEach(function (tab) {
                 tab.addEventListener('click', function () {
-                    initSwiper();
+                    // initSwiper();
                 });
             });
 
