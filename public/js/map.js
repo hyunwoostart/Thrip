@@ -16,7 +16,7 @@ function makeMap(id) {
     }
     const div = document.createElement('div');
     div.className = 'map';
-    form.querySelector('.mapBox').insertAdjacentElement('beforeend', div);
+    form.querySelector('.map_box').insertAdjacentElement('beforeend', div);
     mapContainer = document.querySelector('.map'); // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -201,13 +201,16 @@ function selectFunc() {
             let html2 = `
 				<div class="detail-schedule">
 					<div class="result"></div>
-					<input type="number" class="index" value="1" readonly />
+					<input type="number" class="index" value="1" readonly disabled />
 					<input type="hidden" class="category" value="${i + 1}" />
 					<input type="time" class="arrTime" />
+                    <div class="input_wrap">
 					<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" />
-					<input type="button" onclick="keyword(1)" value="검색" />
-					<div class="select" onclick="selectFunc()"></div>
-					<div class="mapBox"></div>
+					<button class="btn_holder btn_marker"></button>
+                    </div>
+                    <input type="button" onclick="keyword(1)" value="검색" />
+					<div class="select active" onclick="selectFunc()"></div>
+					<div class="map_box"></div>
 					<input type="hidden" class="obj_x" />
 					<input type="hidden" class="obj_y" />
 					<input type="hidden" class="obj_place_name" />
@@ -225,20 +228,20 @@ function selectFunc() {
                         html2 = `
 						<div class="detail-schedule">
 							<div class="result">소요시간 자차 ${distance * 4}분</div>
-							<input type="number" class="index" value="${detailOrder}" readonly />
+							<input type="number" class="index" value="${detailOrder}" readonly disabled/>
 							<input type="hidden" class="category" value="${i + 1}" />
 							<input type="time" class="arrTime" value="${arrTime}" />
 							<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${num + 1})" value="${place.place_name}" />
 							<input type="button" onclick="keyword(${num + 1})" value="검색" />
-							<div class="select" onclick="selectFunc()"></div>
-							<div class="mapBox"></div>
+							<div class="select active" onclick="selectFunc()"></div>
+							<div class="map_box"></div>
 							<input type="hidden" class="obj_x" value="${place.x}" />
 							<input type="hidden" class="obj_y" value="${place.y}" />
 							<input type="hidden" class="obj_place_name" value="${place.place_name}" />
 							<input type="hidden" class="distance" value="${distance}" />
 							<input type="text" class="detailMemo" placeholder="메모" value="${detailMemo}" />
 						</div>
-            			`;
+                        `;
                         document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
                         num++;
                     }
@@ -261,6 +264,7 @@ function selectFunc() {
         tabForm = document.querySelectorAll('.schedule-form')[0];
         form = tabForm.querySelectorAll('.detail-schedule')[0];
     } catch (error) {
+        console.log(error)
         document.location.href = '/login';
     }
 })();
@@ -290,13 +294,13 @@ function insert() {
     var addCode = `
 		<div class="detail-schedule">
 			<div class="result"></div>
-			<input type="number" class="index" value="${tabIndex}" readonly />
+			<input type="number" class="index" value="${tabIndex}" readonly disabled />
 			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
 			<input type="time" class="arrTime" />
 			<input class="place_name" onfocus="makeMap(${tabIndex})"/>
 			<input type="button" onclick="keyword(${tabIndex})" value="검색" />
-			<div class="select" onclick="selectFunc()"></div>
-			<div class="mapBox"></div>
+			<div class="select active" onclick="selectFunc()"></div>
+			<div class="map_box"></div>
 			<input type="hidden" class="obj_x" />
 			<input type="hidden" class="obj_y" />
 			<input type="hidden" class="obj_place_name" />
