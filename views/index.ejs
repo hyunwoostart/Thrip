@@ -74,30 +74,32 @@
                     <div class="container_trip">
                         <div class="trip_box">
                             <div class="trip_cnt">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>일</th>
-                                            <th>월</th>
-                                            <th>화</th>
-                                            <th>수</th>
-                                            <th>목</th>
-                                            <th>금</th>
-                                            <th>토</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#none">1</a></td>
-                                            <td><a href="#none">2</a></td>
-                                            <td><a href="#none">3</a></td>
-                                            <td class="on"><a href="#none">4</a></td>
-                                            <td><a href="#none">5</a></td>
-                                            <td><a href="#none">6</a></td>
-                                            <td><a href="#none">7</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="trip_calendar">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>일</th>
+                                                <th>월</th>
+                                                <th>화</th>
+                                                <th>수</th>
+                                                <th>목</th>
+                                                <th>금</th>
+                                                <th>토</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="#none">1</a></td>
+                                                <td><a href="#none">2</a></td>
+                                                <td><a href="#none">3</a></td>
+                                                <td class="on"><a href="#none">4</a></td>
+                                                <td><a href="#none">5</a></td>
+                                                <td><a href="#none">6</a></td>
+                                                <td><a href="#none">7</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="trip_schedule">
                                     <h3>부산여행</h3>
                                     <span>3월 5일 09:00 ~ 3월 7일 20:00</span>
@@ -130,8 +132,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="trip_new" style="display: none">
-                            <button type="button">새로운 일정 생성</button>
+                        <div class="trip_new">
+                            <button type="button" class="btn">+ 일정 생성하기</button>
                         </div>
                     </div>
                     <!--// 내 여행 -->
@@ -369,7 +371,7 @@
         <script src="../public/js/sidemenu.js"></script>
         <script>
             const info = document.querySelector('.my_info');
-            const myName = document.querySelector('.nick_name');
+            const myName = document.querySelector('.menu_side .info_txt');
             const editBtn = document.querySelector('.btn_retouch');
             // 로그인 여부 확인
             (async function () {
@@ -389,7 +391,36 @@
                             },
                         });
                         editBtn.hidden = false;
-                        myName.textContent = res.data.result.username;
+                        const { mySchedule, username } = res.data.result;
+                        myName.textContent = username;
+                        if (mySchedule) {
+                            for (i = 0; i < mySchedule.length; i++) {
+                                const res2 = await axios({
+                                    method: 'GET',
+                                    url: '/api/schedule/findGroup',
+                                    params: {
+                                        id: mySchedule[i],
+                                    },
+                                });
+                                const nowDate = new Date();
+                                const { groupName, depDate, arrDate, id } = res2.data.result;
+                                const res3 = await axios({
+                                    mehod: 'GET',
+                                    url: '/api/schedule/detail',
+                                    params: {
+                                        groupId: mySchedule[i],
+                                    },
+                                });
+                                console.log(res3.data.result);
+                                for (let j = 0; j < res3.data.result.length; j++) {
+                                    const { category, detailOrder, arrTime, place } = res3.data.result[j];
+                                    if (category === 1) {
+                                        detailHtml = `${arrTime.substring(0, 5)} ${place.place_name}`;
+                                        console.log(detailHtml);
+                                    }
+                                }
+                            }
+                        }
                     } catch (error) {
                         editBtn.hidden = true;
                         info.addEventListener('click', () => {
@@ -461,24 +492,24 @@
                 speed: 1500,
                 loop: true,
                 /*
-                breakpoints: {
-                748: {
-                    slidesPerView: 3,
-                    spaceBetween: 250,
-                },
-                1060: {
-                    slidesPerView: 3,
-                    spaceBetween: 350,
-                },
-                1500: {
-                    slidesPerView: 4,
-                    spaceBetween: 350,
-                },
-                1700: {
-                    slidesPerView: 4,
-                    spaceBetween: 350,
-                },
-                */
+                        breakpoints: {
+                        748: {
+                            slidesPerView: 3,
+                            spaceBetween: 250,
+                        },
+                        1060: {
+                            slidesPerView: 3,
+                            spaceBetween: 350,
+                        },
+                        1500: {
+                            slidesPerView: 4,
+                            spaceBetween: 350,
+                        },
+                        1700: {
+                            slidesPerView: 4,
+                            spaceBetween: 350,
+                        },
+                        */
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
