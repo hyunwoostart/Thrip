@@ -82,19 +82,3 @@
 .container_best ul li .best_cnt .best_txt .rate_view span {display: flex; align-items: center;}
 .container_best ul li .best_cnt .best_txt .rate_view span i {display: inline-block; margin-left: 6px; width: 18px; height: 18px; background: url('../img/main/ico_star.svg') center/cover no-repeat;}
 
-/* 마이 페이지 */
-.menu_side {position: relative;}
-.btn_close {position: absolute; right: 0; margin: 0; width: 24px; height: 24px; background: url('../img/common/btn_close.png') center/cover no-repeat;}
-.menu_side .container_myinfo,
-.menu_side .container_myinfo .login_wrap {display: flex; align-items: center;}
-.menu_side .container_myinfo .login_wrap .info_txt {font-size: 1.2rem; font-weight: 700;}
-.menu_side .container_myinfo .my_info {margin-left: 20px;}
-.menu_side .container_myinfo .my_photo {position: relative; width: 100px;}
-.menu_side .container_myinfo .my_photo::before {content: ''; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px; border-radius: 50%; background-color: #fff;}
-.menu_side .container_myinfo .my_photo::after {content: ''; position: absolute; bottom: 10%; right: 10%; width: 12px; height: 12px; border-radius: 50%; background-color: #3dd34c;}
-.menu_side .container_myinfo .my_photo.log_out::after {background-color: #ff0000;}
-.menu_side .container_myinfo .login_wrap li + li::before {content: '/ '; margin-left: 4px;}
-.menu_side .container_myinfo .btn_retouch {margin-top: 10px; line-height: 2rem;}
-.menu_side .container_mylist ul li div {position: relative; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #D5DDE0; cursor: pointer;}
-.menu_side .container_mylist ul li div a {font-size: 1.2rem;}
-.menu_side .container_mylist i.ico_accord {position: absolute; top: -5px; right: 0; transform: rotate(270deg); width: 30px; height: 30px; background: url('../img/common/ico_accord.png') center/cover no-repeat;}

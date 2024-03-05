@@ -54,69 +54,10 @@
                 </nav>
             </header>
             <!--// 헤더 -->
-            
-            <!-- 사이드 메뉴 : 마이 페이지 -->
-            <div class="menu_side" style="display: none;">
-                <a href="" class="btn btn_close">
-                    <span class="blind">닫기 버튼</span>
-                </a>
-                <!-- 마이페이지 : 사용자 정보  -->
-                <div class="container_myinfo">
-                    <div class="my_photo">
-                        <img src="../public/img//common/img_myphoto.png" alt="">
-                    </div>
-                    <div class="my_info">
-                        <ul class="login_wrap">
-                            <li><a href="#none" class="info_txt">로그인</a></li>
-                            <li><a href="#none" class="info_txt">회원가입</a></li>
-                            <li><a href="#none" class="info_txt">로그아웃</a></li>
-                        </ul>
-                        <span class="nick_name blind info_txt">닉네임</span>
-                        <button class="btn btn_retouch">개인정보 수정</button>
-                    </div>
-                </div>
-                <!--// 마이페이지 : 사용자 정보  -->
 
-                <!-- 마이 페이지 : 메뉴 리스트 -->
-                <div class="container_mylist">
-                    <ul>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    내 여행 일정
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    내 여행 일정
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    내 여행 일정
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    Time Travel 소개
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!--// 마이 페이지 : 메뉴 리스트 -->
-            </div>
-            <!--// 사이드 메뉴 : 마이 페이지 -->
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
 
             <!-- 메인 -->
             <div class="main">
@@ -413,30 +354,7 @@
             <!--// 메인 -->
 
             <!-- 하단 메뉴 : 고정 -->
-            <div class="btn_wrap">
-                <ul>
-                    <li class="on">
-                        <a href="#none" class="ico_home">
-                            <span class="blind">홈</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#none" class="ico_maps">
-                            <span class="blind">지도</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#none" class="ico_chat">
-                            <span class="blind">채팅</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#none" class="ico_my">
-                            <span class="blind">나의 정보</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <%- include('btnwrap.ejs') %>
             <!--// 하단 메뉴 : 고정 -->
 
             <!-- 푸터 -->
@@ -447,6 +365,8 @@
         </div>
         <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script>
             const info = document.querySelector('.my_info');
             const myName = document.querySelector('.nick_name');

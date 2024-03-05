@@ -1,4 +1,4 @@
-.mo_header {position: fixed; top: 0; padding: 25px 20px; width: 100%; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 1000;}
+.mo_header {/*position: fixed;*/ top: 0; padding: 25px 20px; width: 100%; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 10;}
 .mo_header .gnb,
 .mo_header .gnb .sub_menu {display: flex; justify-content: space-between; align-items: center;}
 .mo_header .gnb .sub_menu li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
