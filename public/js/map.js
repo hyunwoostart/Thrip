@@ -58,6 +58,7 @@ var ps = new kakao.maps.services.Places();
 
 //검색하는 함수입니다.
 async function keyword(id) {
+    console.log('first');
     form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
     form.querySelector('.map').classList.remove('hide');
     map.relayout();
