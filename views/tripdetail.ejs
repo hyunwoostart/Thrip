@@ -45,8 +45,12 @@
             <div class="main">
                 <div class="main_txt trip_txtwrap">
                     <h3>부산여행</h3>
-                    <button class="btn btn_chklist" onclick="goChecklist()">체크리스트</button>
-                    <button class="btn btn_trip" onclick="goEdit()">일정 수정</button>
+                    <button class="btn btn_chklist" onclick="goChecklist()">
+                        체크리스트
+                    </button>
+                    <button class="btn btn_trip" onclick="goEdit()">
+                        일정 수정
+                    </button>
                 </div>
 
                 <!-- 여행 일정 상세 목록 -->
@@ -55,111 +59,6 @@
             </div>
             <!--// 컨텐츠 -->
         </div>
-        <script>
-            const groupNameBox = document.querySelector('.main_txt h3');
-            const list = document.querySelector('.container_tripdetail');
-            (async function () {
-                const res = await axios({
-                    method: 'GET',
-                    url: '/api/schedule/detail',
-                    params: {
-                        groupId: localStorage.getItem('groupId'),
-                    },
-                });
-                const res2 = await axios({
-                    method: 'GET',
-                    url: '/api/schedule/findGroup',
-                    params: {
-                        id: localStorage.getItem('groupId'),
-                    },
-                });
-                const { dueDate, groupName } = res2.data.result;
-                groupNameBox.textContent = groupName;
-                console.log(dueDate, groupName);
-                for (let j = 0; j < dueDate; j++) {
-                    let k = 0;
-                    const listBox = `
-            		<ul class="detail_wrap">
-            			<li class="category" onclick="openCategory(${j})">${j + 1}일차</li>
-            		</ul>`;
-                    list.insertAdjacentHTML('beforeend', listBox);
-                    for (let i = 0; i < res.data.result.length; i++) {
-                        const nowBox = document.querySelectorAll('.detail_wrap')[j];
-                        console.log(res.data.result[i]);
-                        const { category, arrTime, detailMemo, groupId, distance, place } = res.data.result[i];
-                        const showTime = arrTime.substring(0, 5);
-                        console.log(showTime);
-                        if (j === category - 1) {
-                            html = `
-							<li class="list_box" onclick="openBox(${j}, ${k})">
-								<div class="list_detail">
-									<strong>${place.place_name}</strong>
-									<span>${showTime}</span>
-									<i class="ico_accord"></i>
-									<div class="map_cnt">
-										<div class="maps"></div>
-										<p>다음 장소까지 이동 시간 <span>${distance * 4}</span>분</p>
-									</div>
-								</div>
-							</li>
-							`;
-                            nowBox.insertAdjacentHTML('beforeend', html);
-                            k++;
-                        }
-                    }
-                }
-            })();
-            function goChecklist() {
-                document.location.href = '/checklist';
-            }
-            function goEdit() {
-                document.location.href = '/calendar';
-            }
-            function openCategory(list) {
-                const nowList = document.querySelectorAll('.detail_wrap')[list];
-                if (nowList.classList.contains('open')) {
-                    nowList.classList.remove('open');
-                } else {
-                    nowList.classList.add('open');
-                }
-            }
-            function openBox(list, box) {
-                const nowList = document.querySelectorAll('.detail_wrap')[list];
-                const nowBox = nowList.querySelectorAll('.list_box')[box];
-                const count = document.querySelectorAll('.list_box').length;
-                for (let i = 0; i < count; i++) {
-                    document.querySelectorAll('.list_box')[i].classList.remove('on');
-                }
-                if (nowBox.classList.contains('on')) {
-                    nowBox.classList.remove('on');
-                } else {
-                    nowBox.classList.add('on');
-                }
-            }
-            // 아코디언 메뉴
-            // document.querySelectorAll('.container_tripdetail ul li').forEach(function (item, index) {
-            //     item.addEventListener('click', function () {
-            //         // 클릭한 요소에 'on' 클래스를 추가 또는 제거하여 토글 기능 구현
-            //         this.classList.toggle('on');
-
-            //         // 다른 요소들의 'on' 클래스 제거
-            //         const siblings = this.parentElement.children;
-            //         for (let i = 0; i < siblings.length; i++) {
-            //             if (siblings[i] !== this && siblings[i].classList.contains('on')) {
-            //                 siblings[i].classList.remove('on');
-            //             }
-            //         }
-            //         // 클릭한 요소의 맵 표시
-            //         const maps = document.querySelectorAll('.map_cnt');
-            //         for (let i = 0; i < maps.length; i++) {
-            //             maps[i].style.display = 'none';
-            //         }
-            //         // 클릭한 요소의 인덱스에 해당하는 맵만 표시
-            //         if (this.classList.contains('on')) {
-            //             maps[index].style.display = 'block';
-            //         }
-            //     });
-            // });
-        </script>
+        <script src="../public/js/tripdetail.js"></script>
     </body>
 </html>

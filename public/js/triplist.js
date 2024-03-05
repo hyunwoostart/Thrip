@@ -25,13 +25,19 @@ const arrObject = [];
                 const { groupName, depDate, arrDate, id } = res2.data.result;
                 dates.push({ groupName, depDate, arrDate, id });
                 var d = new Date(depDate);
-                console.log(d.getMonth());
+                var a = new Date(arrDate);
+                var dYear = d.getFullYear();
+                var dMonth = d.getMonth() + 2;
+                var dDate = d.getDate();
+                var aYear = a.getFullYear();
+                var aMonth = a.getMonth() + 2;
+                var aDate = a.getDate();
                 const html = `
                         <li>
                             <div class="trip_schedule">
                                 <div onclick="goDetail(${id})">
                                     <strong>${groupName}</strong>
-                                    <span>${depDate} - ${arrDate}</span>
+                                    <span>${dYear}.${dMonth}.${dDate} - ${aYear}.${aMonth}.${aDate}</span>
                                 </div>
                             </div>
                         </li>
