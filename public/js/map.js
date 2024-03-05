@@ -126,13 +126,15 @@ function displayMarker(place) {
                 form.querySelector('.obj_x').value,
                 form.querySelector('.obj_y').value
             );
-            // console.log(distance);
-            // var hour = (distance * 4) / 60;
-            // var min = (distance * 4) % 60;
-            // form.querySelector(
-            //     '.result'
-            // ).innerHTML = `소요시간 자차 ${hour}시간 ${min}분`;
-            // form.querySelector('.distance').value = distance;
+            console.log(distance);
+            var hour = (distance * 4) / 60;
+            var min = (distance * 4) % 60;
+            form.querySelector(
+                '.result'
+            ).innerHTML = `소요시간 자차 ${hour.toFixed(0)}시간 ${min.toFixed(
+                0
+            )}분`;
+            form.querySelector('.distance').value = distance;
         }
         if (
             nowIndex >= 2 &&

@@ -24,6 +24,8 @@ const arrObject = [];
                 });
                 const { groupName, depDate, arrDate, id } = res2.data.result;
                 dates.push({ groupName, depDate, arrDate, id });
+                var d = new Date(depDate);
+                console.log(d.getMonth());
                 const html = `
                         <li>
                             <div class="trip_schedule">
