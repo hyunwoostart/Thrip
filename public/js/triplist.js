@@ -1,5 +1,6 @@
 // 여행 목록
-const list = document.querySelector('.container_upcoming ul');
+const list = document.querySelector('#upcoming ul');
+const prevList = document.querySelector('#prev ul');
 const dates = [];
 const depObject = [];
 const arrObject = [];
@@ -14,53 +15,50 @@ const arrObject = [];
         });
         const { mySchedule } = res.data.result;
         if (mySchedule) {
-            for (i = 0; i < mySchedule.length; i++) {
-                const res2 = await axios({
-                    method: 'GET',
-                    url: '/api/schedule/findGroup',
-                    params: {
-                        id: mySchedule[i],
-                    },
-                });
-                const { groupName, depDate, arrDate, id } = res2.data.result;
+            const res2 = await axios({
+                method: 'GET',
+                url: '/api/schedule/scheduleList',
+                params: { id: mySchedule },
+            });
+            console.log(res2.data.result);
+            let count = 0;
+            for (let i = 0; i < res2.data.result.length; i++) {
+                const { groupName, depDate, arrDate, id } = res2.data.result[i];
+                const now = new Date();
+                const YEAR = now.getFullYear();
+                const MONTH = now.getMonth() + 1;
+                const DATE = now.getDate();
+                const depY = Number(depDate.substring(0, 4));
+                const depM = Number(depDate.substring(5, 7));
+                const depD = Number(depDate.substring(8, 10));
+                const arrY = Number(arrDate.substring(0, 4));
+                const arrM = Number(arrDate.substring(5, 7));
+                const arrD = Number(arrDate.substring(8, 10));
                 dates.push({ groupName, depDate, arrDate, id });
-                var d = new Date(depDate);
-                var a = new Date(arrDate);
-                var dYear = d.getFullYear();
-                var dMonth = d.getMonth() + 1;
-                var dDate = d.getDate();
-                var aYear = a.getFullYear();
-                var aMonth = a.getMonth() + 1;
-                var aDate = a.getDate();
                 const html = `
-                        <li>
-                            <div class="trip_schedule">
-                                <div onclick="goDetail(${id})">
-                                    <strong>${groupName}</strong>
-                                    <span>${dYear}.${dMonth}.${dDate} - ${aYear}.${aMonth}.${aDate}</span>
-                                </div>
-                            </div>
-                        </li>
-                        `;
-                list.insertAdjacentHTML('beforeend', html);
+				<li>
+					<div class="trip_schedule">
+						<div onclick="goDetail(${id})">
+							<strong>${groupName}</strong>
+							<span>${depY}.${depM}.${depD} - ${arrY}.${arrM}.${arrD}</span>
+						</div>
+					</div>
+				</li>
+				`;
+                if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
+                    list.insertAdjacentHTML('beforeend', html);
+                } else {
+                    prevList.insertAdjacentHTML('beforeend', html);
+                    count++;
+                }
             }
-            for (i = 0; i < dates.length; i++) {
-                const dep = new Date(dates[i].depDate);
-                const year = dep.getFullYear();
-                const month = dep.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
-                const day = dep.getDate();
-                depObject.push({ year, month, day });
-
-                const arr = new Date(dates[i].arrDate);
-                const arrYear = arr.getFullYear();
-                const arrMonth = arr.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
-                const arrDay = arr.getDate();
-                arrObject.push({ arrYear, arrMonth, arrDay });
+            if (count != 0) {
+                document.querySelector('#prev h3').textContent = '지난 여행 일정';
             }
             calendarInit();
         }
     } catch (error) {
-        document.location.href = '/login';
+        // document.location.href = '/login';
     }
 })();
 function goDetail(id) {

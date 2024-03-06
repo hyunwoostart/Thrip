@@ -47,7 +47,6 @@ exports.find = async (req, res) => {
 // 회원조회
 exports.queryFind = async (req, res) => {
     const { id } = req.query;
-    console.log(id);
     const result = await Member.findOne({ where: { id } });
     res.json({ success: true, result });
 };
@@ -55,7 +54,6 @@ exports.queryFind = async (req, res) => {
 // 아이디로 회원 조회
 exports.findId = async (req, res) => {
     const { userId } = req.query;
-    console.log(userId);
     const result = await Member.findAll({ where: { userId: { [Op.like]: '%' + userId + '%' } } });
     res.json({ success: true, result });
 };
@@ -63,7 +61,6 @@ exports.findId = async (req, res) => {
 // 정보수정
 exports.update = async (req, res) => {
     const { id } = req.user;
-    console.log(Boolean(req.body.pw));
     if (req.body.pw) {
         const { pw, email, tel } = req.body;
         const password = await bcrypt.hash(pw, 11);

@@ -16,120 +16,99 @@ let contentHieght;
             // 내 여행 데이터 불러오기
             const { mySchedule } = res.data.result;
             if (mySchedule) {
-                for (i = 0; i < mySchedule.length; i++) {
-                    const res2 = await axios({
-                        method: 'GET',
-                        url: '/api/schedule/findGroup',
-                        params: {
-                            id: mySchedule[i],
-                        },
-                    });
+                let count = 0;
+                const res2 = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/scheduleList',
+                    params: { id: mySchedule },
+                });
+                for (let i = 0; i < res2.data.result.length; i++) {
+                    const { id, depDate, arrDate, groupName } = res2.data.result[i];
                     const now = new Date();
                     const YEAR = now.getFullYear();
-                    const MONTH = now.getMonth();
+                    const MONTH = now.getMonth() + 1;
                     const DATE = now.getDate();
-                    const depM = Number(res2.data.result.depDate.substring(5, 7));
-                    const depD = Number(res2.data.result.depDate.substring(8, 10));
-                    const arrY = Number(res2.data.result.arrDate.substring(0, 4));
-                    const arrM = Number(res2.data.result.arrDate.substring(5, 7));
-                    const arrD = Number(res2.data.result.arrDate.substring(8, 10));
-                    console.log(arrY, arrM, arrD);
+                    const depM = Number(depDate.substring(5, 7));
+                    const depD = Number(depDate.substring(8, 10));
+                    const arrY = Number(arrDate.substring(0, 4));
+                    const arrM = Number(arrDate.substring(5, 7));
+                    const arrD = Number(arrDate.substring(8, 10));
                     if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
-                        scheduleIndex.push(res2.data.result.id);
-                        console.log(scheduleIndex);
-                    }
-                    console.log(scheduleIndex);
-                }
-                if (scheduleIndex.length >= 2) {
-                    document.querySelector('.container_upcoming h3').textContent = `다가오는 여행 일정`;
-                }
-                for (let j = 0; j < scheduleIndex.length; j++) {
-                    const res3 = await axios({
-                        method: 'GET',
-                        url: '/api/schedule/findGroup',
-                        params: {
-                            id: scheduleIndex[j],
-                        },
-                    });
-                    const res4 = await axios({
-                        mehod: 'GET',
-                        url: '/api/schedule/detail',
-                        params: {
-                            groupId: scheduleIndex[j],
-                        },
-                    });
-                    const { groupName, depDate, arrDate } = res3.data.result;
-                    console.log(groupName);
-                    if (j === 0) {
-                        document.querySelector('.trip_schedule').addEventListener('click', () => {
-                            localStorage.setItem('groupId', scheduleIndex[j]);
-                            document.location.href = '/tripdetail';
-                        });
-                        document.querySelector('.trip_schedule h3').textContent = groupName;
-                        document.querySelector('.trip_schedule span').textContent = `${Number(
-                            depDate.substring(5, 7)
-                        )}월 ${Number(depDate.substring(8, 10))}일 ~ ${Number(arrDate.substring(5, 7))}월 ${Number(
-                            arrDate.substring(8, 10)
-                        )}일`;
-                        for (let k = 0; k < res4.data.result.length; k++) {
-                            console.log(k);
-                            const { category, detailOrder, arrTime, place } = res4.data.result[k];
-                            if (category === 1) {
-                                const p = document.createElement('p');
-                                p.textContent = `${arrTime.substring(0, 5)} ${place.place_name}`;
-                                document.querySelector('.trip_schedule').appendChild(p);
-                                console.log(p);
-                            }
-                        }
-                        const res5 = await axios({
-                            method: 'GET',
-                            url: '/api/schedule/findChk',
-                            params: {
-                                groupId: scheduleIndex[j],
-                            },
-                        });
-                        console.log(res5.data.result);
-                        if (res5.data.result.length != 0) {
-                            const h3 = document.createElement('h3');
-                            h3.textContent = `${groupName} 체크리스트`;
-                            document.querySelector('.trip_supplies').appendChild(h3);
-                            for (let k = 0; k < res5.data.result.length; k++) {
-                                const { id, listName, isActive } = res5.data.result[k];
-                                console.log(listName);
-                                let chkHtml;
-                                if (Boolean(isActive)) {
-                                    chkHtml = `
-									<div class="input_chk" onclick="isChecked(${id})">
-										<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-										<label for="check${id}">${listName}</label>
-										<input type="hidden" id="${id}" />
-									</div>
-									`;
-                                } else {
-                                    chkHtml = `
-									<div class="input_chk" onclick="isChecked(${id})">
-										<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-										<label for="check${id}">${listName}</label>
-										<input type="hidden" id="${id}" />
-									</div>
-									`;
+                        scheduleIndex.push(id);
+                        if (count === 0) {
+                            const res3 = await axios({
+                                method: 'GET',
+                                url: '/api/schedule/detail',
+                                params: {
+                                    groupId: id,
+                                },
+                            });
+                            document.querySelector('.trip_schedule').addEventListener('click', () => {
+                                localStorage.setItem('groupId', id);
+                                document.location.href = '/tripdetail';
+                            });
+                            document.querySelector('.trip_schedule h3').textContent = groupName;
+                            document.querySelector(
+                                '.trip_schedule span'
+                            ).textContent = `${depM}월 ${depD}일 ~ ${arrM}월 ${arrD}일`;
+                            for (let k = 0; k < res3.data.result.length; k++) {
+                                const { category, arrTime, place } = res3.data.result[k];
+                                if (category === 1) {
+                                    const p = document.createElement('p');
+                                    p.textContent = `${arrTime.substring(0, 5)} ${place.place_name}`;
+                                    document.querySelector('.trip_schedule').appendChild(p);
                                 }
-                                document.querySelector('.trip_supplies').insertAdjacentHTML('beforeend', chkHtml);
                             }
+                            const res4 = await axios({
+                                method: 'GET',
+                                url: '/api/schedule/findChk',
+                                params: {
+                                    groupId: id,
+                                },
+                            });
+                            if (res4.data.result.length != 0) {
+                                const h3 = document.createElement('h3');
+                                h3.textContent = `${groupName} 체크리스트`;
+                                document.querySelector('.trip_supplies').appendChild(h3);
+                                for (let k = 0; k < res4.data.result.length; k++) {
+                                    const { id, listName, isActive } = res4.data.result[k];
+                                    let chkHtml;
+                                    if (Boolean(isActive)) {
+                                        chkHtml = `
+										<div class="input_chk" onclick="isChecked(${id})">
+											<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+											<label for="check${id}">${listName}</label>
+											<input type="hidden" id="${id}" />
+										</div>
+										`;
+                                    } else {
+                                        chkHtml = `
+										<div class="input_chk" onclick="isChecked(${id})">
+											<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+											<label for="check${id}">${listName}</label>
+											<input type="hidden" id="${id}" />
+										</div>
+										`;
+                                    }
+                                    document.querySelector('.trip_supplies').insertAdjacentHTML('beforeend', chkHtml);
+                                }
+                            }
+                        } else {
+                            const upcoming = document.querySelector('.container_upcoming ul');
+                            ucHtml = `
+                            <li onclick="goDetail(${id})">
+                            	<div class="trip_schedule">
+                            		<strong>${groupName}</strong>
+                            		<span>${depM}월 ${depD}일 ~ ${arrM}월 ${arrD}일</span>
+                            	</div>
+                            </li>
+                            `;
+                            upcoming.insertAdjacentHTML('beforeend', ucHtml);
                         }
-                    } else {
-                        const upcoming = document.querySelector('.container_upcoming ul');
-                        ucHtml = `
-						<li class="swiper-slide" onclick="goDetail(${scheduleIndex[j]})">
-							<div class="trip_schedule">
-								<strong>${groupName}</strong>
-								<span>${Number(depDate.substring(5, 7))}월 ${Number(depDate.substring(8, 10))}일 ~ ${Number(
-                            arrDate.substring(5, 7)
-                        )}월 ${Number(arrDate.substring(8, 10))}일</span>
-							</div>
-						</li>
-						`;
-                        upcoming.insertAdjacentHTML('beforeend', ucHtml);
+                        count++;
+                    }
+                    if (count >= 2) {
+                        document.querySelector('.container_upcoming h3').textContent = `다가오는 여행 일정`;
                     }
                 }
             }
@@ -146,11 +125,8 @@ let contentHieght;
         method: 'GET',
         url: '/api/recommend/slideList',
     });
-    console.log(res.data.result);
     for (let i = 0; i < res.data.result.length; i++) {
         const { id, place, memo } = res.data.result[i];
-        console.log(res.data.result[i]);
-
         const html = `
 		<li class="swiper-slide">
 			<div class="rec_cnt">
@@ -314,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
 document.querySelectorAll('.tab_menu').forEach(function (tab) {
     tab.addEventListener('click', function () {
-        initSwiper();
+        // initSwiper();
     });
 });
 

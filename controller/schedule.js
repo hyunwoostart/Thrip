@@ -5,16 +5,14 @@ const { Op } = require('sequelize');
 // 내 일정 리스트 조회
 exports.scheduleList = async (req, res) => {
     const { id } = req.query;
-    // const find = await Member.findOne({ where: { id } });
-    const result = await Group.findAll({ where: { id: find.mySchedule } });
-    console.log(result[0].id);
+    const find = await Member.findOne({ where: { id } });
+    const result = await Group.findAll({ where: { id: find.mySchedule }, order: [['arrDate', 'asc']] });
     res.json({ success: true, result, message: '일정 리스트 조회 완료' });
 };
 
 // 일정 하나 조회
 exports.findGroup = async (req, res) => {
     const result = await Group.findOne({ where: { id: req.query.id } });
-    console.log(result);
     res.json({ success: true, result, message: '일정 조회 완료' });
 };
 
@@ -29,7 +27,6 @@ exports.groupWrite = async (req, res) => {
     const { depDate, arrDate, dueDate, groupName, groupMember, groupMemo } = req.body;
     if (req.body.id) {
         const id = Number(req.body.id);
-        console.log('존재');
         const result = await Group.update(
             { depDate, arrDate, dueDate, groupName, groupMember, groupMemo },
             { where: { id } }
@@ -47,7 +44,6 @@ exports.groupWrite = async (req, res) => {
         }
         res.json({ success: true, result: { id }, message: '일정 생성 완료' });
     } else {
-        console.log('없음');
         const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMember, groupMemo });
         for (let i = 0; i < groupMember.length; i++) {
             const newList = [];
