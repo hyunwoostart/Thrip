@@ -91,13 +91,14 @@
                 if (res.data.success) {
                     $.ajax({
                         type: 'POST',
-                        url: 'https://script.google.com/macros/s/AKfycbyCnGvfGx_X7WMB8LtFJ8z4D60EpKSvANM37eNqlT9yD0aCM-LmPCLAPBcq2AbEPPSs/exec',
+                        url: 'https://script.google.com/macros/s/AKfycbzEPLp0Z3zPXUud4SJQOcIljgbY75Mr32QDpXOJORpuCgBpWZvlu3hiYlkWjh1E6WMa/exec',
                         data: {
                             email,
                         },
                         success: (res2) => {
                             certNum = res2.data;
                             id = res.data.result;
+                            console.log(res2);
                         },
                     });
                     alert('메일이 발송되었습니다.');
@@ -186,22 +187,22 @@
             // 아이디 찾기 결과
             function certId(userId) {
                 const html = `
-            <div class="result">회원님의 아이디는 ${userId} 입니다.</div>
-            <button type="button" class="btn btn_login" onclick="loginFunc('${userId}')">로그인하기</button>
-            `;
+                    <div class="result">회원님의 아이디는 ${userId} 입니다.</div>
+                    <button type="button" class="btn btn_login" onclick="loginFunc('${userId}')">로그인하기</button>
+                    `;
                 document.querySelector('.success_cert').insertAdjacentHTML('beforeend', html);
             }
 
             // 비밀번호 찾기 결과
             function certPw(userId) {
                 const html = `
-				<label for="pw">비밀번호</label>
-				<input type="password" id="pw" placeholder="비밀번호를 입력하세요" required /><br />
-				<label for="confirmPw">비밀번호 확인</label>
-				<div class="diffPw"></div>
-				<input type="password" id="confirmPw" placeholder="비밀번호를 다시 입력하세요" required /><br />
-				<button type="button" class="btn btn_login" onclick="changeFunc('${userId}')">비밀번호 변경하기</button>
-				`;
+            <label for="pw">비밀번호</label>
+            <input type="password" id="pw" placeholder="비밀번호를 입력하세요" required /><br />
+            <label for="confirmPw">비밀번호 확인</label>
+            <div class="diffPw"></div>
+            <input type="password" id="confirmPw" placeholder="비밀번호를 다시 입력하세요" required /><br />
+            <button type="button" class="btn btn_login" onclick="changeFunc('${userId}')">비밀번호 변경하기</button>
+            `;
                 document.querySelector('.success_cert').insertAdjacentHTML('beforeend', html);
                 document.querySelector('#confirmPw').addEventListener('keyup', function () {
                     if (document.querySelector('#pw').value != document.querySelector('#confirmPw').value) {
