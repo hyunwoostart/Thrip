@@ -74,25 +74,35 @@ function openCategory(list) {
         }
     });
     var mapOpened = document.querySelector('.on');
-    console.log('열린 지도', mapOpened);
     if (mapOpened) {
         mapOpened.classList.remove('on');
-        console.log(mapOpened.classList);
         removeMapVer2(mapOpened);
     }
 }
 function openBox(list, box, x, y) {
     const nowList = document.querySelectorAll('.detail_wrap')[list];
     const nowBox = nowList.querySelectorAll('.list_box')[box];
-    // 현재 클릭한 리스트의 지도 열기
-    if (!nowBox.classList.contains('on')) {
-        nowBox.classList.add('on');
-        openMaps[list] = { box, x, y }; // 열린 지도의 정보 저장
-        openMap(list, box, x, y);
-    } else {
-        // on 삭제
+    var mapOpened = document.querySelector('.on');
+    if (mapOpened) {
+        mapOpened.classList.remove('on');
+        removeMapVer2(mapOpened);
+    }
+    if (nowBox.classList.contains('on')) {
+        // 선택한 박스의 지도가 틀어져있다면 지도를 닫는다.
         nowBox.classList.remove('on');
-        openMap(list, box);
+        removeMap(list, box);
+    } else {
+        // 선택한 박스의 지도가 닫혀있다면
+        // 나머지 박스 중에 지도가 열려있다면 지도를 닫고
+        var b = nowList.querySelector('.on');
+        var mapOpened = document.querySelector('.on');
+        if (b) {
+            b.classList.remove('on');
+            removeMapVer2(mapOpened);
+        }
+        // 선택한 박스의 지도만 연다.
+        nowBox.classList.add('on');
+        openMap(list, box, x, y);
     }
 }
 
@@ -101,9 +111,7 @@ function openMap(list, box, place_x, place_y) {
     var place_y = place_y;
     const nowList = document.querySelectorAll('.detail_wrap')[list];
     const nowBox = nowList.querySelectorAll('.list_box')[box];
-    // if (!nowList) {
-    //     var on = document.querySelectorAll('.on');
-    // }
+    console.log(nowBox);
     if (nowBox.classList.contains('on')) {
         html = `<div id="map" style="width:400px;height:200px;"></div>`;
         nowBox.insertAdjacentHTML('beforeend', html);
@@ -115,7 +123,7 @@ function openMap(list, box, place_x, place_y) {
     //지도를 생성할 때 필요한 기본 옵션
     var options = {
         center: new kakao.maps.LatLng(place_y, place_x), //지도의 중심좌표.
-        level: 2, //지도의 레벨(확대, 축소 정도)
+        level: 3, //지도의 레벨(확대, 축소 정도)
     };
     var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
     var markerPosition = new kakao.maps.LatLng(place_y, place_x);
@@ -144,23 +152,3 @@ function removeMapVer2(open) {
         openmap.parentNode.removeChild(openmap);
     }
 }
-// var childParagraph = getChildElement(open, '');
-// // 현재 열린 지도 삭제
-// if (openMaps[list]) {
-//     console.log('현재 열린 지도 삭제');
-//     removeMap(list, openMaps[list].box);
-//     openMaps[list] = null;
-// }
-// if (openMaps[list]) {
-//         const allLists = document.querySelectorAll('.detail_wrap');
-//         allLists.forEach((listElement, index) => {
-//             if (index !== list) {
-//                 console.log(listElement);
-//                 listElement.classList.toggle('open');
-//             }
-//         });
-
-// //같은 카테고리 안에서 하나씩만 지도가 열림
-// removeMap(list, openMaps[list].box);
-// openMaps[list] = null;
-// }
