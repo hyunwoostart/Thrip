@@ -1,5 +1,6 @@
 const { Types } = require('mysql2');
 const { Member, Group, Detail, Checklist, Chat } = require('../models');
+const { Op } = require('sequelize');
 
 // 내 일정 리스트 조회
 exports.scheduleList = async (req, res) => {
@@ -61,7 +62,8 @@ exports.groupWrite = async (req, res) => {
 };
 
 exports.detailWrite = async (req, res) => {
-    const { category, detailOrder, arrTime, place, distance, detailMemo, groupId } = req.body;
+    const { category, detailOrder, arrTime, place, distance, detailMemo, groupId, tabLength } = req.body;
+    const spill = await Detail.destroy({ where: { category, detailOrder: { [Op.gt]: tabLength } } });
     const find = await Detail.findOne({ where: { category, detailOrder } });
     if (find) {
         const result = await Detail.update(
