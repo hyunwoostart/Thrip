@@ -205,8 +205,10 @@ function selectFunc() {
             let html2 = `
 				<div class="detail-schedule">
 					<div class="result"></div>
-					<input type="number" class="index" value="1" readonly disabled />
-					<button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete">-</button>
+                    <div class="input_wrap">
+                        <input type="number" class="index" value="1" readonly disabled />
+                        <button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete"></button>
+                    </div>
 					<input type="hidden" class="category" value="${i + 1}" />
 					<input type="time" class="arrTime" />
                     <div class="input_wrap">
@@ -232,9 +234,9 @@ function selectFunc() {
                         html2 = `
 						<div class="detail-schedule">
 							<div class="result active">${duration(distance)}</div>
-							<input type="number" class="index" value="${detailOrder}" readonly disabled/>
-                            <div class="delete_wrap">
-                                <button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete">-</button>
+                            <div class="input_wrap">
+                                <input type="number" class="index" value="${detailOrder}" readonly disabled/>
+                                <button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete"></button>
                             </div>
 							<input type="hidden" class="category" value="${i + 1}" />
 							<input type="time" class="arrTime" value="${arrTime}" />
@@ -333,10 +335,12 @@ function insert() {
     var addCode = `
 		<div class="detail-schedule">
 			<div class="result"></div>
-			<input type="number" class="index" value="${tabIndex}" readonly disabled />
-			<button type="button" onclick="deleteFunc(${localStorage.getItem(
-                'category'
-            )}, ${tabIndex})" class="btn_delete">-</button>
+            <div class="input_wrap">
+                <input type="number" class="index" value="${tabIndex}" readonly disabled />
+                <button type="button" onclick="deleteFunc(${localStorage.getItem(
+                    'category'
+                )}, ${tabIndex})" class="btn_delete"></button>
+            </div>
 			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
 			<input type="time" class="arrTime" />
 			<div class="input_wrap">
