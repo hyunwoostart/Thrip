@@ -1,9 +1,10 @@
 const express = require('express');
-const { find, register, updateChk } = require('../controller/recommend');
+const { find, slideList, register, update } = require('../controller/recommend');
 const router = express.Router();
 
 router.get('/find', find);
+router.get('/slideList', slideList);
 router.post('/register', register);
-router.post('/updateChk', updateChk);
+router.patch('/update', update);
 
 module.exports = router;

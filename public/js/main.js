@@ -1,6 +1,8 @@
 let scheduleIndex = [];
-// 로그인 여부 확인
+let contentWidth;
+let contentHieght;
 (async function () {
+    // 로그인 여부 확인
     if (localStorage.getItem('token')) {
         try {
             // 사용자 인증
@@ -26,21 +28,11 @@ let scheduleIndex = [];
                     const YEAR = now.getFullYear();
                     const MONTH = now.getMonth();
                     const DATE = now.getDate();
-                    const depM = Number(
-                        res2.data.result.depDate.substring(5, 7)
-                    );
-                    const depD = Number(
-                        res2.data.result.depDate.substring(8, 10)
-                    );
-                    const arrY = Number(
-                        res2.data.result.arrDate.substring(0, 4)
-                    );
-                    const arrM = Number(
-                        res2.data.result.arrDate.substring(5, 7)
-                    );
-                    const arrD = Number(
-                        res2.data.result.arrDate.substring(8, 10)
-                    );
+                    const depM = Number(res2.data.result.depDate.substring(5, 7));
+                    const depD = Number(res2.data.result.depDate.substring(8, 10));
+                    const arrY = Number(res2.data.result.arrDate.substring(0, 4));
+                    const arrM = Number(res2.data.result.arrDate.substring(5, 7));
+                    const arrD = Number(res2.data.result.arrDate.substring(8, 10));
                     console.log(arrY, arrM, arrD);
                     if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
                         scheduleIndex.push(res2.data.result.id);
@@ -49,9 +41,7 @@ let scheduleIndex = [];
                     console.log(scheduleIndex);
                 }
                 if (scheduleIndex.length >= 2) {
-                    document.querySelector(
-                        '.container_upcoming h3'
-                    ).textContent = `다가오는 여행 일정`;
+                    document.querySelector('.container_upcoming h3').textContent = `다가오는 여행 일정`;
                 }
                 for (let j = 0; j < scheduleIndex.length; j++) {
                     const res3 = await axios({
@@ -71,39 +61,23 @@ let scheduleIndex = [];
                     const { groupName, depDate, arrDate } = res3.data.result;
                     console.log(groupName);
                     if (j === 0) {
-                        document
-                            .querySelector('.trip_schedule')
-                            .addEventListener('click', () => {
-                                localStorage.setItem(
-                                    'groupId',
-                                    scheduleIndex[j]
-                                );
-                                document.location.href = '/tripdetail';
-                            });
-                        document.querySelector(
-                            '.trip_schedule h3'
-                        ).textContent = groupName;
+                        document.querySelector('.trip_schedule').addEventListener('click', () => {
+                            localStorage.setItem('groupId', scheduleIndex[j]);
+                            document.location.href = '/tripdetail';
+                        });
+                        document.querySelector('.trip_schedule h3').textContent = groupName;
                         var dDate = new Date(depDate);
                         var aDate = new Date(arrDate);
-                        document.querySelector(
-                            '.trip_schedule span'
-                        ).textContent = `${
+                        document.querySelector('.trip_schedule span').textContent = `${
                             dDate.getMonth() + 2
-                        }월 ${depDate.substring(8, 10)}일 ~ ${
-                            aDate.getMonth() + 2
-                        }월 ${arrDate.substring(8, 10)}일`;
+                        }월 ${depDate.substring(8, 10)}일 ~ ${aDate.getMonth() + 2}월 ${arrDate.substring(8, 10)}일`;
                         for (let k = 0; k < res4.data.result.length; k++) {
                             console.log(k);
-                            const { category, detailOrder, arrTime, place } =
-                                res4.data.result[k];
+                            const { category, detailOrder, arrTime, place } = res4.data.result[k];
                             if (category === 1) {
                                 const p = document.createElement('p');
-                                p.textContent = `${arrTime.substring(0, 5)} ${
-                                    place.place_name
-                                }`;
-                                document
-                                    .querySelector('.trip_schedule')
-                                    .appendChild(p);
+                                p.textContent = `${arrTime.substring(0, 5)} ${place.place_name}`;
+                                document.querySelector('.trip_schedule').appendChild(p);
                                 console.log(p);
                             }
                         }
@@ -118,12 +92,9 @@ let scheduleIndex = [];
                         if (res5.data.result.length != 0) {
                             const h3 = document.createElement('h3');
                             h3.textContent = `${groupName} 체크리스트`;
-                            document
-                                .querySelector('.trip_supplies')
-                                .appendChild(h3);
+                            document.querySelector('.trip_supplies').appendChild(h3);
                             for (let k = 0; k < res5.data.result.length; k++) {
-                                const { id, listName, isActive } =
-                                    res5.data.result[k];
+                                const { id, listName, isActive } = res5.data.result[k];
                                 console.log(listName);
                                 let chkHtml;
                                 if (Boolean(isActive)) {
@@ -143,24 +114,21 @@ let scheduleIndex = [];
 													</div>
 													`;
                                 }
-                                document
-                                    .querySelector('.trip_supplies')
-                                    .insertAdjacentHTML('beforeend', chkHtml);
+                                document.querySelector('.trip_supplies').insertAdjacentHTML('beforeend', chkHtml);
                             }
                         }
                     } else {
                         var dDate = new Date(depDate);
                         var aDate = new Date(arrDate);
-                        const upcoming = document.querySelector(
-                            '.container_upcoming ul'
-                        );
+                        const upcoming = document.querySelector('.container_upcoming ul');
                         ucHtml = `
 									<li onclick="goDetail(${scheduleIndex[j]})">
 										<div class="trip_schedule">
 											<strong>${groupName}</strong>
-											<span>${dDate.getMonth() + 2}월 ${depDate.substring(8, 10)}일 ~ ${
-                            aDate.getMonth() + 2
-                        }월 ${arrDate.substring(8, 10)}일</span>
+											<span>${dDate.getMonth() + 2}월 ${depDate.substring(8, 10)}일 ~ ${aDate.getMonth() + 2}월 ${arrDate.substring(
+                            8,
+                            10
+                        )}일</span>
 										</div>
 									</li>
 									`;
@@ -175,7 +143,84 @@ let scheduleIndex = [];
             });
         }
     }
+
+    // 슬라이드 정보 불러오기
+    const res = await axios({
+        method: 'GET',
+        url: '/api/recommend/slideList',
+    });
+    console.log(res.data.result);
+    for (let i = 0; i < res.data.result.length; i++) {
+        const { id, place, memo } = res.data.result[i];
+        console.log(res.data.result[i]);
+
+        const html = `
+		<li class="swiper-slide">
+			<div class="rec_cnt">
+				<img src="../public/img/main/img_rectrip${id}.jpg" alt="${place}" />
+				<div class="rec_txt">
+					<strong>${place}</strong>
+					<p>${memo}</p>
+				</div>
+			</div>
+		</li>
+		`;
+        document.querySelector('.swiper-wrapper').insertAdjacentHTML('beforeend', html);
+    }
+
+    /* 추천 여행지 스와이퍼 슬라이드*/
+    var swiper = new Swiper('.my_swiper', {
+        slidesPerView: 2,
+        spaceBetween: 20,
+        // centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        speed: 1500,
+        loop: true,
+        /*
+		breakpoints: {
+		748: {
+			slidesPerView: 3,
+			spaceBetween: 250,
+		},
+		1060: {
+			slidesPerView: 3,
+			spaceBetween: 350,
+		},
+		1500: {
+			slidesPerView: 4,
+			spaceBetween: 350,
+		},
+		1700: {
+			slidesPerView: 4,
+			spaceBetween: 350,
+		},
+	*/
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    // 슬라이드 높이 맞추기
+    contentWidth = document.querySelector('.swiper-slide').style.width;
+    contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
+    const recCnt = document.querySelectorAll('.rec_cnt');
+    for (let i = 0; i < recCnt.length; i++) {
+        recCnt[i].style.height = `${contentHieght}px`;
+    }
 })();
+// 윈도우 사이즈 변경 시 슬라이드 높이 변경
+window.addEventListener('resize', () => {
+    contentWidth = document.querySelector('.swiper-slide').style.width;
+    contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
+    const recCnt = document.querySelectorAll('.rec_cnt');
+    for (let i = 0; i < recCnt.length; i++) {
+        recCnt[i].style.height = `${contentHieght}px`;
+    }
+});
 // 체크리스트 클릭
 async function isChecked(id) {
     const res = await axios({
@@ -211,9 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.tab_menu li').forEach(function (item) {
         item.addEventListener('click', function () {
             // 모든 탭 메뉴 항목의 'on' 클래스 제거
-            document
-                .querySelectorAll('.tab_menu li')
-                .forEach((tab) => tab.classList.remove('on'));
+            document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
             // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
             this.classList.add('on');
 
@@ -223,9 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 내 여행 컨테이너 표시
                 document
                     .querySelectorAll('.container_trip, .container_upcoming')
-                    .forEach(
-                        (container) => (container.style.display = 'block')
-                    );
+                    .forEach((container) => (container.style.display = 'block'));
             } else if (this.classList.contains('rectrip_cnt')) {
                 hideContainers();
                 showRectripCnt();
@@ -235,55 +276,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 모든 컨테이너 숨기는 함수
     function hideContainers() {
-        document
-            .querySelectorAll('.tab_cnt > div')
-            .forEach((container) => (container.style.display = 'none'));
+        document.querySelectorAll('.tab_cnt > div').forEach((container) => (container.style.display = 'none'));
     }
 
     // 추천 컨테이너 표시하는 함수
     function showRectripCnt() {
         document
-            .querySelectorAll(
-                '.container_rec, .container_category, .container_best'
-            )
+            .querySelectorAll('.container_rec, .container_category, .container_best')
             .forEach((container) => (container.style.display = 'block'));
     }
-});
-
-/* 추천 여행지 스와이퍼 슬라이드*/
-var swiper = new Swiper('.my_swiper', {
-    slidesPerView: 2,
-    spaceBetween: 20,
-    // centeredSlides: true,
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-    speed: 1500,
-    loop: true,
-/*
-    breakpoints: {
-    748: {
-        slidesPerView: 3,
-        spaceBetween: 250,
-    },
-    1060: {
-        slidesPerView: 3,
-        spaceBetween: 350,
-    },
-    1500: {
-        slidesPerView: 4,
-        spaceBetween: 350,
-    },
-    1700: {
-        slidesPerView: 4,
-        spaceBetween: 350,
-    },
-*/
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
 });
 // 페이지 로드 시 스와이퍼 초기화 (임시주석)
 // document.addEventListener('DOMContentLoaded', function () {
@@ -293,7 +294,7 @@ var swiper = new Swiper('.my_swiper', {
 // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
 document.querySelectorAll('.tab_menu').forEach(function (tab) {
     tab.addEventListener('click', function () {
-        // initSwiper();
+        initSwiper();
     });
 });
 

@@ -63,13 +63,13 @@
                 });
                 console.log(res.data.result);
                 for (let i = 0; i < res.data.result.length; i++) {
-                    const { id, place, memo, isAcive } = res.data.result[i];
+                    const { id, place, memo, isActive } = res.data.result[i];
                     const list = document.querySelector('.list');
                     const html = `
 						<div class="trip_supplies">
 							<div class="input_chk">
 								<p>${id}</p>
-								<input type="checkbox" class="check" id="check${id}" onclick="isCheck(${id})" />
+								<input type="checkbox" class="check" id="check${id}" onclick="updateFunc(${id})" />
 							</div>
 							<div class="input_text">
 								<input type="text" class="place" id="place${id}" value="${place}"/>
@@ -79,7 +79,7 @@
 						</div>
 					`;
                     list.insertAdjacentHTML('beforeend', html);
-                    if (isAcive) {
+                    if (isActive) {
                         document.querySelector(`#check${id}`).checked = true;
                     }
                 }
@@ -100,12 +100,29 @@
                     document.location.reload();
                 }
             }
-            async function isCheck(id) {
-                const active = document.querySelector(`#check${id}`).checked;
-                let isAcive;
-                if (avtice) {
-                    isA;
+            async function updateFunc(i) {
+                const active = document.querySelector(`#check${i}`).checked;
+                console.log(active);
+                let isActive;
+                if (active) {
+                    isActive = 1;
+                } else {
+                    isActive = 0;
                 }
+                const res = await axios({
+                    method: 'PATCH',
+                    url: '/api/recommend/update',
+                    data: {
+                        id: i,
+                        place: document.querySelector(`#place${i}`).value,
+                        memo: document.querySelector(`#memo${i}`).value,
+                        isActive,
+                    },
+                });
+            }
+            async function editFunc(i) {
+                updateFunc(i);
+                alert('수정이 완료되었습니다.');
             }
         </script>
     </body>
