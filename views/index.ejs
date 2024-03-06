@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css">
     </head>
     <body>
         <div id="wrap" class="main_wrap">
@@ -79,31 +80,30 @@
 
                 <!-- 메인 : 탭컨텐츠 -->
                 <div class="tab_cnt">
+                    <div class="main_bg">
                     <!-- 내 여행 -->
-                    <div class="container_trip">
-                        <div class="trip_box">
-                            <div class="trip_cnt">
-                                <div class="trip_calendar">
-                                    <table id="trip_calendar_table"></table>
+                        <div class="container_trip">
+                            <div class="trip_box">
+                                <div class="trip_cnt">
+                                    <div class="trip_calendar">
+                                        <table id="trip_calendar_table"></table>
+                                    </div>
+                                    <div class="trip_schedule">
+                                        <h3>새로운 일정을 생성해주세요</h3>
+                                        <span></span>
+                                    </div>
                                 </div>
-                                <div class="trip_schedule">
-                                    <h3>새로운 일정을 생성해주세요</h3>
-                                    <span></span>
-                                </div>
+                                <div class="trip_supplies"></div>
                             </div>
-                            <div class="trip_supplies"></div>
+                            <div class="trip_new">
+                                <button type="button" class="btn" onclick="newSchedule()">
+                                    + 일정 생성하기
+                                </button>
+                            </div>
                         </div>
-                        <div class="trip_new">
-                            <button
-                                type="button"
-                                class="btn"
-                                onclick="newSchedule()"
-                            >
-                                + 일정 생성하기
-                            </button>
-                        </div>
+                        <!--// 내 여행 -->
                     </div>
-                    <!--// 내 여행 -->
+
 
                     <!-- 추천 여행지 -->
                     <div class="container_rec my_swiper">
@@ -172,17 +172,17 @@
                     <!--// 카테고리 추천 -->
 
                     <!-- 다가오는 여행 일정 -->
-                    <div class="container_upcoming">
+                    <div class="container_upcoming def_swiper">
                         <h3></h3>
-                        <ul></ul>
+                        <ul class="swiper-wrapper"></ul>
                     </div>
                     <!--// 다가오는 여행 일정 -->
 
                     <!-- BEST 여행 일정 -->
-                    <div class="container_best">
+                    <div class="container_best def_swiper">
                         <h3>BEST 여행 일정</h3>
-                        <ul>
-                            <li>
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
                                 <div class="best_cnt">
                                     <a href="#none">
                                         <img
@@ -203,7 +203,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li>
+                            <li class="swiper-slide">
                                 <div class="best_cnt">
                                     <a href="#none">
                                         <img
@@ -222,7 +222,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li>
+                            <li class="swiper-slide">
                                 <div class="best_cnt">
                                     <a href="#none">
                                         <img
@@ -241,7 +241,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li>
+                            <li class="swiper-slide">
                                 <div class="best_cnt">
                                     <a href="#none">
                                         <img
@@ -260,7 +260,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li>
+                            <li class="swiper-slide">
                                 <div class="best_cnt">
                                     <a href="#none">
                                         <img
