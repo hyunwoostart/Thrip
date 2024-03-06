@@ -181,11 +181,18 @@ function selectFunc() {
                 id: localStorage.getItem('groupId'),
             },
         });
+        // 베스트 일정에서 넘어 온 경우 베스트 아이디의 일정 불러오기
+        let roadId;
+        if (localStorage.getItem('bestId')) {
+            roadId = localStorage.getItem('bestId');
+        } else {
+            roadId = localStorage.getItem('groupId');
+        }
         const res3 = await axios({
             method: 'GET',
             url: '/api/schedule/detail',
             params: {
-                groupId: localStorage.getItem('groupId'),
+                groupId: roadId,
             },
         });
         const tabMenu = document.querySelector('.tab_menu');
@@ -236,7 +243,9 @@ function selectFunc() {
 							<div class="result active">${duration(distance)}</div>
                             <div class="input_wrap">
                                 <input type="number" class="index" value="${detailOrder}" readonly disabled/>
-                                <button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete"></button>
+                                <button type="button" onclick="deleteFunc(${category}, ${
+                            num + 1
+                        })" class="btn_delete"></button>
                             </div>
 							<input type="hidden" class="category" value="${i + 1}" />
 							<input type="time" class="arrTime" value="${arrTime}" />

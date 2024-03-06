@@ -184,6 +184,36 @@ let contentHieght;
     for (let i = 0; i < recCnt.length; i++) {
         recCnt[i].style.height = `${contentHieght}px`;
     }
+
+    // 여행 일정 정보 불러오기
+    const bestRes = await axios({
+        method: 'GET',
+        url: '/api/schedule/best',
+    });
+    for (let i = 0; i < bestRes.data.result.length; i++) {
+        const { id, groupName, dueDate } = bestRes.data.result[i];
+        const bestHtml = `
+		<li>
+			<div class="best_cnt" onclick="best(${id})">
+				<img
+					src="../public/img/main/img_best01.png"
+					alt=""
+				/>
+				<div class="best_txt">
+					<div>
+						<strong>${groupName}</strong>
+						<span>${dueDate - 1}박 ${dueDate}일 일정</span>
+					</div>
+					<div class="rate_view">
+						<p>
+							<span>4.7<i></i></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</li>`;
+        document.querySelector('.container_best ul').insertAdjacentHTML('beforeend', bestHtml);
+    }
 })();
 // 윈도우 사이즈 변경 시 슬라이드 높이 변경
 window.addEventListener('resize', () => {
@@ -214,6 +244,11 @@ function newSchedule() {
 function goDetail(id) {
     localStorage.setItem('groupId', id);
     document.location.href = '/tripdetail';
+}
+// BEST 여행 일정 클릭
+function best(id) {
+    localStorage.setItem('groupId', id);
+    document.location.href = '/bestdetail';
 }
 /* 탭메뉴 스크립트 */
 document.addEventListener('DOMContentLoaded', function () {
