@@ -17,8 +17,8 @@ exports.register = async (req, res) => {
     res.json({ success: true, message: '추천 장소 등록 완료' });
 };
 
-exports.updateChk = async (req, res) => {
-    const { id, isActive } = req.body;
-    const result = await Recplace.update({ isActive }, { where: { id } });
-    res.json({ success: true, message: '활성화 정보 업데이트 완료' });
+exports.update = async (req, res) => {
+    const { id, place, memo, isActive } = req.body;
+    const result = await Recplace.update({ place, memo, isActive }, { where: { id } });
+    res.json({ success: true, message: '업데이트 완료' });
 };
