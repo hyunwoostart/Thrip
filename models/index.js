@@ -12,6 +12,7 @@ db.Group = require('./group')(sequelize);
 db.Detail = require('./detail')(sequelize);
 db.Checklist = require('./checklist')(sequelize);
 db.Chat = require('./chat')(sequelize);
+db.Recplace = require('./recplace')(sequelize);
 
 db.Group.hasMany(db.Detail);
 db.Detail.belongsTo(db.Group);

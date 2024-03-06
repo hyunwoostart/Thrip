@@ -125,7 +125,7 @@
                 if (res.data.success) {
                     $.ajax({
                         type: 'POST',
-                        url: 'https://script.google.com/macros/s/AKfycbyCnGvfGx_X7WMB8LtFJ8z4D60EpKSvANM37eNqlT9yD0aCM-LmPCLAPBcq2AbEPPSs/exec',
+                        url: 'https://script.google.com/macros/s/AKfycbzEPLp0Z3zPXUud4SJQOcIljgbY75Mr32QDpXOJORpuCgBpWZvlu3hiYlkWjh1E6WMa/exec',
                         data: {
                             email,
                         },
@@ -141,24 +141,6 @@
                     alert(res.data.message);
                 }
                 console.log(res.data);
-            }
-
-            // 메일 전송
-            function send(index) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'https://script.google.com/macros/s/AKfycbyCnGvfGx_X7WMB8LtFJ8z4D60EpKSvANM37eNqlT9yD0aCM-LmPCLAPBcq2AbEPPSs/exec',
-                    data: {
-                        email,
-                    },
-                    success: (res2) => {
-                        certNum = res2.data;
-                        id = res.data.result;
-                    },
-                });
-                alert('메일이 발송되었습니다.');
-                document.querySelector('.btn_send').textContent = '인증 메일 재전송';
-                document.querySelector('.success_send').hidden = false;
             }
 
             // 인증번호 인증
