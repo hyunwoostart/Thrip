@@ -69,7 +69,16 @@ function openCategory(list) {
     const allLists = document.querySelectorAll('.detail_wrap');
     allLists.forEach((listElement, index) => {
         if (index === list) {
+            console.log('index', index);
             listElement.classList.toggle('open');
+            const allOpenMaps = document.getElementsByClassName('on');
+            for (const allOpenMap of allOpenMaps) {
+                console.log(allOpenMap);
+            }
+            // var mapElement = document.querySelectorAll('#map');
+            // if (mapElement) {
+            //     mapElement.parentNode.removeChild(mapElement);
+            // }
         }
     });
     // 현재 열린 지도 삭제
@@ -97,7 +106,6 @@ function openBox(list, box, x, y) {
     if (!nowBox.classList.contains('on')) {
         nowBox.classList.add('on');
         openMaps[list] = { box, x, y }; // 열린 지도의 정보 저장
-
         console.log('maps add:', list, openMaps);
         openMap(list, box, x, y);
     } else {
