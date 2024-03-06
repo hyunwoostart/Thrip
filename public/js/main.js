@@ -120,7 +120,7 @@ let contentHieght;
                     } else {
                         const upcoming = document.querySelector('.container_upcoming ul');
                         ucHtml = `
-						<li onclick="goDetail(${scheduleIndex[j]})">
+						<li class="swiper-slide" onclick="goDetail(${scheduleIndex[j]})">
 							<div class="trip_schedule">
 								<strong>${groupName}</strong>
 								<span>${Number(depDate.substring(5, 7))}월 ${Number(depDate.substring(8, 10))}일 ~ ${Number(
@@ -165,7 +165,7 @@ let contentHieght;
         document.querySelector('.swiper-wrapper').insertAdjacentHTML('beforeend', html);
     }
 
-    /* 추천 여행지 스와이퍼 슬라이드*/
+    /* 추천 여행지 스와이퍼 슬라이드 */
     var swiper = new Swiper('.my_swiper', {
         slidesPerView: 2,
         spaceBetween: 20,
@@ -176,25 +176,18 @@ let contentHieght;
         },
         speed: 1500,
         loop: true,
-        /*
-		breakpoints: {
-		748: {
-			slidesPerView: 3,
-			spaceBetween: 250,
-		},
-		1060: {
-			slidesPerView: 3,
-			spaceBetween: 350,
-		},
-		1500: {
-			slidesPerView: 4,
-			spaceBetween: 350,
-		},
-		1700: {
-			slidesPerView: 4,
-			spaceBetween: 350,
-		},
-	*/
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    /* 다가오는 여행 일정/ BEST 여행일정 - 스와이퍼 슬라이드 */
+    var swiper = new Swiper('.def_swiper', {
+        speed: 1500,
+        loop: false,
+        slidesPerView: 'auto', // 각 슬라이드의 너비를 자동으로 계산
+    
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -241,35 +234,63 @@ function goDetail(id) {
 }
 /* 탭메뉴 스크립트 */
 document.addEventListener('DOMContentLoaded', function () {
-    // 모든 컨테이너 숨기기
-    let containers = document.querySelectorAll('.tab_cnt > div');
-    containers.forEach(function (container) {
-        container.style.display = 'none';
-    });
-    // 기본
-    showRectripCnt(); // 추천 컨테이너 표시
+    // 초기화 함수 호출
+    updateLayout();
 
-    // 탭 메뉴 클릭 이벤트 처리
-    document.querySelectorAll('.tab_menu li').forEach(function (item) {
-        item.addEventListener('click', function () {
-            // 모든 탭 메뉴 항목의 'on' 클래스 제거
-            document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
-            // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
-            this.classList.add('on');
+    // 화면 크기 변경 시 레이아웃 업데이트
+    window.addEventListener('resize', updateLayout);
 
-            // 내 여행 탭을 클릭했는지 확인
-            if (this.classList.contains('mytrip_cnt')) {
-                hideContainers(); // 모든 컨테이너 숨기기
-                // 내 여행 컨테이너 표시
-                document
-                    .querySelectorAll('.container_trip, .container_upcoming')
-                    .forEach((container) => (container.style.display = 'block'));
-            } else if (this.classList.contains('rectrip_cnt')) {
-                hideContainers();
-                showRectripCnt();
+    function updateLayout() {
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth < 1024) {
+            // 탭 메뉴 보이기
+            const tabMenu = document.querySelector('.tab_menu');
+            if (tabMenu) {
+                tabMenu.style.display = 'flex';
             }
-        });
-    });
+
+            // 탭 메뉴 클릭 이벤트 처리
+            document.querySelectorAll('.tab_menu li').forEach(function (item) {
+                item.addEventListener('click', function () {
+                    // 모든 탭 메뉴 항목의 'on' 클래스 제거
+                    document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
+                    // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
+                    this.classList.add('on');
+
+                    // 내 여행 탭을 클릭했는지 확인
+                    if (this.classList.contains('mytrip_cnt')) {
+                        hideContainers(); // 모든 컨테이너 숨기기
+                        // 내 여행 컨테이너 표시
+                        document
+                            .querySelectorAll('.container_trip, .container_upcoming')
+                            .forEach((container) => (container.style.display = 'block'));
+                    } else if (this.classList.contains('rectrip_cnt')) {
+                        hideContainers();
+                        showRectripCnt();
+                    }
+                });
+            });
+
+            // 기본 탭 선택
+            const defaultTab = document.querySelector('.tab_menu li.on');
+            if (defaultTab) {
+                defaultTab.click();
+            }
+        } else {
+            // 탭 메뉴 숨기기
+            const tabMenu = document.querySelector('.tab_menu');
+            if (tabMenu) {
+                tabMenu.style.display = 'none';
+            }
+
+            // 모든 컨테이너 표시
+            let containers = document.querySelectorAll('.tab_cnt > div');
+            containers.forEach(function (container) {
+                container.style.display = 'block';
+            });
+        }
+    }
 
     // 모든 컨테이너 숨기는 함수
     function hideContainers() {
@@ -283,6 +304,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .forEach((container) => (container.style.display = 'block'));
     }
 });
+
+
 // 페이지 로드 시 스와이퍼 초기화 (임시주석)
 // document.addEventListener('DOMContentLoaded', function () {
 //     initSwiper();
