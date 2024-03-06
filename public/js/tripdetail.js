@@ -69,43 +69,31 @@ function openCategory(list) {
     const allLists = document.querySelectorAll('.detail_wrap');
     allLists.forEach((listElement, index) => {
         if (index === list) {
+            console.log('toggle');
             listElement.classList.toggle('open');
         }
     });
-    // // 현재 열린 지도 삭제
-    // if (openMaps[list]) {
-    //     console.log('현재 열린 지도 삭제');
-    //     removeMap(list, openMaps[list].box);
-    //     openMaps[list] = null;
-    // }
+    var mapOpened = document.querySelector('.on');
+    console.log('열린 지도', mapOpened);
+    if (mapOpened) {
+        mapOpened.classList.remove('on');
+        console.log(mapOpened.classList);
+        removeMapVer2(mapOpened);
+    }
 }
-// if (openMaps[list]) {
-//         const allLists = document.querySelectorAll('.detail_wrap');
-//         allLists.forEach((listElement, index) => {
-//             if (index !== list) {
-//                 console.log(listElement);
-//                 listElement.classList.toggle('open');
-//             }
-//         });
-
-// //같은 카테고리 안에서 하나씩만 지도가 열림
-// removeMap(list, openMaps[list].box);
-// openMaps[list] = null;
-// }
 function openBox(list, box, x, y) {
     const nowList = document.querySelectorAll('.detail_wrap')[list];
     const nowBox = nowList.querySelectorAll('.list_box')[box];
-    console.log('nowList', nowList);
-    console.log('nowBox', nowBox);
-    //     // 현재 클릭한 리스트의 지도 열기
-    //     if (!nowBox.classList.contains('on')) {
-    //         nowBox.classList.add('on');
-    //         openMaps[list] = { box, x, y }; // 열린 지도의 정보 저장
-    //         // console.log('maps add:', list, openMaps);
-    //         openMap(list, box, x, y);
-    //     } else {
-    //         nowBox.classList.remove('on');
-    // }
+    // 현재 클릭한 리스트의 지도 열기
+    if (!nowBox.classList.contains('on')) {
+        nowBox.classList.add('on');
+        openMaps[list] = { box, x, y }; // 열린 지도의 정보 저장
+        openMap(list, box, x, y);
+    } else {
+        // on 삭제
+        nowBox.classList.remove('on');
+        openMap(list, box);
+    }
 }
 
 function openMap(list, box, place_x, place_y) {
@@ -113,9 +101,15 @@ function openMap(list, box, place_x, place_y) {
     var place_y = place_y;
     const nowList = document.querySelectorAll('.detail_wrap')[list];
     const nowBox = nowList.querySelectorAll('.list_box')[box];
+    // if (!nowList) {
+    //     var on = document.querySelectorAll('.on');
+    // }
     if (nowBox.classList.contains('on')) {
         html = `<div id="map" style="width:400px;height:200px;"></div>`;
         nowBox.insertAdjacentHTML('beforeend', html);
+    } else {
+        // on 삭제 시 removeMap() 실행
+        removeMap(list, box);
     }
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
     //지도를 생성할 때 필요한 기본 옵션
@@ -134,15 +128,39 @@ function openMap(list, box, place_x, place_y) {
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
 }
+function removeMap(list, box) {
+    const nowList = document.querySelectorAll('.detail_wrap')[list];
+    const nowBox = nowList.querySelectorAll('.list_box')[box];
+    var mapElement = nowBox.querySelector('#map');
+    if (mapElement) {
+        mapElement.parentNode.removeChild(mapElement);
+    }
+}
+function removeMapVer2(open) {
+    console.log(open);
+    var openmap = open.querySelector('#map');
+    console.log(openmap);
+    if (openmap) {
+        openmap.parentNode.removeChild(openmap);
+    }
+}
+// var childParagraph = getChildElement(open, '');
+// // 현재 열린 지도 삭제
+// if (openMaps[list]) {
+//     console.log('현재 열린 지도 삭제');
+//     removeMap(list, openMaps[list].box);
+//     openMaps[list] = null;
+// }
+// if (openMaps[list]) {
+//         const allLists = document.querySelectorAll('.detail_wrap');
+//         allLists.forEach((listElement, index) => {
+//             if (index !== list) {
+//                 console.log(listElement);
+//                 listElement.classList.toggle('open');
+//             }
+//         });
 
-// function removeMap(list, box) {
-//     const nowList = document.querySelectorAll('.detail_wrap')[list];
-//     const nowBox = nowList.querySelectorAll('.list_box')[box];
-//     // 현재 열린 지도가 있는 경우에만 삭제
-//     if (nowBox && nowBox.classList.contains('on')) {
-//         var mapElement = nowBox.querySelector('#map');
-//         if (mapElement) {
-//             mapElement.parentNode.removeChild(mapElement);
-//         }
-//     }
+// //같은 카테고리 안에서 하나씩만 지도가 열림
+// removeMap(list, openMaps[list].box);
+// openMaps[list] = null;
 // }
