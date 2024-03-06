@@ -185,10 +185,8 @@
     margin-bottom: 20px;
 }
 
-.create_btnwrap {
-    margin: 0 20px;
-    padding-bottom: 52px;
-}
-.create_btnwrap .btn:first-child {
-    margin-top: 0;
-}
+.create_btnwrap {margin: 0 20px; padding-bottom: 52px;}
+.create_btnwrap .btn:first-child {margin-top: 0;}
+
+/* .delete_wrap {position: relative;}
+.btn_delete {position: absolute; right: 0;} */

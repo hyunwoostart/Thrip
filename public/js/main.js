@@ -261,25 +261,25 @@ var swiper = new Swiper('.my_swiper', {
     },
     speed: 1500,
     loop: true,
-    /*
-                              breakpoints: {
-                              748: {
-                                  slidesPerView: 3,
-                                  spaceBetween: 250,
-                              },
-                              1060: {
-                                  slidesPerView: 3,
-                                  spaceBetween: 350,
-                              },
-                              1500: {
-                                  slidesPerView: 4,
-                                  spaceBetween: 350,
-                              },
-                              1700: {
-                                  slidesPerView: 4,
-                                  spaceBetween: 350,
-                              },
-                              */
+/*
+    breakpoints: {
+    748: {
+        slidesPerView: 3,
+        spaceBetween: 250,
+    },
+    1060: {
+        slidesPerView: 3,
+        spaceBetween: 350,
+    },
+    1500: {
+        slidesPerView: 4,
+        spaceBetween: 350,
+    },
+    1700: {
+        slidesPerView: 4,
+        spaceBetween: 350,
+    },
+*/
     pagination: {
         el: '.swiper-pagination',
         clickable: true,

@@ -17,17 +17,12 @@
 .sec_cal .cal_wrap::after {top: 368px;} 
 .sec_cal .cal_wrap .day {display: flex; align-items: center; justify-content: center; width: calc(100% / 7); text-align: left; font-size: 12px; text-align: center; border-radius: 5px;} 
 
-.current.today {color: orange; /* background: rgb(242 242 242); */}
+.current.today {color: orange;}
 .sec_cal .cal_wrap .dates {display: flex; flex-flow: wrap; height: 290px;} 
 .sec_cal .cal_wrap .day:nth-child(7n -1) {color: #3c6ffa;} 
 .sec_cal .cal_wrap .day:nth-child(7n) {color: #ed2a61;} 
 .sec_cal .cal_wrap .day.disable {color: #ddd;} 
 
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 100, 'wght' 30, 'GRAD' 0, 'opsz' 5;
-    color: rgb(191, 187, 187);
-}
-div .day {
-    flex-direction: column;
-}
+.material-symbols-outlined {font-variation-settings: 'FILL' 100, 'wght' 30, 'GRAD' 0, 'opsz' 5;color: rgb(191, 187, 187);}
+div .day {flex-direction: column;}
 
