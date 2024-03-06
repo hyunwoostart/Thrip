@@ -76,20 +76,20 @@
                     let html;
                     if (Boolean(isActive)) {
                         html = `
-            				<div class="input_chk" onclick="isChecked(${id})">
-            					<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-            					<label for="check${id}">${listName}</label>
-            					<input type="hidden" id="${id}" />
-            				</div>
-            				`;
+                            <div class="input_chk" onclick="isChecked(${id})">
+                                <input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+                                <label for="check${id}">${listName}</label>
+                                <input type="hidden" id="${id}" />
+                            </div>
+                            `;
                     } else {
                         html = `
-            				<div class="input_chk" onclick="isChecked(${id})">
-            					<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-            					<label for="check${id}">${listName}</label>
-            					<input type="hidden" id="${id}" />
-            				</div>
-            				`;
+                            <div class="input_chk" onclick="isChecked(${id})">
+                                <input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+                                <label for="check${id}">${listName}</label>
+                                <input type="hidden" id="${id}" />
+                            </div>
+                            `;
                     }
                     list.insertAdjacentHTML('beforeend', html);
                 }
@@ -122,12 +122,12 @@
                 });
                 const { id, listName } = res.data.result;
                 const html = `
-                    	<div class="input_chk" onclick="isChecked(${id})">
-                    		<input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
-                    		<label for="check${id}">${listName}</label>
-                    		<input type="hidden" id="${id}" />
-                    	</div>
-                    	`;
+                        <div class="input_chk" onclick="isChecked(${id})">
+                            <input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
+                            <label for="check${id}">${listName}</label>
+                            <input type="hidden" id="${id}" />
+                        </div>
+                        `;
                 list.insertAdjacentHTML('beforeend', html);
                 document.querySelector('#addName').value = '';
             }

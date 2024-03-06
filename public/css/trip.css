@@ -12,10 +12,8 @@
 .trip_detail .main .container_tripdetail ul li .list_detail {position: relative; display: block;}
 .trip_detail .main .container_tripdetail ul li .list_detail i.ico_accord {position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; background: url('../img/common/ico_accord.png') center/cover no-repeat;}
 .trip_detail .main .container_tripdetail ul li.on .list_detail i.ico_accord {transform: translateY(-50%) rotate(180deg);}
-/* .trip_detail .main .container_tripdetail ul li .maps img {width: 200px; margin: 0 auto;} */
 .trip_detail .main .container_tripdetail strong {display: block; font-size: 1.2rem; font-weight: 700;}
 .trip_detail .main .container_tripdetail span {color: #97ADB6;}
-
 
 .trip_txtwrap .btn_trip,
 .btn_chklist {width: 100px;}
