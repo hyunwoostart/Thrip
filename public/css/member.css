@@ -1,0 +1,7 @@
+h1 {text-align: center; font-size: 1.5rem; line-height: 1.5; font-weight: 900; margin-bottom: 10px;} 
+p {text-align: center; font-size: 1.1rem; margin-bottom: 20px;} 
+.diffPw {color: #ff0000; margin-bottom: 8px; font-size: 0.9rem;} 
+
+.success_send {margin-top: 10px;}
+.success_cert .result {padding: 20px 0;}
+.success_cert .result span {font-weight: 700; font-size: 1.4rem;}

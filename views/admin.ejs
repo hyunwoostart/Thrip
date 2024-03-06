@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>추천 장소 관리</title>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/member.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="wrap" class="login_page">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="#none" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
+            <!-- 컨텐츠 -->
+            <main class="main">
+                <h1>Time Travel<br />추천장소 등록</h1>
+                <form id="register-form">
+                    <label for="place">장소</label>
+                    <input type="text" id="place" placeholder="장소를 입력하세요" />
+                    <label for="memo">메모</label>
+                    <input type="text" id="memo" placeholder="메모를 입력하세요" />
+                    <button type="button" class="btn" onclick="register()">등록하기</button>
+                </form>
+                <div class="result">
+                    <p>체크박스에 체크 시 메인화면 슬라이드에 노출됩니다.</p>
+                    <div class="list"></div>
+                </div>
+            </main>
+            <!--// 컨텐츠 -->
+        </div>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
+        <script>
+            // 데이터 불러오기
+            (async function () {
+                const res = await axios({
+                    method: 'GET',
+                    url: '/api/recommend/find',
+                });
+                console.log(res.data.result);
+                for (let i = 0; i < res.data.result.length; i++) {
+                    const { id, place, memo, isActive } = res.data.result[i];
+                    const list = document.querySelector('.list');
+                    const html = `
+						<div class="trip_supplies">
+							<div class="input_chk">
+								<p>${id}</p>
+								<input type="checkbox" class="check" id="check${id}" onclick="updateFunc(${id})" />
+							</div>
+							<div class="input_text">
+								<input type="text" class="place" id="place${id}" value="${place}"/>
+								<input type="text" class="memo" id="memo${id}" value="${memo}"/>
+								<button type="button" class="edit_btn" onclick="editFunc(${id})">수정</button>
+							</div>
+						</div>
+					`;
+                    list.insertAdjacentHTML('beforeend', html);
+                    if (isActive) {
+                        document.querySelector(`#check${id}`).checked = true;
+                    }
+                }
+            })();
+
+            // 장소 등록
+            async function register() {
+                const res = await axios({
+                    method: 'POST',
+                    url: '/api/recommend/register',
+                    data: {
+                        place: document.querySelector('#place').value,
+                        memo: document.querySelector('#memo').value,
+                    },
+                });
+                if (res.data.success) {
+                    alert(`등록이 완료되었습니다.`);
+                    document.location.reload();
+                }
+            }
+            async function updateFunc(i) {
+                const active = document.querySelector(`#check${i}`).checked;
+                console.log(active);
+                let isActive;
+                if (active) {
+                    isActive = 1;
+                } else {
+                    isActive = 0;
+                }
+                const res = await axios({
+                    method: 'PATCH',
+                    url: '/api/recommend/update',
+                    data: {
+                        id: i,
+                        place: document.querySelector(`#place${i}`).value,
+                        memo: document.querySelector(`#memo${i}`).value,
+                        isActive,
+                    },
+                });
+            }
+            async function editFunc(i) {
+                updateFunc(i);
+                alert('수정이 완료되었습니다.');
+            }
+        </script>
+    </body>
+</html>

@@ -3,9 +3,189 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Time Travel</title>
+        <title>메인</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css">
     </head>
     <body>
-        <h1>Time Travel</h1>
+        <div id="wrap" class="main_wrap">
+            <!-- 헤더 -->
+            <!-- <header class="pc_header">
+                <h1><a href="#none">Time Travel</a></h1>
+                <nav class="gnb pc_menu">
+                    <ul class="main_menu">
+                        <li><a href="#none">내 여행</a></li>
+                        <li><a href="#none">채팅</a></li>
+                        <li><a href="#none">소개</a></li>
+                    </ul>
+                    <ul class="sub_menu">
+                        <li><a href="#none" class="info_txt">로그인</a></li>
+                        <li><a href="#none" class="info_txt">회원가입</a></li>
+                        <li><a href="#none" class="info_txt">로그아웃</a></li>
+                        <li><a href="" class="ico_ham"><span class="blind">메뉴</span></a></li>
+                    </ul>
+                </nav>
+            </header> -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <h1><a href="#index.ejs">Time Travel</a></h1>
+                    <ul class="main_menu">
+                        <li><a href="#none">내 여행</a></li>
+                        <li><a href="#none">채팅</a></li>
+                        <li><a href="#none">소개</a></li>
+                    </ul>
+                    <ul class="sub_menu">
+                        <li>
+                            <ul class="login_wrap">
+                                <li>
+                                    <a href="#none" class="info_txt">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="#none" class="info_txt">회원가입</a>
+                                </li>
+                                <!-- <li><a href="#none" class="info_txt">로그아웃</a></li> -->
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
+            <!-- 메인 -->
+            <main class="main">
+                <!-- 메인 탭 : 메뉴 -->
+                <ul class="tab_menu">
+                    <li class="rectrip_cnt on">추천</li>
+                    <li class="mytrip_cnt">내 여행</li>
+                </ul>
+                <!--// 메인 : 탭 메뉴 -->
+
+                <!-- 메인 : 탭컨텐츠 -->
+                <div class="tab_cnt">
+                    <div class="main_bg">
+                    <!-- 내 여행 -->
+                        <div class="container_trip">
+                            <div class="trip_box">
+                                <div class="trip_cnt">
+                                    <div class="trip_calendar">
+                                        <table id="trip_calendar_table"></table>
+                                    </div>
+                                    <div class="trip_schedule">
+                                        <h3>새로운 일정을 생성해주세요</h3>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="trip_supplies"></div>
+                            </div>
+                            <div class="trip_new">
+                                <button type="button" class="btn" onclick="newSchedule()">
+                                    + 일정 생성하기
+                                </button>
+                            </div>
+                        </div>
+                        <!--// 내 여행 -->
+                    </div>
+
+
+                    <!-- 추천 여행지 -->
+                    <div class="container_rec my_swiper">
+                        <h3>추천 여행지</h3>
+                        <ul class="swiper-wrapper"></ul>
+                    </div>
+                    <!--// 추천 여행지 -->
+
+                    <!-- 카테고리 추천 -->
+                    <div class="container_category">
+                        <ul>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate01.png" alt="" />
+                                        </div>
+                                        <div class="txt_category">관광명소</div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate02.png" alt="" />
+                                        </div>
+                                        <div class="txt_category">카페</div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate03.png" alt="" />
+                                        </div>
+                                        <div class="txt_category">맛집</div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="#none">
+                                        <div class="img_catewrap">
+                                            <img src="../public/img/main/img_cate04.png" alt="" />
+                                        </div>
+                                        <div class="txt_category">레저</div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--// 카테고리 추천 -->
+
+                    <!-- 다가오는 여행 일정 -->
+                    <div class="container_upcoming def_swiper">
+                        <h3></h3>
+                        <ul class="swiper-wrapper"></ul>
+                    </div>
+                    <!--// 다가오는 여행 일정 -->
+
+                    <!-- BEST 여행 일정 -->
+                    <div class="container_best def_swiper">
+                        <h3>BEST 여행 일정</h3>
+                        <ul></ul>
+                    </div>
+                    <!--// BEST 여행 일정 -->
+                </div>
+                <!--// 메인 : 탭컨텐츠 -->
+            </main>
+            <!--// 메인 -->
+
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
+
+            <!-- 푸터 -->
+            <!-- <footer>
+                <address>Time Travel</address>
+            </footer> -->
+            <!--// 푸터 -->
+        </div>
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
+        <script src="../public/js/main.js"></script>
     </body>
 </html>

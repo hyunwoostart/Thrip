@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>아이디/비밀번호 찾기</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/member.css" />
+    </head>
+    <body>
+        <div id="wrap" class="login_page">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="#none" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/side" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
+            <!-- 컨텐츠 -->
+            <main class="main">
+                <h1>Time Travel</h1>
+                <ul class="tab_menu">
+                    <li class="find_id on" onclick="findBtn(1)">아이디 찾기</li>
+                    <li class="find_pw" onclick="findBtn(2)">비밀번호 찾기</li>
+                </ul>
+                <form id="find-form" class="gform">
+                    <div class="pw_form" hidden>
+                        <label for="userId">아이디</label>
+                        <input type="text" id="userId" placeholder="가입하신 아이디를 입력하세요" />
+                    </div>
+                    <div class="id_form">
+                        <label for="username">이름</label>
+                        <input type="text" id="username" placeholder="가입하신 이름을 입력하세요" />
+                    </div>
+                    <label for="email">메일주소</label>
+                    <input type="email" id="email" placeholder="가입하신 메일주소를 입력하세요" />
+                    <button type="button" class="btn btn_send btn_trip" onclick="findId()">인증 메일 전송</button>
+                </form>
+                <div class="success_send" hidden>
+                    <label for="certNum">인증번호</label>
+                    <input type="number" id="certNum" placeholder="인증번호를 입력하세요" />
+                    <button type="button" class="btn btn_cert" onclick="certify(certId)">인증번호 확인</button>
+                </div>
+                <div class="success_cert"></div>
+            </main>
+            <!--// 컨텐츠 -->
+        </div>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script
+            data-cfasync="false"
+            type="text/javascript"
+            src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"
+        ></script>
+        <script src="../public/js/sidemenu.js"></script>
+        <script>
+            let certNum;
+            let count = 0;
+            let id;
+            // 아이디 찾기
+            async function findId() {
+                const username = document.querySelector('#username').value;
+                const email = document.querySelector('#email').value;
+                const res = await axios({
+                    method: 'GET',
+                    url: '/api/member/certId',
+                    params: {
+                        username,
+                        email,
+                    },
+                });
+                if (res.data.success) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'https://script.google.com/macros/s/AKfycbzEPLp0Z3zPXUud4SJQOcIljgbY75Mr32QDpXOJORpuCgBpWZvlu3hiYlkWjh1E6WMa/exec',
+                        data: {
+                            email,
+                        },
+                        success: (res2) => {
+                            certNum = res2.data;
+                            id = res.data.result;
+                            console.log(res2);
+                        },
+                    });
+                    alert('메일이 발송되었습니다.');
+                    document.querySelector('.btn_send').textContent = '인증 메일 재전송';
+                    document.querySelector('.success_send').hidden = false;
+                } else {
+                    alert(res.data.message);
+                }
+                console.log(res.data);
+            }
+
+            // 비밀번호 찾기
+            async function findPw() {
+                const userId = document.querySelector('#userId').value;
+                const email = document.querySelector('#email').value;
+                const res = await axios({
+                    method: 'GET',
+                    url: '/api/member/certPw',
+                    params: {
+                        userId,
+                        email,
+                    },
+                });
+                if (res.data.success) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'https://script.google.com/macros/s/AKfycbzEPLp0Z3zPXUud4SJQOcIljgbY75Mr32QDpXOJORpuCgBpWZvlu3hiYlkWjh1E6WMa/exec',
+                        data: {
+                            email,
+                        },
+                        success: (res2) => {
+                            certNum = res2.data;
+                            id = res.data.result;
+                        },
+                    });
+                    alert('메일이 발송되었습니다.');
+                    document.querySelector('.btn_send').textContent = '인증 메일 재전송';
+                    document.querySelector('.success_send').hidden = false;
+                } else {
+                    alert(res.data.message);
+                }
+                console.log(res.data);
+            }
+
+            // 인증번호 인증
+            async function certify(cb) {
+                if (count === 4) {
+                    alert('인증번호 입력 횟수가 초과되었습니다. 처음부터 다시 시도해주세요.');
+                    document.location.reload();
+                } else {
+                    if (certNum === Number(document.querySelector('#certNum').value)) {
+                        const res = await axios({
+                            method: 'GET',
+                            url: '/api/member/queryFind',
+                            params: { id },
+                        });
+                        alert('인증이 완료되었습니다.');
+                        document.querySelector('.gform').hidden = true;
+                        document.querySelector('.success_send').hidden = true;
+                        cb(res.data.result.userId);
+                    } else {
+                        alert('인증번호가 일치하지 않습니다.');
+                        count++;
+                    }
+                }
+            }
+
+            // 아이디 찾기 결과
+            function certId(userId) {
+                const html = `
+                    <div class="result">회원님의 아이디는 <span>${userId}</span> 입니다.</div>
+                    <button type="button" class="btn btn_login" onclick="loginFunc('${userId}')">로그인하기</button>
+                    `;
+                document.querySelector('.success_cert').insertAdjacentHTML('beforeend', html);
+            }
+
+            // 비밀번호 찾기 결과
+            function certPw(userId) {
+                const html = `
+            <label for="pw">비밀번호</label>
+            <input type="password" id="pw" placeholder="비밀번호를 입력하세요" required /><br />
+            <label for="confirmPw">비밀번호 확인</label>
+            <div class="diffPw"></div>
+            <input type="password" id="confirmPw" placeholder="비밀번호를 다시 입력하세요" required /><br />
+            <button type="button" class="btn btn_login" onclick="changeFunc('${userId}')">비밀번호 변경하기</button>
+            `;
+                document.querySelector('.success_cert').insertAdjacentHTML('beforeend', html);
+                document.querySelector('#confirmPw').addEventListener('keyup', function () {
+                    if (document.querySelector('#pw').value != document.querySelector('#confirmPw').value) {
+                        document.querySelector('.diffPw').textContent = '비밀번호가 일치하지 않습니다.';
+                    } else {
+                        document.querySelector('.diffPw').textContent = '';
+                    }
+                });
+            }
+
+            // 탭 메뉴
+            function findBtn(btn) {
+                if (btn === 1) {
+                    document.querySelector('.find_id').classList.add('on');
+                    document.querySelector('.find_pw').classList.remove('on');
+                    document.querySelector('.id_form').hidden = false;
+                    document.querySelector('.pw_form').hidden = true;
+                    document.querySelector('.btn_cert').setAttribute('onclick', 'certify(certId)');
+                    document.querySelector('.btn_send').setAttribute('onclick', 'findId()');
+                } else {
+                    document.querySelector('.find_pw').classList.add('on');
+                    document.querySelector('.find_id').classList.remove('on');
+                    document.querySelector('.pw_form').hidden = false;
+                    document.querySelector('.id_form').hidden = true;
+                    document.querySelector('.btn_cert').setAttribute('onclick', 'certify(certPw)');
+                    document.querySelector('.btn_send').setAttribute('onclick', 'findPw()');
+                }
+            }
+
+            // 로그인
+            function loginFunc(userId) {
+                localStorage.setItem('userId', userId);
+                document.location.href = '/login';
+            }
+
+            async function changeFunc(userId) {
+                if (document.querySelector('#pw').value != document.querySelector('#confirmPw').value) {
+                    alert('비밀번호가 일치하지 않습니다.');
+                    return;
+                } else {
+                    const res = await axios({
+                        method: 'PATCH',
+                        url: '/api/member/changePw',
+                        data: {
+                            id,
+                            pw: document.querySelector('#pw').value,
+                        },
+                    });
+                    if (res.data.success) {
+                        localStorage.setItem('userId', userId);
+                        document.location.href = '/login';
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

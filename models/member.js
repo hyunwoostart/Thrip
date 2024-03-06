@@ -27,6 +27,9 @@ const MemberModel = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        mySchedule: {
+            type: DataTypes.JSON,
+        },
     });
 };
 

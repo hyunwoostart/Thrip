@@ -8,6 +8,20 @@ const db = {};
 let sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 db.Member = require('./member')(sequelize);
+db.Group = require('./group')(sequelize);
+db.Detail = require('./detail')(sequelize);
+db.Checklist = require('./checklist')(sequelize);
+db.Chat = require('./chat')(sequelize);
+db.Recplace = require('./recplace')(sequelize);
+
+db.Group.hasMany(db.Detail);
+db.Detail.belongsTo(db.Group);
+
+db.Group.hasMany(db.Checklist);
+db.Checklist.belongsTo(db.Group);
+
+db.Group.hasMany(db.Chat);
+db.Chat.belongsTo(db.Group);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

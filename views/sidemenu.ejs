@@ -1,0 +1,58 @@
+<!-- 사이드 메뉴 : 마이 페이지 -->
+<div class="menu_side">
+    <a href="" class="btn btn_close">
+        <span class="blind">닫기 버튼</span>
+    </a>
+    <!-- 마이페이지 : 사용자 정보  -->
+    <div class="container_myinfo">
+        <div class="my_photo">
+            <img src="../public/img/common/img_myphoto.png" alt="" />
+        </div>
+        <div class="my_info">
+            <div class="info_txt">로그인/회원가입</div>
+            <button class="btn btn_retouch" onclick="editFunc()" hidden>개인정보 수정</button>
+        </div>
+    </div>
+    <!--// 마이페이지 : 사용자 정보  -->
+
+    <!-- 마이 페이지 : 메뉴 리스트 -->
+    <div class="container_mylist">
+        <ul>
+            <li>
+                <div>
+                    <a href="/triplist">
+                        내 여행 일정
+                        <i class="ico_accord"></i>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="/chat">
+                        채팅
+                        <i class="ico_accord"></i>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="#none">
+                        일정
+                        <i class="ico_accord"></i>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="#none">
+                        Time Travel 소개
+                        <i class="ico_accord"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <button type="button" onclick="logoutFunc()" class="btn btn_logout" hidden>로그아웃</button>
+    <!--// 마이 페이지 : 메뉴 리스트 -->
+</div>
+<!--// 사이드 메뉴 : 마이 페이지 -->
