@@ -30,9 +30,9 @@
 
 /* 버튼 스타일 - btn_ */
 .input_wrap {position: relative;} 
-.input_wrap .btn_holder {position: absolute; border: none; top: 50%; transform: translateY(-50%); right: 22px; width: 22px; height: 22px; background-size: cover; background-position: center; background-repeat: no-repeat; background-color: #fff; cursor: pointer;} 
+.input_wrap .btn_holder {position: absolute; border: none; top: 50%; transform: translateY(-50%); right: 22px; width: 22px; height: 22px; background-size: cover; background-position: center; background-repeat: no-repeat; background-color: transparent; cursor: pointer;} 
 .input_wrap .btn_holder.btn_search {background-image: url('../img/common/ico_search.png');} 
-.input_wrap .btn_holder.btn_marker {background-image: url('../img/common/ico_marker.png'); right: 16px; width: 20px; height: 27px;} 
+.input_wrap .btn_holder.btn_marker {background: url('../img/common/ico_marker.png') no-repeat 100% 100%/contain; right: 16px; width: 20px; height: 27px;}
 
 .calendar .container_schedule .ico_back {transform: rotate(180deg); background-image: url('../img/common/ico_arrowb.png'); display: block; width: 24px; height: 12px; background-size: cover; background-repeat: no-repeat;} 
 .calendar .container_schedule .schedule-form {padding: 20px 0;}
@@ -44,14 +44,14 @@
 .detail-schedule input.index {padding-left: 0; margin-bottom: 0; border: none; background: transparent; font-weight: 700;}
 
 .detail-schedule .result {position: relative; padding: 40px 20px;}
-.detail-schedule + .detail-schedule .result::before {content: ''; position: absolute; display: block; left: 0; top: 50%; transform: translateY(-50%); margin: 0; width: 10px; height: 70px; background: url(../img/common/ico_arrowlong.svg) center / cover no-repeat;}
+.detail-schedule + .detail-schedule .result.active::before {content: ''; position: absolute; display: block; left: 0; top: 50%; transform: translateY(-50%); margin: 0; width: 10px; height: 70px; background: url(../img/common/ico_arrowlong.svg) center / cover no-repeat;}
 
 #wrap.maps_wrap {padding-bottom: 0;}
 .maps_wrap .tab_menu {padding-bottom: 0; overflow-x: scroll; /*-ms-overflow-style: none;*/}
 .maps_wrap .tab_menu::-webkit-scrollbar{display:none;}
 .maps_wrap .select.active {padding: 18px 20px; margin-bottom: 20px; border: 1px solid #ececec; border-radius: 15px; font-size: 1.3rem; font-weight: 700; color: #278eff; cursor: pointer;}
 .maps_wrap .select.active:hover {background-color: #278eff; color: #fff;}
-.maps_wrap .map_box {margin-bottom: 20px;}
+.maps_wrap .map {margin-bottom: 20px;}
 
 .create_btnwrap {margin: 0 20px; padding-bottom: 52px;}
 .create_btnwrap .btn:first-child {margin-top: 0;}

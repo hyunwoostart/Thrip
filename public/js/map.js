@@ -209,10 +209,10 @@ function selectFunc() {
 					<button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete">-</button>
 					<input type="hidden" class="category" value="${i + 1}" />
 					<input type="time" class="arrTime" />
-                    <div class="input_wrap">
+           <div class="input_wrap">
 						<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" onkeyup="if(window.event.keyCode == 13) {keyword(1)}" />
 						<input type="button" onclick="keyword(1)" value="검색" class="btn_holder btn_marker" />
-                    </div>
+           </div>
 					<div class="select" onclick="selectFunc()"></div>
 					<div class="map_box"></div>
 					<input type="hidden" class="obj_x" />

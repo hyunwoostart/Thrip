@@ -31,11 +31,11 @@
             <!--// 헤더 -->
 
             <!-- 공통 - 사이드 메뉴 -->
-            <!-- <%- include('sidemenu.ejs') %> -->
+            <%- include('sidemenu.ejs') %>
             <!--// 공통 - 사이드 메뉴 -->
 
             <!-- 컨텐츠 -->
-            <div class="main">
+            <main class="main">
                 <h1>Time Travel<br />로그인</h1>
                 <form id="login-form">
                     <label for="userId">아이디</label>
@@ -48,11 +48,11 @@
                     <li><a href="/find">아이디/비밀번호 찾기</a></li>
                     <li><a href="/signup">회원가입</a></li>
                 </ul>
-            </div>
+            </main>
             <!--// 컨텐츠 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
-        <!-- <script src="../public/js/sidemenu.js"></script> -->
+        <script src="../public/js/sidemenu.js"></script>
         <script>
             (() => {
                 if (localStorage.getItem('userId')) {
