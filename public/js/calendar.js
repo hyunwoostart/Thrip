@@ -150,13 +150,17 @@ async function getSelectedDate() {
     return new Promise((resolve) => {
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
+            var active = document.querySelector('.active');
+            if (active) {
+                active.classList.remove('active');
+            }
             var dList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
             if (e.target.tagName === 'TD') {
+                e.target.classList.add('active');
                 var date = e.target.innerText;
                 var day = dList[e.target.cellIndex];
                 var m = month;
                 selectedDate = { year, m, date, day };
-                // Resolve the promise with the selectedDate object
                 resolve(selectedDate);
                 console.log(selectedDate);
             }
@@ -187,6 +191,12 @@ function selectDep() {
         date: Number(selectedDate.date),
     };
     console.log('dep', dep);
+    var active = document.querySelector('.active');
+    if (active) {
+        active.classList.remove('active');
+        active.classList.add('on');
+        console.log(active.classList);
+    }
 }
 function selectArr() {
     //도착일 선택
