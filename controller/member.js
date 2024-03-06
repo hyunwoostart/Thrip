@@ -86,7 +86,6 @@ exports.del = async (req, res) => {
 exports.certId = async (req, res) => {
     const { username, email } = req.query;
     const result = await Member.findOne({ where: { username, email } });
-    console.log(result);
     if (result) {
         res.json({ success: true, result: result.id, message: '회원 정보 조회가 완료되었습니다.' });
     } else {
