@@ -7,6 +7,9 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signup');
 };
+exports.find = (req, res) => {
+    res.render('find');
+};
 exports.mypage = (req, res) => {
     res.render('mypage');
 };
@@ -19,15 +22,18 @@ exports.chat = (req, res) => {
 exports.map = (req, res) => {
     res.render('map');
 };
-
 exports.calendar = (req, res) => {
     res.render('calendar');
 };
-
 exports.triplist = (req, res) => {
     res.render('triplist');
 };
-
 exports.tripdetail = (req, res) => {
     res.render('tripdetail');
+};
+exports.admin = (req, res) => {
+    res.render('admin');
+};
+exports.recdetail = (req, res) => {
+    res.render('recdetail');
 };

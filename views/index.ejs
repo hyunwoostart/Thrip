@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>메인</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+        />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
@@ -40,8 +43,14 @@
                     <ul class="sub_menu">
                         <li>
                             <ul class="login_wrap">
-                                <li><a href="#none" class="info_txt">로그인</a></li>
-                                <li><a href="#none" class="info_txt">회원가입</a></li>
+                                <li>
+                                    <a href="#none" class="info_txt">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="#none" class="info_txt"
+                                        >회원가입</a
+                                    >
+                                </li>
                                 <!-- <li><a href="#none" class="info_txt">로그아웃</a></li> -->
                             </ul>
                         </li>
@@ -54,72 +63,13 @@
                 </nav>
             </header>
             <!--// 헤더 -->
-            
-            <!-- 사이드 메뉴 : 마이 페이지 -->
-            <div class="menu_side" style="display: none;">
-                <a href="" class="btn btn_close">
-                    <span class="blind">닫기 버튼</span>
-                </a>
-                <!-- 마이페이지 : 사용자 정보  -->
-                <div class="container_myinfo">
-                    <div class="my_photo">
-                        <img src="../public/img//common/img_myphoto.png" alt="">
-                    </div>
-                    <div class="my_info">
-                        <ul class="login_wrap">
-                            <li><a href="#none" class="info_txt">로그인</a></li>
-                            <li><a href="#none" class="info_txt">회원가입</a></li>
-                            <li><a href="#none" class="info_txt">로그아웃</a></li>
-                        </ul>
-                        <span class="nick_name blind info_txt">닉네임</span>
-                        <button class="btn btn_retouch">개인정보 수정</button>
-                    </div>
-                </div>
-                <!--// 마이페이지 : 사용자 정보  -->
 
-                <!-- 마이 페이지 : 메뉴 리스트 -->
-                <div class="container_mylist">
-                    <ul>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    내 여행 일정
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    내 여행 일정
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    내 여행 일정
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#none">
-                                    Time Travel 소개
-                                    <i class="ico_accord"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!--// 마이 페이지 : 메뉴 리스트 -->
-            </div>
-            <!--// 사이드 메뉴 : 마이 페이지 -->
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
 
             <!-- 메인 -->
-            <div class="main">
+            <main class="main">
                 <!-- 메인 탭 : 메뉴 -->
                 <ul class="tab_menu">
                     <li class="rectrip_cnt on">추천</li>
@@ -133,64 +83,24 @@
                     <div class="container_trip">
                         <div class="trip_box">
                             <div class="trip_cnt">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>일</th>
-                                            <th>월</th>
-                                            <th>화</th>
-                                            <th>수</th>
-                                            <th>목</th>
-                                            <th>금</th>
-                                            <th>토</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#none">1</a></td>
-                                            <td><a href="#none">2</a></td>
-                                            <td><a href="#none">3</a></td>
-                                            <td class="on"><a href="#none">4</a></td>
-                                            <td><a href="#none">5</a></td>
-                                            <td><a href="#none">6</a></td>
-                                            <td><a href="#none">7</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="trip_calendar">
+                                    <table id="trip_calendar_table"></table>
+                                </div>
                                 <div class="trip_schedule">
-                                    <h3>부산여행</h3>
-                                    <span>3월 5일 09:00 ~ 3월 7일 20:00</span>
-                                    <p>09:00 부산역</p>
-                                    <p>11:00 어떤 카페</p>
-                                    <p>13:00 어떤 식당</p>
+                                    <h3>새로운 일정을 생성해주세요</h3>
+                                    <span></span>
                                 </div>
                             </div>
-                            <div class="trip_supplies">
-                                <h3>여행 준비물</h3>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item01" name="item01" checked />
-                                    <label for="item01">캐리어</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item02" name="item02" />
-                                    <label for="item02">스킨케어</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item03" name="item03" />
-                                    <label for="item03">여벌 옷</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item04" name="item04" />
-                                    <label for="item04">지갑</label>
-                                </div>
-                                <div class="input_chk">
-                                    <input type="checkbox" id="item05" name="item05" />
-                                    <label for="item05">카메라</label>
-                                </div>
-                            </div>
+                            <div class="trip_supplies"></div>
                         </div>
-                        <div class="trip_new" style="display: none">
-                            <button type="button">새로운 일정 생성</button>
+                        <div class="trip_new">
+                            <button
+                                type="button"
+                                class="btn"
+                                onclick="newSchedule()"
+                            >
+                                + 일정 생성하기
+                            </button>
                         </div>
                     </div>
                     <!--// 내 여행 -->
@@ -198,41 +108,7 @@
                     <!-- 추천 여행지 -->
                     <div class="container_rec my_swiper">
                         <h3>추천 여행지</h3>
-                        <ul class="swiper-wrapper">
-                            <li class="swiper-slide">
-                                <div class="rec_cnt">
-                                    <a href="#none">
-                                        <img src="../public/img/main/img_rectrip01.png" alt="" />
-                                        <div class="rec_txt">
-                                            <strong>Sea Diving</strong>
-                                            <p><span>1.1</span>km boat</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="rec_cnt">
-                                    <a href="#none">
-                                        <img src="../public/img/main/img_rectrip02.png" alt="" />
-                                        <div class="rec_txt">
-                                            <strong>Beach Adventure</strong>
-                                            <p><span>2</span>km away</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="rec_cnt">
-                                    <a href="#none">
-                                        <img src="../public/img/main/img_rectrip02.png" alt="" />
-                                        <div class="rec_txt">
-                                            <strong>Beach Adventure</strong>
-                                            <p><span>2</span>km away</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        <ul class="swiper-wrapper"></ul>
                     </div>
                     <!--// 추천 여행지 -->
 
@@ -243,7 +119,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate01.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate01.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">관광명소</div>
                                     </a>
@@ -253,7 +132,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate02.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate02.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">카페</div>
                                     </a>
@@ -263,7 +145,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate03.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate03.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">맛집</div>
                                     </a>
@@ -273,7 +158,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate04.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate04.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">레저</div>
                                     </a>
@@ -285,36 +173,8 @@
 
                     <!-- 다가오는 여행 일정 -->
                     <div class="container_upcoming">
-                        <h3>다가오는 여행 일정</h3>
-                        <ul>
-                            <li>
-                                <div class="trip_schedule">
-                                    <a href="#none">
-                                        <p>제주 여행</p>
-                                        <strong>Breakfast</strong>
-                                        <span>March 21 , 2021 - 8 AM</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="trip_schedule">
-                                    <a href="#none">
-                                        <p>공주들의 생일파티</p>
-                                        <strong>Visiting Louvre Museum</strong>
-                                        <span>March 21 , 2021 - 10 AM</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="trip_schedule">
-                                    <a href="#none">
-                                        <p>춘천 여행</p>
-                                        <strong>Lunch</strong>
-                                        <span>March 21 , 2021 - 1 PM</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        <h3></h3>
+                        <ul></ul>
                     </div>
                     <!--// 다가오는 여행 일정 -->
 
@@ -325,7 +185,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -343,7 +206,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -359,7 +225,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -375,7 +244,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -391,7 +263,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -409,34 +284,11 @@
                     <!--// BEST 여행 일정 -->
                 </div>
                 <!--// 메인 : 탭컨텐츠 -->
-            </div>
+            </main>
             <!--// 메인 -->
 
             <!-- 하단 메뉴 : 고정 -->
-            <div class="btn_wrap">
-                <ul>
-                    <li class="on">
-                        <a href="#none" class="ico_home">
-                            <span class="blind">홈</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#none" class="ico_maps">
-                            <span class="blind">지도</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#none" class="ico_chat">
-                            <span class="blind">채팅</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#none" class="ico_my">
-                            <span class="blind">나의 정보</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <%- include('btnwrap.ejs') %>
             <!--// 하단 메뉴 : 고정 -->
 
             <!-- 푸터 -->
@@ -447,151 +299,8 @@
         </div>
         <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script>
-            const info = document.querySelector('.my_info');
-            const myName = document.querySelector('.nick_name');
-            const editBtn = document.querySelector('.btn_retouch');
-            // 로그인 여부 확인
-            (async function () {
-                console.log(Boolean(localStorage.getItem('token')));
-                if (!localStorage.getItem('token')) {
-                    editBtn.hidden = true;
-                    info.addEventListener('click', () => {
-                        document.location.href = '/login';
-                    });
-                } else {
-                    try {
-                        const res = await axios({
-                            method: 'GET',
-                            url: '/api/member/find',
-                            headers: {
-                                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                            },
-                        });
-                        editBtn.hidden = false;
-                        myName.textContent = res.data.result.username;
-                    } catch (error) {
-                        editBtn.hidden = true;
-                        info.addEventListener('click', () => {
-                            document.location.href = '/login';
-                        });
-                    }
-                }
-            })();
-            // 개인정보 수정 랜딩
-            editBtn.addEventListener('click', (e) => {
-                document.location.href = '/mypage';
-            });
-            /* 탭메뉴 스크립트 */
-            document.addEventListener('DOMContentLoaded', function () {
-                // 모든 컨테이너 숨기기
-                let containers = document.querySelectorAll('.tab_cnt > div');
-                containers.forEach(function (container) {
-                    container.style.display = 'none';
-                });
-                // 기본
-                showRectripCnt(); // 추천 컨테이너 표시
-
-                // 탭 메뉴 클릭 이벤트 처리
-                document.querySelectorAll('.tab_menu li').forEach(function (item) {
-                    item.addEventListener('click', function () {
-                        // 모든 탭 메뉴 항목의 'on' 클래스 제거
-                        document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
-                        // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
-                        this.classList.add('on');
-
-                        // 내 여행 탭을 클릭했는지 확인
-                        if (this.classList.contains('mytrip_cnt')) {
-                            hideContainers(); // 모든 컨테이너 숨기기
-                            // 내 여행 컨테이너 표시
-                            document
-                                .querySelectorAll('.container_trip, .container_upcoming')
-                                .forEach((container) => (container.style.display = 'block'));
-                        } else if (this.classList.contains('rectrip_cnt')) {
-                            hideContainers();
-                            showRectripCnt();
-                        }
-                    });
-                });
-
-                // 모든 컨테이너 숨기는 함수
-                function hideContainers() {
-                    document
-                        .querySelectorAll('.tab_cnt > div')
-                        .forEach((container) => (container.style.display = 'none'));
-                }
-
-                // 추천 컨테이너 표시하는 함수
-                function showRectripCnt() {
-                    document
-                        .querySelectorAll('.container_rec, .container_category, .container_best')
-                        .forEach((container) => (container.style.display = 'block'));
-                }
-            });
-
-            /* 추천 여행지 스와이퍼 슬라이드*/
-            var swiper = new Swiper('.my_swiper', {
-                slidesPerView: 2,
-                spaceBetween: 20,
-                // centeredSlides: true,
-                autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false,
-                },
-                speed: 1500,
-                loop: true,
-                /*
-                breakpoints: {
-                748: {
-                    slidesPerView: 3,
-                    spaceBetween: 250,
-                },
-                1060: {
-                    slidesPerView: 3,
-                    spaceBetween: 350,
-                },
-                1500: {
-                    slidesPerView: 4,
-                    spaceBetween: 350,
-                },
-                1700: {
-                    slidesPerView: 4,
-                    spaceBetween: 350,
-                },
-                */
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-            });
-            // 페이지 로드 시 스와이퍼 초기화 (임시주석)
-            // document.addEventListener('DOMContentLoaded', function () {
-            //     initSwiper();
-            // });
-
-            // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
-            document.querySelectorAll('.tab_menu').forEach(function (tab) {
-                tab.addEventListener('click', function () {
-                    initSwiper();
-                });
-            });
-
-            /* 하단 메뉴 스크립트 */
-            function toggleOn() {
-                if (!this.classList.contains('on')) {
-                    // 현재 요소에 'on' 클래스를 추가하고, 다른 형제 요소들은 'on' 클래스를 제거
-                    this.classList.add('on');
-                    document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
-                        if (li !== this) {
-                            li.classList.remove('on');
-                        }
-                    }, this);
-                }
-            }
-
-            document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
-                li.addEventListener('click', toggleOn);
-            });
-        </script>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
+        <script src="../public/js/main.js"></script>
     </body>
 </html>

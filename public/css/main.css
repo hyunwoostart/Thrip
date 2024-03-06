@@ -22,8 +22,8 @@
 
 /* 탭메뉴 */
 .tab_menu {display: flex; padding: 20px 0;}
+.tab_menu li {font-size: 1.2rem; font-weight: 700; color: #8d8d8d; word-break: keep-all; cursor: pointer;}
 .tab_menu li + li {margin-left: 25px;}
-.tab_menu li {font-size: 1.2rem; font-weight: 700; color: #8d8d8d; cursor: pointer;}
 .tab_menu li.on {color: #278eff;}
 .tab_menu li.on::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
@@ -48,12 +48,12 @@
 /* 추천 여행지 */
 .container_rec ul {display: flex;}
 .container_rec ul li {width: 50%;}
-.container_rec ul li div img {min-width: 124px; border-radius: 15px;}
-.container_rec ul li .rec_cnt {position: relative; width: 100%;}
+.container_rec ul li img {min-width: 124px; border-radius: 15px; width: 100%; height: 100%; object-fit: cover;}
+.container_rec ul li .rec_cnt {position: relative; width: 100%; height: 60vw;}
 .container_rec ul li .rec_cnt::before {content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; border-radius: 15px; background: linear-gradient(359.43deg, #000000 -17.3%, rgba(0, 0, 0, 0) 57.52%);}
-.container_rec ul li .rec_cnt .rec_txt {position: absolute; left: 10px; bottom: 24px;}
+.container_rec ul li .rec_cnt .rec_txt {position: absolute; left: 10px; right: 10px; bottom: 24px;}
 .container_rec ul li .rec_cnt .rec_txt strong {font-size: 1.2rem;}
-.container_rec ul li .rec_cnt .rec_txt p {margin-top: 6px;}
+.container_rec ul li .rec_cnt .rec_txt p {margin-top: 6px; word-break: keep-all;}
 .container_rec ul li .rec_cnt .rec_txt strong, 
 .container_rec ul li .rec_cnt .rec_txt p, 
 .container_rec ul li .rec_cnt .rec_txt p span {color: #fff;}
@@ -82,19 +82,3 @@
 .container_best ul li .best_cnt .best_txt .rate_view span {display: flex; align-items: center;}
 .container_best ul li .best_cnt .best_txt .rate_view span i {display: inline-block; margin-left: 6px; width: 18px; height: 18px; background: url('../img/main/ico_star.svg') center/cover no-repeat;}
 
-/* 마이 페이지 */
-.menu_side {position: relative;}
-.btn_close {position: absolute; right: 0; margin: 0; width: 24px; height: 24px; background: url('../img/common/btn_close.png') center/cover no-repeat;}
-.menu_side .container_myinfo,
-.menu_side .container_myinfo .login_wrap {display: flex; align-items: center;}
-.menu_side .container_myinfo .login_wrap .info_txt {font-size: 1.2rem; font-weight: 700;}
-.menu_side .container_myinfo .my_info {margin-left: 20px;}
-.menu_side .container_myinfo .my_photo {position: relative; width: 100px;}
-.menu_side .container_myinfo .my_photo::before {content: ''; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px; border-radius: 50%; background-color: #fff;}
-.menu_side .container_myinfo .my_photo::after {content: ''; position: absolute; bottom: 10%; right: 10%; width: 12px; height: 12px; border-radius: 50%; background-color: #3dd34c;}
-.menu_side .container_myinfo .my_photo.log_out::after {background-color: #ff0000;}
-.menu_side .container_myinfo .login_wrap li + li::before {content: '/ '; margin-left: 4px;}
-.menu_side .container_myinfo .btn_retouch {margin-top: 10px; line-height: 2rem;}
-.menu_side .container_mylist ul li div {position: relative; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #D5DDE0; cursor: pointer;}
-.menu_side .container_mylist ul li div a {font-size: 1.2rem;}
-.menu_side .container_mylist i.ico_accord {position: absolute; top: -5px; right: 0; transform: rotate(270deg); width: 30px; height: 30px; background: url('../img/common/ico_accord.png') center/cover no-repeat;}

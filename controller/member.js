@@ -40,14 +40,20 @@ exports.signup = async (req, res) => {
 // 회원조회
 exports.find = async (req, res) => {
     const { id } = req.user;
-    const result = await Member.findOne({ where: id });
+    const result = await Member.findOne({ where: { id } });
+    res.json({ success: true, result });
+};
+
+// 회원조회
+exports.queryFind = async (req, res) => {
+    const { id } = req.query;
+    const result = await Member.findOne({ where: { id } });
     res.json({ success: true, result });
 };
 
 // 아이디로 회원 조회
 exports.findId = async (req, res) => {
     const { userId } = req.query;
-    console.log(userId);
     const result = await Member.findAll({ where: { userId: { [Op.like]: '%' + userId + '%' } } });
     res.json({ success: true, result });
 };
@@ -55,7 +61,6 @@ exports.findId = async (req, res) => {
 // 정보수정
 exports.update = async (req, res) => {
     const { id } = req.user;
-    console.log(Boolean(req.body.pw));
     if (req.body.pw) {
         const { pw, email, tel } = req.body;
         const password = await bcrypt.hash(pw, 11);
@@ -72,4 +77,34 @@ exports.del = async (req, res) => {
     const { id } = req.user;
     const result = await Member.destroy({ where: { id } });
     res.json({ success: true });
+};
+
+// 아이디 찾기
+exports.certId = async (req, res) => {
+    const { username, email } = req.query;
+    const result = await Member.findOne({ where: { username, email } });
+    if (result) {
+        res.json({ success: true, result: result.id, message: '회원 정보 조회가 완료되었습니다.' });
+    } else {
+        res.json({ success: false, message: '일치하는 회원 정보가 존재하지 않습니다.' });
+    }
+};
+
+// 비밀번호 찾기
+exports.certPw = async (req, res) => {
+    const { userId, email } = req.query;
+    const result = await Member.findOne({ where: { userId, email } });
+    if (result) {
+        res.json({ success: true, result: result.id, message: '회원 정보 조회가 완료되었습니다.' });
+    } else {
+        res.json({ success: false, message: '일치하는 회원 정보가 존재하지 않습니다.' });
+    }
+};
+
+// 비밀번호 변경
+exports.changePw = async (req, res) => {
+    const { id, pw } = req.body;
+    const password = await bcrypt.hash(pw, 11);
+    const result = await Member.update({ password }, { where: { id } });
+    res.json({ success: true, message: '비밀번호가 변경되었습니다.' });
 };

@@ -29,7 +29,9 @@ function makeSelect() {
         yearOption.setAttribute('id', i);
         yearOption.innerText = i;
         selectYear.appendChild(yearOption);
-        document.getElementById(currentYear).setAttribute('selected', 'selected');
+        document
+            .getElementById(currentYear)
+            .setAttribute('selected', 'selected');
     }
     // 월 선택
     for (var i = 1; i <= 12; i++) {
@@ -64,7 +66,7 @@ function printCalendar(year, month) {
 
     /* 현재 월의 1일에 요일을 구합니다. 그럼 그달 달력에 첫 번째 줄 빈칸의 개수를 구할 수 있습니다.*/
     var theDate = new Date(year, month, 1);
-    var theDay = theDate.getDay();
+    var theDay = theDate.getDay() + 1;
 
     //② 현재 월에 마지막 일을 구해야 합니다.
 
@@ -72,7 +74,8 @@ function printCalendar(year, month) {
     var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     /*현재 연도가 윤년(4년 주기이고 100년 주기는 제외합니다.
                 또는 400년 주기)일경우 2월에 마지막 날짜는 29가 되어야 합니다.*/
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) lastDate = last[1] = 29;
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+        lastDate = last[1] = 29;
 
     var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구합니다.
 
@@ -85,13 +88,13 @@ function printCalendar(year, month) {
     //문자결합 연산자를 사용해 요일이 나오는 행을 생성
     var calendar = "<table id=calendar_table border='1'>";
     calendar += '<tr>';
+    calendar += '<th>SUN</th>';
     calendar += '<th>MON</th>';
     calendar += '<th>TUE</th>';
     calendar += '<th>WED</th>';
     calendar += '<th>THU</th>';
     calendar += '<th>FRI</th>';
     calendar += '<th>SAT</th>';
-    calendar += '<th>SUN</th>';
     calendar += '</tr>';
 
     // console.log(nowD);
@@ -111,7 +114,8 @@ function printCalendar(year, month) {
             } else {
                 // 오늘 날짜에 대한 스타일 적용
                 if (dNum === nowD) {
-                    calendar += `<td id='today' class='date '>` + dNum + '</td>';
+                    calendar +=
+                        `<td id='today' class='date '>` + dNum + '</td>';
                 } else {
                     calendar += '<td class="date">' + dNum + '</td>';
                 }
@@ -146,13 +150,17 @@ async function getSelectedDate() {
     return new Promise((resolve) => {
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
-            var dList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+            var active = document.querySelector('.active');
+            if (active) {
+                active.classList.remove('active');
+            }
+            var dList = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
             if (e.target.tagName === 'TD') {
+                e.target.classList.add('active');
                 var date = e.target.innerText;
                 var day = dList[e.target.cellIndex];
                 var m = month;
                 selectedDate = { year, m, date, day };
-                // Resolve the promise with the selectedDate object
                 resolve(selectedDate);
                 console.log(selectedDate);
             }
@@ -170,10 +178,10 @@ let depDate;
 let arrDate;
 function selectDep() {
     //출발일 선택
-    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(2, '0')}-${String(selectedDate.date).padStart(
+    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
-    )}`;
+    )}-${String(selectedDate.date).padStart(2, '0')}`;
     console.log('depDate', depDate);
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
@@ -183,13 +191,19 @@ function selectDep() {
         date: Number(selectedDate.date),
     };
     console.log('dep', dep);
+    var active = document.querySelector('.active');
+    if (active) {
+        active.classList.remove('active');
+        active.classList.add('on');
+        console.log(active.classList);
+    }
 }
 function selectArr() {
     //도착일 선택
-    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(2, '0')}-${String(selectedDate.date).padStart(
+    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
-    )}`;
+    )}-${String(selectedDate.date).padStart(2, '0')}`;
     console.log(arrDate);
     arr = {
         year: selectedDate.year,
@@ -198,12 +212,12 @@ function selectArr() {
     };
 
     //창 맨 위에 일정 띄우기
-    document.querySelector('.depDate').textContent = `${String(dep.m + 1).padStart(2, '0')}월 ${String(
-        dep.date
-    ).padStart(2, '0')}일`;
-    document.querySelector('.arrDate').textContent = `${String(arr.m + 1).padStart(2, '0')}월 ${String(
-        arr.date
-    ).padStart(2, '0')}일`;
+    document.querySelector('.depDate').textContent = `${String(
+        dep.m + 1
+    ).padStart(2, '0')}월 ${String(dep.date).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(
+        arr.m + 1
+    ).padStart(2, '0')}월 ${String(arr.date).padStart(2, '0')}일`;
 
     document.querySelector('#selectArr').classList.add('hide');
     document.querySelector('.container_calendar').classList.add('hide');
@@ -216,26 +230,28 @@ function selectReset() {
     document.querySelector('#selectDep').classList.remove('hide');
     document.querySelector('.container_calendar').classList.remove('hide');
 }
-document.querySelector('#searchBtn').addEventListener('click', async function (e) {
-    e.preventDefault();
-    const res = await axios({
-        method: 'GET',
-        url: '/api/member/findId',
-        params: {
-            userId: document.querySelector('#memberSearch').value,
-        },
-    });
-    console.log('res', res.data.result);
-    const resultBox = document.querySelector('.search_result');
-    resultBox.innerHTML = '';
-    for (let i = 0; i < res.data.result.length; i++) {
-        const { id, userId } = res.data.result[i];
-        const html = `
+document
+    .querySelector('#searchBtn')
+    .addEventListener('click', async function (e) {
+        e.preventDefault();
+        const res = await axios({
+            method: 'GET',
+            url: '/api/member/findId',
+            params: {
+                userId: document.querySelector('#memberSearch').value,
+            },
+        });
+        console.log('res', res.data.result);
+        const resultBox = document.querySelector('.search_result');
+        resultBox.innerHTML = '';
+        for (let i = 0; i < res.data.result.length; i++) {
+            const { id, userId } = res.data.result[i];
+            const html = `
 		<button type="button" onclick="addId(${id})" class="result_id">${userId}</button>
 		`;
-        resultBox.insertAdjacentHTML('beforeend', html);
-    }
-});
+            resultBox.insertAdjacentHTML('beforeend', html);
+        }
+    });
 
 let groupMember = [];
 let groupId;
@@ -273,20 +289,20 @@ let groupId;
         groupMember = res.data.result.groupMember;
         dep = {
             year: Number(depY),
-            m: Number(depM),
+            m: Number(depM) + 1,
             date: Number(depD),
         };
         arr = {
             year: Number(arrY),
-            m: Number(arrM),
+            m: Number(arrM) + 1,
             date: Number(arrD),
         };
 
         document.querySelector('#selectArr').classList.add('hide');
         document.querySelector('.container_calendar').classList.add('hide');
         document.querySelector('.container_schedule').classList.remove('hide');
-        document.querySelector('.depDate').textContent = `${depM}월 ${depD}일`;
-        document.querySelector('.arrDate').textContent = `${arrM}월 ${arrD}일`;
+        document.querySelector('.depDate').textContent = `${dep.m}월 ${depD}일`;
+        document.querySelector('.arrDate').textContent = `${arr.m}월 ${arrD}일`;
         document.querySelector('#groupName').value = groupName;
         document.querySelector('#groupMemo').value = groupMemo;
     }
@@ -301,7 +317,8 @@ async function register() {
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
     console.log('stDate', stDate, 'endDate', endDate);
-    const dueDate = (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
+    const dueDate =
+        (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
         depDate,
         arrDate,

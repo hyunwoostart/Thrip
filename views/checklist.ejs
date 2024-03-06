@@ -29,7 +29,12 @@
                 </nav>
             </header>
             <!--// 헤더 -->
-            <div class="main">
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
+            <main class="main">
                 <div class="container_checklist">
                     <div class="trip_supplies">
                         <h3>여행이름</h3>
@@ -40,8 +45,10 @@
                         <button type="button" onclick="addList()" class="btn" id="addBtn">등록</button>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script>
             const list = document.querySelector('.trip_supplies');
             (async function () {
@@ -69,20 +76,20 @@
                     let html;
                     if (Boolean(isActive)) {
                         html = `
-            				<div class="input_chk" onclick="isChecked(${id})">
-            					<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-            					<label for="check${id}">${listName}</label>
-            					<input type="hidden" id="${id}" />
-            				</div>
-            				`;
+                            <div class="input_chk" onclick="isChecked(${id})">
+                                <input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+                                <label for="check${id}">${listName}</label>
+                                <input type="hidden" id="${id}" />
+                            </div>
+                            `;
                     } else {
                         html = `
-            				<div class="input_chk" onclick="isChecked(${id})">
-            					<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-            					<label for="check${id}">${listName}</label>
-            					<input type="hidden" id="${id}" />
-            				</div>
-            				`;
+                            <div class="input_chk" onclick="isChecked(${id})">
+                                <input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+                                <label for="check${id}">${listName}</label>
+                                <input type="hidden" id="${id}" />
+                            </div>
+                            `;
                     }
                     list.insertAdjacentHTML('beforeend', html);
                 }
@@ -115,12 +122,12 @@
                 });
                 const { id, listName } = res.data.result;
                 const html = `
-                    	<div class="input_chk" onclick="isChecked(${id})">
-                    		<input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
-                    		<label for="check${id}">${listName}</label>
-                    		<input type="hidden" id="${id}" />
-                    	</div>
-                    	`;
+                        <div class="input_chk" onclick="isChecked(${id})">
+                            <input type="checkbox" class="checklist" id="check${id}" name="check${id}"  />
+                            <label for="check${id}">${listName}</label>
+                            <input type="hidden" id="${id}" />
+                        </div>
+                        `;
                 list.insertAdjacentHTML('beforeend', html);
                 document.querySelector('#addName').value = '';
             }

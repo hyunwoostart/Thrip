@@ -8,6 +8,15 @@ let nowIndex;
 let tabForm;
 let form;
 
+// 소요시간 계산 함수
+function duration(distance) {
+    if (distance >= 15) {
+        return `소요시간 ${((distance * 4) / 60).toFixed(0)}시간 ${((distance * 4) % 60).toFixed(0)}분`;
+    } else {
+        return `소요시간 ${(distance * 4).toFixed(0)}분`;
+    }
+}
+
 function makeMap(id) {
     nowIndex = id;
     form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
@@ -16,7 +25,7 @@ function makeMap(id) {
     }
     const div = document.createElement('div');
     div.className = 'map';
-    form.querySelector('.mapBox').insertAdjacentElement('beforeend', div);
+    form.querySelector('.map_box').insertAdjacentElement('beforeend', div);
     mapContainer = document.querySelector('.map'); // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -58,6 +67,7 @@ var ps = new kakao.maps.services.Places();
 
 //검색하는 함수입니다.
 async function keyword(id) {
+    console.log('first');
     form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
     form.querySelector('.map').classList.remove('hide');
     map.relayout();
@@ -93,6 +103,7 @@ function displayMarker(place) {
     kakao.maps.event.addListener(marker, 'click', function () {
         // console.log(place.x);
         form.querySelector('.select').innerHTML = place.place_name;
+        form.querySelector('.select').classList.add('active');
         // `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name, '</div>');
@@ -118,7 +129,8 @@ function displayMarker(place) {
                 form.querySelector('.obj_y').value
             );
             console.log(distance);
-            form.querySelector('.result').innerHTML = `소요시간 자차 ${distance * 4}분`;
+            form.querySelector('.result').innerHTML = duration(distance);
+            form.querySelector('.result').classList.add('active');
             form.querySelector('.distance').value = distance;
         }
         if (
@@ -132,7 +144,7 @@ function displayMarker(place) {
                 form.querySelector('.obj_x').value,
                 form.querySelector('.obj_y').value
             );
-            nextForm.querySelector('.result').innerHTML = `소요시간 자차 ${distance * 4}분`;
+            nextForm.querySelector('.result').innerHTML = duration(distance);
             form.querySelector('.distance').value = distance;
         }
         console.log(nowIndex);
@@ -144,6 +156,7 @@ function selectFunc() {
     form.querySelector('.place_name').value = form.querySelector('.select').textContent;
     document.querySelector('.map').remove(); //지도 지우기
     form.querySelector('.select').textContent = '';
+    form.querySelector('.select').classList.remove('active');
 }
 
 //========================================================================
@@ -175,10 +188,8 @@ function selectFunc() {
                 groupId: localStorage.getItem('groupId'),
             },
         });
-        console.log(res3.data.result);
         const tabMenu = document.querySelector('.tab_menu');
         const { dueDate } = res2.data.result;
-        console.log(dueDate);
         // 탭 생성
         for (let i = 0; i < dueDate; i++) {
             const html = `
@@ -194,13 +205,18 @@ function selectFunc() {
             let html2 = `
 				<div class="detail-schedule">
 					<div class="result"></div>
-					<input type="number" class="index" value="1" readonly />
+                    <div class="input_wrap">
+                        <input type="number" class="index" value="1" readonly disabled />
+                        <button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete"></button>
+                    </div>
 					<input type="hidden" class="category" value="${i + 1}" />
 					<input type="time" class="arrTime" />
-					<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" />
-					<input type="button" onclick="keyword(1)" value="검색" />
+                    <div class="input_wrap">
+						<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" onkeyup="if(window.event.keyCode == 13) {keyword(1)}" />
+						<button type="button hidden" onclick="keyword(1)" value="검색" class="btn_holder btn_marker" readonly/>
+                    </div>
 					<div class="select" onclick="selectFunc()"></div>
-					<div class="mapBox"></div>
+					<div class="map_box"></div>
 					<input type="hidden" class="obj_x" />
 					<input type="hidden" class="obj_y" />
 					<input type="hidden" class="obj_place_name" />
@@ -217,21 +233,28 @@ function selectFunc() {
                     if (category == i + 1) {
                         html2 = `
 						<div class="detail-schedule">
-							<div class="result">소요시간 자차 ${distance * 4}분</div>
-							<input type="number" class="index" value="${detailOrder}" readonly />
+							<div class="result active">${duration(distance)}</div>
+                            <div class="input_wrap">
+                                <input type="number" class="index" value="${detailOrder}" readonly disabled/>
+                                <button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete"></button>
+                            </div>
 							<input type="hidden" class="category" value="${i + 1}" />
 							<input type="time" class="arrTime" value="${arrTime}" />
-							<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${num + 1})" value="${place.place_name}" />
-							<input type="button" onclick="keyword(${num + 1})" value="검색" />
+							<div class="input_wrap">
+								<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${num + 1})" value="${
+                            place.place_name
+                        }" onkeyup="if(window.event.keyCode == 13) {keyword(${num + 1})}" />
+								<button type="button" onclick="keyword(${num + 1})" value="검색" class="btn_holder btn_marker" />
+							</div>
 							<div class="select" onclick="selectFunc()"></div>
-							<div class="mapBox"></div>
+							<div class="map_box"></div>
 							<input type="hidden" class="obj_x" value="${place.x}" />
 							<input type="hidden" class="obj_y" value="${place.y}" />
 							<input type="hidden" class="obj_place_name" value="${place.place_name}" />
 							<input type="hidden" class="distance" value="${distance}" />
 							<input type="text" class="detailMemo" placeholder="메모" value="${detailMemo}" />
 						</div>
-            			`;
+                        `;
                         document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
                         num++;
                     }
@@ -248,12 +271,14 @@ function selectFunc() {
             }
             for (let k = 0; k < document.querySelectorAll('.schedule-form').length; k++) {
                 document.querySelectorAll('.schedule-form')[k].querySelectorAll('.result')[0].hidden = true;
+                document.querySelectorAll('.schedule-form')[k].querySelectorAll('.btn_delete')[0].hidden = true;
             }
         }
         localStorage.setItem('category', 1);
         tabForm = document.querySelectorAll('.schedule-form')[0];
         form = tabForm.querySelectorAll('.detail-schedule')[0];
     } catch (error) {
+        console.log(error);
         document.location.href = '/login';
     }
 })();
@@ -275,6 +300,33 @@ function tabFunc(i) {
     }
 }
 
+// 삭제 버튼
+function deleteFunc(tab, id) {
+    tabForm = document.querySelectorAll('.schedule-form')[tab - 1];
+    form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
+    form.remove();
+    console.log();
+    for (let i = id; i <= tabForm.querySelectorAll('.detail-schedule').length; i++) {
+        form = tabForm.querySelectorAll('.detail-schedule')[i - 1];
+        const prevForm = tabForm.querySelectorAll('.detail-schedule')[i - 2];
+        form.querySelector('.index').value = i;
+        form.querySelector('.btn_delete').setAttribute('onclick', `deleteFunc(${tab}, ${i})`);
+        form.querySelector('.place_name').setAttribute('onfocus', `makeMap(${i})`);
+        form.querySelector('.place_name').setAttribute('onkeyup', `if(window.event.keyCode == 13) {keyword(${i})}`);
+        form.querySelector('.btn_marker').setAttribute('onclick', `keyword(${i})`);
+        if (form.querySelector('.obj_x').value) {
+            const newDistance = getDistance(
+                prevForm.querySelector('.obj_x').value,
+                prevForm.querySelector('.obj_y').value,
+                form.querySelector('.obj_x').value,
+                form.querySelector('.obj_y').value
+            );
+            form.querySelector('.result').textContent = duration(newDistance);
+            form.querySelector('.distance').value = newDistance;
+        }
+    }
+}
+
 //일정 추가하기
 let tabIndex;
 function insert() {
@@ -283,13 +335,20 @@ function insert() {
     var addCode = `
 		<div class="detail-schedule">
 			<div class="result"></div>
-			<input type="number" class="index" value="${tabIndex}" readonly />
+            <div class="input_wrap">
+                <input type="number" class="index" value="${tabIndex}" readonly disabled />
+                <button type="button" onclick="deleteFunc(${localStorage.getItem(
+                    'category'
+                )}, ${tabIndex})" class="btn_delete"></button>
+            </div>
 			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
 			<input type="time" class="arrTime" />
-			<input class="place_name" onfocus="makeMap(${tabIndex})"/>
-			<input type="button" onclick="keyword(${tabIndex})" value="검색" />
+			<div class="input_wrap">
+				<input class="place_name" onfocus="makeMap(${tabIndex})" onkeyup="if(window.event.keyCode == 13) {keyword(${tabIndex})}" />
+				<button type="button" onclick="keyword(${tabIndex})" value="검색" class="btn_holder btn_marker" />
+			</div>
 			<div class="select" onclick="selectFunc()"></div>
-			<div class="mapBox"></div>
+			<div class="map_box"></div>
 			<input type="hidden" class="obj_x" />
 			<input type="hidden" class="obj_y" />
 			<input type="hidden" class="obj_place_name" />
@@ -307,6 +366,10 @@ async function register() {
         const content = document.querySelectorAll('.detail-schedule');
         console.log(content);
         for (let i = 0; i < content.length; i++) {
+            const category = Number(content[i].querySelector('.category').value);
+            const tabLength = document
+                .querySelectorAll('.schedule-form')
+                [category - 1].querySelectorAll('.detail-schedule').length;
             let nowDistance;
             if (content[i].querySelector('.distance').value) {
                 nowDistance = content[i].querySelector('.distance').value;
@@ -314,7 +377,7 @@ async function register() {
                 nowDistance = 0;
             }
             const data = {
-                category: Number(content[i].querySelector('.category').value),
+                category,
                 detailOrder: Number(content[i].querySelector('.index').value),
                 arrTime: content[i].querySelector('.arrTime').value,
                 place: {
@@ -325,8 +388,9 @@ async function register() {
                 distance: nowDistance,
                 detailMemo: content[i].querySelector('.detailMemo').value,
                 groupId: localStorage.getItem('groupId'),
+                tabLength,
             };
-            console.log(data);
+            console.log(tabLength);
             const res = await axios({
                 method: 'POST',
                 url: '/api/schedule/detailWrite',
@@ -334,6 +398,7 @@ async function register() {
             });
             console.log(res);
         }
+        document.location.href = '/tripdetail';
     } catch (error) {
         alert('모든 일정을 입력해주세요');
     }

@@ -1,115 +1,35 @@
-body {
-    background: #e1efff;
-    min-height: 100vh;
-}
-form {
-    position: relative;
-    padding: 20px;
-}
-input {
-    background: #f2f2f2;
-    border-radius: 2rem;
-    border: none;
-    margin: 0;
-}
-form button {
-    position: absolute;
-    top: 50%;
-    right: 2rem;
-    transform: translateY(-50%);
-    width: 2rem;
-    height: 2rem;
-    overflow: hidden;
-    border: none;
-    background-color: transparent;
-    background: transparent url('../img/common/ico_sendchat.png') no-repeat 100% 100% / contain;
-    color: transparent;
-}
-#main {
-    margin: 20px;
-}
-.chatBox {
-    width: 100%;
-    display: flex;
-    margin-bottom: 1rem;
-}
-.enter {
-    width: 100%;
-    line-height: 2;
-    text-align: left;
-    padding: 1.5rem 2rem;
-    background: #fff;
-    border: none;
-    border-radius: 0.8rem;
-    box-shadow: 0 4px 120px 0 rgba(58, 86, 78, 0.15);
-}
-.tit {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5rem;
-    line-height: 7rem;
-    font-size: 1.5rem;
-    text-align: center;
-    font-weight: 700;
-    background: #fff;
-}
-.chatName {
-    line-height: 5rem;
-}
-.golist {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-}
-.msg {
-    padding: 6rem 20px;
-}
-#chat-form {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    background: #fff;
-}
-#chatMsg {
-    height: 4rem;
-    line-height: 1.2;
-}
-.me {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 0.4rem 0;
-}
-.you {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.writer {
-    line-height: 2;
-    padding: 0 0.9rem;
-}
-.me .writer {
-    display: none;
-}
-.message {
-    line-height: 2;
-    padding: 0.4rem 1rem;
-    box-shadow: 0 4px 120px 0 rgba(58, 86, 78, 0.15);
-}
-.me .message {
-    background: #278eff;
-    border-radius: 0.8rem 0.8rem 0 0.8rem;
-    max-width: 60vw;
-    color: #fff;
-}
-.you .message {
-    background: #fff;
-    border-radius: 0.8rem 0.8rem 0.8rem 0;
-    max-width: 60vw;
-}
+.chat_wrap {min-height: 100vh; background: #e1efff;} 
+.chat_wrap input {background: #f2f2f2; border-radius: 2rem; border: none; margin: 0;} 
+.chat_wrap form button {position: absolute; top: 50%; right: 2rem; transform: translateY(-50%); width: 2rem; height: 2rem; overflow: hidden; border: none; background-color: transparent; background: transparent url('../img/common/ico_sendchat.png') no-repeat 100% 100% / contain; color: transparent;} 
+
+.chat_wrap .chatBox {width: 100%; display: flex; margin-bottom: 1rem;} 
+.chat_wrap .enter {width: 100%; height: 70px; line-height: 2; text-align: left; padding: 1.5rem 2rem; background: #fff; border: none; border-radius: 0.8rem; box-shadow: 0 4px 120px 0 rgba(58, 86, 78, 0.15);} 
+.chat_wrap .tit {position: fixed; top: 0; left: 0; width: 100%; height: 64px; line-height: 7rem; font-size: 1.5rem; text-align: center; font-weight: 700; background: #fff;} 
+.chat_wrap .golist {position: absolute; top: 50%; left: 20px; transform: translateY(-50%); display: block; width: 24px; height: 12px; background-image: url('../img/common/ico_arrow.png'); background-size: cover; background-repeat: no-repeat; cursor: pointer;} 
+.chat_wrap .chat_name {font-size: 1.4rem; font-weight: 700;}
+.chat_wrap .msg {padding: 200px 20px 20px;} 
+.chat_wrap .chat_form {position: fixed; bottom: 54px; left: 0; padding: 14px 20px 16px; width: 100%; margin: 0; background: #fff;} 
+.chat_wrap #chatMsg {padding-right: 40px; height: 4rem; line-height: 1.2;} 
+
+.chat_form.chat_list {position: fixed; top: 54px; height: 80px;} 
+.chat_form.chat_list #chatMsg {padding: 0 56px;}
+.chat_form.chat_list .input_wrap .btn_search {position: absolute; border: none; top: 50%; transform: translateY(-50%); left: 36px; width: 22px; height: 22px; background: url('../img/common/ico_search.png') center / cover no-repeat; cursor: pointer;} 
+
+.chat_wrap .me {display: flex; flex-direction: column; align-items: flex-end; margin: 0.4rem 0;} 
+.chat_wrap .you {display: flex; flex-direction: column; align-items: flex-start;} 
+.chat_wrap .writer {line-height: 2; padding: 0 0.9rem;} 
+.chat_wrap .me .writer {display: none;} 
+
+.chat_wrap .message {line-height: 2; padding: 0.4rem 1rem; box-shadow: 0 4px 120px 0 rgba(58, 86, 78, 0.15);} 
+.chat_wrap .me .message {background: #278eff; border-radius: 0.8rem 0.8rem 0 0.8rem; max-width: 60vw; word-wrap: break-word; color: #fff;} 
+.chat_wrap .you .message {background: #fff; border-radius: 0.8rem 0.8rem 0.8rem 0; max-width: 60vw;} 
+
+.chat_wrap .main {padding-top: 180px;}
+.chat_wrap .mo_header {position: fixed; top: 0; height: 54px;}
+.chat_wrap .container_chatinfo {position: fixed; display: flex; align-items: center; top: 54px; padding:0 24px 20px; width: 100%; height: 80px; background-color: #fff;}
+.chat_wrap .container_chatinfo .my_info {margin-left: 20px;}
+.chat_wrap .container_chatinfo .my_info .info_txt {font-size: 1.2rem; font-weight: 700;}
+.chat_wrap .container_chatinfo .my_photo {position: relative; width: 56px;}
+.chat_wrap .container_chatinfo .my_photo::before {content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; border-radius: 50%; background-color: #fff;}
+.chat_wrap .container_chatinfo .my_photo::after {content: ''; position: absolute; bottom: 10%; right: 10%; width: 10px; height: 10px; border-radius: 50%; background-color: #3dd34c;}
+.chat_wrap .container_chatinfo .my_photo.log_out::after {background-color: #ff0000;}
