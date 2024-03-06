@@ -139,7 +139,7 @@ h3 {margin-bottom: 16px; font-size: 1.2rem; font-weight: 700;}
 .blind {display: none;} 
 
 /* form */
-label {display: block; color: #666; margin-bottom: 8px;} 
+label {display: block; margin-bottom: 8px; font-size: 1.2rem; color: #666;} 
 input, textarea {display: block; width: 100%; font-size: 1rem; font-family: 'Pretendard', sans-serif; line-height: 4rem; padding-left: 1.2rem; border: 1px solid #999; border-radius: 10px; margin-bottom: 10px; box-sizing: border-box;} 
 input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-family: 'Pretendard', sans-serif; line-height: 4rem; padding-left: 1.2rem; border: 1px solid #999; border-radius: 10px; margin-bottom: 10px; box-sizing: border-box;} 
 .btn {width: 100%; margin: 20px 0 0 0; padding: 0; font-size: 1rem; font-family: 'Pretendard', sans-serif; line-height: 4rem; background: #278eff; color: #fff; border: none; border-radius: 10px; cursor: pointer;} 
@@ -147,7 +147,7 @@ input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-famil
 /* 공통 - 레이아웃 */
 #wrap {position: relative; overflow: hidden; padding-bottom: 52px;} 
 [class^="container_"] {padding-bottom: 40px;} 
-.main {/*margin-top: 75px;*/ padding: 0 20px;}
+.main {margin-top: 30px; padding: 0 20px;}
 input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 
 /* 헤더 */

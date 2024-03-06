@@ -1,5 +1,5 @@
 /* 메인 - 컨텐츠 */
-.main_txt {display: flex; justify-content: space-between; align-items: center; padding-top: 10px;}
+.main_txt {display: flex; justify-content: space-between; align-items: center; padding: 20px 0;}
 .main_txt h3,
 .main_txt .btn {margin: 0;}
 

@@ -37,7 +37,7 @@
             <!--// 공통 - 사이드 메뉴 -->
 
             <!-- 컨텐츠 -->
-            <div class="main">
+            <main class="main">
                 <h1>Time Travel</h1>
                 <ul class="tab_menu">
                     <li class="find_id on" onclick="findBtn(1)">아이디 찾기</li>
@@ -62,7 +62,7 @@
                     <button type="button" class="btn btn_cert" onclick="certify(certId)">인증번호 확인</button>
                 </div>
                 <div class="success_cert"></div>
-            </div>
+            </main>
             <!--// 컨텐츠 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
@@ -169,7 +169,7 @@
             // 아이디 찾기 결과
             function certId(userId) {
                 const html = `
-                    <div class="result">회원님의 아이디는 ${userId} 입니다.</div>
+                    <div class="result">회원님의 아이디는 <span>${userId}</span> 입니다.</div>
                     <button type="button" class="btn btn_login" onclick="loginFunc('${userId}')">로그인하기</button>
                     `;
                 document.querySelector('.success_cert').insertAdjacentHTML('beforeend', html);
