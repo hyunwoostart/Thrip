@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 // 내 일정 리스트 조회
 exports.scheduleList = async (req, res) => {
     const { id } = req.query;
-    const find = await Member.findOne({ where: { id } });
+    // const find = await Member.findOne({ where: { id } });
     const result = await Group.findAll({ where: { id: find.mySchedule } });
     console.log(result[0].id);
     res.json({ success: true, result, message: '일정 리스트 조회 완료' });
@@ -14,6 +14,7 @@ exports.scheduleList = async (req, res) => {
 // 일정 하나 조회
 exports.findGroup = async (req, res) => {
     const result = await Group.findOne({ where: { id: req.query.id } });
+    console.log(result);
     res.json({ success: true, result, message: '일정 조회 완료' });
 };
 

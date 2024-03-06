@@ -27,10 +27,10 @@ const arrObject = [];
                 var d = new Date(depDate);
                 var a = new Date(arrDate);
                 var dYear = d.getFullYear();
-                var dMonth = d.getMonth() + 2;
+                var dMonth = d.getMonth() + 1;
                 var dDate = d.getDate();
                 var aYear = a.getFullYear();
-                var aMonth = a.getMonth() + 2;
+                var aMonth = a.getMonth() + 1;
                 var aDate = a.getDate();
                 const html = `
                         <li>
@@ -93,10 +93,7 @@ function active() {
 function calendarInit() {
     function selected() {
         for (let d = 0; d < depObject.length; d++) {
-            if (
-                currentYear === depObject[d].year &&
-                currentMonth === depObject[d].month
-            ) {
+            if (currentYear === depObject[d].year && currentMonth === depObject[d].month) {
                 console.log(true);
                 for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
                     var a = document.getElementsByClassName(i);
@@ -112,11 +109,7 @@ function calendarInit() {
     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
     var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
-    var thisMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
+    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     // 달력에서 표기하는 날짜 객체
 
     var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
@@ -153,33 +146,15 @@ function calendarInit() {
 
         // 지난달
         for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day prev disable ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+            calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable ' + i + '">' + i + '</div>';
         }
         // 이번달
         for (var i = 1; i <= nextDate; i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day current ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+            calendar.innerHTML = calendar.innerHTML + '<div class="day current ' + i + '">' + i + '</div>';
         }
         // 다음달
         for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day next disable ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+            calendar.innerHTML = calendar.innerHTML + '<div class="day next disable ' + i + '">' + i + '</div>';
         }
 
         // 오늘 날짜 표기
