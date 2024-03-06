@@ -19,6 +19,8 @@ const memberRouter = require('./routes/member');
 app.use('/api/member', memberRouter);
 const scheduleRouter = require('./routes/schedule');
 app.use('/api/schedule', scheduleRouter);
+const recommendRouter = require('./routes/recommend');
+app.use('/api/recommend', recommendRouter);
 
 // 소켓
 io.on('connection', (socket) => {

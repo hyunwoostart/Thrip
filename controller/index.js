@@ -31,3 +31,9 @@ exports.triplist = (req, res) => {
 exports.tripdetail = (req, res) => {
     res.render('tripdetail');
 };
+exports.admin = (req, res) => {
+    res.render('admin');
+};
+exports.recdetail = (req, res) => {
+    res.render('recdetail');
+};
