@@ -13,7 +13,6 @@ exports.scheduleList = async (req, res) => {
 // 일정 하나 조회
 exports.findGroup = async (req, res) => {
     const result = await Group.findOne({ where: { id: req.query.id } });
-    console.log(result);
     res.json({ success: true, result, message: '일정 조회 완료' });
 };
 
@@ -28,7 +27,6 @@ exports.groupWrite = async (req, res) => {
     const { depDate, arrDate, dueDate, groupName, groupMember, groupMemo } = req.body;
     if (req.body.id) {
         const id = Number(req.body.id);
-        console.log('존재');
         const result = await Group.update(
             { depDate, arrDate, dueDate, groupName, groupMember, groupMemo },
             { where: { id } }
@@ -46,7 +44,6 @@ exports.groupWrite = async (req, res) => {
         }
         res.json({ success: true, result: { id }, message: '일정 생성 완료' });
     } else {
-        console.log('없음');
         const result = await Group.create({ depDate, arrDate, dueDate, groupName, groupMember, groupMemo });
         for (let i = 0; i < groupMember.length; i++) {
             const newList = [];
