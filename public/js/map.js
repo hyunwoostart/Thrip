@@ -206,7 +206,7 @@ function selectFunc() {
 					<input type="time" class="arrTime" />
                     <div class="input_wrap">
 					<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" />
-					<button class="btn_holder btn_marker"></button>
+                        <button class="btn_holder btn_marker"></button>
                     </div>
                     <input type="button" onclick="keyword(1)" value="검색" />
 					<div class="select active" onclick="selectFunc()"></div>
@@ -297,7 +297,10 @@ function insert() {
 			<input type="number" class="index" value="${tabIndex}" readonly disabled />
 			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
 			<input type="time" class="arrTime" />
-			<input class="place_name" onfocus="makeMap(${tabIndex})"/>
+            <div class="input_wrap">
+                <input class="place_name" placeholder="장소를 입력하세요"  onfocus="makeMap(${tabIndex})"/>
+                <button class="btn_holder btn_marker"></button>
+            </div>
 			<input type="button" onclick="keyword(${tabIndex})" value="검색" />
 			<div class="select active" onclick="selectFunc()"></div>
 			<div class="map_box"></div>

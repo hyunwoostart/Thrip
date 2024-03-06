@@ -11,26 +11,74 @@
         <link rel="stylesheet" href="../public/css/chat.css" />
     </head>
     <body>
-        <div id="main">
-            <h3>채팅방 리스트</h3>
-        </div>
-        <div id="body" hidden>
-            <div class="tit">
-                <h3 class="chatName"></h3>
-                <button class="golist" onclick="goList()">돌아가기</button>
+        <div id="wrap" class="chat_wrap">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="#none" class="ico_back" onclick="goList()">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+
+            <form class="chat_form chat_list">
+                <div class="input_wrap">
+                    <input type="text" id="chatMsg" placeholder="메세지를 검색해보세요." />
+                    <button class="btn_holder btn_search chatBtn" id="searchBtn"></button>
+                </div>
+            </form>
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+            <main class="main">
+                <!-- <h3>채팅방 리스트</h3> -->
+            </main>
+            
+            <div id="body" hidden>
+                <!-- <div class="tit">
+                    <a class="golist" onclick="goList()"><span class="blind">돌아기기</span></a>
+                </div> -->
+
+                <div class="container_chatinfo">
+                    <div class="my_photo">
+                        <img src="../public/img/common/img_myphoto.png" alt="">
+                    </div>
+                    <div class="my_info">
+                        <!-- <div class="info_txt">지현우</div> -->
+                        <span class="chat_name"></span>
+                    </div>
+                </div>
+    
+                <div class="msg"></div>
+                <form class="chat_form">
+                    <input type="text" id="chatMsg" placeholder="메세지를 입력하세요." />
+                    <button class="chatBtn">전송</button>
+                </form>
             </div>
 
-            <div class="msg"></div>
-            <form id="chat-form">
-                <input type="text" id="chatMsg" placeholder="메세지를 입력하세요." />
-                <button class="chatBtn">전송</button>
-            </form>
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
+        
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script>
             const socket = io();
-            const form = document.querySelector('#chat-form');
+            const form = document.querySelector('.chat_form');
             const msg = document.querySelector('.msg');
-            const main = document.querySelector('#main');
+            const main = document.querySelector('.main');
             const body = document.querySelector('#body');
             const chatBtn = document.querySelector('.chatBtn');
             let userId;
@@ -113,7 +161,7 @@
                     },
                 });
                 const html = ``;
-                document.querySelector('.chatName').textContent = res.data.result.groupName;
+                document.querySelector('.chat_name').textContent = res.data.result.groupName;
 
                 // 채팅 내용 불러오기
                 const res2 = await axios({
