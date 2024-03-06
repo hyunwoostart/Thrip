@@ -66,7 +66,7 @@ function printCalendar(year, month) {
 
     /* 현재 월의 1일에 요일을 구합니다. 그럼 그달 달력에 첫 번째 줄 빈칸의 개수를 구할 수 있습니다.*/
     var theDate = new Date(year, month, 1);
-    var theDay = theDate.getDay();
+    var theDay = theDate.getDay() + 1;
 
     //② 현재 월에 마지막 일을 구해야 합니다.
 
@@ -88,13 +88,13 @@ function printCalendar(year, month) {
     //문자결합 연산자를 사용해 요일이 나오는 행을 생성
     var calendar = "<table id=calendar_table border='1'>";
     calendar += '<tr>';
+    calendar += '<th>SUN</th>';
     calendar += '<th>MON</th>';
     calendar += '<th>TUE</th>';
     calendar += '<th>WED</th>';
     calendar += '<th>THU</th>';
     calendar += '<th>FRI</th>';
     calendar += '<th>SAT</th>';
-    calendar += '<th>SUN</th>';
     calendar += '</tr>';
 
     // console.log(nowD);
@@ -154,7 +154,7 @@ async function getSelectedDate() {
             if (active) {
                 active.classList.remove('active');
             }
-            var dList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+            var dList = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
             if (e.target.tagName === 'TD') {
                 e.target.classList.add('active');
                 var date = e.target.innerText;
