@@ -28,29 +28,33 @@ const list = document.querySelector('.container_tripdetail');
         for (let i = 0; i < res.data.result.length; i++) {
             const nowBox = document.querySelectorAll('.detail_wrap')[j];
             // console.log(res.data.result[i]);
-            const { category, arrTime, detailMemo, groupId, distance, place } =
-                res.data.result[i];
+            const { category, arrTime, detailMemo, groupId, place } = res.data.result[i];
             const showTime = arrTime.substring(0, 5);
             if (j === category - 1) {
-                var hour = (distance * 4) / 60;
-                var min = (distance * 4) % 60;
+                let distanceHtml;
+                if (i <= res.data.result.length - 2) {
+                    const { distance } = res.data.result[i + 1];
+                    var hour = (distance * 4) / 60;
+                    var min = (distance * 4) % 60;
+                    if (hour >= 1) {
+                        distanceHtml = `다음 장소까지 이동 시간 <span>${hour.toFixed(0)}</span>시간 <span>${min.toFixed(0)}</span>분`;
+                    } else {
+                        distanceHtml = `다음 장소까지 이동 시간 <span>${min.toFixed(0)}</span>분`;
+                    }
+                }
                 html = `
-                <li class="list_box" onclick="openBox(${j}, ${k},${place.x},${
-                    place.y
-                })">
-                    <div class="list_detail">
-                        <strong>${place.place_name}</strong>
-                        <span>${showTime}</span>
-                        <i class="ico_accord"></i>
-                        <div class="map_cnt">
-                            <div class="maps"></div>
-                            <p>다음 장소까지 이동 시간 <span>${hour.toFixed(
-                                0
-                            )}</span>시간 <span>${min.toFixed(0)}</span>분</p>
-                        </div>
-                    </div>
-                </li>
-                `;
+                <li class="list_box" onclick="openBox(${j}, ${k},${place.x},${place.y})">
+				<div class="list_detail">
+					<strong>${place.place_name}</strong>
+					<span>${showTime}</span>
+					<i class="ico_accord"></i>
+					<div class="map_cnt">
+						<div class="maps"></div>
+						<p>${distanceHtml}</p>
+					</div>
+				</div>
+				</li>
+				`;
                 nowBox.insertAdjacentHTML('beforeend', html);
                 k++;
             }

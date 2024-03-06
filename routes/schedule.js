@@ -2,6 +2,7 @@ const express = require('express');
 const {
     scheduleList,
     findGroup,
+    best,
     detail,
     groupWrite,
     detailWrite,
@@ -17,6 +18,7 @@ const router = express.Router();
 
 router.get('/scheduleList', scheduleList);
 router.get('/findGroup', findGroup);
+router.get('/best', best);
 router.post('/groupWrite', groupWrite);
 router.get('/detail', detail);
 router.post('/detailWrite', detailWrite);

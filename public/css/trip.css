@@ -19,3 +19,5 @@
 .btn_chklist {width: 100px;}
 .btn.btn_trip {background-color: #2fcc59;}
 .btn.btn_chklist {position: relative; width: 100px;}
+
+.detail_wrap .list_box:last-child .map_cnt p{display: none;}
