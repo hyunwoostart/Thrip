@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>메인</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+        />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
@@ -40,8 +43,14 @@
                     <ul class="sub_menu">
                         <li>
                             <ul class="login_wrap">
-                                <li><a href="#none" class="info_txt">로그인</a></li>
-                                <li><a href="#none" class="info_txt">회원가입</a></li>
+                                <li>
+                                    <a href="#none" class="info_txt">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="#none" class="info_txt"
+                                        >회원가입</a
+                                    >
+                                </li>
                                 <!-- <li><a href="#none" class="info_txt">로그아웃</a></li> -->
                             </ul>
                         </li>
@@ -75,30 +84,7 @@
                         <div class="trip_box">
                             <div class="trip_cnt">
                                 <div class="trip_calendar">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>일</th>
-                                                <th>월</th>
-                                                <th>화</th>
-                                                <th>수</th>
-                                                <th>목</th>
-                                                <th>금</th>
-                                                <th>토</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><a href="#none">1</a></td>
-                                                <td><a href="#none">2</a></td>
-                                                <td><a href="#none">3</a></td>
-                                                <td class="on"><a href="#none">4</a></td>
-                                                <td><a href="#none">5</a></td>
-                                                <td><a href="#none">6</a></td>
-                                                <td><a href="#none">7</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <table id="trip_calendar_table"></table>
                                 </div>
                                 <div class="trip_schedule">
                                     <h3>새로운 일정을 생성해주세요</h3>
@@ -108,7 +94,13 @@
                             <div class="trip_supplies"></div>
                         </div>
                         <div class="trip_new">
-                            <button type="button" class="btn" onclick="newSchedule()">+ 일정 생성하기</button>
+                            <button
+                                type="button"
+                                class="btn"
+                                onclick="newSchedule()"
+                            >
+                                + 일정 생성하기
+                            </button>
                         </div>
                     </div>
                     <!--// 내 여행 -->
@@ -116,8 +108,7 @@
                     <!-- 추천 여행지 -->
                     <div class="container_rec my_swiper">
                         <h3>추천 여행지</h3>
-                        <ul class="swiper-wrapper">
-                        </ul>
+                        <ul class="swiper-wrapper"></ul>
                     </div>
                     <!--// 추천 여행지 -->
 
@@ -128,7 +119,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate01.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate01.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">관광명소</div>
                                     </a>
@@ -138,7 +132,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate02.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate02.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">카페</div>
                                     </a>
@@ -148,7 +145,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate03.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate03.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">맛집</div>
                                     </a>
@@ -158,7 +158,10 @@
                                 <div>
                                     <a href="#none">
                                         <div class="img_catewrap">
-                                            <img src="../public/img/main/img_cate04.png" alt="" />
+                                            <img
+                                                src="../public/img/main/img_cate04.png"
+                                                alt=""
+                                            />
                                         </div>
                                         <div class="txt_category">레저</div>
                                     </a>
@@ -182,7 +185,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -200,7 +206,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -216,7 +225,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -232,7 +244,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>
@@ -248,7 +263,10 @@
                             <li>
                                 <div class="best_cnt">
                                     <a href="#none">
-                                        <img src="../public/img/main/img_best01.png" alt="" />
+                                        <img
+                                            src="../public/img/main/img_best01.png"
+                                            alt=""
+                                        />
                                         <div class="best_txt">
                                             <div>
                                                 <strong>Mount Bromo</strong>

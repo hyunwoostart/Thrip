@@ -28,11 +28,21 @@ let contentHieght;
                     const YEAR = now.getFullYear();
                     const MONTH = now.getMonth();
                     const DATE = now.getDate();
-                    const depM = Number(res2.data.result.depDate.substring(5, 7));
-                    const depD = Number(res2.data.result.depDate.substring(8, 10));
-                    const arrY = Number(res2.data.result.arrDate.substring(0, 4));
-                    const arrM = Number(res2.data.result.arrDate.substring(5, 7));
-                    const arrD = Number(res2.data.result.arrDate.substring(8, 10));
+                    const depM = Number(
+                        res2.data.result.depDate.substring(5, 7)
+                    );
+                    const depD = Number(
+                        res2.data.result.depDate.substring(8, 10)
+                    );
+                    const arrY = Number(
+                        res2.data.result.arrDate.substring(0, 4)
+                    );
+                    const arrM = Number(
+                        res2.data.result.arrDate.substring(5, 7)
+                    );
+                    const arrD = Number(
+                        res2.data.result.arrDate.substring(8, 10)
+                    );
                     console.log(arrY, arrM, arrD);
                     if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
                         scheduleIndex.push(res2.data.result.id);
@@ -41,7 +51,9 @@ let contentHieght;
                     console.log(scheduleIndex);
                 }
                 if (scheduleIndex.length >= 2) {
-                    document.querySelector('.container_upcoming h3').textContent = `다가오는 여행 일정`;
+                    document.querySelector(
+                        '.container_upcoming h3'
+                    ).textContent = `다가오는 여행 일정`;
                 }
                 for (let j = 0; j < scheduleIndex.length; j++) {
                     const res3 = await axios({
@@ -61,23 +73,39 @@ let contentHieght;
                     const { groupName, depDate, arrDate } = res3.data.result;
                     console.log(groupName);
                     if (j === 0) {
-                        document.querySelector('.trip_schedule').addEventListener('click', () => {
-                            localStorage.setItem('groupId', scheduleIndex[j]);
-                            document.location.href = '/tripdetail';
-                        });
-                        document.querySelector('.trip_schedule h3').textContent = groupName;
+                        document
+                            .querySelector('.trip_schedule')
+                            .addEventListener('click', () => {
+                                localStorage.setItem(
+                                    'groupId',
+                                    scheduleIndex[j]
+                                );
+                                document.location.href = '/tripdetail';
+                            });
+                        document.querySelector(
+                            '.trip_schedule h3'
+                        ).textContent = groupName;
                         var dDate = new Date(depDate);
                         var aDate = new Date(arrDate);
-                        document.querySelector('.trip_schedule span').textContent = `${
+                        document.querySelector(
+                            '.trip_schedule span'
+                        ).textContent = `${
                             dDate.getMonth() + 2
-                        }월 ${depDate.substring(8, 10)}일 ~ ${aDate.getMonth() + 2}월 ${arrDate.substring(8, 10)}일`;
+                        }월 ${depDate.substring(8, 10)}일 ~ ${
+                            aDate.getMonth() + 2
+                        }월 ${arrDate.substring(8, 10)}일`;
                         for (let k = 0; k < res4.data.result.length; k++) {
                             console.log(k);
-                            const { category, detailOrder, arrTime, place } = res4.data.result[k];
+                            const { category, detailOrder, arrTime, place } =
+                                res4.data.result[k];
                             if (category === 1) {
                                 const p = document.createElement('p');
-                                p.textContent = `${arrTime.substring(0, 5)} ${place.place_name}`;
-                                document.querySelector('.trip_schedule').appendChild(p);
+                                p.textContent = `${arrTime.substring(0, 5)} ${
+                                    place.place_name
+                                }`;
+                                document
+                                    .querySelector('.trip_schedule')
+                                    .appendChild(p);
                                 console.log(p);
                             }
                         }
@@ -92,9 +120,12 @@ let contentHieght;
                         if (res5.data.result.length != 0) {
                             const h3 = document.createElement('h3');
                             h3.textContent = `${groupName} 체크리스트`;
-                            document.querySelector('.trip_supplies').appendChild(h3);
+                            document
+                                .querySelector('.trip_supplies')
+                                .appendChild(h3);
                             for (let k = 0; k < res5.data.result.length; k++) {
-                                const { id, listName, isActive } = res5.data.result[k];
+                                const { id, listName, isActive } =
+                                    res5.data.result[k];
                                 console.log(listName);
                                 let chkHtml;
                                 if (Boolean(isActive)) {
@@ -114,21 +145,24 @@ let contentHieght;
 													</div>
 													`;
                                 }
-                                document.querySelector('.trip_supplies').insertAdjacentHTML('beforeend', chkHtml);
+                                document
+                                    .querySelector('.trip_supplies')
+                                    .insertAdjacentHTML('beforeend', chkHtml);
                             }
                         }
                     } else {
                         var dDate = new Date(depDate);
                         var aDate = new Date(arrDate);
-                        const upcoming = document.querySelector('.container_upcoming ul');
+                        const upcoming = document.querySelector(
+                            '.container_upcoming ul'
+                        );
                         ucHtml = `
 									<li onclick="goDetail(${scheduleIndex[j]})">
 										<div class="trip_schedule">
 											<strong>${groupName}</strong>
-											<span>${dDate.getMonth() + 2}월 ${depDate.substring(8, 10)}일 ~ ${aDate.getMonth() + 2}월 ${arrDate.substring(
-                            8,
-                            10
-                        )}일</span>
+											<span>${dDate.getMonth() + 2}월 ${depDate.substring(8, 10)}일 ~ ${
+                            aDate.getMonth() + 2
+                        }월 ${arrDate.substring(8, 10)}일</span>
 										</div>
 									</li>
 									`;
@@ -165,7 +199,9 @@ let contentHieght;
 			</div>
 		</li>
 		`;
-        document.querySelector('.swiper-wrapper').insertAdjacentHTML('beforeend', html);
+        document
+            .querySelector('.swiper-wrapper')
+            .insertAdjacentHTML('beforeend', html);
     }
 
     /* 추천 여행지 스와이퍼 슬라이드*/
@@ -256,7 +292,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.tab_menu li').forEach(function (item) {
         item.addEventListener('click', function () {
             // 모든 탭 메뉴 항목의 'on' 클래스 제거
-            document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
+            document
+                .querySelectorAll('.tab_menu li')
+                .forEach((tab) => tab.classList.remove('on'));
             // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
             this.classList.add('on');
 
@@ -266,7 +304,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 내 여행 컨테이너 표시
                 document
                     .querySelectorAll('.container_trip, .container_upcoming')
-                    .forEach((container) => (container.style.display = 'block'));
+                    .forEach(
+                        (container) => (container.style.display = 'block')
+                    );
             } else if (this.classList.contains('rectrip_cnt')) {
                 hideContainers();
                 showRectripCnt();
@@ -276,13 +316,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 모든 컨테이너 숨기는 함수
     function hideContainers() {
-        document.querySelectorAll('.tab_cnt > div').forEach((container) => (container.style.display = 'none'));
+        document
+            .querySelectorAll('.tab_cnt > div')
+            .forEach((container) => (container.style.display = 'none'));
     }
 
     // 추천 컨테이너 표시하는 함수
     function showRectripCnt() {
         document
-            .querySelectorAll('.container_rec, .container_category, .container_best')
+            .querySelectorAll(
+                '.container_rec, .container_category, .container_best'
+            )
             .forEach((container) => (container.style.display = 'block'));
     }
 });
@@ -314,3 +358,46 @@ function toggleOn() {
 document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
     li.addEventListener('click', toggleOn);
 });
+//오늘을 기준으로 일주일 캘린더 만들기
+function makeCalender() {
+    let calendarTable = document.querySelector('#trip_calendar_table');
+    const today = new Date();
+    //요일(오늘을 기준으로 요일 배열 재배치)
+    const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
+    const day = today.getDay();
+    let slicedPart = dayArr.splice(0, day + 1);
+    dayArr.push(...slicedPart);
+    const thead = ` <thead>
+    <tr>
+        <th>${dayArr[0]}</th>
+        <th>${dayArr[1]}</th>
+        <th>${dayArr[2]}</th>
+        <th>${dayArr[3]}</th>
+        <th>${dayArr[4]}</th>
+        <th>${dayArr[5]}</th>
+        <th>${dayArr[6]}</th>
+    </tr>
+    </thead>`;
+    calendarTable.insertAdjacentHTML('beforeend', thead);
+    //날짜(오늘을 기준으로 7일동안의 날짜 배치)
+    const dates = [];
+    for (let i = 1; i <= 6; i++) {
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + i);
+        dates[i] = nextDay;
+    }
+    dates[0] = today;
+    const tbody = `<tbody>
+    <tr>
+        <td>${dates[0].getDate()}</td>
+        <td>${dates[1].getDate()}</td>
+        <td>${dates[2].getDate()}</td>
+        <td>${dates[3].getDate()}</td>
+        <td>${dates[4].getDate()}</td>
+        <td>${dates[5].getDate()}</td>
+        <td>${dates[6].getDate()}</td>
+    </tr>
+    </tbody>`;
+    calendarTable.insertAdjacentHTML('beforeend', tbody);
+}
+makeCalender();
