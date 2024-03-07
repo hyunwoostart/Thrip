@@ -15,7 +15,9 @@
     .container_trip {position: relative; padding: 52px 0; margin-bottom: 10px !important;}
     .container_trip .trip_box {display: flex; justify-content: space-around; padding: 25px 50px; width: 60%; max-width: 600px; border-radius: 15px; background-color: #fafafa;}
     .container_trip .trip_new {position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 29%; max-width: 290px;}
-    .container_trip .trip_new .btn {margin-top: 0; height: 100px; border: 1px solid #ECECEC; background-color: #fff; color: #000;}
+    .container_trip .trip_new .btn {margin-top: 0; height: 100px; border: 1px solid #ECECEC; background-color: #fff;}
+    .container_trip .trip_new .btn span {color: #000;}
+    .container_trip .trip_new span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plusb.png') center/cover no-repeat;}
 
     .trip_schedule {min-width: 250px;}
     .trip_supplies .input_chk {margin: 0 0 16px;}
