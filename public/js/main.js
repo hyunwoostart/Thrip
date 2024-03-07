@@ -158,18 +158,6 @@ let contentHieght;
         },
     });
 
-    /* 다가오는 여행 일정/ BEST 여행일정 - 스와이퍼 슬라이드 */
-    var swiper = new Swiper('.def_swiper', {
-        speed: 1500,
-        loop: false,
-        slidesPerView: 'auto', // 각 슬라이드의 너비를 자동으로 계산
-    
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
-
     // 슬라이드 높이 맞추기
     contentWidth = document.querySelector('.swiper-slide').style.width;
     contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
@@ -274,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         hideContainers(); // 모든 컨테이너 숨기기
                         // 내 여행 컨테이너 표시
                         document
-                            .querySelectorAll('.container_trip, .container_upcoming')
+                            .querySelectorAll('.container_trip, .container_upcoming, .main_bg')
                             .forEach((container) => (container.style.display = 'block'));
                     } else if (this.classList.contains('rectrip_cnt')) {
                         hideContainers();

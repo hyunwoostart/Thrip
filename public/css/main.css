@@ -77,3 +77,4 @@
 .container_best ul li .best_cnt .best_txt .rate_view span {display: flex; align-items: center;}
 .container_best ul li .best_cnt .best_txt .rate_view span i {display: inline-block; margin-left: 6px; width: 18px; height: 18px; background: url('../img/main/ico_star.svg') center/cover no-repeat;}
 
+.main_wrap .main_wrap .btn_trip {background-color: #278eff;}
