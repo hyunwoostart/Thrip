@@ -4,7 +4,6 @@ let contentHieght;
 (async function () {
     // 로그인 여부 확인
     if (localStorage.getItem('token')) {
-		const info = document.querySelector('.my_info')
         try {
             // 사용자 인증
             const res = await axios({
@@ -15,13 +14,12 @@ let contentHieght;
                 },
             });
             // 내 여행 데이터 불러오기
-            const { mySchedule } = res.data.result;
-            if (mySchedule) {
+            if (res.data.result.mySchedule.length != 0) {
                 let count = 0;
                 const res2 = await axios({
                     method: 'GET',
                     url: '/api/schedule/scheduleList',
-                    params: { id: mySchedule },
+                    params: { id: res.data.result.mySchedule },
                 });
                 for (let i = 0; i < res2.data.result.length; i++) {
                     const { id, depDate, arrDate, groupName } = res2.data.result[i];
@@ -114,7 +112,8 @@ let contentHieght;
                 }
             }
         } catch (error) {
-            localStorage.clear();
+            // localStorage.clear();
+			const info = document.querySelector('.my_info')
             info.addEventListener('click', () => {
                 document.location.href = '/login';
             });
