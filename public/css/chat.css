@@ -2,7 +2,7 @@
 .chat_wrap input {background: #f2f2f2; border-radius: 2rem; border: none; margin: 0;} 
 .chat_wrap form button {position: absolute; top: 50%; right: 2rem; transform: translateY(-50%); width: 2rem; height: 2rem; overflow: hidden; border: none; background-color: transparent; background: transparent url('../img/common/ico_sendchat.png') no-repeat 100% 100% / contain; color: transparent;} 
 
-.chat_wrap .chatBox {width: 100%; display: flex; margin-bottom: 1rem;} 
+.chat_wrap .chatBox {width: 100%; margin-bottom: 1rem;} 
 .chat_wrap .enter {width: 100%; height: 70px; line-height: 2; text-align: left; padding: 1.5rem 2rem; background: #fff; border: none; border-radius: 0.8rem; box-shadow: 0 4px 120px 0 rgba(58, 86, 78, 0.15);} 
 .chat_wrap .tit {position: fixed; top: 0; left: 0; width: 100%; height: 64px; line-height: 7rem; font-size: 1.5rem; text-align: center; font-weight: 700; background: #fff;} 
 .chat_wrap .golist {position: absolute; top: 50%; left: 20px; transform: translateY(-50%); display: block; width: 24px; height: 12px; background-image: url('../img/common/ico_arrow.png'); background-size: cover; background-repeat: no-repeat; cursor: pointer;} 
