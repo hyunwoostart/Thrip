@@ -13,12 +13,11 @@ const arrObject = [];
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        const { mySchedule } = res.data.result;
-        if (mySchedule) {
+        if (res.data.result.mySchedule[0]) {
             const res2 = await axios({
                 method: 'GET',
                 url: '/api/schedule/scheduleList',
-                params: { id: mySchedule },
+                params: { id: res.data.result.mySchedule },
             });
             console.log(res2.data.result);
             let count = 0;
@@ -58,11 +57,11 @@ const arrObject = [];
                 document.querySelector('#prev h3').textContent =
                     '지난 여행 일정';
             }
-            calendarInit();
         }
     } catch (error) {
-        // document.location.href = '/login';
+		// document.location.href = '/login';
     }
+	calendarInit();
 })();
 function goDetail(id) {
     localStorage.setItem('groupId', id);
