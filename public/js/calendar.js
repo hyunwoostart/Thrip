@@ -178,7 +178,7 @@ let depDate;
 let arrDate;
 function selectDep() {
     //출발일 선택
-    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
+    depDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
         2,
         '0'
     )}-${String(selectedDate.date).padStart(2, '0')}`;
@@ -200,7 +200,7 @@ function selectDep() {
 }
 function selectArr() {
     //도착일 선택
-    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
+    arrDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
         2,
         '0'
     )}-${String(selectedDate.date).padStart(2, '0')}`;
