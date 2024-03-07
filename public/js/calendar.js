@@ -178,7 +178,7 @@ let depDate;
 let arrDate;
 function selectDep() {
     //출발일 선택
-    depDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
+    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
     )}-${String(selectedDate.date).padStart(2, '0')}`;
@@ -200,7 +200,7 @@ function selectDep() {
 }
 function selectArr() {
     //도착일 선택
-    arrDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
+    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
         2,
         '0'
     )}-${String(selectedDate.date).padStart(2, '0')}`;
@@ -289,12 +289,14 @@ let groupId;
                 id: groupId,
             },
         });
-
+        console.log(res.data.result);
         const { depDate, arrDate, groupName, groupMemo } = res.data.result;
         const [transDep, _] = depDate.split('T');
         const [depY, depM, depD] = transDep.split('-');
+        console.log(depY, depM, depD);
         const [transArr, __] = arrDate.split('T');
         const [arrY, arrM, arrD] = transArr.split('-');
+        console.log(arrY, arrM, arrD);
         groupMember = res.data.result.groupMember;
         dep = {
             year: Number(depY),
@@ -306,7 +308,7 @@ let groupId;
             m: Number(arrM) + 1,
             date: Number(arrD),
         };
-        console.log(dep);
+
         document.querySelector('#selectArr').classList.add('hide');
         document.querySelector('.container_calendar').classList.add('hide');
         document.querySelector('.container_schedule').classList.remove('hide');
