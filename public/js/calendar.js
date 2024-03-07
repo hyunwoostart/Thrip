@@ -62,18 +62,10 @@ function printCalendar(year, month) {
     // 기본으로는 현재 연도와 달로 설정해 놓는다.
     year = year != undefined ? year : nowY;
     month = month != undefined ? month : nowM;
-    console.log(year, month);
-
-    /* 현재 월의 1일에 요일을 구합니다. 그럼 그달 달력에 첫 번째 줄 빈칸의 개수를 구할 수 있습니다.*/
     var theDate = new Date(year, month, 1);
     var theDay = theDate.getDay() + 1;
 
-    //② 현재 월에 마지막 일을 구해야 합니다.
-
-    //1월부터 12월까지 마지막 일을 배열로 저장함.
     var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    /*현재 연도가 윤년(4년 주기이고 100년 주기는 제외합니다.
-                또는 400년 주기)일경우 2월에 마지막 날짜는 29가 되어야 합니다.*/
     if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
         lastDate = last[1] = 29;
 
@@ -97,23 +89,17 @@ function printCalendar(year, month) {
     calendar += '<th>SAT</th>';
     calendar += '</tr>';
 
-    // console.log(nowD);
-
     var dNum = 1;
     //이중 for문을 이용해 달력 테이블을 생성
     for (var i = 1; i <= row; i++) {
         //행 생성 (tr 태그 생성)
         calendar += '<tr>';
-
         for (var k = 1; k <= 7; k++) {
-            //열 생성 (td 태그 생성)
-            /*행이 첫 줄이고 현재 월의 1일의 요일 이전은 모두 빈열로 표기하고 날짜가 마지막 일보다 크면 빈열로 표기됩니다.*/
-            // console.log(k);
             if ((i == 1 && k < theDay) || dNum > lastDate) {
                 calendar += '<td>  </td>';
             } else {
                 // 오늘 날짜에 대한 스타일 적용
-                if (dNum === nowD) {
+                if (nowY === year && nowM === month && dNum === nowD) {
                     calendar +=
                         `<td id='today' class='date '>` + dNum + '</td>';
                 } else {
@@ -124,8 +110,6 @@ function printCalendar(year, month) {
         }
         calendar += '<tr>';
     }
-
-    //⑤ 문자로 결합된 달력 테이블을 문서에 출력
     calendar_box.innerHTML = calendar;
 }
 
@@ -135,6 +119,7 @@ selectYear.addEventListener('change', () => {
     m = Number(selectMonth.options[selectMonth.selectedIndex].value);
     month = m - 1;
     printCalendar(year, month);
+    getSelectedDate();
 });
 //월 변경하면 달력 다시 그리는 함수
 selectMonth.addEventListener('change', () => {
@@ -142,6 +127,7 @@ selectMonth.addEventListener('change', () => {
     m = Number(selectMonth.options[selectMonth.selectedIndex].value);
     month = m - 1;
     printCalendar(year, month);
+    getSelectedDate();
 });
 
 //날짜 선택해서 띄우기
@@ -178,7 +164,7 @@ let depDate;
 let arrDate;
 function selectDep() {
     //출발일 선택
-    depDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
+    depDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
         2,
         '0'
     )}-${String(selectedDate.date).padStart(2, '0')}`;
@@ -195,12 +181,11 @@ function selectDep() {
     if (active) {
         active.classList.remove('active');
         active.classList.add('on');
-        console.log(active.classList);
     }
 }
 function selectArr() {
     //도착일 선택
-    arrDate = `${selectedDate.year}-${String(selectedDate.m).padStart(
+    arrDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
         2,
         '0'
     )}-${String(selectedDate.date).padStart(2, '0')}`;
@@ -241,7 +226,6 @@ document
                 userId: document.querySelector('#memberSearch').value,
             },
         });
-        console.log('res', res.data.result);
         const resultBox = document.querySelector('.search_result');
         resultBox.innerHTML = '';
         for (let i = 0; i < res.data.result.length; i++) {
@@ -254,6 +238,7 @@ document
     });
 
 let groupMember = [];
+let bestId;
 let groupId;
 (async function () {
     try {
@@ -269,7 +254,17 @@ let groupId;
     } catch (error) {
         document.location.href = '/login';
     }
-    if (localStorage.getItem('groupId')) {
+    if (localStorage.getItem('bestId')) {
+        bestId = localStorage.getItem('bestId');
+        const res = await axios({
+            method: 'GET',
+            url: '/api/schedule/findGroup',
+            params: {
+                id: bestId,
+            },
+        });
+        document.querySelector('#groupName').value = res.data.result.groupName;
+    } else if (localStorage.getItem('groupId')) {
         groupId = localStorage.getItem('groupId');
         const res = await axios({
             method: 'GET',
@@ -327,7 +322,7 @@ async function register() {
         groupMember,
         groupMemo: document.querySelector('#groupMemo').value,
     };
-    if (groupId) {
+    if (groupId && !bestId) {
         data.id = groupId;
     }
     const res = await axios({

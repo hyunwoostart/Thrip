@@ -146,7 +146,7 @@ input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-famil
 
 /* 공통 - 레이아웃 */
 #wrap {position: relative; overflow: hidden; padding-bottom: 52px;} 
-[class^="container_"] {padding-bottom: 40px;} 
+[class^="container_"] {padding-bottom: 40px; } 
 .main {margin-top: 30px; padding: 0 20px;}
 input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 

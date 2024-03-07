@@ -31,9 +31,9 @@
             </header>
             <!--// 헤더 -->
 
-            <form class="chat_form chat_list">
+            <form class="chat_form chat_list" id="search">
                 <div class="input_wrap">
-                    <input type="text" id="chatMsg" placeholder="메세지를 검색해보세요." />
+                    <input type="text" class="search_input" id="searchChat" placeholder="메세지를 검색해보세요." />
                     <button class="btn_holder btn_search chatBtn" id="searchBtn"></button>
                 </div>
             </form>
@@ -46,24 +46,19 @@
             </main>
             
             <div id="body" hidden>
-                <!-- <div class="tit">
-                    <a class="golist" onclick="goList()"><span class="blind">돌아기기</span></a>
-                </div> -->
-
                 <div class="container_chatinfo">
                     <div class="my_photo">
                         <img src="../public/img/common/img_myphoto.png" alt="">
                     </div>
                     <div class="my_info">
-                        <!-- <div class="info_txt">지현우</div> -->
                         <span class="chat_name"></span>
                     </div>
                 </div>
     
                 <div class="msg"></div>
-                <form class="chat_form">
-                    <input type="text" id="chatMsg" placeholder="메세지를 입력하세요." />
-                    <button class="chatBtn">전송</button>
+                <form class="chat_form" id="chat_form">
+                    <input type="text" class="search_input"  id="chatMsg" placeholder="메세지를 입력하세요." />
+                    <button class="chatBtn" id="chatBtn">전송</button>
                 </form>
             </div>
 
@@ -76,11 +71,11 @@
         <script src="../public/js/sidemenu.js"></script>
         <script>
             const socket = io();
-            const form = document.querySelector('.chat_form');
+            const form = document.querySelector('#chat_form');
             const msg = document.querySelector('.msg');
             const main = document.querySelector('.main');
             const body = document.querySelector('#body');
-            const chatBtn = document.querySelector('.chatBtn');
+            const chatBtn = document.querySelector('#chatBtn');
             let userId;
             let username;
             (async function () {
