@@ -96,10 +96,10 @@ let contentHieght;
                             const upcoming = document.querySelector('.container_upcoming ul');
                             ucHtml = `
                             <li onclick="goDetail(${id})">
-                            	<div class="trip_schedule">
-                            		<strong>${groupName}</strong>
-                            		<span>${depM}월 ${depD}일 ~ ${arrM}월 ${arrD}일</span>
-                            	</div>
+                                <div class="trip_schedule">
+                                    <strong>${groupName}</strong>
+                                    <span>${depM}월 ${depD}일 ~ ${arrM}월 ${arrD}일</span>
+                                </div>
                             </li>
                             `;
                             upcoming.insertAdjacentHTML('beforeend', ucHtml);
@@ -145,26 +145,23 @@ let contentHieght;
     var swiper = new Swiper('.my_swiper', {
         slidesPerView: 2,
         spaceBetween: 20,
-        // centeredSlides: true,
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,
         },
-        speed: 1500,
+        speed: 1200,
         loop: true,
+        loopAdditionalSlides : 1,
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
         },
+        breakpoints: {
+            764: {
+            slidesPerView: 2,
+            },
+        },
     });
-
-    // 슬라이드 높이 맞추기
-    contentWidth = document.querySelector('.swiper-slide').style.width;
-    contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
-    const recCnt = document.querySelectorAll('.rec_cnt');
-    for (let i = 0; i < recCnt.length; i++) {
-        recCnt[i].style.height = `${contentHieght}px`;
-    }
 
     // 여행 일정 정보 불러오기
     const bestRes = await axios({
@@ -196,15 +193,7 @@ let contentHieght;
         document.querySelector('.container_best ul').insertAdjacentHTML('beforeend', bestHtml);
     }
 })();
-// 윈도우 사이즈 변경 시 슬라이드 높이 변경
-window.addEventListener('resize', () => {
-    contentWidth = document.querySelector('.swiper-slide').style.width;
-    contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
-    const recCnt = document.querySelectorAll('.rec_cnt');
-    for (let i = 0; i < recCnt.length; i++) {
-        recCnt[i].style.height = `${contentHieght}px`;
-    }
-});
+
 // 체크리스트 클릭
 async function isChecked(id) {
     const res = await axios({
@@ -303,12 +292,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .forEach((container) => (container.style.display = 'block'));
     }
 });
-
-
-// 페이지 로드 시 스와이퍼 초기화 (임시주석)
-// document.addEventListener('DOMContentLoaded', function () {
-//     initSwiper();
-// });
 
 // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
 document.querySelectorAll('.tab_menu').forEach(function (tab) {
