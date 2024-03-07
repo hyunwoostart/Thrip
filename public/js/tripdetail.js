@@ -28,7 +28,8 @@ const list = document.querySelector('.container_tripdetail');
         for (let i = 0; i < res.data.result.length; i++) {
             const nowBox = document.querySelectorAll('.detail_wrap')[j];
             // console.log(res.data.result[i]);
-            const { category, arrTime, detailMemo, groupId, place } = res.data.result[i];
+            const { category, arrTime, detailMemo, groupId, place } =
+                res.data.result[i];
             const showTime = arrTime.substring(0, 5);
             if (j === category - 1) {
                 let distanceHtml;
@@ -37,9 +38,13 @@ const list = document.querySelector('.container_tripdetail');
                     var hour = (distance * 4) / 60;
                     var min = (distance * 4) % 60;
                     if (hour >= 1) {
-                        distanceHtml = `다음 장소까지 이동 시간 <span>${hour.toFixed(0)}</span>시간 <span>${min.toFixed(0)}</span>분`;
+                        distanceHtml = `다음 장소까지 이동 시간 <span>${hour.toFixed(
+                            0
+                        )}</span>시간 <span>${min.toFixed(0)}</span>분`;
                     } else {
-                        distanceHtml = `다음 장소까지 이동 시간 <span>${min.toFixed(0)}</span>분`;
+                        distanceHtml = `다음 장소까지 이동 시간 <span>${min.toFixed(
+                            0
+                        )}</span>분`;
                     }
                 }
                 html = `
@@ -73,7 +78,6 @@ function openCategory(list) {
     const allLists = document.querySelectorAll('.detail_wrap');
     allLists.forEach((listElement, index) => {
         if (index === list) {
-            console.log('toggle');
             listElement.classList.toggle('open');
         }
     });
@@ -88,8 +92,10 @@ function openBox(list, box, x, y) {
     const nowBox = nowList.querySelectorAll('.list_box')[box];
     var mapOpened = document.querySelector('.on');
     if (mapOpened) {
-        mapOpened.classList.remove('on');
+        console.log('mapOpened');
         removeMapVer2(mapOpened);
+        mapOpened.classList.remove('on');
+        console.log(mapOpened);
     }
     if (nowBox.classList.contains('on')) {
         // 선택한 박스의 지도가 틀어져있다면 지도를 닫는다.
@@ -115,7 +121,6 @@ function openMap(list, box, place_x, place_y) {
     var place_y = place_y;
     const nowList = document.querySelectorAll('.detail_wrap')[list];
     const nowBox = nowList.querySelectorAll('.list_box')[box];
-    console.log(nowBox);
     if (nowBox.classList.contains('on')) {
         html = `<div id="map" style="width:400px;height:200px;"></div>`;
         nowBox.insertAdjacentHTML('beforeend', html);
@@ -149,9 +154,7 @@ function removeMap(list, box) {
     }
 }
 function removeMapVer2(open) {
-    console.log(open);
     var openmap = open.querySelector('#map');
-    console.log(openmap);
     if (openmap) {
         openmap.parentNode.removeChild(openmap);
     }
