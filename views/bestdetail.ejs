@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>일정 리스트</title>
+        <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
+        ></script>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/trip.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <style>
+            .category::before {
+                display: none;
+            }
+            .list_box {
+                display: none;
+            }
+            .open .list_box {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap" class="trip_detail">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="#none" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+            <!-- 컨텐츠 -->
+            <main class="main">
+                <div class="main_txt trip_txtwrap">
+                    <h3>부산여행</h3>
+                </div>
+
+                <!-- 여행 일정 상세 목록 -->
+                <div class="container_tripdetail"></div>
+                <!--// 여행 일정 리스트 -->
+                <button type="button" class="btn" onclick="makeGroup()">+ 내 일정 리스트로 추가하기</button>
+            </main>
+            <!--// 컨텐츠 -->
+        </div>
+        <script src="../public/js/tripdetail.js"></script>
+        <script>
+            function makeGroup() {
+                localStorage.setItem('bestId', localStorage.getItem('groupId'));
+                document.location.href = '/calendar';
+            }
+        </script>
+    </body>
+</html>

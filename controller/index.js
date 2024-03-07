@@ -34,6 +34,6 @@ exports.tripdetail = (req, res) => {
 exports.admin = (req, res) => {
     res.render('admin');
 };
-exports.recdetail = (req, res) => {
-    res.render('recdetail');
+exports.bestdetail = (req, res) => {
+    res.render('bestdetail');
 };

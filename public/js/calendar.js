@@ -254,6 +254,7 @@ document
     });
 
 let groupMember = [];
+let bestId;
 let groupId;
 (async function () {
     try {
@@ -269,7 +270,17 @@ let groupId;
     } catch (error) {
         document.location.href = '/login';
     }
-    if (localStorage.getItem('groupId')) {
+    if (localStorage.getItem('bestId')) {
+        bestId = localStorage.getItem('bestId');
+        const res = await axios({
+            method: 'GET',
+            url: '/api/schedule/findGroup',
+            params: {
+                id: bestId,
+            },
+        });
+        document.querySelector('#groupName').value = res.data.result.groupName;
+    } else if (localStorage.getItem('groupId')) {
         groupId = localStorage.getItem('groupId');
         const res = await axios({
             method: 'GET',
@@ -325,7 +336,7 @@ async function register() {
         groupMember,
         groupMemo: document.querySelector('#groupMemo').value,
     };
-    if (groupId) {
+    if (groupId && !bestId) {
         data.id = groupId;
     }
     const res = await axios({
