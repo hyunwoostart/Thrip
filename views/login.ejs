@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/member.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -36,20 +37,25 @@
 
             <!-- 컨텐츠 -->
             <main class="main">
-                <h1>Time Travel<br />로그인</h1>
-                <form id="login-form">
-                    <label for="userId">아이디</label>
-                    <input type="text" id="userId" placeholder="아이디를 입력하세요" />
-                    <label for="pw">비밀번호</label>
-                    <input type="password" id="pw" placeholder="비밀번호를 입력하세요" />
-                    <button type="button" class="btn" onclick="loginFunc()">로그인</button>
-                </form>
-                <ul class="login_wrap">
-                    <li><a href="/find">아이디/비밀번호 찾기</a></li>
-                    <li><a href="/signup">회원가입</a></li>
-                </ul>
+                <div class="container_login">
+                    <h1>Time Travel<br />로그인</h1>
+                    <form id="login-form">
+                        <label for="userId">아이디</label>
+                        <input type="text" id="userId" placeholder="아이디를 입력하세요" />
+                        <label for="pw">비밀번호</label>
+                        <input type="password" id="pw" placeholder="비밀번호를 입력하세요" />
+                        <button type="button" class="btn" onclick="loginFunc()">로그인</button>
+                    </form>
+                    <ul class="login_wrap">
+                        <li><a href="/find">아이디/비밀번호 찾기</a></li>
+                        <li><a href="/signup">회원가입</a></li>
+                    </ul>
+                </div>
             </main>
             <!--// 컨텐츠 -->
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>

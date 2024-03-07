@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
         <link rel="stylesheet" href="../public/css/member.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -37,7 +38,8 @@
 
             <!-- 컨텐츠 -->
             <main class="main">
-                <h1>Time Travel<br />추천장소 등록</h1>
+                <div class="container_admin">
+                    <h1>Time Travel<br />추천장소 등록</h1>
                 <form id="register-form">
                     <label for="place">장소</label>
                     <input type="text" id="place" placeholder="장소를 입력하세요" />
@@ -49,8 +51,13 @@
                     <p>체크박스에 체크 시 메인화면 슬라이드에 노출됩니다.</p>
                     <div class="list"></div>
                 </div>
+                </div>
             </main>
             <!--// 컨텐츠 -->
+            
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>
@@ -74,7 +81,7 @@
 							<div class="input_text">
 								<input type="text" class="place" id="place${id}" value="${place}"/>
 								<input type="text" class="memo" id="memo${id}" value="${memo}"/>
-								<button type="button" class="edit_btn" onclick="editFunc(${id})">수정</button>
+								<button type="button" class="btn edit_btn" onclick="editFunc(${id})">수정</button>
 							</div>
 						</div>
 					`;
