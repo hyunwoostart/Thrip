@@ -44,20 +44,20 @@
             <main class="main">
                 <!-- <h3>채팅방 리스트</h3> -->
             </main>
-            
+
             <div id="body" hidden>
                 <div class="container_chatinfo">
                     <div class="my_photo">
-                        <img src="../public/img/common/img_myphoto.png" alt="">
+                        <img src="../public/img/common/img_myphoto.png" alt="" />
                     </div>
                     <div class="my_info">
                         <span class="chat_name"></span>
                     </div>
                 </div>
-    
+
                 <div class="msg"></div>
                 <form class="chat_form" id="chat_form">
-                    <input type="text" class="search_input"  id="chatMsg" placeholder="메세지를 입력하세요." />
+                    <input type="text" class="search_input" id="chatMsg" placeholder="메세지를 입력하세요." />
                     <button class="chatBtn" id="chatBtn">전송</button>
                 </form>
             </div>
@@ -66,12 +66,13 @@
             <%- include('btnwrap.ejs') %>
             <!--// 하단 메뉴 : 고정 -->
         </div>
-        
+
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>
         <script>
             const socket = io();
             const form = document.querySelector('#chat_form');
+            const scForm = document.querySelector('#search');
             const msg = document.querySelector('.msg');
             const main = document.querySelector('.main');
             const body = document.querySelector('#body');
@@ -139,8 +140,30 @@
                 });
             }
 
-            // 채팅방 리스트 불러오기
-            // 추후 추가
+            // 채팅방 검색
+            async function schFunc() {
+                const text = document.querySelector('#searchChat').value;
+                const count = document.querySelectorAll('.chatBox').length;
+                for (let i = 0; i < count; i++) {
+                    console.log(
+                        document.querySelectorAll('.chatBox')[i].querySelector('.enter').textContent.includes(text)
+                    );
+                    if (document.querySelectorAll('.chatBox')[i].querySelector('.enter').textContent.includes(text)) {
+                        console.log(i, '있음');
+                        document.querySelectorAll('.chatBox')[i].classList.remove('hide');
+                    } else {
+                        console.log(i, '없음');
+                        document.querySelectorAll('.chatBox')[i].classList.add('hide');
+                    }
+                }
+            }
+            scForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                schFunc();
+            });
+            scForm.addEventListener('keyup', () => {
+                schFunc();
+            });
 
             // 채팅방 입장
             async function enter(roomId) {

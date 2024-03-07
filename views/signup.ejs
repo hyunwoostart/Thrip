@@ -46,12 +46,14 @@
                     <label for="email">이메일</label>
                     <input type="email" id="email" placeholder="이메일을 입력하세요" required /><br />
                     <label for="tel">전화번호</label>
-                    <input type="number" id="tel" placeholder="전화번호를 입력하세요" required /><br />
+                    <input type="text" id="tel" placeholder="전화번호를 입력하세요" required /><br />
                     <button type="button" class="btn" onclick="signupFunc()">회원가입</button>
                 </form>
             </main>
             <!--// 컨텐츠 -->
         </div>
+        <!-- 로그인 여부 체크 -->
+        <script src="../public/js/logincheck.js"></script>
         <script>
             const form = document.forms['signup-form'];
             form.confirmPw.addEventListener('keyup', function () {
@@ -86,6 +88,13 @@
                     alert('비밀번호를 다시 입력해주세요');
                 }
             }
+            function makeHypen(el) {
+                el.addEventListener('input', function (e) {
+                    let val = e.target.value.replace(/[^0-9]/g, '');
+                    e.target.value = val.replace(/\d(?=(?:\d{4})+$)/g, '$&-');
+                });
+            }
+            makeHypen(document.querySelector('#tel'));
         </script>
     </body>
 </html>

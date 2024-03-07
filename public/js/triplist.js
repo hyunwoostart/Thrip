@@ -4,6 +4,7 @@ const prevList = document.querySelector('#prev ul');
 const dates = [];
 const depObject = [];
 const arrObject = [];
+let myId;
 (async function () {
     try {
         const res = await axios({
@@ -13,11 +14,12 @@ const arrObject = [];
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
+        myId = res.data.result.id;
         if (res.data.result.mySchedule[0]) {
             const res2 = await axios({
                 method: 'GET',
                 url: '/api/schedule/scheduleList',
-                params: { id: res.data.result.mySchedule },
+                params: { id: res.data.result.id },
             });
             console.log(res2.data.result);
             let count = 0;
@@ -43,6 +45,7 @@ const arrObject = [];
 							<strong>${groupName}</strong>
 							<span>${depY}.${depM}.${depD} - ${arrY}.${arrM}.${arrD}</span>
 						</div>
+						<button type="button" onclick="removeGroup(${id}, '${groupName}')">-</button>
 					</div>
 				</li>
 				`;
@@ -54,14 +57,13 @@ const arrObject = [];
                 }
             }
             if (count != 0) {
-                document.querySelector('#prev h3').textContent =
-                    '지난 여행 일정';
+                document.querySelector('#prev h3').textContent = '지난 여행 일정';
             }
         }
     } catch (error) {
-		// document.location.href = '/login';
+        // document.location.href = '/login';
     }
-	calendarInit();
+    calendarInit();
 })();
 function goDetail(id) {
     localStorage.setItem('groupId', id);
@@ -70,6 +72,24 @@ function goDetail(id) {
 function insert() {
     localStorage.removeItem('groupId');
     document.location.href = '/calendar';
+}
+async function removeGroup(index, name) {
+    if (!confirm(`${name} 일정을 삭제하시겠습니까?`)) {
+        return;
+    } else {
+        const res = await axios({
+            method: 'PATCH',
+            url: '/api/schedule/removeGroup',
+            data: {
+                memberId: myId,
+                groupId: index,
+            },
+        });
+        if (res.data.success) {
+            alert(`${res.data.result} 일정 삭제가 완료되었습니다.`);
+            document.location.reload();
+        }
+    }
 }
 
 //달력
@@ -93,10 +113,7 @@ function active() {
 function calendarInit() {
     function selected() {
         for (let d = 0; d < depObject.length; d++) {
-            if (
-                currentYear === depObject[d].year &&
-                currentMonth === depObject[d].month
-            ) {
+            if (currentYear === depObject[d].year && currentMonth === depObject[d].month) {
                 for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
                     var a = document.getElementsByClassName(i);
                     a[0].classList.add('active');
@@ -111,11 +128,7 @@ function calendarInit() {
     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
     var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
 
-    var thisMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
+    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     // 달력에서 표기하는 날짜 객체
 
     var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
@@ -150,33 +163,15 @@ function calendarInit() {
 
         // 지난달
         for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day prev disable ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+            calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable ' + i + '">' + i + '</div>';
         }
         // 이번달
         for (var i = 1; i <= nextDate; i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day current ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+            calendar.innerHTML = calendar.innerHTML + '<div class="day current ' + i + '">' + i + '</div>';
         }
         // 다음달
         for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day next disable ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+            calendar.innerHTML = calendar.innerHTML + '<div class="day next disable ' + i + '">' + i + '</div>';
         }
 
         // 오늘 날짜 표기
