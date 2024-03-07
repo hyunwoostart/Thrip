@@ -11,7 +11,10 @@ let form;
 // 소요시간 계산 함수
 function duration(distance) {
     if (distance >= 15) {
-        return `소요시간 ${((distance * 4) / 60).toFixed(0)}시간 ${((distance * 4) % 60).toFixed(0)}분`;
+        return `소요시간 ${((distance * 4) / 60).toFixed(0)}시간 ${(
+            (distance * 4) %
+            60
+        ).toFixed(0)}분`;
     } else {
         return `소요시간 ${(distance * 4).toFixed(0)}분`;
     }
@@ -56,7 +59,10 @@ function getDistance(lat1, lng1, lat2, lng2) {
     var dLon = deg2rad(lng2 - lng1);
     var a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        Math.cos(deg2rad(lat1)) *
+            Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = (R * c).toFixed(1); // Distance in km
     return d;
@@ -106,7 +112,10 @@ function displayMarker(place) {
         form.querySelector('.select').classList.add('active');
         // `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name, '</div>');
+        infowindow.setContent(
+            '<div style="padding:5px;font-size:12px;">' + place.place_name,
+            '</div>'
+        );
         infowindow.open(map, marker);
         //좌표 담는 객체 안에 x,y로 저장합니다.
         form.querySelector('.obj_x').value = place.x;
@@ -118,8 +127,10 @@ function displayMarker(place) {
             place_name: place.place_name,
         };
         pushArray(obj, array);
-        const prevForm = document.querySelectorAll('.detail-schedule')[nowIndex - 2];
-        const nextForm = document.querySelectorAll('.detail-schedule')[nowIndex];
+        const prevForm =
+            document.querySelectorAll('.detail-schedule')[nowIndex - 2];
+        const nextForm =
+            document.querySelectorAll('.detail-schedule')[nowIndex];
         if (nowIndex >= 2 && prevForm.querySelector('.obj_x').value) {
             console.log('두개의 좌표 사이의 거리 측정 시작');
             distance = getDistance(
@@ -128,7 +139,6 @@ function displayMarker(place) {
                 form.querySelector('.obj_x').value,
                 form.querySelector('.obj_y').value
             );
-            console.log(distance);
             form.querySelector('.result').innerHTML = duration(distance);
             form.querySelector('.result').classList.add('active');
             form.querySelector('.distance').value = distance;
@@ -153,7 +163,8 @@ function displayMarker(place) {
 
 // 마커 이름 클릭 이벤트
 function selectFunc() {
-    form.querySelector('.place_name').value = form.querySelector('.select').textContent;
+    form.querySelector('.place_name').value =
+        form.querySelector('.select').textContent;
     document.querySelector('.map').remove(); //지도 지우기
     form.querySelector('.select').textContent = '';
     form.querySelector('.select').classList.remove('active');
@@ -214,7 +225,9 @@ function selectFunc() {
 					<div class="result"></div>
                     <div class="input_wrap">
                         <input type="number" class="index" value="1" readonly disabled />
-                        <button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete"></button>
+                        <button type="button" onclick="deleteFunc(${
+                            i + 1
+                        }, 1)" class="btn_delete"></button>
                     </div>
 					<input type="hidden" class="category" value="${i + 1}" />
 					<input type="time" class="arrTime" />
@@ -236,7 +249,14 @@ function selectFunc() {
             if (res3.data.result.length) {
                 let num = 0;
                 for (let j = 0; j < res3.data.result.length; j++) {
-                    const { detailOrder, arrTime, category, detailMemo, distance, place } = res3.data.result[j];
+                    const {
+                        detailOrder,
+                        arrTime,
+                        category,
+                        detailMemo,
+                        distance,
+                        place,
+                    } = res3.data.result[j];
                     if (category == i + 1) {
                         html2 = `
 						<div class="detail-schedule">
@@ -250,10 +270,16 @@ function selectFunc() {
 							<input type="hidden" class="category" value="${i + 1}" />
 							<input type="time" class="arrTime" value="${arrTime}" />
 							<div class="input_wrap">
-								<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${num + 1})" value="${
+								<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${
+                                    num + 1
+                                })" value="${
                             place.place_name
-                        }" onkeyup="if(window.event.keyCode == 13) {keyword(${num + 1})}" />
-								<button type="button" onclick="keyword(${num + 1})" value="검색" class="btn_holder btn_marker" />
+                        }" onkeyup="if(window.event.keyCode == 13) {keyword(${
+                            num + 1
+                        })}" />
+								<button type="button" onclick="keyword(${
+                                    num + 1
+                                })" value="검색" class="btn_holder btn_marker" />
 							</div>
 							<div class="select" onclick="selectFunc()"></div>
 							<div class="map_box"></div>
@@ -264,23 +290,39 @@ function selectFunc() {
 							<input type="text" class="detailMemo" placeholder="메모" value="${detailMemo}" />
 						</div>
                         `;
-                        document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
+                        document
+                            .querySelectorAll('.schedule-form')
+                            [i].insertAdjacentHTML('beforeend', html2);
                         num++;
                     }
                 }
                 if (num === 0) {
-                    document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
+                    document
+                        .querySelectorAll('.schedule-form')
+                        [i].insertAdjacentHTML('beforeend', html2);
                 }
             } else {
-                document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
+                document
+                    .querySelectorAll('.schedule-form')
+                    [i].insertAdjacentHTML('beforeend', html2);
             }
             if (i === 0) {
                 document.querySelector('.rectrip_cnt').classList.add('on');
-                document.querySelector('.schedule-form').classList.remove('hide');
+                document
+                    .querySelector('.schedule-form')
+                    .classList.remove('hide');
             }
-            for (let k = 0; k < document.querySelectorAll('.schedule-form').length; k++) {
-                document.querySelectorAll('.schedule-form')[k].querySelectorAll('.result')[0].hidden = true;
-                document.querySelectorAll('.schedule-form')[k].querySelectorAll('.btn_delete')[0].hidden = true;
+            for (
+                let k = 0;
+                k < document.querySelectorAll('.schedule-form').length;
+                k++
+            ) {
+                document
+                    .querySelectorAll('.schedule-form')
+                    [k].querySelectorAll('.result')[0].hidden = true;
+                document
+                    .querySelectorAll('.schedule-form')
+                    [k].querySelectorAll('.btn_delete')[0].hidden = true;
             }
         }
         localStorage.setItem('category', 1);
@@ -315,14 +357,30 @@ function deleteFunc(tab, id) {
     form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
     form.remove();
     console.log();
-    for (let i = id; i <= tabForm.querySelectorAll('.detail-schedule').length; i++) {
+    for (
+        let i = id;
+        i <= tabForm.querySelectorAll('.detail-schedule').length;
+        i++
+    ) {
         form = tabForm.querySelectorAll('.detail-schedule')[i - 1];
         const prevForm = tabForm.querySelectorAll('.detail-schedule')[i - 2];
         form.querySelector('.index').value = i;
-        form.querySelector('.btn_delete').setAttribute('onclick', `deleteFunc(${tab}, ${i})`);
-        form.querySelector('.place_name').setAttribute('onfocus', `makeMap(${i})`);
-        form.querySelector('.place_name').setAttribute('onkeyup', `if(window.event.keyCode == 13) {keyword(${i})}`);
-        form.querySelector('.btn_marker').setAttribute('onclick', `keyword(${i})`);
+        form.querySelector('.btn_delete').setAttribute(
+            'onclick',
+            `deleteFunc(${tab}, ${i})`
+        );
+        form.querySelector('.place_name').setAttribute(
+            'onfocus',
+            `makeMap(${i})`
+        );
+        form.querySelector('.place_name').setAttribute(
+            'onkeyup',
+            `if(window.event.keyCode == 13) {keyword(${i})}`
+        );
+        form.querySelector('.btn_marker').setAttribute(
+            'onclick',
+            `keyword(${i})`
+        );
         if (form.querySelector('.obj_x').value) {
             const newDistance = getDistance(
                 prevForm.querySelector('.obj_x').value,
@@ -350,7 +408,9 @@ function insert() {
                     'category'
                 )}, ${tabIndex})" class="btn_delete"></button>
             </div>
-			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
+			<input type="hidden" class="category" value="${localStorage.getItem(
+                'category'
+            )}" />
 			<input type="time" class="arrTime" />
 			<div class="input_wrap">
 				<input class="place_name" onfocus="makeMap(${tabIndex})" onkeyup="if(window.event.keyCode == 13) {keyword(${tabIndex})}" />
@@ -375,7 +435,9 @@ async function register() {
         const content = document.querySelectorAll('.detail-schedule');
         console.log(content);
         for (let i = 0; i < content.length; i++) {
-            const category = Number(content[i].querySelector('.category').value);
+            const category = Number(
+                content[i].querySelector('.category').value
+            );
             const tabLength = document
                 .querySelectorAll('.schedule-form')
                 [category - 1].querySelectorAll('.detail-schedule').length;
@@ -392,7 +454,8 @@ async function register() {
                 place: {
                     x: content[i].querySelector('.obj_x').value,
                     y: content[i].querySelector('.obj_y').value,
-                    place_name: content[i].querySelector('.obj_place_name').value,
+                    place_name:
+                        content[i].querySelector('.obj_place_name').value,
                 },
                 distance: nowDistance,
                 detailMemo: content[i].querySelector('.detailMemo').value,
