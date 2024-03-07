@@ -3,35 +3,43 @@
     .main_wrap .mo_header .gnb .main_menu,
     .main_wrap .mo_header .gnb .sub_menu li .login_wrap {display: none;}
     .main_wrap .mo_header .gnb .sub_menu li a.ico_ham {display: block;}
-    .container_rec ul li .rec_cnt {height: 38vh !important;}
+    .container_rec ul li .rec_cnt {height: 60vw !important;}
 }
 
 /* PC 기준 - 1024 사이즈 */
 @media screen and (min-width: 1024px){
-    [class^="container_"] {display: flex; max-width: 1200px; margin: 0 auto;}
+    [class^="container_"] {width: 50%; max-width: 1200px; margin: 0 auto;}
     [class^="container_"].container_category {display: none !important;}
     [class^="container_"] ul {display: flex; flex-direction: row;}
-    
+    .container_trip,
+    .container_rec,
+    .container_category,
+    .container_upcoming,
+    .container_best {width: 100% !important;}
+
+
     .main_wrap .mo_header {position: fixed; z-index: 100; box-shadow: initial;}
     .main_wrap .mo_header .gnb {max-width: 1200px; left: 50%; transform: translateX(-50%);}
     .main_wrap .main {margin-top: 65px; padding: 0;}
     .main_wrap .main h3 {font-size: 1.8rem; padding: 30px 0 20px;}
     .main_wrap .main_bg {background: url('../img/main/bg_main.png') center/ 100% 100% no-repeat;}
     .container_trip {position: relative; padding: 52px 0; margin-bottom: 10px !important;}
-    .container_trip .trip_box {display: flex; justify-content: space-around; padding: 25px 50px; width: 60%; max-width: 600px; border-radius: 15px; background-color: #fafafa;}
+    .container_trip .trip_box {display: flex; justify-content: space-around; padding: 25px 50px; width: 65%; border-radius: 15px; background-color: #fafafa;}
+    .container_trip .trip_box .trip_cnt {width: 50%;}
     .container_trip .trip_new {position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 29%; max-width: 290px;}
-    .container_trip .trip_new .btn {margin-top: 0; height: 100px; border: 1px solid #ECECEC; background-color: #fff;}
-    .container_trip .trip_new .btn span {color: #000;}
-    .container_trip .trip_new span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plusb.png') center/cover no-repeat;}
+    .container_trip .trip_new .btn {margin-top: 0; height: 100px; line-height: initial; border: 1px solid #ECECEC; background-color: #fff;}
+    .container_trip .trip_new .btn span {font-size: 1.6rem; font-weight: 700; color: #000;}
+    .container_trip .trip_new span::before {content: ''; position: absolute; background: url('../img/common/btn_plusb.png') center/cover no-repeat;}
 
     .trip_schedule {min-width: 250px;}
-    .trip_schedule h3 {font-size: 1.4rem !important;}
+    .trip_schedule h3 {font-size: 1.2rem !important;}
     .trip_supplies .input_chk {margin: 0 0 16px;}
 
-    .container_best ul {flex-wrap: wrap;}
-    .container_best ul li {width: 32%; margin-right: 10px;}
+    .container_best ul {flex-wrap: wrap; justify-content: space-between;}
+    .container_best ul li {width: 32%;}
     
     .btn_wrap {display: none;}
+    
 }
 
 

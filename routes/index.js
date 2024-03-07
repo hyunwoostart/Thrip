@@ -13,6 +13,7 @@ const {
     tripdetail,
     admin,
     bestdetail,
+    calendarNew,
 } = require('../controller');
 const router = express.Router();
 
@@ -29,5 +30,6 @@ router.get('/triplist', triplist);
 router.get('/tripdetail', tripdetail);
 router.get('/recommend/admin', admin);
 router.get('/bestdetail', bestdetail);
+router.get('/calendarNew', calendarNew);
 
 module.exports = router;

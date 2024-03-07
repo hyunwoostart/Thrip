@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
         <link rel="stylesheet" href="../public/css/member.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
     </head>
     <body>
         <div id="wrap" class="login_page">
@@ -38,34 +39,41 @@
 
             <!-- 컨텐츠 -->
             <main class="main">
-                <h1>Time Travel</h1>
-                <ul class="tab_menu">
-                    <li class="find_id on" onclick="findBtn(1)">아이디 찾기</li>
-                    <li class="find_pw" onclick="findBtn(2)">비밀번호 찾기</li>
-                </ul>
-                <form id="find-form" class="gform">
-                    <div class="pw_form" hidden>
-                        <label for="userId">아이디</label>
-                        <input type="text" id="userId" placeholder="가입하신 아이디를 입력하세요" />
+                <div class="container_find">
+                    <h1>Time Travel</h1>
+                    <ul class="tab_menu">
+                        <li class="find_id on" onclick="findBtn(1)">아이디 찾기</li>
+                        <li class="find_pw" onclick="findBtn(2)">비밀번호 찾기</li>
+                    </ul>
+                    <form id="find-form" class="gform">
+                        <div class="pw_form" hidden>
+                            <label for="userId">아이디</label>
+                            <input type="text" id="userId" placeholder="가입하신 아이디를 입력하세요" />
+                        </div>
+                        <div class="id_form">
+                            <label for="username">이름</label>
+                            <input type="text" id="username" placeholder="가입하신 이름을 입력하세요" />
+                        </div>
+                        <label for="email">메일주소</label>
+                        <input type="email" id="email" placeholder="가입하신 메일주소를 입력하세요" />
+                        <button type="button" class="btn btn_send btn_trip" onclick="findId()">인증 메일 전송</button>
+                    </form>
+                    <div class="success_send" hidden>
+                        <label for="certNum">인증번호</label>
+                        <input type="number" id="certNum" placeholder="인증번호를 입력하세요" />
+                        <button type="button" class="btn btn_cert" onclick="certify(certId)">인증번호 확인</button>
                     </div>
-                    <div class="id_form">
-                        <label for="username">이름</label>
-                        <input type="text" id="username" placeholder="가입하신 이름을 입력하세요" />
-                    </div>
-                    <label for="email">메일주소</label>
-                    <input type="email" id="email" placeholder="가입하신 메일주소를 입력하세요" />
-                    <button type="button" class="btn btn_send btn_trip" onclick="findId()">인증 메일 전송</button>
-                </form>
-                <div class="success_send" hidden>
-                    <label for="certNum">인증번호</label>
-                    <input type="number" id="certNum" placeholder="인증번호를 입력하세요" />
-                    <button type="button" class="btn btn_cert" onclick="certify(certId)">인증번호 확인</button>
+                    <div class="success_cert"></div>
                 </div>
-                <div class="success_cert"></div>
             </main>
             <!--// 컨텐츠 -->
+
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script
             data-cfasync="false"
             type="text/javascript"

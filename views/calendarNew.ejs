@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>일정 생성</title>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/calendar.css" />
+        <link rel="stylesheet" href="../public/css/calendarNew.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="wrap" class="calendar">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="#none" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
+            <main class="main">
+                <!-- 달력 일자 선택 -->
+                <div class="container_calendar">
+                    <div class = "calendar_container"> 
+                        <button class = "left_button"> &lt </button>
+                        <button class = "right_button"> > </button>
+                        
+                        <table class = "calendar">
+                            <th class = "title">2월</th>
+                            <tbody>
+                                <tr class = "week">
+                                    <td class = "day">일</td>
+                                    <td class = "day">월</td>
+                                    <td class = "day">화</td>
+                                    <td class = "day">수</td>
+                                    <td class = "day">목</td>
+                                    <td class = "day">금</td>
+                                    <td class = "day">토</td>
+                                </tr>
+                                <tr>    <!-- 달력 첫 번째 줄-->
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                </tr>
+                                <tr>    <!-- 달력 두 번째 줄-->
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                </tr>
+                                <tr>    <!-- 달력 세 번째 줄-->
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                </tr>
+                                <tr>    <!-- 달력 네 번째 줄-->
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                </tr>
+                                <tr>    <!-- 달력 다섯 번째 줄-->
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                </tr>
+                                <tr>    <!-- 달력 여섯 번째 줄-->
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                    <td class = "calendar_days" roll = "button"> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <button type="button" onclick="selectDep()" class="btn" id="selectDep">출발일 선택</button>
+                    <button type="button" onclick="selectArr()" class="btn hide" id="selectArr">도착일 선택</button>
+                </div>
+                <!--// 달력 일자 선택 -->
+
+                <!-- 여행 일정 선택 -->
+                <div class="container_schedule hide">
+                    <div class="date_box">
+                        <div class="depDate dep_date"></div>
+                        <i class="ico_back"></i>
+                        <div class="arrDate"></div>
+                    </div>
+                    <button type="button" onclick="selectReset()" id="selectReset" class="btn">다시 선택</button>
+                    <form class="schedule-form">
+                        <div class="input_txt">
+                            <label for="groupName">일정명</label>
+                            <input type="text" id="groupName" placeholder="일정명" />
+                        </div>
+                        <div class="input_txt">
+                            <label for="memberSearch">멤버 추가</label>
+                            <div class="input_wrap">
+                                <input type="text" id="memberSearch" placeholder="아이디 입력" />
+                                <button class="btn_holder btn_search" id="searchBtn"></button>
+                            </div>
+                            <div class="search_result"></div>
+                        </div>
+                        <div class="input_txt">
+                            <label for="groupMemo">메모</label>
+                            <textarea name="" id="groupMemo" cols="30" rows="10" placeholder="메모"></textarea>
+                        </div>
+                        <button type="button" onclick="register()" class="btn">등록</button>
+                    </form>
+                </div>
+            <!--// 여행 일정 선택 -->
+            </main>
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
+        </div>
+        <script src="../public/js/calendar.js"></script>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
+        <script>
+            const calendarDays = document.querySelectorAll(".calendar_days"),
+            calendarTitle = document.querySelector(".title"),
+            leftButton = document.querySelector(".left_button"),
+            rightButton = document.querySelector(".right_button"),
+            calendar = document.querySelector(".calendar");
+
+            class Calendar {
+                constructor(year, month) {
+                    this.today = new Date(year, month);
+                    this.year = this.today.getFullYear(),
+                        this.month = this.today.getMonth(),
+                        this.date = this.today.getDate(),
+                        this.day = this.today.getDay()
+                }
+            
+            
+                getFirstDay() {
+                    const firstDate = new Date(this.year, this.month);
+                    return firstDate.getDay();
+                }
+            
+                getLastDay() {
+                    let wholeDays = [];
+                    if ((this.year % 4 === 0 && this.year % 100 !== 0) || (this.year % 400 === 0)) {
+                        wholeDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                    } else {
+                        wholeDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                    }
+                    return wholeDays[this.month];
+                }
+            
+                fillCalendar() {
+                    this.initCalendar();
+                    calendarTitle.innerHTML = `${this.year}년 ${this.month + 1}월`
+                    const firstDay = this.getFirstDay();
+                    const lastDay = this.getLastDay();
+                    let day = 1;
+                    for (let i = firstDay; i < calendarDays.length; i++) {
+                        if (day <= lastDay) {
+                            calendarDays[i].innerHTML = `<button class = "day_button">${day}</button>`;
+                            day++;
+                        }
+                    
+                    }
+                }
+            
+                initCalendar() {
+                    calendarDays.forEach((e) => {
+                        e.innerHTML = "";
+                    });
+                }
+            
+                drawCalendar() {
+                    let change = 0;
+                    const today = new Date();
+                    let calendarInstance = new Calendar(today.getFullYear(), today.getMonth() + change);
+                
+                    calendarInstance.fillCalendar();
+                
+                    leftButton.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        change--;
+                        calendarInstance = new Calendar(today.getFullYear(), today.getMonth() + change);
+                        calendarInstance.fillCalendar();
+                        this.updateCalendarStyle();
+                    });
+                    rightButton.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        change++;
+                        calendarInstance = new Calendar(today.getFullYear(), today.getMonth() + change);
+                        calendarInstance.fillCalendar();
+                        this.updateCalendarStyle();
+                    });
+                }
+            
+            
+                updateCalendarStyle() {
+                    const dayButtons = document.querySelectorAll(".day_button");
+                    let firstSelectedDay = 0;
+                    let lastSelectedDay = 0;
+                    let clickCount = 0;
+                
+                    // 달력 스타일 초기화
+                    dayButtons.forEach((element) => {
+                        element.classList.remove("day_selected");
+                        calendarDays.forEach((e) => e.classList.remove("gray"));
+                    })
+                
+                
+                    // 달력 날짜들에 클릭 이벤트 추가
+                    dayButtons.forEach((element) => {
+                        element.addEventListener("click", (event) => {
+                            event.target.classList.toggle("day_selected");
+                        
+                            clickCount++;
+                        
+                            // 선택 일자 타입 변환
+                            if (firstSelectedDay === 0) {
+                                firstSelectedDay = Number(event.target.innerText);
+                            } else {
+                                lastSelectedDay = Number(event.target.innerText);
+                            }
+                        
+                            // 클릭 횟수 2회 넘어가면 달력 스타일 초기화
+                            if (clickCount > 2) {
+                                dayButtons.forEach((e) => {
+                                    e.parentNode.classList.remove("gray");
+                                    e.classList.remove("day_selected");
+                                    clickCount = 0;
+                                    firstSelectedDay = 0;
+                                    lastSelectedDay = 0;
+                                });
+                            }
+                        
+                            // 선택 일자 사이에 회색 배경 적용
+                            if (firstSelectedDay !== 0 && lastSelectedDay !== 0) {
+                                dayButtons.forEach((e) => {
+                                    const day = Number(e.innerText);
+                                    if (day >= firstSelectedDay && day <= lastSelectedDay) {
+                                        e.parentNode.classList.toggle("gray");
+                                    }
+                                });
+                            }
+                        
+                            // 선택 일자 중 왼쪽값이 오른쪽 값보다 크면 회색 배경 삭제 
+                            if (firstSelectedDay > lastSelectedDay) {
+                                dayButtons.forEach((e) => {
+                                    e.parentNode.classList.remove("gray");
+                                });
+                            }
+                        });
+                    });
+                
+                
+                    // 달력 날짜들에 호버링 이벤트 추가
+                    dayButtons.forEach((element) => {
+                        element.addEventListener("mouseenter", (event) => {
+                            event.target.classList.add("day_hover")
+                        });
+                    });
+                
+                    dayButtons.forEach((element) => {
+                        element.addEventListener("mouseleave", (event) => {
+                            event.target.classList.remove("day_hover")
+                        });
+                    });
+                }
+            
+                handleEvents() {
+                    this.drawCalendar();
+                    this.updateCalendarStyle();
+                }
+            
+            }
+            
+            const cal = new Calendar();
+            cal.handleEvents();
+
+        </script>
+    </body>
+</html>

@@ -37,3 +37,6 @@ exports.admin = (req, res) => {
 exports.bestdetail = (req, res) => {
     res.render('bestdetail');
 };
+exports.calendarNew = (req, res) => {
+    res.render('calendarNew');
+};
