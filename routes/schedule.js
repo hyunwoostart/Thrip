@@ -5,6 +5,7 @@ const {
     best,
     detail,
     groupWrite,
+    removeGroup,
     detailWrite,
     findChk,
     addChk,
@@ -21,6 +22,7 @@ router.get('/findGroup', findGroup);
 router.get('/best', best);
 router.post('/groupWrite', groupWrite);
 router.get('/detail', detail);
+router.patch('/removeGroup', removeGroup);
 router.post('/detailWrite', detailWrite);
 router.get('/findChk', findChk);
 router.post('/addChk', addChk);
