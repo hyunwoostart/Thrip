@@ -44,7 +44,12 @@ let myId;
 							<strong>${groupName}</strong>
 							<span>${depY}.${depM}.${depD} - ${arrY}.${arrM}.${arrD}</span>
 						</div>
-						<button type="button" onclick="removeGroup(${id}, '${groupName}')">-</button>
+                        <div class="input_wrap">
+                            <button type="button" class="btn_delete" onclick="removeGroup(${id}, '${groupName}')"></button>
+                        </div>
+                        <div class="trip_memo">
+                            <p></p>
+                        </div>
 					</div>
 				</li>
 				`;
