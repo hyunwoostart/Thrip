@@ -38,7 +38,7 @@ let arrObject = [];
                     const arrD = Number(arrDate.substring(8, 10));
                     depObject.push({ year: depY, month: depM - 1, day: depD });
                     arrObject.push({ year: arrY, month: arrM - 1, arrDay: arrD });
-                    if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
+                    if (arrY >= YEAR && (arrM > MONTH || (arrM === MONTH && arrD >= DATE))) {
                         scheduleIndex.push(id);
                         if (count === 0) {
                             const res3 = await axios({
@@ -326,7 +326,7 @@ document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
 //오늘을 기준으로 일주일 캘린더 만들기
 function makeCalender() {
     let calendarTable = document.querySelector('#trip_calendar_table');
-    const today = new Date();
+    const today = new Date('2024-03-30');
     //요일(오늘을 기준으로 요일 배열 재배치)
     const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
     const day = today.getDay();
