@@ -1,20 +1,10 @@
-// 현재 날짜를 나타내는 Date 객체 생성
 var currentDate = new Date();
-
-// 현재 월을 가져옴
 var currentMonth = currentDate.getMonth();
-
-// 현재 연도를 가져옴
 var currentYear = currentDate.getFullYear();
-
-//사용자가 선택한 연도와 달 입력 받는 변수
 var year = currentYear;
 var month = currentMonth;
-
-// 일자와 요일
 var departureDate;
 var arrivalDate;
-
 const selectYear = document.querySelector('#selectYear');
 const selectMonth = document.querySelector('#selectMonth');
 
@@ -43,7 +33,6 @@ function makeSelect() {
         selectMonth.appendChild(monthOption);
         var m = (currentMonth + 1).toString();
         var element = document.getElementById(m);
-
         if (element) {
             element.setAttribute('selected', 'selected');
         }
@@ -129,6 +118,46 @@ selectMonth.addEventListener('change', () => {
     printCalendar(year, month);
     getSelectedDate();
 });
+// 이전달로 이동
+$('.go-prev').on('click', function () {
+    if (month === 0) {
+        year = year - 1;
+        month = 11;
+    } else {
+        month = month - 1;
+    }
+    console.log(year, month);
+    printCalendar(year, month);
+    changeSelected(year, month);
+});
+
+// 다음달로 이동
+$('.go-next').on('click', function () {
+    if (month === 11) {
+        year = year + 1;
+        month = 0;
+    } else {
+        month = month + 1;
+    }
+    console.log(year, month);
+    printCalendar(year, month);
+    changeSelected(year, month);
+});
+//selected 자동 변경 함수
+// prettier-ignore
+function changeSelected(year, month) {
+    // 이미 selected 된 연도와 월
+    const selectedMonthOption = selectMonth.querySelector('option[selected="selected"]');
+    const selectedYearOption = selectYear.querySelector('option[selected="selected"]');
+    // 변경해야할 연도와 월
+    const targetYear = document.getElementById(year);
+    const targetMonth = document.getElementById(month+1);
+    selectedMonthOption.removeAttribute('selected');
+    selectedYearOption.removeAttribute('selected');
+    targetYear.setAttribute('selected', 'selected');
+    targetMonth.setAttribute('selected', 'selected');
+    console.log(targetYear, targetMonth)
+}
 
 //날짜 선택해서 띄우기
 var selectedDate = {};

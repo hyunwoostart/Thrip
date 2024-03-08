@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="../public/css/trip.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
         <link rel="stylesheet" href="../public/css/triplist.css" />
+        <link rel="stylesheet" href="../public/css/calendar.css" />
         <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -35,25 +36,17 @@
             </header>
             <!--// 헤더 -->
             <main class="main">
-                <!-- 달력 일자 선택 -->
-                <div class="sec_cal">
-                    <div class="cal_nav">
-                        <a href="javascript:;" class="nav-btn go-prev">prev</a>
-                        <div class="year-month"></div>
-                        <a href="javascript:;" class="nav-btn go-next">next</a>
+                <div class="container_calendar">
+                    <div class="calendar_box">
+                        <span class="material-symbols-outlined go-prev"
+                            >navigate_next</span
+                        >
+                        <div id="yearMonthBox"></div>
+                        <span class="material-symbols-outlined go-next">
+                            navigate_next
+                        </span>
                     </div>
-                    <div class="cal_wrap">
-                        <div class="days">
-                            <div class="day">MON</div>
-                            <div class="day">TUE</div>
-                            <div class="day">WED</div>
-                            <div class="day">THU</div>
-                            <div class="day">FRI</div>
-                            <div class="day">SAT</div>
-                            <div class="day">SUN</div>
-                        </div>
-                        <div class="dates"></div>
-                    </div>
+                    <div id="calendar"></div>
                 </div>
                 <!--// 달력 일자 선택 -->
 
