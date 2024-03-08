@@ -106,17 +106,17 @@ function calendarInit() {
                 if (depObject[d].month === arrObject[d].month) {
                     for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
                         var a = document.getElementById(i);
-                        a.innerHTML += `<span class="material-symbols-outlined" style="font-size: 14px;">fiber_manual_record</span>`;
+                        a.innerHTML += `<span class="day_circle"></span>`;
                     }
                 } else if (depObject[d].month === month) {
                     for (let i = depObject[d].day; i <= lastDay[depObject[d].month]; i++) {
                         var a = document.getElementById(i);
-                        a.innerHTML += `<span class="material-symbols-outlined" style="font-size: 14px;">fiber_manual_record</span>`;
+                        a.innerHTML += `<span class="day_circle"></span>`;
                     }
                 } else {
                     for (let i = 1; i <= arrObject[d].arrDay; i++) {
                         var a = document.getElementById(i);
-                        a.innerHTML += `<span class="material-symbols-outlined" style="font-size: 14px;">fiber_manual_record</span>`;
+                        a.innerHTML += `<span class="day_circle"></span>`;
                     }
                 }
             }
