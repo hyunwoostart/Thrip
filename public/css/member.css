@@ -5,3 +5,11 @@ p {text-align: center; font-size: 1.1rem; margin-bottom: 20px;}
 .success_send {margin-top: 10px;}
 .success_cert .result {padding: 20px 0;}
 .success_cert .result span {font-weight: 700; font-size: 1.4rem;}
+
+/* 관리자 - admin */
+.container_admin .result {padding-top: 40px;}
+.container_admin .result p {padding-top: 20px; text-align: left; font-size: 1.4rem; font-weight: 700;}
+
+.container_admin .trip_supplies .input_chk {align-items: center;}
+.container_admin .trip_supplies .input_chk input {margin-left: 20px;}
+.container_admin .trip_supplies .edit_btn {background-color: #2fcc59;}

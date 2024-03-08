@@ -4,6 +4,7 @@ const prevList = document.querySelector('#prev ul');
 const dates = [];
 const depObject = [];
 const arrObject = [];
+let myId;
 (async function () {
     try {
         const res = await axios({
@@ -13,12 +14,12 @@ const arrObject = [];
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        const { mySchedule } = res.data.result;
-        if (mySchedule) {
+        myId = res.data.result.id;
+        if (res.data.result.mySchedule[0]) {
             const res2 = await axios({
                 method: 'GET',
                 url: '/api/schedule/scheduleList',
-                params: { id: mySchedule },
+                params: { id: res.data.result.id },
             });
             let count = 0;
             for (let i = 0; i < res2.data.result.length; i++) {
@@ -43,6 +44,7 @@ const arrObject = [];
 							<strong>${groupName}</strong>
 							<span>${depY}.${depM}.${depD} - ${arrY}.${arrM}.${arrD}</span>
 						</div>
+						<button type="button" onclick="removeGroup(${id}, '${groupName}')">-</button>
 					</div>
 				</li>
 				`;
@@ -54,14 +56,13 @@ const arrObject = [];
                 }
             }
             if (count != 0) {
-                document.querySelector('#prev h3').textContent =
-                    '지난 여행 일정';
+                document.querySelector('#prev h3').textContent = '지난 여행 일정';
             }
-            calendarInit();
         }
     } catch (error) {
         // document.location.href = '/login';
     }
+    calendarInit();
 })();
 function goDetail(id) {
     localStorage.setItem('groupId', id);
@@ -71,15 +72,31 @@ function insert() {
     localStorage.removeItem('groupId');
     document.location.href = '/calendar';
 }
+async function removeGroup(index, name) {
+    if (!confirm(`${name} 일정을 삭제하시겠습니까?`)) {
+        return;
+    } else {
+        const res = await axios({
+            method: 'PATCH',
+            url: '/api/schedule/removeGroup',
+            data: {
+                memberId: myId,
+                groupId: index,
+            },
+        });
+        if (res.data.success) {
+            alert(`${res.data.result} 일정 삭제가 완료되었습니다.`);
+            document.location.reload();
+        }
+    }
+}
 
 //달력
 // prettier-ignore
 function calendarInit() {
     function selected() {
         for (let d = 0; d < depObject.length; d++) {
-            console.log(year, month);
             if (year === depObject[d].year && month === depObject[d].month) {
-                console.log('같은 년도, 월');
                 for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
                     var a = document.getElementById(i);
                     a.innerHTML+=`<span class="material-symbols-outlined" style="font-size: 14px;">fiber_manual_record</span>`
@@ -121,7 +138,6 @@ function calendarInit() {
         calendar += '<th>FRI</th>';
         calendar += '<th>SAT</th>';
         calendar += '</tr>';
-
         var dNum = 1;
         //이중 for문을 이용해 달력 테이블을 생성
         for (var i = 1; i <= row; i++) {

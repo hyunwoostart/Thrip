@@ -14,12 +14,12 @@ let contentHieght;
                 },
             });
             // 내 여행 데이터 불러오기
-            if (res.data.result.mySchedule.length != 0) {
+            if (res.data.result.mySchedule[0]) {
                 let count = 0;
                 const res2 = await axios({
                     method: 'GET',
                     url: '/api/schedule/scheduleList',
-                    params: { id: res.data.result.mySchedule },
+                    params: { id: res.data.result.id },
                 });
                 for (let i = 0; i < res2.data.result.length; i++) {
                     const { id, depDate, arrDate, groupName } = res2.data.result[i];
@@ -113,7 +113,7 @@ let contentHieght;
             }
         } catch (error) {
             // localStorage.clear();
-			const info = document.querySelector('.my_info')
+            const info = document.querySelector('.my_info');
             info.addEventListener('click', () => {
                 document.location.href = '/login';
             });
@@ -151,14 +151,14 @@ let contentHieght;
         },
         speed: 1200,
         loop: true,
-        loopAdditionalSlides : 1,
+        loopAdditionalSlides: 1,
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
         },
         breakpoints: {
             764: {
-            slidesPerView: 2,
+                slidesPerView: 2,
             },
         },
     });

@@ -18,7 +18,7 @@ exports.findGroup = async (req, res) => {
 
 // BEST 일정 조회
 exports.best = async (req, res) => {
-    const result = await Group.findAll({ limit: 5 });
+    const result = await Group.findAll({ limit: 6 });
     res.json({ success: true, result, message: 'BEST 일정 조회 완료' });
 };
 
@@ -62,6 +62,18 @@ exports.groupWrite = async (req, res) => {
         }
         res.json({ success: true, result, message: '일정 생성 완료' });
     }
+};
+
+// 일정 삭제
+exports.removeGroup = async (req, res) => {
+    const { memberId, groupId } = req.body;
+    const member = await Member.findOne({ where: { id: memberId } });
+    const mySchedule = member.mySchedule.filter((id) => id != groupId);
+    await Member.update({ mySchedule }, { where: { id: memberId } });
+    const group = await Group.findOne({ where: { id: groupId } });
+    const groupMember = group.groupMember.filter((id) => id != memberId);
+    await Group.update({ groupMember }, { where: { id: groupId } });
+    res.json({ success: true, result: group.groupName, message: '일정 삭제 완료' });
 };
 
 exports.detailWrite = async (req, res) => {
