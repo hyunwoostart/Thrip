@@ -33,7 +33,6 @@
 .trip_cnt .trip_calendar .calTit {padding-bottom: 20px; color: #9c9c9c;}
 .trip_cnt .trip_calendar .calDate.on {background: #278eff; border-radius: 50%; color: #fff;} 
 
-
 /* 내 여행 - 스케줄 박스 */
 .trip_schedule {position: relative; padding: 18px 20px; margin-bottom: 30px; min-height: 98px; border: 1px solid #ececec; border-radius: 15px; background-color: #fff;}
 .trip_schedule h3 {margin-bottom: 4px;}
@@ -41,6 +40,7 @@
 .trip_schedule p {margin-top: 10px;}
 
 /* 내 여행 - 여행 준비물 */
+.checklist_wrap .container_checklist {min-height: 100vh;}
 .container_checklist .trip_supplies {padding-top: 20px;}
 .trip_supplies .input_chk {display: flex; margin: 0 0 16px 20px;}
 .trip_supplies .input_chk input {margin: 0; padding: 0; width: 18px; height: 18px;}
