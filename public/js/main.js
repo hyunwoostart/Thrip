@@ -72,30 +72,33 @@ let arrObject = [];
                                 },
                             });
                             if (res4.data.result.length != 0) {
+                                const div = document.createElement('div');
+                                div.className = 'trip_supplies';
                                 const h3 = document.createElement('h3');
                                 h3.textContent = `${groupName} 체크리스트`;
-                                document.querySelector('.trip_supplies').appendChild(h3);
+                                div.appendChild(h3);
                                 for (let k = 0; k < res4.data.result.length; k++) {
                                     const { id, listName, isActive } = res4.data.result[k];
                                     let chkHtml;
                                     if (Boolean(isActive)) {
                                         chkHtml = `
 										<div class="input_chk" onclick="isChecked(${id})">
-											<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-											<label for="check${id}">${listName}</label>
-											<input type="hidden" id="${id}" />
+										<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+										<label for="check${id}">${listName}</label>
+										<input type="hidden" id="${id}" />
 										</div>
 										`;
                                     } else {
                                         chkHtml = `
 										<div class="input_chk" onclick="isChecked(${id})">
-											<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-											<label for="check${id}">${listName}</label>
-											<input type="hidden" id="${id}" />
+										<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+										<label for="check${id}">${listName}</label>
+										<input type="hidden" id="${id}" />
 										</div>
 										`;
                                     }
-                                    document.querySelector('.trip_supplies').insertAdjacentHTML('beforeend', chkHtml);
+                                    div.insertAdjacentHTML('beforeend', chkHtml);
+                                    document.querySelector('.trip_box').appendChild(div);
                                 }
                             }
                         } else {
@@ -332,17 +335,16 @@ function makeCalender() {
     const day = today.getDay();
     let slicedPart = dayArr.splice(0, day + 1);
     dayArr.push(...slicedPart);
-    const thead = ` <thead>
-    <tr>
-        <th>${dayArr[0]}</th>
-        <th>${dayArr[1]}</th>
-        <th>${dayArr[2]}</th>
-        <th>${dayArr[3]}</th>
-        <th>${dayArr[4]}</th>
-        <th>${dayArr[5]}</th>
-        <th>${dayArr[6]}</th>
-    </tr>
-    </thead>`;
+    const thead = `
+    <div class="trip_calendar_line">
+        <p class="calTit calCont">${dayArr[0]}</p>
+        <p class="calTit calCont">${dayArr[1]}</p>
+        <p class="calTit calCont">${dayArr[2]}</p>
+        <p class="calTit calCont">${dayArr[3]}</p>
+        <p class="calTit calCont">${dayArr[4]}</p>
+        <p class="calTit calCont">${dayArr[5]}</p>
+        <p class="calTit calCont">${dayArr[6]}</p>
+    </div>`;
     calendarTable.insertAdjacentHTML('beforeend', thead);
     //날짜(오늘을 기준으로 7일동안의 날짜 배치)
     const dates = [];
@@ -352,17 +354,16 @@ function makeCalender() {
         dates[i] = nextDay;
     }
     dates[0] = today;
-    const tbody = `<tbody>
-    <tr>
-        <td class="calDate" id="calDate${dates[0].getDate()}">${dates[0].getDate()}</td>
-        <td class="calDate" id="calDate${dates[1].getDate()}">${dates[1].getDate()}</td>
-        <td class="calDate" id="calDate${dates[2].getDate()}">${dates[2].getDate()}</td>
-        <td class="calDate" id="calDate${dates[3].getDate()}">${dates[3].getDate()}</td>
-        <td class="calDate" id="calDate${dates[4].getDate()}">${dates[4].getDate()}</td>
-        <td class="calDate" id="calDate${dates[5].getDate()}">${dates[5].getDate()}</td>
-        <td class="calDate" id="calDate${dates[6].getDate()}">${dates[6].getDate()}</td>
-    </tr>
-    </tbody>`;
+    const tbody = `
+    <div class="trip_calendar_line">
+        <p class="calDate calCont" id="calDate${dates[0].getDate()}">${dates[0].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[1].getDate()}">${dates[1].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[2].getDate()}">${dates[2].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[3].getDate()}">${dates[3].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[4].getDate()}">${dates[4].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[5].getDate()}">${dates[5].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[6].getDate()}">${dates[6].getDate()}</p>
+    </div>`;
     calendarTable.insertAdjacentHTML('beforeend', tbody);
     if (depObject[0]) {
         for (let i = 0; i < dates.length; i++) {
