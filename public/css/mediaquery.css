@@ -17,7 +17,6 @@
     .container_upcoming,
     .container_best {width: 100% !important;}
 
-
     .main_wrap .mo_header {position: fixed; z-index: 100; box-shadow: initial;}
     .main_wrap .mo_header .gnb {max-width: 1200px; left: 50%; transform: translateX(-50%);}
     .main_wrap .main {margin-top: 65px; padding: 0;}
@@ -32,11 +31,15 @@
     .container_trip .trip_new span::before {content: ''; position: absolute; background: url('../img/common/btn_plusb.png') center/cover no-repeat;}
 
     .trip_schedule {min-width: 250px;}
-    .trip_schedule h3 {font-size: 1.2rem !important;}
     .trip_supplies .input_chk {margin: 0 0 16px;}
+    .trip_supplies h3 {font-size: 1.4rem !important;}
 
-    .container_best ul {flex-wrap: wrap; justify-content: space-between;}
+    .container_best ul,
+    .container_upcoming ul {flex-wrap: wrap;}
+    .container_upcoming ul li {width: 24%; margin-right: 10px;}
+    .container_best ul {justify-content: space-between;}
     .container_best ul li {width: 32%;}
+    
     
     .btn_wrap {display: none;}
     
