@@ -184,8 +184,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 
 /* 버튼 스타일 - btn_ */
 .btn_trip {background-color: #2fcc59;}
-.btn_trip span {position: relative; display: inline-block; color: #fff;}
-.btn_trip span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plus.png') center/cover no-repeat;}
+.btn_trip span,
+.btn_add span {position: relative; display: inline-block; color: #fff;}
+.btn_trip span::before,
+.btn_add span::before {content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); margin: 0; width: 12px; height: 12px; background: url('../img/common/btn_plus.png') center/cover no-repeat;}
 
 /* 버튼 스타일 start */
 .btnRow {display: flex; justify-content: space-between;} 

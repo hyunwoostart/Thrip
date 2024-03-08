@@ -35,14 +35,19 @@
                 </nav>
             </header>
             <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+            
             <main class="main">
                 <div class="container_calendar">
                     <div class="calendar_box">
-                        <span class="material-symbols-outlined go-prev"
+                        <span class="go-prev"
                             >navigate_next</span
                         >
                         <div id="yearMonthBox"></div>
-                        <span class="material-symbols-outlined go-next">
+                        <span class="go-next">
                             navigate_next
                         </span>
                     </div>
@@ -55,15 +60,22 @@
                     <ul></ul>
                 </div>
                 <!--// 여행 일정 리스트 -->
-                <button type="button" onclick="insert()" class="btn btn_trip">
-                    <span>일정 추가하기</span>
-                </button>
+                <div class="btnadd_wrap">
+                    <button type="button" onclick="insert()" class="btn btn_add">
+                        <span>일정 추가하기</span>
+                    </button>
+                </div>
                 <div class="container_upcoming" id="prev">
                     <h3></h3>
                     <ul></ul>
                 </div>
             </main>
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script src="../public/js/triplist.js"></script>
     </body>
 </html>
