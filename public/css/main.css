@@ -29,7 +29,7 @@
 /* .trip_cnt table tr td.on a {padding: 15% 28.17%; display: inline-block; border-radius: 50%; background: #278eff; color: #fff;} */
 
 /* 내 여행 - 스케줄 박스 */
-.trip_schedule {padding: 18px 20px; margin-bottom: 30px; min-height: 98px; border: 1px solid #ececec; border-radius: 15px; background-color: #fff;}
+.trip_schedule {position: relative; padding: 18px 20px; margin-bottom: 30px; min-height: 98px; border: 1px solid #ececec; border-radius: 15px; background-color: #fff;}
 .trip_schedule h3 {margin-bottom: 4px;}
 .trip_schedule span {display: block;}
 .trip_schedule p {margin-top: 10px;}
@@ -41,7 +41,7 @@
 .trip_supplies .input_chk label {margin: 0 0 0 16px;}
 
 /* 추천 여행지 */
-.container_rec ul {display: flex;}
+.container_rec ul {display: flex;;}
 .container_rec ul li {width: 50%;}
 .container_rec ul li img {border-radius: 15px; width: 100%; height: 100%; object-fit: cover;}
 .container_rec ul li .rec_cnt {position: relative; width: 100%; height: 25vw !important;}

@@ -44,9 +44,7 @@ let myId;
 							<strong>${groupName}</strong>
 							<span>${depY}.${depM}.${depD} - ${arrY}.${arrM}.${arrD}</span>
 						</div>
-                        <div class="input_wrap">
-                            <button type="button" class="btn_delete" onclick="removeGroup(${id}, '${groupName}')"></button>
-                        </div>
+                        <button type="button" class="btn_delete" onclick="removeGroup(${id}, '${groupName}')"></button>
                         <div class="trip_memo">
                             <p></p>
                         </div>
@@ -104,7 +102,7 @@ function calendarInit() {
             if (year === depObject[d].year && month === depObject[d].month) {
                 for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
                     var a = document.getElementById(i);
-                    a.innerHTML+=`<span class="material-symbols-outlined" style="font-size: 14px;">fiber_manual_record</span>`
+                    a.innerHTML+=`<span class="day_circle"></span>`
                 }
             }
         }

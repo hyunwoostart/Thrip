@@ -35,6 +35,11 @@
                 </nav>
             </header>
             <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+            
             <main class="main">
                 <ul class="tab_menu"></ul>
             </main>
@@ -43,6 +48,11 @@
             <button type="button" onclick="insert()" class="btn btn_trip"><span>일정 추가하기</span></button>
             <button type="button" onclick="register()" class="btn">전체 일정 입력 완료</button>
         </div>
+        <!-- 하단 메뉴 : 고정 -->
+        <%- include('btnwrap.ejs') %>
+        <!--// 하단 메뉴 : 고정 -->
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script src="../public/js/map.js"></script>
     </body>
 </html>
