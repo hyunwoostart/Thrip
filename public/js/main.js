@@ -1,6 +1,8 @@
 let scheduleIndex = [];
 let contentWidth;
 let contentHieght;
+let depObject = [];
+let arrObject = [];
 (async function () {
     // 로그인 여부 확인
     if (localStorage.getItem('token')) {
@@ -23,15 +25,19 @@ let contentHieght;
                 });
                 for (let i = 0; i < res2.data.result.length; i++) {
                     const { id, depDate, arrDate, groupName } = res2.data.result[i];
+
                     const now = new Date();
                     const YEAR = now.getFullYear();
                     const MONTH = now.getMonth() + 1;
                     const DATE = now.getDate();
+                    const depY = Number(arrDate.substring(0, 4));
                     const depM = Number(depDate.substring(5, 7));
                     const depD = Number(depDate.substring(8, 10));
                     const arrY = Number(arrDate.substring(0, 4));
                     const arrM = Number(arrDate.substring(5, 7));
                     const arrD = Number(arrDate.substring(8, 10));
+                    depObject.push({ year: depY, month: depM - 1, day: depD });
+                    arrObject.push({ year: arrY, month: arrM - 1, arrDay: arrD });
                     if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
                         scheduleIndex.push(id);
                         if (count === 0) {
@@ -192,6 +198,7 @@ let contentHieght;
 		</li>`;
         document.querySelector('.container_best ul').insertAdjacentHTML('beforeend', bestHtml);
     }
+    makeCalender();
 })();
 
 // 체크리스트 클릭
@@ -347,15 +354,46 @@ function makeCalender() {
     dates[0] = today;
     const tbody = `<tbody>
     <tr>
-        <td>${dates[0].getDate()}</td>
-        <td>${dates[1].getDate()}</td>
-        <td>${dates[2].getDate()}</td>
-        <td>${dates[3].getDate()}</td>
-        <td>${dates[4].getDate()}</td>
-        <td>${dates[5].getDate()}</td>
-        <td>${dates[6].getDate()}</td>
+        <td class="calDate" id="calDate${dates[0].getDate()}">${dates[0].getDate()}</td>
+        <td class="calDate" id="calDate${dates[1].getDate()}">${dates[1].getDate()}</td>
+        <td class="calDate" id="calDate${dates[2].getDate()}">${dates[2].getDate()}</td>
+        <td class="calDate" id="calDate${dates[3].getDate()}">${dates[3].getDate()}</td>
+        <td class="calDate" id="calDate${dates[4].getDate()}">${dates[4].getDate()}</td>
+        <td class="calDate" id="calDate${dates[5].getDate()}">${dates[5].getDate()}</td>
+        <td class="calDate" id="calDate${dates[6].getDate()}">${dates[6].getDate()}</td>
     </tr>
     </tbody>`;
     calendarTable.insertAdjacentHTML('beforeend', tbody);
+    if (depObject[0]) {
+        for (let i = 0; i < dates.length; i++) {
+            const calY = dates[i].getFullYear();
+            const calM = dates[i].getMonth();
+            const calD = dates[i].getDate();
+            for (let d = 0; d < depObject.length; d++) {
+                if (depObject[d].year != arrObject[d].year) {
+                    if (
+                        calY === depObject[d].year &&
+                        (calM > depObject[d].month || (calM = depObject[d].month && calD >= depObject[d].day))
+                    ) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    } else if (
+                        calY === arrObject[d].year &&
+                        (calM < arrObject[d].month || (calM = arrObject[d].month && calD <= arrObject[d].day))
+                    ) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    }
+                } else if (depObject[d].month != arrObject[d].month) {
+                    if (calM === depObject[d].month && calD >= depObject[d].day) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    } else if (calM === arrObject[d].month && calD <= arrObject[d].arrDay) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    }
+                } else {
+                    if (calM === depObject[d].month && calD >= depObject[d].day && calD <= arrObject[d].arrDay) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    }
+                }
+            }
+        }
+    }
 }
-makeCalender();

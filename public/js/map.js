@@ -11,15 +11,17 @@ let form;
 // 소요시간 계산 함수
 function duration(distance) {
     let distanceText;
-    if (distance >= 1) {
-        distanceText = `(약 ${distance}km)`;
+    if (distance >= 1000) {
+        distanceText = `(약 ${distance / 1000}km)`;
     } else {
-        distanceText = `(약 ${distance * 1000}m)`;
+        distanceText = `(약 ${distance}m)`;
     }
-    if (distance >= 15) {
-        return `소요시간 ${((distance * 4) / 60).toFixed(0)}시간 ${((distance * 4) % 60).toFixed(0)}분 ${distanceText}`;
+    if (distance >= 15000) {
+        return `소요시간 ${(distance / 250 / 60).toFixed(0)}시간 ${((distance / 250) % 60).toFixed(
+            0
+        )}분 ${distanceText}`;
     } else {
-        return `소요시간 ${(distance * 4).toFixed(0)}분 ${distanceText}`;
+        return `소요시간 ${((distance / 250) % 60).toFixed(0)}분 ${distanceText}`;
     }
 }
 
@@ -64,7 +66,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = (R * c).toFixed(1); // Distance in km
+    var d = (R * c).toFixed(1) * 1000; // Distance in km
     return d;
 }
 
@@ -141,10 +143,10 @@ function displayMarker(place) {
             const nextForm = tabForm.querySelectorAll('.detail-schedule')[nowIndex];
             if (nextForm.querySelector('.obj_x').value) {
                 distance = getDistance(
-                    prevForm.querySelector('.obj_x').value,
-                    prevForm.querySelector('.obj_y').value,
                     form.querySelector('.obj_x').value,
-                    form.querySelector('.obj_y').value
+                    form.querySelector('.obj_y').value,
+                    nextForm.querySelector('.obj_x').value,
+                    nextForm.querySelector('.obj_y').value
                 );
                 nextForm.querySelector('.result').innerHTML = duration(distance);
                 form.querySelector('.distance').value = distance;
