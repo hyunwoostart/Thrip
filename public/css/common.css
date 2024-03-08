@@ -232,3 +232,5 @@ button.disable {background-color: #ccc; color: #333;}
 .btn_delete {position: absolute; right: 0; bottom: 10px; border-style: none; background: transparent; cursor: pointer;}
 .btn_delete::before {content: ''; display: block; width: 30px; height: 30px; background:#ccc; border-radius: 8px;}
 .btn_delete::after {content: ''; display: block; width: 15px; position: relative; left: 8px; top: -16px; height: 3px; background: #fff;}
+
+.day_circle {position: absolute; color: #fff; bottom: 10px; left: 50%; transform: translateX(-50%); background: #278eff; border-radius: 50%; width: 12px; height: 12px; line-height: 1;} 

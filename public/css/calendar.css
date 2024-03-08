@@ -68,10 +68,7 @@
 .btn_delete::before {content: ''; display: block; width: 30px; height: 30px; background: #ccc; border-radius: 8px;} 
 .btn_delete::after {content: ''; display: block; width: 15px; position: relative; left: 8px; top: -16px; height: 3px; background: #fff;} 
 
-/* 달력 화살표 */
-.day_circle {width: 12px; height: 12px; line-height: 1; position: absolute; color: #fff; bottom: 10px; left: 50%; transform: translateX(-50%); background: #2fcc59; border-radius: 50%;} 
-
 .time_box {padding: 20px 0;}
-.time_box select  {position: relative; padding: 15px; -webkit-appearance: none; border: 1px solid #ccc; border-radius: 15px; font-size: 1.2rem;}
+.time_box select {position: relative; padding: 15px; -webkit-appearance: none; border: 1px solid #ccc; border-radius: 15px; font-size: 1.2rem;}
 .time_box select option {position: relative;} 
 .time_box select option::after {content: '시'; position: absolute; display: block; width: 30px; height: 30px; background: red;} 
