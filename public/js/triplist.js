@@ -20,7 +20,6 @@ const arrObject = [];
                 url: '/api/schedule/scheduleList',
                 params: { id: mySchedule },
             });
-            console.log(res2.data.result);
             let count = 0;
             for (let i = 0; i < res2.data.result.length; i++) {
                 const { groupName, depDate, arrDate, id } = res2.data.result[i];
@@ -35,8 +34,8 @@ const arrObject = [];
                 const arrM = Number(arrDate.substring(5, 7));
                 const arrD = Number(arrDate.substring(8, 10));
                 dates.push({ groupName, depDate, arrDate, id });
-                depObject.push({ year: depY, month: depM, day: depD });
-                arrObject.push({ year: arrY, month: arrM, arrDay: arrD });
+                depObject.push({ year: depY, month: depM - 1, day: depD });
+                arrObject.push({ year: arrY, month: arrM - 1, arrDay: arrD });
                 const html = `
 				<li>
 					<div class="trip_schedule">
@@ -74,130 +73,103 @@ function insert() {
 }
 
 //달력
-/*
-달력 렌더링 할 때 필요한 정보 목록 
-
-현재 월(초기값 : 현재 시간)
-금월 마지막일 날짜와 요일
-전월 마지막일 날짜와 요일
-*/
-function active() {
-    var activeElements = document.getElementsByClassName('active');
-    const dot = `<span class="material-symbols-outlined" style="font-size: 14px;">
-    fiber_manual_record
-    </span>`;
-    for (var i = 0; i < activeElements.length; i++) {
-        activeElements[i].insertAdjacentHTML('beforeend', dot);
-    }
-}
-
+// prettier-ignore
 function calendarInit() {
     function selected() {
         for (let d = 0; d < depObject.length; d++) {
-            if (
-                currentYear === depObject[d].year &&
-                currentMonth === depObject[d].month
-            ) {
+            console.log(year, month);
+            if (year === depObject[d].year && month === depObject[d].month) {
+                console.log('같은 년도, 월');
                 for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
-                    var a = document.getElementsByClassName(i);
-                    a[0].classList.add('active');
+                    var a = document.getElementById(i);
+                    a.innerHTML+=`<span class="material-symbols-outlined" style="font-size: 14px;">fiber_manual_record</span>`
                 }
             }
         }
     }
+    var currentDate = new Date();
+    var currentMonth = currentDate.getMonth();
+    var currentYear = currentDate.getFullYear();
+    var year = currentYear;
+    var month = currentMonth;
+    calendar_box = document.getElementById('calendar');
+    function printCalendar(year, month) {
+        var date = new Date(); //날짜 객체 생성
+        var nowY = date.getFullYear(); //현재 연도
+        var nowM = date.getMonth(); //현재 월
+        var nowD = date.getDate(); //현재 일
+        // 기본으로는 현재 연도와 달로 설정해 놓는다.
+        year = year != undefined ? year : nowY;
+        month = month != undefined ? month : nowM;
+        var theDate = new Date(year, month, 1);
+        var theDay = theDate.getDay() + 1;
+        var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+            lastDate = last[1] = 29;
 
-    // // 날짜 정보 가져오기
-    var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-    var utc = date.getTime() + date.getTimezoneOffset() * 60 * 1000; // uct 표준시 도출
-    var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-    var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+        var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구한다.
+        var row = Math.ceil((theDay + lastDate) / 7); //필요한 행수
+        var yearMonthBox = document.getElementById('yearMonthBox');
+        yearMonthBox.innerHTML = '<h1>' + year + '.' + (month + 1) + '</h1>';
+        var calendar = "<table id=calendar_table border='1'>";
+        calendar += '<tr>';
+        calendar += '<th>SUN</th>';
+        calendar += '<th>MON</th>';
+        calendar += '<th>TUE</th>';
+        calendar += '<th>WED</th>';
+        calendar += '<th>THU</th>';
+        calendar += '<th>FRI</th>';
+        calendar += '<th>SAT</th>';
+        calendar += '</tr>';
 
-    var thisMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
-    // 달력에서 표기하는 날짜 객체
-
-    var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-    var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-
-    // 캘린더 렌더링
-    renderCalender(thisMonth);
-
-    function renderCalender(thisMonth) {
-        // 렌더링을 위한 데이터 정리
-        currentYear = thisMonth.getFullYear();
-        currentMonth = thisMonth.getMonth();
-        currentDate = thisMonth.getDate();
-
-        // 이전 달의 마지막 날 날짜와 요일 구하기
-        var startDay = new Date(currentYear, currentMonth, 0);
-        var prevDate = startDay.getDate();
-        var prevDay = startDay.getDay();
-
-        // 이번 달의 마지막날 날짜와 요일 구하기
-        var endDay = new Date(currentYear, currentMonth + 1, 0);
-        var nextDate = endDay.getDate();
-        var nextDay = endDay.getDay();
-
-        // 현재 월 표기
-        $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-
-        // 렌더링 html 요소 생성
-        calendar = document.querySelector('.dates');
-        calendar.innerHTML = '';
-
-        // 지난달
-        for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day prev disable ' +
-                i +
-                '">' +
-                i +
-                '</div>';
+        var dNum = 1;
+        //이중 for문을 이용해 달력 테이블을 생성
+        for (var i = 1; i <= row; i++) {
+            //행 생성 (tr 태그 생성)
+            calendar += '<tr>';
+            for (var k = 1; k <= 7; k++) {
+                if ((i == 1 && k < theDay) || dNum > lastDate) {
+                    calendar += '<td>  </td>';
+                } else {
+                    // 오늘 날짜에 대한 스타일 적용
+                    if (nowY === year && nowM === month && dNum === nowD) {
+                        calendar +=
+                            `<td id='today' class='date '>` + dNum + '</td>';
+                    } else {
+                        calendar += `<td id ='${dNum}' class = 'date'>${dNum}</td>`;
+                    }
+                    dNum++;
+                }
+            }
+            calendar += '<tr>';
         }
-        // 이번달
-        for (var i = 1; i <= nextDate; i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day current ' +
-                i +
-                '">' +
-                i +
-                '</div>';
-        }
-        // 다음달
-        for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
-            calendar.innerHTML =
-                calendar.innerHTML +
-                '<div class="day next disable ' +
-                i +
-                '">' +
-                i +
-                '</div>';
-        }
-
-        // 오늘 날짜 표기
-        if (today.getMonth() == currentMonth) {
-            todayDate = today.getDate();
-            var currentMonthDate = document.querySelectorAll('.dates .current');
-            currentMonthDate[todayDate - 1].classList.add('today');
-        }
-        selected();
-        active();
+        calendar_box.innerHTML = calendar;
     }
+    printCalendar(year, month);
+    selected();
+
     // 이전달로 이동
     $('.go-prev').on('click', function () {
-        thisMonth = new Date(currentYear, currentMonth - 1, 1);
-        renderCalender(thisMonth);
+        if (month === 0) {
+            year = year - 1;
+            month = 11;
+        } else {
+            month = month - 1;
+        }
+        console.log(year, month);
+        printCalendar(year, month);
+        selected();
     });
-
     // 다음달로 이동
     $('.go-next').on('click', function () {
-        thisMonth = new Date(currentYear, currentMonth + 1, 1);
-        renderCalender(thisMonth);
+        if (month === 11) {
+            year = year + 1;
+            month = 0;
+        } else {
+            month = month + 1;
+        }
+        console.log(year, month);
+        printCalendar(year, month);
+        selected();
     });
 }
