@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/trip.css" />
-        <link rel="stylesheet" href="../public/css/mediaquery.css" />
+        <!-- <link rel="stylesheet" href="../public/css/mediaquery.css" /> -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <style>
@@ -23,6 +23,16 @@
             }
             .open .list_box {
                 display: block;
+            }
+            .btn_rec {
+                background-color: transparent;
+                border: 1px solid #2fcc59;
+                color: #2fcc59;
+                border-radius: 6px;
+            }
+            .btn_rec.on {
+                background-color: #2fcc59;
+                color: #fff;
             }
         </style>
     </head>
@@ -50,11 +60,12 @@
             <!-- 공통 - 사이드 메뉴 -->
             <%- include('sidemenu.ejs') %>
             <!--// 공통 - 사이드 메뉴 -->
-            
+
             <!-- 컨텐츠 -->
             <main class="main">
                 <div class="main_txt trip_txtwrap">
                     <h3>부산여행</h3>
+                    <button type="button" class="btn_rec" id="btn_rec" onclick="recommend()">&#9825;</button>
                 </div>
 
                 <!-- 여행 일정 상세 목록 -->
@@ -75,6 +86,16 @@
             function makeGroup() {
                 localStorage.setItem('bestId', localStorage.getItem('groupId'));
                 document.location.href = '/calendar';
+            }
+            function recommend() {
+                const rec = document.querySelector('#btn_rec');
+                if (rec.classList.contains('on')) {
+                    rec.classList.remove('on');
+                    rec.innerHTML = '&#9825;';
+                } else {
+                    rec.classList.add('on');
+                    rec.innerHTML = '&#9829;';
+                }
             }
         </script>
     </body>
