@@ -4,10 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>추천 장소 관리</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
         <link rel="stylesheet" href="../public/css/member.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -17,7 +19,7 @@
                 <nav class="gnb">
                     <ul class="sub_menu">
                         <li>
-                            <a href="#none" class="ico_back">
+                            <a href="javascript:window.history.back()" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
                             </a>
                         </li>
@@ -37,20 +39,26 @@
 
             <!-- 컨텐츠 -->
             <main class="main">
-                <h1>Time Travel<br />추천장소 등록</h1>
-                <form id="register-form">
-                    <label for="place">장소</label>
-                    <input type="text" id="place" placeholder="장소를 입력하세요" />
-                    <label for="memo">메모</label>
-                    <input type="text" id="memo" placeholder="메모를 입력하세요" />
-                    <button type="button" class="btn" onclick="register()">등록하기</button>
-                </form>
-                <div class="result">
-                    <p>체크박스에 체크 시 메인화면 슬라이드에 노출됩니다.</p>
-                    <div class="list"></div>
+                <div class="container_admin">
+                    <h1>Time Travel<br />추천장소 등록</h1>
+                    <form id="register-form">
+                        <label for="place">장소</label>
+                        <input type="text" id="place" placeholder="장소를 입력하세요" />
+                        <label for="memo">메모</label>
+                        <input type="text" id="memo" placeholder="메모를 입력하세요" />
+                        <button type="button" class="btn" onclick="register()">등록하기</button>
+                    </form>
+                    <div class="result">
+                        <p>체크박스에 체크 시 메인화면 슬라이드에 노출됩니다.</p>
+                        <div class="list"></div>
+                    </div>
                 </div>
             </main>
             <!--// 컨텐츠 -->
+
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>
@@ -74,7 +82,7 @@
 							<div class="input_text">
 								<input type="text" class="place" id="place${id}" value="${place}"/>
 								<input type="text" class="memo" id="memo${id}" value="${memo}"/>
-								<button type="button" class="edit_btn" onclick="editFunc(${id})">수정</button>
+								<button type="button" class="btn edit_btn" onclick="editFunc(${id})">수정</button>
 							</div>
 						</div>
 					`;

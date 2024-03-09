@@ -1,10 +1,13 @@
 let scheduleIndex = [];
 let contentWidth;
 let contentHieght;
+let depObject = [];
+let arrObject = [];
 (async function () {
     // 로그인 여부 확인
     if (localStorage.getItem('token')) {
         try {
+            console.log('first');
             // 사용자 인증
             const res = await axios({
                 method: 'GET',
@@ -13,27 +16,35 @@ let contentHieght;
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
+            document.querySelector('.login_wrap .username_txt').textContent = res.data.result.username + ' 님';
+            document.querySelectorAll('.login_on')[0].classList.remove('hide');
+            document.querySelectorAll('.login_on')[1].classList.remove('hide');
+            document.querySelectorAll('.login_off')[0].classList.add('hide');
+            document.querySelectorAll('.login_off')[1].classList.add('hide');
             // 내 여행 데이터 불러오기
-            const { mySchedule } = res.data.result;
-            if (mySchedule) {
+            if (res.data.result.mySchedule[0]) {
                 let count = 0;
                 const res2 = await axios({
                     method: 'GET',
                     url: '/api/schedule/scheduleList',
-                    params: { id: mySchedule },
+                    params: { id: res.data.result.id },
                 });
                 for (let i = 0; i < res2.data.result.length; i++) {
                     const { id, depDate, arrDate, groupName } = res2.data.result[i];
+
                     const now = new Date();
                     const YEAR = now.getFullYear();
                     const MONTH = now.getMonth() + 1;
                     const DATE = now.getDate();
+                    const depY = Number(arrDate.substring(0, 4));
                     const depM = Number(depDate.substring(5, 7));
                     const depD = Number(depDate.substring(8, 10));
                     const arrY = Number(arrDate.substring(0, 4));
                     const arrM = Number(arrDate.substring(5, 7));
                     const arrD = Number(arrDate.substring(8, 10));
-                    if (arrY >= YEAR && arrM >= MONTH && arrD >= DATE) {
+                    depObject.push({ year: depY, month: depM - 1, day: depD });
+                    arrObject.push({ year: arrY, month: arrM - 1, arrDay: arrD });
+                    if (arrY >= YEAR && (arrM > MONTH || (arrM === MONTH && arrD >= DATE))) {
                         scheduleIndex.push(id);
                         if (count === 0) {
                             const res3 = await axios({
@@ -67,40 +78,43 @@ let contentHieght;
                                 },
                             });
                             if (res4.data.result.length != 0) {
+                                const div = document.createElement('div');
+                                div.className = 'trip_supplies';
                                 const h3 = document.createElement('h3');
                                 h3.textContent = `${groupName} 체크리스트`;
-                                document.querySelector('.trip_supplies').appendChild(h3);
+                                div.appendChild(h3);
                                 for (let k = 0; k < res4.data.result.length; k++) {
                                     const { id, listName, isActive } = res4.data.result[k];
                                     let chkHtml;
                                     if (Boolean(isActive)) {
                                         chkHtml = `
-										<div class="input_chk" onclick="isChecked(${id})">
-											<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-											<label for="check${id}">${listName}</label>
-											<input type="hidden" id="${id}" />
-										</div>
-										`;
+            							<div class="input_chk" onclick="isChecked(${id})">
+            							<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+            							<label for="check${id}">${listName}</label>
+            							<input type="hidden" id="${id}" />
+            							</div>
+            							`;
                                     } else {
                                         chkHtml = `
-										<div class="input_chk" onclick="isChecked(${id})">
-											<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-											<label for="check${id}">${listName}</label>
-											<input type="hidden" id="${id}" />
-										</div>
-										`;
+            							<div class="input_chk" onclick="isChecked(${id})">
+            							<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+            							<label for="check${id}">${listName}</label>
+            							<input type="hidden" id="${id}" />
+            							</div>
+            							`;
                                     }
-                                    document.querySelector('.trip_supplies').insertAdjacentHTML('beforeend', chkHtml);
+                                    div.insertAdjacentHTML('beforeend', chkHtml);
+                                    document.querySelector('.trip_box').appendChild(div);
                                 }
                             }
                         } else {
                             const upcoming = document.querySelector('.container_upcoming ul');
                             ucHtml = `
                             <li onclick="goDetail(${id})">
-                            	<div class="trip_schedule">
-                            		<strong>${groupName}</strong>
-                            		<span>${depM}월 ${depD}일 ~ ${arrM}월 ${arrD}일</span>
-                            	</div>
+                                <div class="trip_schedule">
+                                    <strong>${groupName}</strong>
+                                    <span>${depM}월 ${depD}일 ~ ${arrM}월 ${arrD}일</span>
+                                </div>
                             </li>
                             `;
                             upcoming.insertAdjacentHTML('beforeend', ucHtml);
@@ -113,7 +127,7 @@ let contentHieght;
                 }
             }
         } catch (error) {
-            localStorage.clear();
+            const info = document.querySelector('.my_info');
             info.addEventListener('click', () => {
                 document.location.href = '/login';
             });
@@ -141,59 +155,60 @@ let contentHieght;
         document.querySelector('.swiper-wrapper').insertAdjacentHTML('beforeend', html);
     }
 
-    /* 추천 여행지 스와이퍼 슬라이드*/
+    /* 추천 여행지 스와이퍼 슬라이드 */
     var swiper = new Swiper('.my_swiper', {
         slidesPerView: 2,
         spaceBetween: 20,
-        // centeredSlides: true,
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,
         },
-        speed: 1500,
+        speed: 1200,
         loop: true,
-        /*
-		breakpoints: {
-		748: {
-			slidesPerView: 3,
-			spaceBetween: 250,
-		},
-		1060: {
-			slidesPerView: 3,
-			spaceBetween: 350,
-		},
-		1500: {
-			slidesPerView: 4,
-			spaceBetween: 350,
-		},
-		1700: {
-			slidesPerView: 4,
-			spaceBetween: 350,
-		},
-	*/
+        loopAdditionalSlides: 1,
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
         },
+        breakpoints: {
+            764: {
+                slidesPerView: 2,
+            },
+        },
     });
 
-    // 슬라이드 높이 맞추기
-    contentWidth = document.querySelector('.swiper-slide').style.width;
-    contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
-    const recCnt = document.querySelectorAll('.rec_cnt');
-    for (let i = 0; i < recCnt.length; i++) {
-        recCnt[i].style.height = `${contentHieght}px`;
+    // 여행 일정 정보 불러오기
+    const bestRes = await axios({
+        method: 'GET',
+        url: '/api/schedule/best',
+    });
+    for (let i = 0; i < bestRes.data.result.length; i++) {
+        const { id, groupName, dueDate, recCount } = bestRes.data.result[i];
+        const bestHtml = `
+		<li>
+			<div class="best_cnt" onclick="best(${id})">
+				<img
+					src="../public/img/main/img_best0${i + 1}.jpg"
+					alt=""
+				/>
+				<div class="best_txt">
+					<div>
+						<strong>${groupName}</strong>
+						<span>${dueDate - 1}박 ${dueDate}일 일정</span>
+					</div>
+					<div class="rate_view">
+						<p>
+							<span><i></i>${recCount}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</li>`;
+        document.querySelector('.container_best ul').insertAdjacentHTML('beforeend', bestHtml);
     }
+    makeCalender();
 })();
-// 윈도우 사이즈 변경 시 슬라이드 높이 변경
-window.addEventListener('resize', () => {
-    contentWidth = document.querySelector('.swiper-slide').style.width;
-    contentHieght = parseFloat(contentWidth.split('px')[0]) * 1.4;
-    const recCnt = document.querySelectorAll('.rec_cnt');
-    for (let i = 0; i < recCnt.length; i++) {
-        recCnt[i].style.height = `${contentHieght}px`;
-    }
-});
+
 // 체크리스트 클릭
 async function isChecked(id) {
     const res = await axios({
@@ -215,37 +230,70 @@ function goDetail(id) {
     localStorage.setItem('groupId', id);
     document.location.href = '/tripdetail';
 }
+// BEST 여행 일정 클릭
+function best(id) {
+    localStorage.setItem('groupId', id);
+    document.location.href = '/bestdetail';
+}
 /* 탭메뉴 스크립트 */
 document.addEventListener('DOMContentLoaded', function () {
-    // 모든 컨테이너 숨기기
-    let containers = document.querySelectorAll('.tab_cnt > div');
-    containers.forEach(function (container) {
-        container.style.display = 'none';
-    });
-    // 기본
-    showRectripCnt(); // 추천 컨테이너 표시
+    // 초기화 함수 호출
+    updateLayout();
 
-    // 탭 메뉴 클릭 이벤트 처리
-    document.querySelectorAll('.tab_menu li').forEach(function (item) {
-        item.addEventListener('click', function () {
-            // 모든 탭 메뉴 항목의 'on' 클래스 제거
-            document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
-            // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
-            this.classList.add('on');
+    // 화면 크기 변경 시 레이아웃 업데이트
+    window.addEventListener('resize', updateLayout);
 
-            // 내 여행 탭을 클릭했는지 확인
-            if (this.classList.contains('mytrip_cnt')) {
-                hideContainers(); // 모든 컨테이너 숨기기
-                // 내 여행 컨테이너 표시
-                document
-                    .querySelectorAll('.container_trip, .container_upcoming')
-                    .forEach((container) => (container.style.display = 'block'));
-            } else if (this.classList.contains('rectrip_cnt')) {
-                hideContainers();
-                showRectripCnt();
+    function updateLayout() {
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth < 1024) {
+            // 탭 메뉴 보이기
+            const tabMenu = document.querySelector('.tab_menu');
+            if (tabMenu) {
+                tabMenu.style.display = 'flex';
             }
-        });
-    });
+
+            // 탭 메뉴 클릭 이벤트 처리
+            document.querySelectorAll('.tab_menu li').forEach(function (item) {
+                item.addEventListener('click', function () {
+                    // 모든 탭 메뉴 항목의 'on' 클래스 제거
+                    document.querySelectorAll('.tab_menu li').forEach((tab) => tab.classList.remove('on'));
+                    // 클릭한 탭 메뉴 항목에 'on' 클래스 추가
+                    this.classList.add('on');
+
+                    // 내 여행 탭을 클릭했는지 확인
+                    if (this.classList.contains('mytrip_cnt')) {
+                        hideContainers(); // 모든 컨테이너 숨기기
+                        // 내 여행 컨테이너 표시
+                        document
+                            .querySelectorAll('.container_trip, .container_upcoming, .main_bg')
+                            .forEach((container) => (container.style.display = 'block'));
+                    } else if (this.classList.contains('rectrip_cnt')) {
+                        hideContainers();
+                        showRectripCnt();
+                    }
+                });
+            });
+
+            // 기본 탭 선택
+            const defaultTab = document.querySelector('.tab_menu li.on');
+            if (defaultTab) {
+                defaultTab.click();
+            }
+        } else {
+            // 탭 메뉴 숨기기
+            const tabMenu = document.querySelector('.tab_menu');
+            if (tabMenu) {
+                tabMenu.style.display = 'none';
+            }
+
+            // 모든 컨테이너 표시
+            let containers = document.querySelectorAll('.tab_cnt > div');
+            containers.forEach(function (container) {
+                container.style.display = 'block';
+            });
+        }
+    }
 
     // 모든 컨테이너 숨기는 함수
     function hideContainers() {
@@ -259,10 +307,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .forEach((container) => (container.style.display = 'block'));
     }
 });
-// 페이지 로드 시 스와이퍼 초기화 (임시주석)
-// document.addEventListener('DOMContentLoaded', function () {
-//     initSwiper();
-// });
 
 // 탭 메뉴 클릭 시 스와이퍼 다시 초기화
 document.querySelectorAll('.tab_menu').forEach(function (tab) {
@@ -296,17 +340,16 @@ function makeCalender() {
     const day = today.getDay();
     let slicedPart = dayArr.splice(0, day + 1);
     dayArr.push(...slicedPart);
-    const thead = ` <thead>
-    <tr>
-        <th>${dayArr[0]}</th>
-        <th>${dayArr[1]}</th>
-        <th>${dayArr[2]}</th>
-        <th>${dayArr[3]}</th>
-        <th>${dayArr[4]}</th>
-        <th>${dayArr[5]}</th>
-        <th>${dayArr[6]}</th>
-    </tr>
-    </thead>`;
+    const thead = `
+    <div class="trip_calendar_line">
+        <p class="calTit calCont">${dayArr[0]}</p>
+        <p class="calTit calCont">${dayArr[1]}</p>
+        <p class="calTit calCont">${dayArr[2]}</p>
+        <p class="calTit calCont">${dayArr[3]}</p>
+        <p class="calTit calCont">${dayArr[4]}</p>
+        <p class="calTit calCont">${dayArr[5]}</p>
+        <p class="calTit calCont">${dayArr[6]}</p>
+    </div>`;
     calendarTable.insertAdjacentHTML('beforeend', thead);
     //날짜(오늘을 기준으로 7일동안의 날짜 배치)
     const dates = [];
@@ -316,17 +359,47 @@ function makeCalender() {
         dates[i] = nextDay;
     }
     dates[0] = today;
-    const tbody = `<tbody>
-    <tr>
-        <td>${dates[0].getDate()}</td>
-        <td>${dates[1].getDate()}</td>
-        <td>${dates[2].getDate()}</td>
-        <td>${dates[3].getDate()}</td>
-        <td>${dates[4].getDate()}</td>
-        <td>${dates[5].getDate()}</td>
-        <td>${dates[6].getDate()}</td>
-    </tr>
-    </tbody>`;
+    const tbody = `
+    <div class="trip_calendar_line">
+        <p class="calDate calCont" id="calDate${dates[0].getDate()}">${dates[0].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[1].getDate()}">${dates[1].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[2].getDate()}">${dates[2].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[3].getDate()}">${dates[3].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[4].getDate()}">${dates[4].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[5].getDate()}">${dates[5].getDate()}</p>
+        <p class="calDate calCont" id="calDate${dates[6].getDate()}">${dates[6].getDate()}</p>
+    </div>`;
     calendarTable.insertAdjacentHTML('beforeend', tbody);
+    if (depObject[0]) {
+        for (let i = 0; i < dates.length; i++) {
+            const calY = dates[i].getFullYear();
+            const calM = dates[i].getMonth();
+            const calD = dates[i].getDate();
+            for (let d = 0; d < depObject.length; d++) {
+                if (depObject[d].year != arrObject[d].year) {
+                    if (
+                        calY === depObject[d].year &&
+                        (calM > depObject[d].month || (calM = depObject[d].month && calD >= depObject[d].day))
+                    ) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    } else if (
+                        calY === arrObject[d].year &&
+                        (calM < arrObject[d].month || (calM = arrObject[d].month && calD <= arrObject[d].day))
+                    ) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    }
+                } else if (depObject[d].month != arrObject[d].month) {
+                    if (calM === depObject[d].month && calD >= depObject[d].day) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    } else if (calM === arrObject[d].month && calD <= arrObject[d].arrDay) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    }
+                } else {
+                    if (calM === depObject[d].month && calD >= depObject[d].day && calD <= arrObject[d].arrDay) {
+                        document.querySelector(`#calDate${calD}`).classList.add('on');
+                    }
+                }
+            }
+        }
+    }
 }
-makeCalender();

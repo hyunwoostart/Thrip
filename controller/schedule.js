@@ -16,6 +16,12 @@ exports.findGroup = async (req, res) => {
     res.json({ success: true, result, message: '일정 조회 완료' });
 };
 
+// BEST 일정 조회
+exports.best = async (req, res) => {
+    const result = await Group.findAll({ order: [['recCount', 'desc']], limit: 6 });
+    res.json({ success: true, result, message: 'BEST 일정 조회 완료' });
+};
+
 // 일정 상세 내용 조회
 exports.detail = async (req, res) => {
     const result = await Detail.findAll({ where: { groupId: req.query.groupId } });
@@ -58,14 +64,26 @@ exports.groupWrite = async (req, res) => {
     }
 };
 
+// 일정 삭제
+exports.removeGroup = async (req, res) => {
+    const { memberId, groupId } = req.body;
+    const member = await Member.findOne({ where: { id: memberId } });
+    const mySchedule = member.mySchedule.filter((id) => id != groupId);
+    await Member.update({ mySchedule }, { where: { id: memberId } });
+    const group = await Group.findOne({ where: { id: groupId } });
+    const groupMember = group.groupMember.filter((id) => id != memberId);
+    await Group.update({ groupMember }, { where: { id: groupId } });
+    res.json({ success: true, result: group.groupName, message: '일정 삭제 완료' });
+};
+
 exports.detailWrite = async (req, res) => {
     const { category, detailOrder, arrTime, place, distance, detailMemo, groupId, tabLength } = req.body;
-    const spill = await Detail.destroy({ where: { category, detailOrder: { [Op.gt]: tabLength } } });
-    const find = await Detail.findOne({ where: { category, detailOrder } });
+    const spill = await Detail.destroy({ where: { category, detailOrder: { [Op.gt]: tabLength }, groupId } });
+    const find = await Detail.findOne({ where: { category, detailOrder, groupId } });
     if (find) {
         const result = await Detail.update(
-            { arrTime, place, distance, detailMemo, groupId },
-            { where: { category, detailOrder } }
+            { arrTime, place, distance, detailMemo },
+            { where: { category, detailOrder, groupId } }
         );
     } else {
         const result = await Detail.create({ category, detailOrder, arrTime, place, distance, detailMemo, groupId });

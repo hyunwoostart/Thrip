@@ -10,10 +10,18 @@ let form;
 
 // 소요시간 계산 함수
 function duration(distance) {
-    if (distance >= 15) {
-        return `소요시간 ${((distance * 4) / 60).toFixed(0)}시간 ${((distance * 4) % 60).toFixed(0)}분`;
+    let distanceText;
+    if (distance >= 1000) {
+        distanceText = `(약 ${distance / 1000}km)`;
     } else {
-        return `소요시간 ${(distance * 4).toFixed(0)}분`;
+        distanceText = `(약 ${distance}m)`;
+    }
+    if (distance >= 15000) {
+        return `소요시간 ${(distance / 250 / 60).toFixed(0)}시간 ${((distance / 250) % 60).toFixed(
+            0
+        )}분 ${distanceText}`;
+    } else {
+        return `소요시간 ${((distance / 250) % 60).toFixed(0)}분 ${distanceText}`;
     }
 }
 
@@ -58,7 +66,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = (R * c).toFixed(1); // Distance in km
+    var d = (R * c).toFixed(1) * 1000; // Distance in km
     return d;
 }
 
@@ -118,8 +126,7 @@ function displayMarker(place) {
             place_name: place.place_name,
         };
         pushArray(obj, array);
-        const prevForm = document.querySelectorAll('.detail-schedule')[nowIndex - 2];
-        const nextForm = document.querySelectorAll('.detail-schedule')[nowIndex];
+        const prevForm = tabForm.querySelectorAll('.detail-schedule')[nowIndex - 2];
         if (nowIndex >= 2 && prevForm.querySelector('.obj_x').value) {
             console.log('두개의 좌표 사이의 거리 측정 시작');
             distance = getDistance(
@@ -128,26 +135,23 @@ function displayMarker(place) {
                 form.querySelector('.obj_x').value,
                 form.querySelector('.obj_y').value
             );
-            console.log(distance);
             form.querySelector('.result').innerHTML = duration(distance);
             form.querySelector('.result').classList.add('active');
             form.querySelector('.distance').value = distance;
         }
-        if (
-            nowIndex >= 2 &&
-            nowIndex < document.querySelector('.detail-schedule').length &&
-            nextForm.querySelector('.obj_x').value
-        ) {
-            distance = getDistance(
-                prevForm.querySelector('.obj_x').value,
-                prevForm.querySelector('.obj_y').value,
-                form.querySelector('.obj_x').value,
-                form.querySelector('.obj_y').value
-            );
-            nextForm.querySelector('.result').innerHTML = duration(distance);
-            form.querySelector('.distance').value = distance;
+        if (nowIndex >= 2 && nowIndex < tabForm.querySelectorAll('.detail-schedule').length) {
+            const nextForm = tabForm.querySelectorAll('.detail-schedule')[nowIndex];
+            if (nextForm.querySelector('.obj_x').value) {
+                distance = getDistance(
+                    form.querySelector('.obj_x').value,
+                    form.querySelector('.obj_y').value,
+                    nextForm.querySelector('.obj_x').value,
+                    nextForm.querySelector('.obj_y').value
+                );
+                nextForm.querySelector('.result').innerHTML = duration(distance);
+                form.querySelector('.distance').value = distance;
+            }
         }
-        console.log(nowIndex);
     });
 }
 
@@ -163,6 +167,8 @@ function selectFunc() {
 
 //==================여행 세부일정 js ======================================
 // 바로 실행 함수
+let timeHtml;
+let minHtml;
 (async function () {
     try {
         // 사용자 인증
@@ -173,115 +179,172 @@ function selectFunc() {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        // 그룹아이디로 소요일 불러오기
-        const res2 = await axios({
-            method: 'GET',
-            url: '/api/schedule/findGroup',
-            params: {
-                id: localStorage.getItem('groupId'),
-            },
-        });
-        const res3 = await axios({
-            method: 'GET',
-            url: '/api/schedule/detail',
-            params: {
-                groupId: localStorage.getItem('groupId'),
-            },
-        });
-        const tabMenu = document.querySelector('.tab_menu');
-        const { dueDate } = res2.data.result;
-        // 탭 생성
-        for (let i = 0; i < dueDate; i++) {
-            const html = `
-			<li class="rectrip_cnt" onclick="tabFunc(${i + 1})">
-			<a href="#none">${i + 1}일차</a>
-			</li>
-			`;
-            tabMenu.insertAdjacentHTML('beforeend', html);
-            const formDiv = document.createElement('div');
-            formDiv.classList.add('schedule-form');
-            formDiv.classList.add('hide');
-            document.querySelector('#wrap').appendChild(formDiv);
-            let html2 = `
-				<div class="detail-schedule">
-					<div class="result"></div>
-                    <div class="input_wrap">
-                        <input type="number" class="index" value="1" readonly disabled />
-                        <button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete"></button>
-                    </div>
-					<input type="hidden" class="category" value="${i + 1}" />
-					<input type="time" class="arrTime" />
-                    <div class="input_wrap">
-						<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" onkeyup="if(window.event.keyCode == 13) {keyword(1)}" />
-						<button type="button hidden" onclick="keyword(1)" value="검색" class="btn_holder btn_marker" readonly/>
-                    </div>
-					<div class="select" onclick="selectFunc()"></div>
-					<div class="map_box"></div>
-					<input type="hidden" class="obj_x" />
-					<input type="hidden" class="obj_y" />
-					<input type="hidden" class="obj_place_name" />
-					<input type="hidden" class="distance" />
-					<input type="text" class="detailMemo" placeholder="메모" />
-				</div>
-			`;
-            // 탭에 맞춰 내용 추가
-            // 수정(해당 그룹아이디의 해당 카테고리 값이 없을 때)
-            if (res3.data.result.length) {
-                let num = 0;
-                for (let j = 0; j < res3.data.result.length; j++) {
-                    const { detailOrder, arrTime, category, detailMemo, distance, place } = res3.data.result[j];
-                    if (category == i + 1) {
-                        html2 = `
-						<div class="detail-schedule">
-							<div class="result active">${duration(distance)}</div>
-                            <div class="input_wrap">
-                                <input type="number" class="index" value="${detailOrder}" readonly disabled/>
-                                <button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete"></button>
-                            </div>
-							<input type="hidden" class="category" value="${i + 1}" />
-							<input type="time" class="arrTime" value="${arrTime}" />
-							<div class="input_wrap">
-								<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${num + 1})" value="${
-                            place.place_name
-                        }" onkeyup="if(window.event.keyCode == 13) {keyword(${num + 1})}" />
-								<button type="button" onclick="keyword(${num + 1})" value="검색" class="btn_holder btn_marker" />
-							</div>
-							<div class="select" onclick="selectFunc()"></div>
-							<div class="map_box"></div>
-							<input type="hidden" class="obj_x" value="${place.x}" />
-							<input type="hidden" class="obj_y" value="${place.y}" />
-							<input type="hidden" class="obj_place_name" value="${place.place_name}" />
-							<input type="hidden" class="distance" value="${distance}" />
-							<input type="text" class="detailMemo" placeholder="메모" value="${detailMemo}" />
+        for (let i = 0; i < 12; i++) {
+            timeHtml += `<option value="${String(i + 1).padStart(2, '0')}">${String(i + 1).padStart(2, '0')}</option>`;
+        }
+        for (let i = 0; 5 * i < 60; i++) {
+            minHtml += `<option value="${String(i * 5).padStart(2, '0')}">${String(i * 5).padStart(2, '0')}</option>`;
+        }
+        if (localStorage.getItem('groupId')) {
+            // 그룹아이디로 소요일 불러오기
+            const res2 = await axios({
+                method: 'GET',
+                url: '/api/schedule/findGroup',
+                params: {
+                    id: localStorage.getItem('groupId'),
+                },
+            });
+            // 베스트 일정에서 넘어 온 경우 베스트 아이디의 일정 불러오기
+            let roadId;
+            if (localStorage.getItem('bestId')) {
+                roadId = localStorage.getItem('bestId');
+            } else {
+                roadId = localStorage.getItem('groupId');
+            }
+            const res3 = await axios({
+                method: 'GET',
+                url: '/api/schedule/detail',
+                params: {
+                    groupId: roadId,
+                },
+            });
+            const tabMenu = document.querySelector('.tab_menu');
+            const { dueDate } = res2.data.result;
+            // 탭 생성
+            for (let i = 0; i < dueDate; i++) {
+                const html = `
+				<li class="rectrip_cnt" onclick="tabFunc(${i + 1})">
+				<a href="#none">${i + 1}일차</a>
+				</li>
+				`;
+                tabMenu.insertAdjacentHTML('beforeend', html);
+                const formDiv = document.createElement('div');
+                formDiv.classList.add('schedule-form');
+                formDiv.classList.add('hide');
+                document.querySelector('#wrap').appendChild(formDiv);
+                let html2 = `
+					<div class="detail-schedule">
+						<div class="result"></div>
+						<div class="input_wrap">
+							<input type="number" class="index" value="1" readonly disabled />
+							<button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete"></button>
 						</div>
-                        `;
-                        document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
-                        num++;
+						<input type="hidden" class="category" value="${i + 1}" />
+						<div class="time_box">
+							<select name="divide" class="divide">
+								<option value="am">오전</option>
+								<option value="pm">오후</option>
+							</select>
+							<select name="time" class="time">${timeHtml}</select>
+							<select name="minute" class="minute">${minHtml}</select>
+						</div>
+						<div class="input_wrap">
+							<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(1)" onkeyup="if(window.event.keyCode == 13) {keyword(1)}" />
+							<button type="button hidden" onclick="keyword(1)" value="검색" class="btn_holder btn_marker" readonly/>
+						</div>
+						<div class="select" onclick="selectFunc()"></div>
+						<div class="map_box"></div>
+						<input type="hidden" class="obj_x" />
+						<input type="hidden" class="obj_y" />
+						<input type="hidden" class="obj_place_name" />
+						<input type="hidden" class="distance" />
+						<input type="text" class="detailMemo" placeholder="메모" />
+					</div>
+				`;
+                // 탭에 맞춰 내용 추가
+                // 수정(해당 그룹아이디의 해당 카테고리 값이 없을 때)
+                if (res3.data.result.length) {
+                    let num = 0;
+                    for (let j = 0; j < res3.data.result.length; j++) {
+                        const { detailOrder, arrTime, category, detailMemo, distance, place } = res3.data.result[j];
+                        if (category == i + 1) {
+                            html2 = `
+							<div class="detail-schedule">
+								<div class="result active">${duration(distance)}</div>
+								<div class="input_wrap">
+									<input type="number" class="index" value="${detailOrder}" readonly disabled/>
+									<button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete"></button>
+								</div>
+								<input type="hidden" class="category" value="${i + 1}" />
+								<div class="time_box">
+									<select name="divide" class="divide">
+										<option value="am">오전</option>
+										<option value="pm">오후</option>
+									</select>
+									<select name="time" class="time">${timeHtml}</select>
+									<select name="minute" class="minute">${minHtml}</select>
+								</div>
+								<div class="input_wrap">
+									<input class="place_name" placeholder="장소를 입력하세요" onfocus="makeMap(${num + 1})" value="${
+                                place.place_name
+                            }" onkeyup="if(window.event.keyCode == 13) {keyword(${num + 1})}" />
+									<button type="button" onclick="keyword(${num + 1})" value="검색" class="btn_holder btn_marker" />
+								</div>
+								<div class="select" onclick="selectFunc()"></div>
+								<div class="map_box"></div>
+								<input type="hidden" class="obj_x" value="${place.x}" />
+								<input type="hidden" class="obj_y" value="${place.y}" />
+								<input type="hidden" class="obj_place_name" value="${place.place_name}" />
+								<input type="hidden" class="distance" value="${distance}" />
+								<input type="text" class="detailMemo" placeholder="메모" value="${detailMemo}" />
+							</div>
+							`;
+                            document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
+                            // 시간 불러오기
+                            const timeBox = document
+                                .querySelectorAll('.schedule-form')
+                                [i].querySelectorAll('.detail-schedule')
+                                [num].querySelector('.time_box');
+                            const [arrH, arrM, _] = arrTime.split(':');
+                            timeBox.querySelector('.minute').value = arrM;
+                            if ((Number(arrH) >= 0) & (Number(arrH) < 12)) {
+                                timeBox.querySelector('.divide').value = 'am';
+                                if (Number(arrH) === 0) {
+                                    timeBox.querySelector('.time').value = '12';
+                                } else {
+                                    timeBox.querySelector('.time').value = arrH;
+                                }
+                            } else {
+                                timeBox.querySelector('.divide').value = 'pm';
+                                if (Number(arrH) === 12) {
+                                    timeBox.querySelector('.time').value = '12';
+                                } else {
+                                    timeBox.querySelector('.time').value = String(Number(arrH) - 12).padStart(2, '0');
+                                }
+                            }
+                            num++;
+                        }
                     }
-                }
-                if (num === 0) {
+                    if (num === 0) {
+                        document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
+                    }
+                } else {
                     document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
                 }
-            } else {
-                document.querySelectorAll('.schedule-form')[i].insertAdjacentHTML('beforeend', html2);
+                if (i === 0) {
+                    document.querySelector('.rectrip_cnt').classList.add('on');
+                    document.querySelector('.schedule-form').classList.remove('hide');
+                }
+                for (let k = 0; k < document.querySelectorAll('.schedule-form').length; k++) {
+                    document.querySelectorAll('.schedule-form')[k].querySelectorAll('.result')[0].hidden = true;
+                    document.querySelectorAll('.schedule-form')[k].querySelectorAll('.btn_delete')[0].hidden = true;
+                }
             }
-            if (i === 0) {
-                document.querySelector('.rectrip_cnt').classList.add('on');
-                document.querySelector('.schedule-form').classList.remove('hide');
-            }
-            for (let k = 0; k < document.querySelectorAll('.schedule-form').length; k++) {
-                document.querySelectorAll('.schedule-form')[k].querySelectorAll('.result')[0].hidden = true;
-                document.querySelectorAll('.schedule-form')[k].querySelectorAll('.btn_delete')[0].hidden = true;
-            }
+            localStorage.setItem('category', 1);
+            tabForm = document.querySelectorAll('.schedule-form')[0];
+            form = tabForm.querySelectorAll('.detail-schedule')[0];
+        } else {
+            window.history.back();
         }
-        localStorage.setItem('category', 1);
-        tabForm = document.querySelectorAll('.schedule-form')[0];
-        form = tabForm.querySelectorAll('.detail-schedule')[0];
     } catch (error) {
         console.log(error);
-        document.location.href = '/login';
+        document.location.href = '/';
     }
 })();
+
+// 시간 선택 박스 생성 변수
+
+function makeSelect() {}
 
 // 탭 버튼 클릭
 function tabFunc(i) {
@@ -342,7 +405,14 @@ function insert() {
                 )}, ${tabIndex})" class="btn_delete"></button>
             </div>
 			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
-			<input type="time" class="arrTime" />
+			<div class="time_box">
+				<select name="divide" class="divide">
+					<option value="am">오전</option>
+					<option value="pm">오후</option>
+				</select>
+				<select name="time" class="time">${timeHtml}</select>
+				<select name="minute" class="minute">${minHtml}</select>
+			</div>
 			<div class="input_wrap">
 				<input class="place_name" onfocus="makeMap(${tabIndex})" onkeyup="if(window.event.keyCode == 13) {keyword(${tabIndex})}" />
 				<button type="button" onclick="keyword(${tabIndex})" value="검색" class="btn_holder btn_marker" />
@@ -370,16 +440,30 @@ async function register() {
             const tabLength = document
                 .querySelectorAll('.schedule-form')
                 [category - 1].querySelectorAll('.detail-schedule').length;
+            // 거리
             let nowDistance;
             if (content[i].querySelector('.distance').value) {
                 nowDistance = content[i].querySelector('.distance').value;
             } else {
                 nowDistance = 0;
             }
+            // 시간
+            let arrTime;
+            const arrDiv = content[i].querySelector('.divide').value;
+            const arrH = content[i].querySelector('.time').value;
+            const arrM = content[i].querySelector('.minute').value;
+            if (arrDiv === 'am' && arrH === '12') {
+                arrTime = `00:${arrM}:00`;
+            } else if (arrDiv === 'pm' && arrH != '12') {
+                arrTime = `${Number(arrH) + 12}:${arrM}:00`;
+            } else {
+                arrTime = `${arrH}:${arrM}:00`;
+            }
+            // 데이터
             const data = {
                 category,
                 detailOrder: Number(content[i].querySelector('.index').value),
-                arrTime: content[i].querySelector('.arrTime').value,
+                arrTime,
                 place: {
                     x: content[i].querySelector('.obj_x').value,
                     y: content[i].querySelector('.obj_y').value,

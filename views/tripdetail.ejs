@@ -3,11 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>일정 리스트</title>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"></script>
+        <title></title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
+        <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
+        ></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/trip.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <style>
@@ -29,7 +34,7 @@
                 <nav class="gnb">
                     <ul class="sub_menu">
                         <li>
-                            <a href="#none" class="ico_back">
+                            <a href="javascript:window.history.back()" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
                             </a>
                         </li>
@@ -42,16 +47,17 @@
                 </nav>
             </header>
             <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
             <!-- 컨텐츠 -->
             <main class="main">
                 <div class="main_txt trip_txtwrap">
                     <h3>부산여행</h3>
-                    <button class="btn btn_chklist" onclick="goChecklist()">
-                        체크리스트
-                    </button>
-                    <button class="btn btn_trip" onclick="goEdit()">
-                        일정 수정
-                    </button>
+                    <button class="btn btn_chklist" onclick="goChecklist()">체크리스트</button>
+                    <button class="btn btn_trip" onclick="goEdit()">일정 수정</button>
                 </div>
 
                 <!-- 여행 일정 상세 목록 -->
@@ -59,7 +65,13 @@
                 <!--// 여행 일정 리스트 -->
             </main>
             <!--// 컨텐츠 -->
+
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
         <script src="../public/js/tripdetail.js"></script>
     </body>
 </html>

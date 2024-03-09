@@ -4,9 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>로그인</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/member.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
@@ -16,7 +18,7 @@
                 <nav class="gnb">
                     <ul class="sub_menu">
                         <li>
-                            <a href="#none" class="ico_back">
+                            <a href="javascript:window.history.back()" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
                             </a>
                         </li>
@@ -36,23 +38,36 @@
 
             <!-- 컨텐츠 -->
             <main class="main">
-                <h1>Time Travel<br />로그인</h1>
-                <form id="login-form">
-                    <label for="userId">아이디</label>
-                    <input type="text" id="userId" placeholder="아이디를 입력하세요" />
-                    <label for="pw">비밀번호</label>
-                    <input type="password" id="pw" placeholder="비밀번호를 입력하세요" />
-                    <button type="button" class="btn" onclick="loginFunc()">로그인</button>
-                </form>
-                <ul class="login_wrap">
-                    <li><a href="/find">아이디/비밀번호 찾기</a></li>
-                    <li><a href="/signup">회원가입</a></li>
-                </ul>
+                <div class="container_login">
+                    <h1>Time Travel<br />로그인</h1>
+                    <form id="login-form">
+                        <label for="userId">아이디</label>
+                        <input type="text" id="userId" placeholder="아이디를 입력하세요" required />
+                        <label for="pw">비밀번호</label>
+                        <input
+                            type="password"
+                            id="pw"
+                            onkeyup="if(window.event.keyCode == 13) {loginFunc()}"
+                            placeholder="비밀번호를 입력하세요"
+                            required
+                        />
+                        <button type="button" class="btn" onclick="loginFunc()">로그인</button>
+                    </form>
+                    <ul class="login_wrap">
+                        <li><a href="/find">아이디/비밀번호 찾기</a></li>
+                        <li><a href="/signup">회원가입</a></li>
+                    </ul>
+                </div>
             </main>
             <!--// 컨텐츠 -->
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>
+        <!-- 로그인 여부 체크 -->
+        <script src="../public/js/logincheck.js"></script>
         <script>
             (() => {
                 if (localStorage.getItem('userId')) {
@@ -72,7 +87,7 @@
                 if (res.data.success) {
                     alert(`${res.data.result}님 환영합니다!`);
                     localStorage.setItem('token', res.data.token);
-                    document.location.href = '/';
+                    window.history.back();
                 } else {
                     alert(res.data.message);
                 }

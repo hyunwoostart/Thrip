@@ -4,11 +4,17 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>일정 생성</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/calendar.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
     </head>
     <body>
         <div id="wrap" class="calendar">
@@ -17,7 +23,7 @@
                 <nav class="gnb">
                     <ul class="sub_menu">
                         <li>
-                            <a href="#none" class="ico_back">
+                            <a href="javascript:window.history.back()" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
                             </a>
                         </li>
@@ -39,15 +45,19 @@
                 <!-- 달력 일자 선택 -->
                 <div class="container_calendar">
                     <div class="calendar_box">
+                        <span class="go-prev"
+                            ><img id="left" src="../public/img/common/ico_accord.png" alt="left"
+                        /></span>
                         <div id="year">
                             <select id="selectYear" aria-placeholder="연도"></select>
                         </div>
                         <div id="month">
                             <select id="selectMonth" aria-placeholder="월"></select>
                         </div>
+                        <span class="go-next"
+                            ><img id="right" src="../public/img/common/ico_accord.png" alt="right"
+                        /></span>
                     </div>
-                    <div id="departure"></div>
-                    <div id="arrive"></div>
                     <div id="calendar"></div>
                     <button type="button" onclick="selectDep()" class="btn" id="selectDep">출발일 선택</button>
                     <button type="button" onclick="selectArr()" class="btn hide" id="selectArr">도착일 선택</button>
@@ -82,8 +92,11 @@
                         <button type="button" onclick="register()" class="btn">등록</button>
                     </form>
                 </div>
-            <!--// 여행 일정 선택 -->
+                <!--// 여행 일정 선택 -->
             </main>
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <script src="../public/js/calendar.js"></script>
         <!-- 공통 - 사이드 메뉴 -->

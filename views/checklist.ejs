@@ -4,19 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>체크리스트</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-        <div id="wrap">
+        <div id="wrap" class="checklist_wrap">
             <!-- 헤더 -->
             <header class="mo_header">
                 <nav class="gnb">
                     <ul class="sub_menu">
                         <li>
-                            <a href="#none" class="ico_back">
+                            <a href="javascript:window.history.back()" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
                             </a>
                         </li>
@@ -41,11 +43,19 @@
                     </div>
                     <button type="button" onclick="showInput()" class="btn" id="showBtn">+ 리스트 추가하기</button>
                     <div class="addBox hide">
-                        <input type="text" placeholder="새 리스트 내용" id="addName" />
+                        <input
+                            type="text"
+                            placeholder="새 리스트 내용"
+                            onkeyup="if(window.event.keyCode == 13) {addList()}"
+                            id="addName"
+                        />
                         <button type="button" onclick="addList()" class="btn" id="addBtn">등록</button>
                     </div>
                 </div>
             </main>
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
         </div>
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>

@@ -23,8 +23,9 @@
 .sec_cal .cal_wrap .day:nth-child(7n) {color: #ed2a61;} 
 .sec_cal .cal_wrap .day.disable {color: #ddd;} 
 
-.material-symbols-outlined {font-variation-settings: 'FILL' 100, 'wght' 30, 'GRAD' 0, 'opsz' 5;color: rgb(191, 187, 187);}
 div .day {flex-direction: column;}
 
 .container_upcoming {padding: 40px 0 0 0;}
 .container_upcoming#prev {border-top: 1px solid #ddd; margin-top: 60px;}
+
+.trip_list .trip_schedule .btn_delete {position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border-style: none; background: transparent; cursor: pointer;}

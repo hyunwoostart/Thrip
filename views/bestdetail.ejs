@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>일정 리스트</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
+        <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
+        ></script>
+        <link rel="stylesheet" href="../public/css/reset.css" />
+        <link rel="stylesheet" href="../public/css/common.css" />
+        <link rel="stylesheet" href="../public/css/trip.css" />
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <style>
+            .category::before {
+                display: none;
+            }
+            .list_box {
+                display: none;
+            }
+            .open .list_box {
+                display: block;
+            }
+            .btn_rec {
+                background-color: transparent;
+                border: 1px solid #2fcc59;
+                color: #2fcc59;
+                border-radius: 6px;
+            }
+            .btn_rec.on {
+                background-color: #2fcc59;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap" class="trip_detail">
+            <!-- 헤더 -->
+            <header class="mo_header">
+                <nav class="gnb">
+                    <ul class="sub_menu">
+                        <li>
+                            <a href="javascript:window.history.back()" class="ico_back">
+                                <span class="blind">뒤로 가기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none" class="ico_ham">
+                                <span class="blind">메뉴</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <!--// 헤더 -->
+
+            <!-- 공통 - 사이드 메뉴 -->
+            <%- include('sidemenu.ejs') %>
+            <!--// 공통 - 사이드 메뉴 -->
+
+            <!-- 컨텐츠 -->
+            <main class="main">
+                <div class="main_txt trip_txtwrap">
+                    <h3>부산여행</h3>
+                    <div class="rec_box">
+                        <button type="button" class="btn_rec" id="recBtn" onclick="recommend()">&#9825;</button>
+                        <span id="recCount"></span>
+                    </div>
+                </div>
+
+                <!-- 여행 일정 상세 목록 -->
+                <div class="container_tripdetail"></div>
+                <!--// 여행 일정 리스트 -->
+                <div class="btnadd_wrap">
+                    <button type="button" class="btn btn_add" onclick="makeGroup()">
+                        <span>내 일정 리스트로 추가하기</span>
+                    </button>
+                </div>
+            </main>
+            <!--// 컨텐츠 -->
+
+            <!-- 하단 메뉴 : 고정 -->
+            <%- include('btnwrap.ejs') %>
+            <!--// 하단 메뉴 : 고정 -->
+        </div>
+        <!-- 공통 - 사이드 메뉴 -->
+        <script src="../public/js/sidemenu.js"></script>
+        <script src="../public/js/tripdetail.js"></script>
+        <script>
+            let ID;
+            const rec = document.querySelector('#recBtn');
+            const count = document.querySelector('#recCount');
+            (async function () {
+                if (localStorage.getItem('token')) {
+                    try {
+                        const res = await axios({
+                            method: 'GET',
+                            url: '/api/member/find',
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            },
+                        });
+                        ID = res.data.result.id;
+                        console.log(res.data.result);
+                    } catch {
+                        localStorage.removeItem('token');
+                        return;
+                    }
+                }
+                const res2 = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/findGroup',
+                    params: {
+                        id: localStorage.getItem('groupId'),
+                    },
+                });
+                const { recMember } = res2.data.result;
+                if (recMember.includes(ID)) {
+                    rec.classList.add('on');
+                    rec.innerHTML = '&#9829;';
+                }
+                console.log(res2.data.result);
+            })();
+            function makeGroup() {
+                localStorage.setItem('bestId', localStorage.getItem('groupId'));
+                document.location.href = '/calendar';
+            }
+            async function recommend() {
+                if (ID) {
+                    const res = await axios({
+                        method: 'PATCH',
+                        url: '/api/recommend/recClick',
+                        data: {
+                            groupId: localStorage.getItem('groupId'),
+                            userId: ID,
+                        },
+                    });
+                    console.log(res.data.result);
+                    const { recMember } = res.data.result;
+                    console.log(recMember);
+                    if (rec.classList.contains('on')) {
+                        rec.classList.remove('on');
+                        rec.innerHTML = '&#9825;';
+                        newCount = Number(count.textContent) - 1;
+                        count.textContent = newCount;
+                    } else {
+                        rec.classList.add('on');
+                        rec.innerHTML = '&#9829;';
+                        newCount = Number(count.textContent) + 1;
+                        count.textContent = newCount;
+                    }
+                    console.log(newCount);
+                } else {
+                    if (!confirm('로그인 후 추천할 수 있습니다. 로그인 하시겠습니까?')) {
+                        return;
+                    } else {
+                        document.location.href = '/login';
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
