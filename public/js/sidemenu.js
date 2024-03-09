@@ -47,13 +47,13 @@ function logoutFunc() {
     document.location.reload();
 }
 
-hamBtn.addEventListener('click', () => {
+hamBtn.addEventListener('click', (event) => {
     event.preventDefault();
     menuSide.style.display = 'block';
     document.body.style.overflow = 'hidden';
 });
 
-closeBtn.addEventListener('click', () => {
+closeBtn.addEventListener('click', (event) => {
     event.preventDefault();
     menuSide.style.display = 'none';
     document.body.style.overflow = 'auto';

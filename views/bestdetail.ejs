@@ -66,14 +66,10 @@
             <main class="main">
                 <div class="main_txt trip_txtwrap">
                     <h3>부산여행</h3>
-                    <button
-                        type="button"
-                        class="btn_rec"
-                        id="btn_rec"
-                        onclick="recommend()"
-                    >
-                        &#9825;
-                    </button>
+                    <div class="rec_box">
+                        <button type="button" class="btn_rec" id="recBtn" onclick="recommend()">&#9825;</button>
+                        <span id="recCount"></span>
+                    </div>
                 </div>
 
                 <!-- 여행 일정 상세 목록 -->
@@ -99,18 +95,75 @@
         <script src="../public/js/sidemenu.js"></script>
         <script src="../public/js/tripdetail.js"></script>
         <script>
+            let ID;
+            const rec = document.querySelector('#recBtn');
+            const count = document.querySelector('#recCount');
+            (async function () {
+                if (localStorage.getItem('token')) {
+                    try {
+                        const res = await axios({
+                            method: 'GET',
+                            url: '/api/member/find',
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            },
+                        });
+                        ID = res.data.result.id;
+                        console.log(res.data.result);
+                    } catch {
+                        localStorage.removeItem('token');
+                        return;
+                    }
+                }
+                const res2 = await axios({
+                    method: 'GET',
+                    url: '/api/schedule/findGroup',
+                    params: {
+                        id: localStorage.getItem('groupId'),
+                    },
+                });
+                const { recMember } = res2.data.result;
+                if (recMember.includes(ID)) {
+                    rec.classList.add('on');
+                    rec.innerHTML = '&#9829;';
+                }
+                console.log(res2.data.result);
+            })();
             function makeGroup() {
                 localStorage.setItem('bestId', localStorage.getItem('groupId'));
                 document.location.href = '/calendar';
             }
-            function recommend() {
-                const rec = document.querySelector('#btn_rec');
-                if (rec.classList.contains('on')) {
-                    rec.classList.remove('on');
-                    rec.innerHTML = '&#9825;';
+            async function recommend() {
+                if (ID) {
+                    const res = await axios({
+                        method: 'PATCH',
+                        url: '/api/recommend/recClick',
+                        data: {
+                            groupId: localStorage.getItem('groupId'),
+                            userId: ID,
+                        },
+                    });
+                    console.log(res.data.result);
+                    const { recMember } = res.data.result;
+                    console.log(recMember);
+                    if (rec.classList.contains('on')) {
+                        rec.classList.remove('on');
+                        rec.innerHTML = '&#9825;';
+                        newCount = Number(count.textContent) - 1;
+                        count.textContent = newCount;
+                    } else {
+                        rec.classList.add('on');
+                        rec.innerHTML = '&#9829;';
+                        newCount = Number(count.textContent) + 1;
+                        count.textContent = newCount;
+                    }
+                    console.log(newCount);
                 } else {
-                    rec.classList.add('on');
-                    rec.innerHTML = '&#9829;';
+                    if (!confirm('로그인 후 추천할 수 있습니다. 로그인 하시겠습니까?')) {
+                        return;
+                    } else {
+                        document.location.href = '/login';
+                    }
                 }
             }
         </script>

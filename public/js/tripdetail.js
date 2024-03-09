@@ -1,6 +1,5 @@
 const groupNameBox = document.querySelector('.main_txt h3');
 const title = document.querySelector('title');
-console.log(title);
 const list = document.querySelector('.container_tripdetail');
 (async function () {
     const res = await axios({
@@ -17,9 +16,12 @@ const list = document.querySelector('.container_tripdetail');
             id: localStorage.getItem('groupId'),
         },
     });
-    const { dueDate, groupName } = res2.data.result;
-    title.textContent = groupName;
+    const { dueDate, groupName, recCount } = res2.data.result;
+    if (document.querySelector('#recCount')) {
+        document.querySelector('#recCount').textContent = recCount;
+    }
     groupNameBox.textContent = groupName;
+    title.textContent = groupName;
     for (let j = 0; j < dueDate; j++) {
         let k = 0;
         const listBox = `
@@ -115,12 +117,6 @@ function openBox(list, box, x, y) {
     const nowBox = nowList.querySelectorAll('.list_box')[box];
     var mapOpened = document.querySelector('.on');
     console.log(mapOpened);
-    // if (mapOpened) {
-    //     console.log('mapOpened');
-    //     removeMapVer2(mapOpened);
-    //     mapOpened.classList.remove('on');
-    //     console.log(mapOpened);
-    // }
     if (nowBox.classList.contains('on')) {
         // 선택한 박스의 지도가 틀어져있다면 지도를 닫는다.
         nowBox.classList.remove('on');
