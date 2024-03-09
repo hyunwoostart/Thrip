@@ -13,6 +13,7 @@
 .container_calendar td {position: relative;}
 .container_calendar td.active {color: #fff !important;}
 .container_calendar td.active::before {content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background-color: #278eff; border-radius: 50%; z-index: -1;} 
+.container_calendar tr > td.on::before {color: #fff; background-color: #91bce9;}
 
 .container_calendar tr > th:last-child,
 .container_calendar tr > td:last-child {color: #278eff;} 
@@ -20,17 +21,10 @@
 .container_calendar tr > td:first-child {color: #ff0000;} 
 
 .container_calendar td {position: relative; width: 50px; min-width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer;} 
-.container_calendar td.active::before,
-.container_calendar img {width: 70%;}
 .container_calendar #left {transform: rotate(90deg) translateY(-50%)}
 .container_calendar #right{transform: rotate(270deg) translateY(-50%)}
 
-/* .container_calendar td {position: relative; width: 50px; min-width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer;}  */
-/* .container_calendar td.active::before,
 
-.container_calendar td.on::before {content: ''; position: absolute; top: -30%; left: 0; width: 50px; height: 50px; background-color: #278eff; border-radius: 50%; z-index: -1;} 
-.container_calendar tr > td.active {color: #fff;}
-.container_calendar td:hover {background-color: #b3d0ee;} */
 
 /* 오늘 날짜 배경색 지정 */
 .container_calendar #today {color: #2fcc59; font-weight: 700;} 
