@@ -88,9 +88,14 @@ function printCalendar(year, month) {
                 // 오늘 날짜에 대한 스타일 적용
                 if (nowY === year && nowM === month && dNum === nowD) {
                     calendar +=
-                        `<td id="today" class="date">` + `<div class="inner"> <span>${dNum}</span </div>` + '</td>';
+                        `<td id="today" class="date">` +
+                        `<div class="inner"> <span>${dNum}</span </div>` +
+                        '</td>';
                 } else {
-                    calendar += '<td class="date">' + `<div class="inner"> <span>${dNum}</span </div>` + '</td>';
+                    calendar +=
+                        '<td class="date">' +
+                        `<div class="inner"> <span>${dNum}</span </div>` +
+                        '</td>';
                 }
                 dNum++;
             }
@@ -140,6 +145,7 @@ $('.go-next').on('click', function () {
     console.log(year, month);
     printCalendar(year, month);
     changeSelected(year, month);
+    getSelectedDate();
 });
 //selected 자동 변경 함수
 // prettier-ignore
@@ -160,14 +166,17 @@ function changeSelected(year, month) {
 //날짜 선택해서 띄우기
 var selectedDate = {};
 async function getSelectedDate() {
+    console.log('클릭');
     return new Promise((resolve) => {
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
+            //전에 active 되있는게 있다면 지우기
             var active = document.querySelector('.active');
             if (active) {
                 active.classList.remove('active');
             }
             var dList = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+            console.log(e.target);
             if (e.target.tagName === 'TD') {
                 e.target.classList.add('active');
                 var date = e.target.innerText;

@@ -235,5 +235,5 @@ button.disable {background-color: #ccc; color: #333;}
 
 /* .day_circle {position: absolute; color: #fff; bottom: 20px; left: 50%; transform: translateX(-50%); background: #78b5fb;; border-radius: 50%; width: 6px; height: 6px; line-height: 1;}  */
 
-.calendar_box::before {content: ''; position: absolute; left: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(270deg) translateY(-50%);}
-.calendar_box::after {content: ''; position: absolute; right: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(90deg) translateY(-50%);}
+/* .calendar_box::before {content: ''; position: absolute; left: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(270deg) translateY(-50%);} */
+/* .calendar_box::after {content: ''; position: absolute; right: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(90deg) translateY(-50%);} */
