@@ -1,4 +1,9 @@
 @charset "utf-8";
+/* 모바일 - 375 사이즈 */
+@media screen and (max-width: 375px) {
+    #calendar_table th, #calendar_table td {padding: 0;}
+    .container_calendar td {min-width: 25px; width: 25px; height: 25px;}
+}
 /* 모바일, 태블릿 기준 - 764 사이즈 */
 @media screen and (max-width: 764px) {
     .header .gnb .main_menu,
@@ -43,7 +48,7 @@
     .container_trip .trip_new .btn {margin-top: 0; height: 100px; line-height: initial; background-color: rgb(255, 255, 255, 0.6);}
     .container_trip .trip_new .btn span {left: 12px; font-size: 1.3rem; font-weight: 700; color: gray;}
     .container_trip .trip_new span::before {content: ''; position: absolute; background: url('../img/common/btn_plusb.png') center/cover no-repeat;}
-
+    
     .trip_schedule {min-width: 250px;}
     .trip_supplies .input_chk {margin: 0 0 16px;}
     .trip_supplies h3 {font-size: 1.4rem !important;}
@@ -54,6 +59,8 @@
     .container_best ul {justify-content: space-between;}
     .container_best ul li {width: 32%;}
     
+    .trip_cnt .trip_schedule {border: none;}
+    .trip_cnt .trip_schedule h3 {margin-bottom: 4px;display: flex; justify-content: center; color: grey;}
     .maps_wrap .schedule-form {margin: 20px auto; padding: 0 20px; width: 50%;}
     .create_btnwrap {margin: 64px auto; width: 50%;}
 
