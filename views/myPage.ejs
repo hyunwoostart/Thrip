@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>회원가입</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/member.css" />
@@ -40,23 +41,73 @@
                 <div class="container_mypage">
                     <form id="my-form">
                         <label for="username">이름</label>
-                        <input type="text" id="username" placeholder="이름을 입력하세요" required readonly /><br />
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="이름을 입력하세요"
+                            required
+                            readonly
+                        /><br />
                         <label for="userId">아이디</label>
-                        <input type="text" id="userId" placeholder="아이디를 입력하세요" required readonly /><br />
+                        <input
+                            type="text"
+                            id="userId"
+                            placeholder="아이디를 입력하세요"
+                            required
+                            readonly
+                        /><br />
                         <label for="pw">비밀번호</label>
-                        <input type="password" id="pw" placeholder="비밀번호를 입력하세요" required /><br />
+                        <input
+                            type="password"
+                            id="pw"
+                            placeholder="비밀번호를 입력하세요"
+                            required
+                        /><br />
                         <label for="confirmPw">비밀번호 확인</label>
                         <div class="diffPw"></div>
-                        <input type="password" id="confirmPw" placeholder="비밀번호를 다시 입력하세요" required /><br />
+                        <input
+                            type="password"
+                            id="confirmPw"
+                            placeholder="비밀번호를 다시 입력하세요"
+                            required
+                        /><br />
                         <label for="email">이메일</label>
-                        <input type="email" id="email" placeholder="이메일을 입력하세요" required /><br />
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="이메일을 입력하세요"
+                            required
+                        /><br />
                         <label for="tel">전화번호</label>
-                        <input type="text" id="tel" placeholder="전화번호를 입력하세요" required /><br />
+                        <input
+                            type="text"
+                            id="tel"
+                            placeholder="전화번호를 입력하세요"
+                            required
+                        /><br />
                         <div class="btnRow">
-                            <button type="button" class="btn row2" onclick="updateFunc()">수정</button>
-                            <button type="button" class="btn row2 disable" onclick="cancel()">취소</button>
+                            <button
+                                type="button"
+                                class="btn row2"
+                                onclick="updateFunc()"
+                            >
+                                수정
+                            </button>
+                            <button
+                                type="button"
+                                class="btn row2 disable"
+                                onclick="cancel()"
+                            >
+                                취소
+                            </button>
                         </div>
-                        <button type="button" class="btn withdraw" onclick="deleteFunc()">회원 탈퇴</button>
+                        <button
+                            type="button"
+                            class="btn withdraw"
+                            onclick="deleteFunc()"
+                        >
+                            회원 탈퇴
+                        </button>
                     </form>
                 </div>
             </main>
@@ -76,10 +127,13 @@
                         method: 'GET',
                         url: '/api/member/find',
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${localStorage.getItem(
+                                'token'
+                            )}`,
                         },
                     });
-                    const { username, userId, password, email, tel } = res.data.result;
+                    const { username, userId, password, email, tel } =
+                        res.data.result;
                     form.username.value = username;
                     form.userId.value = userId;
                     form.email.value = email;
@@ -91,7 +145,8 @@
 
             form.confirmPw.addEventListener('keyup', function () {
                 if (form.pw.value != form.confirmPw.value) {
-                    document.querySelector('.diffPw').textContent = '비밀번호가 일치하지 않습니다.';
+                    document.querySelector('.diffPw').textContent =
+                        '비밀번호가 일치하지 않습니다.';
                 } else {
                     document.querySelector('.diffPw').textContent = '';
                 }
@@ -110,7 +165,10 @@
                 if (form.pw.value && form.pw.value != form.confirmPw.value) {
                     alert('비밀번호를 다시 확인해주세요.');
                     return;
-                } else if (form.pw.value && form.pw.value === form.confirmPw.value) {
+                } else if (
+                    form.pw.value &&
+                    form.pw.value === form.confirmPw.value
+                ) {
                     data = {
                         pw: form.pw.value,
                         email: form.email.value,
@@ -127,7 +185,9 @@
                     url: '/api/member/update',
                     data,
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'token'
+                        )}`,
                     },
                 });
                 if (res.data.success) {
@@ -154,7 +214,9 @@
                     method: 'DELETE',
                     url: '/api/member/delete',
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'token'
+                        )}`,
                     },
                 });
                 if (res.data.success) {

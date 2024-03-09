@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>지도</title>
+        <title>세부 일정 생성</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
@@ -39,14 +40,18 @@
             <!-- 공통 - 사이드 메뉴 -->
             <%- include('sidemenu.ejs') %>
             <!--// 공통 - 사이드 메뉴 -->
-            
+
             <main class="main">
                 <ul class="tab_menu"></ul>
             </main>
         </div>
         <div class="create_btnwrap">
-            <button type="button" onclick="insert()" class="btn btn_trip"><span>일정 추가하기</span></button>
-            <button type="button" onclick="register()" class="btn">전체 일정 입력 완료</button>
+            <button type="button" onclick="insert()" class="btn btn_trip">
+                <span>일정 추가하기</span>
+            </button>
+            <button type="button" onclick="register()" class="btn">
+                전체 일정 입력 완료
+            </button>
         </div>
         <!-- 하단 메뉴 : 고정 -->
         <%- include('btnwrap.ejs') %>
