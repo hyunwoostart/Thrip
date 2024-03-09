@@ -47,7 +47,9 @@
             <main class="main">
                 <div class="container_calendar">
                     <div class="calendar_box">
+                        <span class="go-prev"><img id="left" src="../public/img/common/ico_accord.png" alt="left"></span>
                         <div id="yearMonthBox"></div>
+                        <span class="go-next"><img id="right" src="../public/img/common/ico_accord.png" alt="right"></span>
                     </div>
                     <div id="calendar"></div>
                 </div>
@@ -59,11 +61,7 @@
                 </div>
                 <!--// 여행 일정 리스트 -->
                 <div class="btnadd_wrap">
-                    <button
-                        type="button"
-                        onclick="insert()"
-                        class="btn btn_add"
-                    >
+                    <button type="button" onclick="insert()" class="btn btn_add">
                         <span>일정 추가하기</span>
                     </button>
                 </div>
