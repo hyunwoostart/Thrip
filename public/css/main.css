@@ -23,10 +23,6 @@
 .tab_menu li.on::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
 /* 내 여행 */
-/* .trip_cnt table {width: 100%; margin-bottom: 24px;} */
-/* .trip_cnt table tr th {padding-bottom: 20px; color: #9c9c9c;}
-.trip_cnt table tr td {text-align: center; font-weight: 700;} */
-/* .trip_cnt table tr td.on a {padding: 15% 28.17%; display: inline-block; border-radius: 50%; background: #278eff; color: #fff;} */
 .trip_cnt .trip_calendar {width: 100%; margin-bottom: 24px;}
 .trip_cnt .trip_calendar .trip_calendar_line {display: flex; width: 100%; justify-content: space-evenly;}
 .trip_cnt .trip_calendar .calCont {position: relative; text-align: center; font-weight: 700; width: 30px; height: 30px; line-height: 30px;}
@@ -82,7 +78,7 @@
 .container_best ul li .best_cnt .best_txt strong,
 .container_best ul li .best_cnt .best_txt span {display: block; color: #fff;}
 .container_best ul li .best_cnt .best_txt .rate_view span {display: flex; align-items: center;}
-.container_best ul li .best_cnt .best_txt .rate_view span i {display: inline-block; margin-left: 6px; width: 18px; height: 18px; background: url('../img/main/ico_star.svg') center/cover no-repeat;}
+.container_best ul li .best_cnt .best_txt .rate_view span i {display: inline-block; margin-left: 6px; width: 20px; height: 18px; background: url('../img/common/ico_love.svg') center/cover no-repeat;}
 
 .main_wrap .main_wrap .btn_trip {background-color: #278eff;}
 
