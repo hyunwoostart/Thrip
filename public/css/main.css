@@ -23,15 +23,18 @@
 .tab_menu li.on::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
 /* 내 여행 */
+
+.main_bg{height: 500px;}
+
 .trip_cnt .trip_calendar {width: 100%; margin-bottom: 24px;}
-.trip_cnt .trip_calendar .trip_calendar_line {display: flex; width: 100%; justify-content: space-evenly;}
+.trip_cnt .trip_calendar .trip_calendar_line {display: flex; width: 100%; justify-content: space-evenly;color: gray;}
 .trip_cnt .trip_calendar .calCont {position: relative; text-align: center; font-weight: 700; width: 30px; height: 30px; line-height: 30px;}
 .trip_cnt .trip_calendar .calTit {padding-bottom: 20px; color: #9c9c9c;}
 .trip_cnt .trip_calendar .calDate.on {background: #278eff; border-radius: 50%; color: #fff;} 
 
 /* 내 여행 - 스케줄 박스 */
-.trip_schedule {position: relative; padding: 18px 20px; margin-bottom: 30px; min-height: 98px; border: 1px solid #ececec; border-radius: 15px; background-color: #fff;}
-.trip_schedule h3 {margin-bottom: 4px;}
+.trip_schedule {position: relative; padding: 18px 20px; margin-bottom: 30px; min-height: 98px;border: none; border-radius: 15px; background-color: rgb(255, 255, 255, 0.3);}
+.trip_schedule h3 {margin-bottom: 4px;display: flex; justify-content: center;color: grey;}
 .trip_schedule span {display: block;}
 .trip_schedule p {margin-top: 10px;}
 
