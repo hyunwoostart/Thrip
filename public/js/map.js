@@ -338,7 +338,7 @@ let minHtml;
         }
     } catch (error) {
         console.log(error);
-        document.location.href = '/login';
+        document.location.href = '/';
     }
 })();
 
