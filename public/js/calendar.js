@@ -22,9 +22,7 @@ function makeSelect() {
         yearOption.setAttribute('id', i);
         yearOption.innerText = i;
         selectYear.appendChild(yearOption);
-        document
-            .getElementById(currentYear)
-            .setAttribute('selected', 'selected');
+        document.getElementById(currentYear).setAttribute('selected', 'selected');
     }
     // 월 선택
     for (var i = 1; i <= 12; i++) {
@@ -229,30 +227,28 @@ function selectReset() {
     document.querySelector('#selectDep').classList.remove('hide');
     document.querySelector('.container_calendar').classList.remove('hide');
 }
-document
-    .querySelector('#searchBtn')
-    .addEventListener('click', async function (e) {
-        e.preventDefault();
-        const res = await axios({
-            method: 'GET',
-            url: '/api/member/findId',
-            params: {
-                userId: document.querySelector('#memberSearch').value,
-            },
-        });
-        const resultBox = document.querySelector('.search_result');
-        resultBox.innerHTML = '';
-        for (let i = 0; i < res.data.result.length; i++) {
-            const { id, userId } = res.data.result[i];
-            const html = `
+document.querySelector('#searchBtn').addEventListener('click', async function (e) {
+    e.preventDefault();
+    const res = await axios({
+        method: 'GET',
+        url: '/api/member/findId',
+        params: {
+            userId: document.querySelector('#memberSearch').value,
+        },
+    });
+    const resultBox = document.querySelector('.search_result');
+    resultBox.innerHTML = '';
+    for (let i = 0; i < res.data.result.length; i++) {
+        const { id, userId } = res.data.result[i];
+        const html = `
 			<button type="button" onclick="addId(${id})" class="result_id" id="resultBtn${id}">${userId}</button>
 			`;
-            resultBox.insertAdjacentHTML('beforeend', html);
-            if (groupMember.includes(id)) {
-                document.querySelector(`#resultBtn${id}`).classList.add('on');
-            }
+        resultBox.insertAdjacentHTML('beforeend', html);
+        if (groupMember.includes(id)) {
+            document.querySelector(`#resultBtn${id}`).classList.add('on');
         }
-    });
+    }
+});
 
 (async function () {
     try {
@@ -330,8 +326,7 @@ async function register() {
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
     console.log('stDate', stDate, 'endDate', endDate);
-    const dueDate =
-        (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
+    const dueDate = (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
         depDate,
         arrDate,
