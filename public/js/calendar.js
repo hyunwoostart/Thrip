@@ -86,9 +86,9 @@ function printCalendar(year, month) {
                 // 오늘 날짜에 대한 스타일 적용
                 if (nowY === year && nowM === month && dNum === nowD) {
                     calendar +=
-                        `<td id='today' class='date '>` + dNum + '</td>';
+                        `<td id="today" class="date">` + `<div class="inner"> <span>${dNum}</span </div>` + '</td>';
                 } else {
-                    calendar += '<td class="date">' + dNum + '</td>';
+                    calendar += '<td class="date">' + `<div class="inner"> <span>${dNum}</span </div>` + '</td>';
                 }
                 dNum++;
             }

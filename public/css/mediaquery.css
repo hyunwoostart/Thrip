@@ -34,7 +34,7 @@
     .container_trip .trip_box .trip_cnt {width: 50%;}
     .container_trip .trip_new {position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 29%; max-width: 290px;}
     .container_trip .trip_new .btn {margin-top: 0; height: 100px; line-height: initial; border: 1px solid #ECECEC; background-color: #fff;}
-    .container_trip .trip_new .btn span {font-size: 1.6rem; font-weight: 700; color: #000;}
+    .container_trip .trip_new .btn span {left: 12px; font-size: 1.6rem; font-weight: 700; color: #000;}
     .container_trip .trip_new span::before {content: ''; position: absolute; background: url('../img/common/btn_plusb.png') center/cover no-repeat;}
 
     .trip_schedule {min-width: 250px;}
@@ -51,11 +51,10 @@
     .create_btnwrap {margin: 20px auto; padding: 0 20px; width: 50%;}
 
     .trip_list .container_upcoming ul,
-    .btnadd_wrap {margin: 0 auto; width: 50%;}
+    .btnadd_wrap {margin: 0 auto; width: 50%; justify-content: space-between;}
+    .trip_list .container_upcoming ul li {width: 48%; margin-right: 0;}
     
     .btn_wrap {display: none;}
-    .calendar #selectDep,
-    .calendar #selectArr {width: 50%;}
 }
 
 

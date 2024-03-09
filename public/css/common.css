@@ -146,7 +146,7 @@ input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-famil
 /* 공통 - 레이아웃 */
 #wrap {position: relative; overflow: hidden; padding-bottom: 52px;} 
 [class^="container_"] {padding-bottom: 40px; } 
-.main {margin-top: 30px; padding: 0 20px;}
+.main {margin-top: 10px; padding: 0 20px;}
 input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 
 /* 헤더 */
@@ -233,4 +233,7 @@ button.disable {background-color: #ccc; color: #333;}
 .btn_delete::before {content: ''; display: block; width: 30px; height: 30px; background:#ccc; border-radius: 8px;}
 .btn_delete::after {content: ''; display: block; width: 15px; position: relative; left: 8px; top: -16px; height: 3px; background: #fff;}
 
-.day_circle {position: absolute; color: #fff; bottom: 10px; left: 50%; transform: translateX(-50%); background: #278eff; border-radius: 50%; width: 12px; height: 12px; line-height: 1;} 
+/* .day_circle {position: absolute; color: #fff; bottom: 20px; left: 50%; transform: translateX(-50%); background: #78b5fb;; border-radius: 50%; width: 6px; height: 6px; line-height: 1;}  */
+
+.calendar_box::before {content: ''; position: absolute; left: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(270deg) translateY(-50%);}
+.calendar_box::after {content: ''; position: absolute; right: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(90deg) translateY(-50%);}

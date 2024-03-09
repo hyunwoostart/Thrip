@@ -11,10 +11,7 @@
         <link rel="stylesheet" href="../public/css/mediaquery.css" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     </head>
     <body>
         <div id="wrap" class="calendar">
@@ -46,37 +43,15 @@
                 <div class="container_calendar">
                     <div class="calendar_box">
                         <div id="year">
-                            <span class="go-prev"> navigate_next </span>
-                            <select
-                                id="selectYear"
-                                aria-placeholder="연도"
-                            ></select>
+                            <select id="selectYear" aria-placeholder="연도"></select>
                         </div>
                         <div id="month">
-                            <select
-                                id="selectMonth"
-                                aria-placeholder="월"
-                            ></select>
-                            <span class="go-next"> navigate_next </span>
+                            <select id="selectMonth" aria-placeholder="월"></select>
                         </div>
                     </div>
                     <div id="calendar"></div>
-                    <button
-                        type="button"
-                        onclick="selectDep()"
-                        class="btn"
-                        id="selectDep"
-                    >
-                        출발일 선택
-                    </button>
-                    <button
-                        type="button"
-                        onclick="selectArr()"
-                        class="btn hide"
-                        id="selectArr"
-                    >
-                        도착일 선택
-                    </button>
+                    <button type="button" onclick="selectDep()" class="btn" id="selectDep">출발일 선택</button>
+                    <button type="button" onclick="selectArr()" class="btn hide" id="selectArr">도착일 선택</button>
                 </div>
                 <!--// 달력 일자 선택 -->
 
@@ -87,51 +62,25 @@
                         <i class="ico_back"></i>
                         <div class="arrDate"></div>
                     </div>
-                    <button
-                        type="button"
-                        onclick="selectReset()"
-                        id="selectReset"
-                        class="btn"
-                    >
-                        다시 선택
-                    </button>
+                    <button type="button" onclick="selectReset()" id="selectReset" class="btn">다시 선택</button>
                     <form class="schedule-form">
                         <div class="input_txt">
                             <label for="groupName">일정명</label>
-                            <input
-                                type="text"
-                                id="groupName"
-                                placeholder="일정명"
-                            />
+                            <input type="text" id="groupName" placeholder="일정명"/>
                         </div>
                         <div class="input_txt">
                             <label for="memberSearch">멤버 추가</label>
                             <div class="input_wrap">
-                                <input
-                                    type="text"
-                                    id="memberSearch"
-                                    placeholder="아이디 입력"
-                                />
-                                <button
-                                    class="btn_holder btn_search"
-                                    id="searchBtn"
-                                ></button>
+                                <input type="text" id="memberSearch" placeholder="아이디 입력"/>
+                                <button class="btn_holder btn_search" id="searchBtn"></button>
                             </div>
                             <div class="search_result"></div>
                         </div>
                         <div class="input_txt">
                             <label for="groupMemo">메모</label>
-                            <textarea
-                                name=""
-                                id="groupMemo"
-                                cols="30"
-                                rows="10"
-                                placeholder="메모"
-                            ></textarea>
+                            <textarea name="" id="groupMemo" cols="30" rows="10" placeholder="메모"></textarea>
                         </div>
-                        <button type="button" onclick="register()" class="btn">
-                            등록
-                        </button>
+                        <button type="button" onclick="register()" class="btn">등록</button>
                     </form>
                 </div>
                 <!--// 여행 일정 선택 -->

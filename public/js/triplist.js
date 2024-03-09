@@ -157,7 +157,7 @@ function calendarInit() {
         var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구한다.
         var row = Math.ceil((theDay + lastDate) / 7); //필요한 행수
         var yearMonthBox = document.getElementById('yearMonthBox');
-        yearMonthBox.innerHTML = '<h1>' + year + '.' + (month + 1) + '</h1>';
+        yearMonthBox.innerHTML = '<h3>' + year + '.' + (month + 1) + '</h3>';
         var calendar = "<table id=calendar_table border='1'>";
         calendar += '<tr>';
         calendar += '<th>SUN</th>';
@@ -179,10 +179,10 @@ function calendarInit() {
                 } else {
                     // 오늘 날짜에 대한 스타일 적용
                     if (nowY === year && nowM === month && dNum === nowD) {
-                        calendar +=
-                            `<td id='today' class='date '>` + dNum + '</td>';
+
+                        calendar += `<td id="today" class="date">` + `<div class="inner"> <span>${dNum}</span </div>` + '</td>';
                     } else {
-                        calendar += `<td id ='${dNum}' class = 'date'>${dNum}</td>`;
+                        calendar += `<td id ='${dNum}' class='date'><div class="inner"> <span>${dNum}</span </div></td>`;
                     }
                     dNum++;
                 }
