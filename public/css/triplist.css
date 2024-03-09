@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* section calendar */
 .sec_cal {width: 360px; margin: 0 auto; font-family: 'NotoSansR';} 
 .sec_cal .cal_nav {display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 48px; line-height: 78px;} 
@@ -24,8 +25,6 @@
 .sec_cal .cal_wrap .day.disable {color: #ddd;} 
 
 div .day {flex-direction: column;}
-
 .container_upcoming {padding: 40px 0 0 0;}
 .container_upcoming#prev {border-top: 1px solid #ddd; margin-top: 60px;}
-
 .trip_list .trip_schedule .btn_delete {position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border-style: none; background: transparent; cursor: pointer;}

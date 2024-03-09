@@ -22,22 +22,7 @@
     <body>
         <div id="wrap" class="trip_list">
             <!-- 헤더 -->
-            <header class="mo_header">
-                <nav class="gnb">
-                    <ul class="sub_menu">
-                        <li>
-                            <a href="javascript:window.history.back()" class="ico_back">
-                                <span class="blind">뒤로 가기</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#none" class="ico_ham">
-                                <span class="blind">메뉴</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
+            <%- include('header.ejs') %>
             <!--// 헤더 -->
 
             <!-- 공통 - 사이드 메뉴 -->
@@ -70,6 +55,10 @@
                     <ul></ul>
                 </div>
             </main>
+            <!-- 푸터 -->
+            <%- include('footer.ejs') %>
+            <!--// 푸터 -->
+            
             <!-- 하단 메뉴 : 고정 -->
             <%- include('btnwrap.ejs') %>
             <!--// 하단 메뉴 : 고정 -->
