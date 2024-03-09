@@ -14,7 +14,7 @@
     <body>
         <div id="wrap">
             <!-- 헤더 -->
-            <%- include('pcheader.ejs') %>
+            <%- include('header.ejs') %>
             <!--// 헤더 -->
 
             <!-- 공통 - 사이드 메뉴 -->
@@ -68,6 +68,15 @@
                 }
             });
             async function signupFunc() {
+                const input = document.querySelectorAll('input');
+                console.log(input.length);
+                for (let i = 0; i < input.length; i++) {
+                    if (!input[i].value) {
+                        alert('회원 정보를 모두 입력해주세요.');
+                        input[i].focus();
+                        return;
+                    }
+                }
                 const data = {
                     username: form.username.value,
                     userId: form.userId.value,
