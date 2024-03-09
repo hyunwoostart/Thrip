@@ -323,6 +323,12 @@ function addId(i) {
 }
 
 async function register() {
+    const nameBox = document.querySelector('#groupName');
+    if (!nameBox.value) {
+        alert('일정명을 입력해주세요.');
+        nameBox.focus();
+        return;
+    }
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
     console.log('stDate', stDate, 'endDate', endDate);
@@ -331,7 +337,7 @@ async function register() {
         depDate,
         arrDate,
         dueDate: dueDate + 1,
-        groupName: document.querySelector('#groupName').value,
+        groupName: nameBox.value,
         groupMember,
         groupMemo: document.querySelector('#groupMemo').value,
     };
