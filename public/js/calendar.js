@@ -10,6 +10,7 @@ const selectMonth = document.querySelector('#selectMonth');
 let groupMember = [];
 let bestId;
 let groupId;
+let myId;
 
 //연도와 월 select에 option 만드는 함수
 function makeSelect() {
@@ -240,16 +241,17 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
     resultBox.innerHTML = '';
     for (let i = 0; i < res.data.result.length; i++) {
         const { id, userId } = res.data.result[i];
-        const html = `
-			<button type="button" onclick="addId(${id})" class="result_id" id="resultBtn${id}">${userId}</button>
-			`;
-        resultBox.insertAdjacentHTML('beforeend', html);
-        if (groupMember.includes(id)) {
-            document.querySelector(`#resultBtn${id}`).classList.add('on');
+        if (myId != id) {
+            const html = `
+				<button type="button" onclick="addId(${id})" class="result_id" id="resultBtn${id}">${userId}</button>
+				`;
+            resultBox.insertAdjacentHTML('beforeend', html);
+            if (groupMember.includes(id)) {
+                document.querySelector(`#resultBtn${id}`).classList.add('on');
+            }
         }
     }
 });
-
 (async function () {
     try {
         const res = await axios({
@@ -260,6 +262,7 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
             },
         });
         const { id } = res.data.result;
+        myId = id;
         groupMember.push(id);
     } catch (error) {
         document.location.href = '/login';
