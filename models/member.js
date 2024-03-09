@@ -10,6 +10,7 @@ const MemberModel = (sequelize) => {
         },
         username: {
             type: DataTypes.STRING(31),
+            allowNull: false,
         },
         userId: {
             type: DataTypes.STRING(31),

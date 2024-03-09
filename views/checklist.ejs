@@ -53,16 +53,10 @@
                         <input
                             type="text"
                             placeholder="새 리스트 내용"
+                            onkeyup="if(window.event.keyCode == 13) {addList()}"
                             id="addName"
                         />
-                        <button
-                            type="button"
-                            onclick="addList()"
-                            class="btn"
-                            id="addBtn"
-                        >
-                            등록
-                        </button>
+                        <button type="button" onclick="addList()" class="btn" id="addBtn">등록</button>
                     </div>
                 </div>
             </main>

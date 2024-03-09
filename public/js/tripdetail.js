@@ -17,8 +17,10 @@ const list = document.querySelector('.container_tripdetail');
             id: localStorage.getItem('groupId'),
         },
     });
-    const { dueDate, groupName } = res2.data.result;
-    title.textContent = groupName;
+    const { dueDate, groupName, recCount } = res2.data.result;
+    if (document.querySelector('#recCount')) {
+        document.querySelector('#recCount').textContent = recCount;
+    }
     groupNameBox.textContent = groupName;
     for (let j = 0; j < dueDate; j++) {
         let k = 0;
