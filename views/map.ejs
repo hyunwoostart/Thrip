@@ -23,7 +23,7 @@
                 <nav class="gnb">
                     <ul class="sub_menu">
                         <li>
-                            <a href="#none" class="ico_back">
+                            <a href="javascript:window.history.back()" class="ico_back">
                                 <span class="blind">뒤로 가기</span>
                             </a>
                         </li>
@@ -49,9 +49,7 @@
             <button type="button" onclick="insert()" class="btn btn_trip">
                 <span>일정 추가하기</span>
             </button>
-            <button type="button" onclick="register()" class="btn">
-                전체 일정 입력 완료
-            </button>
+            <button type="button" onclick="register()" class="btn">전체 일정 입력 완료</button>
         </div>
         <!-- 하단 메뉴 : 고정 -->
         <%- include('btnwrap.ejs') %>
