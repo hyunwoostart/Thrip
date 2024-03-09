@@ -12,3 +12,6 @@ h1 {text-align: center; font-size: 1.5rem; line-height: 1.5; font-weight: 900; m
 .container_admin .trip_supplies .input_chk {align-items: center;}
 .container_admin .trip_supplies .input_chk input {margin-left: 20px;}
 .container_admin .trip_supplies .edit_btn {background-color: #2fcc59;}
+
+.container_signup p {padding-bottom: 20px; font-size: 1.4rem; font-weight: 700; text-align: center;}
+.container_signup input {margin-bottom: 0;}
