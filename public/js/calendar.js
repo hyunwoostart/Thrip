@@ -22,7 +22,9 @@ function makeSelect() {
         yearOption.setAttribute('id', i);
         yearOption.innerText = i;
         selectYear.appendChild(yearOption);
-        document.getElementById(currentYear).setAttribute('selected', 'selected');
+        document
+            .getElementById(currentYear)
+            .setAttribute('selected', 'selected');
     }
     // 월 선택
     for (var i = 1; i <= 12; i++) {
@@ -83,7 +85,7 @@ function printCalendar(year, month) {
         calendar += '<tr>';
         for (var k = 1; k <= 7; k++) {
             if ((i == 1 && k < theDay) || dNum > lastDate) {
-                calendar += '<td>  </td>';
+                calendar += '<td class ="none">  </td>';
             } else {
                 // 오늘 날짜에 대한 스타일 적용
                 if (nowY === year && nowM === month && dNum === nowD) {
@@ -160,7 +162,6 @@ function changeSelected(year, month) {
 //날짜 선택해서 띄우기
 var selectedDate = {};
 async function getSelectedDate() {
-    console.log('클릭');
     return new Promise((resolve) => {
         var table = document.getElementById('calendar_table');
         table.addEventListener('click', (e) => {
@@ -170,14 +171,15 @@ async function getSelectedDate() {
                 active.classList.remove('active');
             }
             var dList = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-            console.log(e.target);
-            if (e.target.tagName === 'TD') {
-                e.target.classList.add('active');
-                var date = e.target.innerText;
-                var day = dList[e.target.cellIndex];
-                var m = month;
-                selectedDate = { year, m, date, day };
-                resolve(selectedDate);
+            if (!e.target.classList.contains('none')) {
+                if (e.target.tagName === 'TD') {
+                    e.target.classList.add('active');
+                    var date = e.target.innerText;
+                    var day = dList[e.target.cellIndex];
+                    var m = month;
+                    selectedDate = { year, m, date, day };
+                    resolve(selectedDate);
+                }
             }
         });
     });
@@ -195,7 +197,6 @@ let arrDate;
 function selectDep() {
     //출발일 선택
     depDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(2,'0')}-${String(selectedDate.date).padStart(2, '0')}`;
-    console.log('depDate', depDate);
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
     dep = {year: selectedDate.year,m: selectedDate.m,date: Number(selectedDate.date)};
@@ -228,28 +229,30 @@ function selectReset() {
     document.querySelector('#selectDep').classList.remove('hide');
     document.querySelector('.container_calendar').classList.remove('hide');
 }
-document.querySelector('#searchBtn').addEventListener('click', async function (e) {
-    e.preventDefault();
-    const res = await axios({
-        method: 'GET',
-        url: '/api/member/findId',
-        params: {
-            userId: document.querySelector('#memberSearch').value,
-        },
-    });
-    const resultBox = document.querySelector('.search_result');
-    resultBox.innerHTML = '';
-    for (let i = 0; i < res.data.result.length; i++) {
-        const { id, userId } = res.data.result[i];
-        const html = `
+document
+    .querySelector('#searchBtn')
+    .addEventListener('click', async function (e) {
+        e.preventDefault();
+        const res = await axios({
+            method: 'GET',
+            url: '/api/member/findId',
+            params: {
+                userId: document.querySelector('#memberSearch').value,
+            },
+        });
+        const resultBox = document.querySelector('.search_result');
+        resultBox.innerHTML = '';
+        for (let i = 0; i < res.data.result.length; i++) {
+            const { id, userId } = res.data.result[i];
+            const html = `
 			<button type="button" onclick="addId(${id})" class="result_id" id="resultBtn${id}">${userId}</button>
 			`;
-        resultBox.insertAdjacentHTML('beforeend', html);
-        if (groupMember.includes(id)) {
-            document.querySelector(`#resultBtn${id}`).classList.add('on');
+            resultBox.insertAdjacentHTML('beforeend', html);
+            if (groupMember.includes(id)) {
+                document.querySelector(`#resultBtn${id}`).classList.add('on');
+            }
         }
-    }
-});
+    });
 
 (async function () {
     try {
@@ -327,7 +330,8 @@ async function register() {
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
     console.log('stDate', stDate, 'endDate', endDate);
-    const dueDate = (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
+    const dueDate =
+        (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
         depDate,
         arrDate,
