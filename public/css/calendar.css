@@ -3,7 +3,6 @@
 .container_calendar select {padding: 20px; border: none; cursor: pointer; font-size: 1.4rem;} 
 
 /* 달력 */
-
 #month h2 {font-size: 20px; margin: 0px;} 
 #calendar_table {border-collapse: collapse; width: 100%;}
 #calendar_table th, #calendar_table td {padding: 3%; text-align: center;}
@@ -11,18 +10,21 @@
 
 .container_calendar .inner {position: relative;}
 .container_calendar .inner span {font-size: 1.4rem;}
-.container_calendar td.active .inner span::before {content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background-color: #ddd; border-radius: 50%; z-index: -1;} 
+.container_calendar td {position: relative;}
+.container_calendar td.active {color: #fff !important;}
+.container_calendar td.active::before {content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background-color: #278eff; border-radius: 50%; z-index: -1;} 
 
 .container_calendar tr > th:last-child,
-.container_calendar tr > td:last-child span {color: #278eff;} 
+.container_calendar tr > td:last-child {color: #278eff;} 
 .container_calendar tr > th:first-child,
-.container_calendar tr > td:first-child span {color: #ff0000;} 
+.container_calendar tr > td:first-child {color: #ff0000;} 
 
-/* .container_calendar td {position: relative; width: 50px; min-width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer;}  */
-/* .container_calendar td.active::before,
+.container_calendar td {position: relative; width: 50px; min-width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer;} 
+/*
+.container_calendar td.active::before,
 .container_calendar td.on::before {content: ''; position: absolute; top: -30%; left: 0; width: 50px; height: 50px; background-color: #278eff; border-radius: 50%; z-index: -1;} 
-.container_calendar tr > td.active {color: #fff;}  */
-/* .container_calendar td:hover {background-color: #b3d0ee;} */
+.container_calendar tr > td.active {color: #fff;}
+.container_calendar td:hover {background-color: #b3d0ee;} */
 
 /* 오늘 날짜 배경색 지정 */
 .container_calendar #today {color: #2fcc59; font-weight: 700;} 
