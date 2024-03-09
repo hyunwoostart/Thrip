@@ -175,14 +175,14 @@ function calendarInit() {
             calendar += '<tr>';
             for (var k = 1; k <= 7; k++) {
                 if ((i == 1 && k < theDay) || dNum > lastDate) {
-                    calendar += '<td>  </td>';
+                    calendar += '<td> </td>';
                 } else {
                     // 오늘 날짜에 대한 스타일 적용
                     if (nowY === year && nowM === month && dNum === nowD) {
 
-                        calendar += `<td id="today" class="date">` + `<div class="inner"> <span>${dNum}</span </div>` + '</td>';
+                        calendar += `<td id='today' class='date '>` + dNum + '</td>';
                     } else {
-                        calendar += `<td id ='${dNum}' class='date'><div class="inner"> <span>${dNum}</span </div></td>`;
+                        calendar += '<td class="date">' + dNum + '</td>';
                     }
                     dNum++;
                 }
