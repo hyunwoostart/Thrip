@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>일정 리스트</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29150c8d61268b1089ff06b57ed40dc&libraries=services"
@@ -65,14 +66,25 @@
             <main class="main">
                 <div class="main_txt trip_txtwrap">
                     <h3>부산여행</h3>
-                    <button type="button" class="btn_rec" id="btn_rec" onclick="recommend()">&#9825;</button>
+                    <button
+                        type="button"
+                        class="btn_rec"
+                        id="btn_rec"
+                        onclick="recommend()"
+                    >
+                        &#9825;
+                    </button>
                 </div>
 
                 <!-- 여행 일정 상세 목록 -->
                 <div class="container_tripdetail"></div>
                 <!--// 여행 일정 리스트 -->
                 <div class="btnadd_wrap">
-                    <button type="button" class="btn btn_add" onclick="makeGroup()">
+                    <button
+                        type="button"
+                        class="btn btn_add"
+                        onclick="makeGroup()"
+                    >
                         <span>내 일정 리스트로 추가하기</span>
                     </button>
                 </div>

@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>채팅방</title>
+        <title>채팅</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="socket.io/socket.io.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
@@ -33,8 +34,16 @@
 
             <form class="chat_form chat_list" id="search">
                 <div class="input_wrap">
-                    <input type="text" class="search_input" id="searchChat" placeholder="메세지를 검색해보세요." />
-                    <button class="btn_holder btn_search chatBtn" id="searchBtn"></button>
+                    <input
+                        type="text"
+                        class="search_input"
+                        id="searchChat"
+                        placeholder="메세지를 검색해보세요."
+                    />
+                    <button
+                        class="btn_holder btn_search chatBtn"
+                        id="searchBtn"
+                    ></button>
                 </div>
             </form>
 
@@ -48,7 +57,10 @@
             <div id="body" hidden>
                 <div class="container_chatinfo">
                     <div class="my_photo">
-                        <img src="../public/img/common/img_myphoto.png" alt="" />
+                        <img
+                            src="../public/img/common/img_myphoto.png"
+                            alt=""
+                        />
                     </div>
                     <div class="my_info">
                         <span class="chat_name"></span>
@@ -57,7 +69,12 @@
 
                 <div class="msg"></div>
                 <form class="chat_form" id="chat_form">
-                    <input type="text" class="search_input" id="chatMsg" placeholder="메세지를 입력하세요." />
+                    <input
+                        type="text"
+                        class="search_input"
+                        id="chatMsg"
+                        placeholder="메세지를 입력하세요."
+                    />
                     <button class="chatBtn" id="chatBtn">전송</button>
                 </form>
             </div>
@@ -86,7 +103,9 @@
                         method: 'GET',
                         url: '/api/member/find',
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${localStorage.getItem(
+                                'token'
+                            )}`,
                         },
                     });
                     userId = res.data.result.id;
@@ -146,14 +165,26 @@
                 const count = document.querySelectorAll('.chatBox').length;
                 for (let i = 0; i < count; i++) {
                     console.log(
-                        document.querySelectorAll('.chatBox')[i].querySelector('.enter').textContent.includes(text)
+                        document
+                            .querySelectorAll('.chatBox')
+                            [i].querySelector('.enter')
+                            .textContent.includes(text)
                     );
-                    if (document.querySelectorAll('.chatBox')[i].querySelector('.enter').textContent.includes(text)) {
+                    if (
+                        document
+                            .querySelectorAll('.chatBox')
+                            [i].querySelector('.enter')
+                            .textContent.includes(text)
+                    ) {
                         console.log(i, '있음');
-                        document.querySelectorAll('.chatBox')[i].classList.remove('hide');
+                        document
+                            .querySelectorAll('.chatBox')
+                            [i].classList.remove('hide');
                     } else {
                         console.log(i, '없음');
-                        document.querySelectorAll('.chatBox')[i].classList.add('hide');
+                        document
+                            .querySelectorAll('.chatBox')
+                            [i].classList.add('hide');
                     }
                 }
             }
@@ -179,7 +210,8 @@
                     },
                 });
                 const html = ``;
-                document.querySelector('.chat_name').textContent = res.data.result.groupName;
+                document.querySelector('.chat_name').textContent =
+                    res.data.result.groupName;
 
                 // 채팅 내용 불러오기
                 const res2 = await axios({
@@ -212,7 +244,11 @@
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const chatMsg = document.querySelector('#chatMsg');
-                socket.emit('msg', { chatMsg: chatMsg.value, userId, username });
+                socket.emit('msg', {
+                    chatMsg: chatMsg.value,
+                    userId,
+                    username,
+                });
                 chatMsg.value = '';
             });
             // 채팅 표시

@@ -51,7 +51,10 @@ let myId;
 					</div>
 				</li>
 				`;
-                if (arrY >= YEAR && (arrM > MONTH || (arrM === MONTH && arrD >= DATE))) {
+                if (
+                    arrY >= YEAR &&
+                    (arrM > MONTH || (arrM === MONTH && arrD >= DATE))
+                ) {
                     list.insertAdjacentHTML('beforeend', html);
                 } else {
                     prevList.insertAdjacentHTML('beforeend', html);
@@ -59,7 +62,8 @@ let myId;
                 }
             }
             if (count != 0) {
-                document.querySelector('#prev h3').textContent = '지난 여행 일정';
+                document.querySelector('#prev h3').textContent =
+                    '지난 여행 일정';
             }
         }
     } catch (error) {
@@ -104,12 +108,20 @@ function calendarInit() {
                 (year === arrObject[d].year && month === arrObject[d].month)
             ) {
                 if (depObject[d].month === arrObject[d].month) {
-                    for (let i = depObject[d].day; i <= arrObject[d].arrDay; i++) {
+                    for (
+                        let i = depObject[d].day;
+                        i <= arrObject[d].arrDay;
+                        i++
+                    ) {
                         var a = document.getElementById(i);
                         a.innerHTML += `<span class="day_circle"></span>`;
                     }
                 } else if (depObject[d].month === month) {
-                    for (let i = depObject[d].day; i <= lastDay[depObject[d].month]; i++) {
+                    for (
+                        let i = depObject[d].day;
+                        i <= lastDay[depObject[d].month];
+                        i++
+                    ) {
                         var a = document.getElementById(i);
                         a.innerHTML += `<span class="day_circle"></span>`;
                     }
@@ -139,7 +151,8 @@ function calendarInit() {
         var theDate = new Date(year, month, 1);
         var theDay = theDate.getDay() + 1;
         var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) lastDate = last[1] = 29;
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+            lastDate = last[1] = 29;
 
         var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구한다.
         var row = Math.ceil((theDay + lastDate) / 7); //필요한 행수
@@ -166,7 +179,8 @@ function calendarInit() {
                 } else {
                     // 오늘 날짜에 대한 스타일 적용
                     if (nowY === year && nowM === month && dNum === nowD) {
-                        calendar += `<td id='today' class='date '>` + dNum + '</td>';
+                        calendar +=
+                            `<td id='today' class='date '>` + dNum + '</td>';
                     } else {
                         calendar += `<td id ='${dNum}' class = 'date'>${dNum}</td>`;
                     }

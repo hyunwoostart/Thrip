@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>추천 장소 관리</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
@@ -40,21 +41,33 @@
             <main class="main">
                 <div class="container_admin">
                     <h1>Time Travel<br />추천장소 등록</h1>
-                <form id="register-form">
-                    <label for="place">장소</label>
-                    <input type="text" id="place" placeholder="장소를 입력하세요" />
-                    <label for="memo">메모</label>
-                    <input type="text" id="memo" placeholder="메모를 입력하세요" />
-                    <button type="button" class="btn" onclick="register()">등록하기</button>
-                </form>
-                <div class="result">
-                    <p>체크박스에 체크 시 메인화면 슬라이드에 노출됩니다.</p>
-                    <div class="list"></div>
-                </div>
+                    <form id="register-form">
+                        <label for="place">장소</label>
+                        <input
+                            type="text"
+                            id="place"
+                            placeholder="장소를 입력하세요"
+                        />
+                        <label for="memo">메모</label>
+                        <input
+                            type="text"
+                            id="memo"
+                            placeholder="메모를 입력하세요"
+                        />
+                        <button type="button" class="btn" onclick="register()">
+                            등록하기
+                        </button>
+                    </form>
+                    <div class="result">
+                        <p>
+                            체크박스에 체크 시 메인화면 슬라이드에 노출됩니다.
+                        </p>
+                        <div class="list"></div>
+                    </div>
                 </div>
             </main>
             <!--// 컨텐츠 -->
-            
+
             <!-- 하단 메뉴 : 고정 -->
             <%- include('btnwrap.ejs') %>
             <!--// 하단 메뉴 : 고정 -->

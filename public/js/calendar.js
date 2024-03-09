@@ -43,7 +43,6 @@ function makeSelect() {
 calendar_box = document.getElementById('calendar');
 //달력 만드는 함수
 function printCalendar(year, month) {
-    //① 현재 날짜와 현재 달에 1일의 날짜 객체를 생성합니다.
     var date = new Date(); //날짜 객체 생성
     var nowY = date.getFullYear(); //현재 연도
     var nowM = date.getMonth(); //현재 월
@@ -55,15 +54,12 @@ function printCalendar(year, month) {
     var theDay = theDate.getDay() + 1;
 
     var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
         lastDate = last[1] = 29;
+    }
 
     var lastDate = last[month]; //현재 월에 마지막이 몇일인지 구합니다.
-
-    //③ 현재 월의 달력에 필요한 행의 개수를 구합니다.
     var row = Math.ceil((theDay + lastDate) / 7); //필요한 행수
-
-    //④ 달력 년도/월 표기 및  달력 테이블 생성
     calendar_box.innerHTML = '<h2>' + year + '.' + (month + 1) + '</h2>';
 
     //문자결합 연산자를 사용해 요일이 나오는 행을 생성
@@ -177,7 +173,6 @@ async function getSelectedDate() {
                 var m = month;
                 selectedDate = { year, m, date, day };
                 resolve(selectedDate);
-                console.log(selectedDate);
             }
         });
     });
@@ -191,20 +186,14 @@ let dep = {};
 let arr = {};
 let depDate;
 let arrDate;
+//prettier-ignore
 function selectDep() {
     //출발일 선택
-    depDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
-        2,
-        '0'
-    )}-${String(selectedDate.date).padStart(2, '0')}`;
+    depDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(2,'0')}-${String(selectedDate.date).padStart(2, '0')}`;
     console.log('depDate', depDate);
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
-    dep = {
-        year: selectedDate.year,
-        m: selectedDate.m,
-        date: Number(selectedDate.date),
-    };
+    dep = {year: selectedDate.year,m: selectedDate.m,date: Number(selectedDate.date)};
     console.log('dep', dep);
     var active = document.querySelector('.active');
     if (active) {
@@ -212,31 +201,21 @@ function selectDep() {
         active.classList.add('on');
     }
 }
+//prettier-ignore
 function selectArr() {
     //도착일 선택
-    arrDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(
-        2,
-        '0'
-    )}-${String(selectedDate.date).padStart(2, '0')}`;
+    arrDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(2,'0')}-${String(selectedDate.date).padStart(2, '0')}`;
     console.log(arrDate);
-    arr = {
-        year: selectedDate.year,
-        m: selectedDate.m,
-        date: Number(selectedDate.date),
-    };
-
+    arr = {year: selectedDate.year,m: selectedDate.m,date: Number(selectedDate.date)};
     //창 맨 위에 일정 띄우기
-    document.querySelector('.depDate').textContent = `${String(
-        dep.m + 1
-    ).padStart(2, '0')}월 ${String(dep.date).padStart(2, '0')}일`;
-    document.querySelector('.arrDate').textContent = `${String(
-        arr.m + 1
-    ).padStart(2, '0')}월 ${String(arr.date).padStart(2, '0')}일`;
+    document.querySelector('.depDate').textContent = `${String(dep.m + 1).padStart(2, '0')}월 ${String(dep.date).padStart(2, '0')}일`;
+    document.querySelector('.arrDate').textContent = `${String(arr.m + 1).padStart(2, '0')}월 ${String(arr.date).padStart(2, '0')}일`;
 
     document.querySelector('#selectArr').classList.add('hide');
     document.querySelector('.container_calendar').classList.add('hide');
     document.querySelector('.container_schedule').classList.remove('hide');
 }
+//prettier-ignore
 function selectReset() {
     depDate = '';
     arrDate = '';
@@ -302,14 +281,12 @@ let groupId;
                 id: groupId,
             },
         });
-        console.log(res.data.result);
         const { depDate, arrDate, groupName, groupMemo } = res.data.result;
         const [transDep, _] = depDate.split('T');
         const [depY, depM, depD] = transDep.split('-');
-        console.log(depY, depM, depD);
         const [transArr, __] = arrDate.split('T');
         const [arrY, arrM, arrD] = transArr.split('-');
-        console.log(arrY, arrM, arrD);
+
         groupMember = res.data.result.groupMember;
         dep = {
             year: Number(depY),
@@ -334,13 +311,11 @@ let groupId;
 
 function addId(i) {
     groupMember.push(i);
-    console.log(groupMember);
 }
 
 async function register() {
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
-    console.log('stDate', stDate, 'endDate', endDate);
     const dueDate =
         (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
