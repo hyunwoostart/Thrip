@@ -128,7 +128,7 @@ button {
     box-sizing: border-box;
     font-size: 14px;
     line-height: 22px;
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard', sans-serif !important;
 }
 
 body {position: relative; min-width: 320px; padding-bottom: 40px;} 
@@ -248,6 +248,7 @@ button.disable {background-color: #ccc; color: #333;}
 .btn_delete {position: absolute; right: 0; bottom: 10px; border-style: none; background: transparent; cursor: pointer;}
 .btn_delete::before {content: ''; display: block; width: 30px; height: 30px; background:#ccc; border-radius: 8px;}
 .btn_delete::after {content: ''; display: block; width: 15px; position: relative; left: 8px; top: -16px; height: 3px; background: #fff;}
+.trip_list .trip_schedule .btn_delete {position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border-style: none; background: transparent; cursor: pointer;}
 
 .main_wrap .btn_trip {background-color: #278eff;}
 
