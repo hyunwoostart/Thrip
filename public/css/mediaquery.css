@@ -1,11 +1,14 @@
+@charset "utf-8";
 /* 모바일, 태블릿 기준 - 764 사이즈 */
 @media screen and (max-width: 764px) {
-    .main_wrap .mo_header .gnb .main_menu,
-    .main_wrap .mo_header .gnb .sub_menu li .login_wrap {display: none;}
-    .main_wrap .mo_header .gnb .sub_menu li a.ico_ham {display: block;}
+    .header .gnb .main_menu,
+    .header .gnb .sub_menu li .login_wrap {display: none !important;}
+    .header .gnb .sub_menu li a.ico_ham {display: block;}
+    .mo_header .gnb h1 {display: none;}
+    .mo_header .gnb a.ico_back {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;height: 12px; background-image: url('../img/common/ico_arrow.png');}
     .container_rec ul li .rec_cnt {height: 60vw !important;}
-    #logo{width: 30%;}
-
+    #footer ul {display: block; flex-direction: column;}
+    #footer ul li + li {margin-top: 20px; padding-top: 20px; border-top: 1px solid #ececec;}
 }
 
 /* PC 기준 - 1024 사이즈 */
@@ -17,7 +20,7 @@
     .container_category,
     .container_upcoming,
     .container_best {width: 100% !important; overflow: hidden;}
-
+    .main {margin-top: 84px;}
     .maps_wrap .tab_menu {justify-content: center;}
 
     #logo{width: 16%;}
@@ -28,8 +31,8 @@
     .container_upcoming ul,
     .container_best ul {display: flex; flex-direction: row;}
 
-    .main_wrap .mo_header {position: fixed; z-index: 100; box-shadow: initial;}
-    .main_wrap .mo_header .gnb {max-width: 1200px; left: 50%; transform: translateX(-50%);}
+    .header {position: fixed; z-index: 100; box-shadow: initial;}
+    .header .gnb {max-width: 1200px; left: 50%; transform: translateX(-50%);}
     .main_wrap .main {margin-top: 65px; padding: 0;}
     .main_wrap .main h3 {font-size: 1.3rem; padding: 30px 0 20px;}
     .main_wrap .main_bg {background: url('../img/main/bg_main.png') no-repeat center / 100%;}
@@ -51,14 +54,17 @@
     .container_best ul {justify-content: space-between;}
     .container_best ul li {width: 32%;}
     
-    .maps_wrap .schedule-form,
-    .create_btnwrap {margin: 20px auto; padding: 0 20px; width: 50%;}
+    .maps_wrap .schedule-form {margin: 20px auto; padding: 0 20px; width: 50%;}
+    .create_btnwrap {margin: 64px auto; width: 50%;}
 
     .trip_list .container_upcoming ul,
     .btnadd_wrap {margin: 0 auto; width: 50%; justify-content: space-between;}
     .trip_list .container_upcoming ul li {width: 48%; margin-right: 0;}
     
     .btn_wrap {display: none;}
+    .chat_form {padding: 0 20px; width: 100%;}
+    .main_txt {width: 50%; margin: 64px auto 20px;}
+    #footer ul {padding: 20px 0;}
 }
 
 

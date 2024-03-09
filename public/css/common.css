@@ -1,3 +1,4 @@
+@charset "utf-8";
 @font-face {
     font-family: 'Pretendard';
     font-weight: 400;
@@ -149,11 +150,29 @@ input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-famil
 input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 
 /* 헤더 */
-.mo_header {padding: 20px; width: 100%; height: 64px; background-color: #fff; box-shadow: 0 0 1px #ccc;}
-.mo_header .gnb .sub_menu {display: flex; justify-content: space-between; align-items: center;}
-.mo_header .gnb .sub_menu li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
-.mo_header .gnb .sub_menu li a.ico_back {height: 12px; background-image: url('../img/common/ico_arrow.png');}
-.mo_header .gnb .sub_menu li a.ico_ham {background-image: url('../img/common/ico_ham.png');}
+.header {padding: 20px; width: 100%; height: 64px; background-color: #fff; box-shadow: 0 0 1px #ccc;}
+.header .gnb .sub_menu {display: flex; justify-content: space-between; align-items: center;}
+.header .gnb .sub_menu li a {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
+.header .gnb .sub_menu li a.ico_back {height: 12px; background-image: url('../img/common/ico_arrow.png');}
+.header .gnb .sub_menu li a.ico_ham {background-image: url('../img/common/ico_ham.png');}
+
+/* 메인 헤더 */
+.header h1 {font-weight: 900; text-align: center;} 
+.header h1 a {font-size: 1.6rem;} 
+.header h1 a img {width: 150px;}
+.header .gnb {position: relative;}
+.header .gnb .main_menu {position: absolute; left: 50%; transform: translateX(-50%);}
+.header .gnb li a:hover {color: #278eff;}
+.header .gnb,
+.header .gnb .main_menu,
+.header .gnb .sub_menu {display: flex; justify-content: space-between; align-items: center;}
+.header .gnb .main_menu li + li {margin-left: 28px;}
+.header .gnb .main_menu li a {font-size: 1.2rem;}
+.header .gnb .sub_menu li div {display: block; width: 24px; height: 24px; background-size: cover; background-repeat: no-repeat;}
+.header .gnb .sub_menu li a.ico_ham {display: none;}
+.header .gnb .sub_menu li .login_wrap {display: flex;}
+.header .gnb .sub_menu li .login_wrap li + li {margin-left: 10px;}
+.header .gnb .sub_menu li .login_wrap li a {width: initial;}
 
 /* 공통 - 하단 메뉴 */
 .btn_wrap {position: fixed; bottom: 0; padding: 15px 20px; width: 100%; background-color: #fff; box-shadow: 0 0 1px #ccc; z-index: 30;} 
@@ -197,11 +216,9 @@ button.disable {background-color: #ccc; color: #333;}
 .btn.withdraw,
 .btn_logout {color: #fff; background-color: #000;} 
 
-/* 버튼 스타일 end */
-
 /* 로그인 */
-#wrap.login_page .login_wrap {display: flex; justify-content: space-between; margin: 0 auto; padding-top: 20px; width: 75%;}
-#wrap.login_page .login_wrap li:hover {text-decoration: underline;}
+#wrap.login_page .container_login .login_wrap {display: flex; justify-content: space-between; margin: 0 auto; padding-top: 20px; width: 75%;}
+#wrap.login_page .container_login .login_wrap li:hover {text-decoration: underline;}
 
 /* 공통 - 마이 페이지 */
 .menu_side {position: absolute; padding: 20px; display: none; width: 100%; height: 100%; top: 0; right: 0; z-index: 50;  background-color: #fff;}
@@ -232,7 +249,16 @@ button.disable {background-color: #ccc; color: #333;}
 .btn_delete::before {content: ''; display: block; width: 30px; height: 30px; background:#ccc; border-radius: 8px;}
 .btn_delete::after {content: ''; display: block; width: 15px; position: relative; left: 8px; top: -16px; height: 3px; background: #fff;}
 
-/* .day_circle {position: absolute; color: #fff; bottom: 20px; left: 50%; transform: translateX(-50%); background: #78b5fb;; border-radius: 50%; width: 6px; height: 6px; line-height: 1;}  */
+.main_wrap .btn_trip {background-color: #278eff;}
 
-/* .calendar_box::before {content: ''; position: absolute; left: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(270deg) translateY(-50%);} */
-/* .calendar_box::after {content: ''; position: absolute; right: 4px; width: 30px; height: 30px; background: url("../img/common/ico_accordb.png") center/cover no-repeat; transform: rotate(90deg) translateY(-50%);} */
+/* 푸터 #footer */
+#footer {position: relative; background-color: #f6f6f6;}
+#footer h3 {font-size: 1.4rem;}
+#footer ul {position: relative; display: flex; justify-content: space-between; align-items: center; padding: 20px; max-width: 1200px; margin: 0 auto;}
+#footer ul span {margin-left: 10px;}
+#footer ul p,
+#footer ul address {color: #838383;}
+#footer ul li {width: 100%;}
+#footer ul li + li div {display: flex; flex-wrap: wrap; justify-content: flex-end;}
+#footer ul li + li div p {padding-top: 30px;}
+#footer ul li div a {display: flex; justify-content: flex-end; margin-left: 20px; text-decoration: underline;}

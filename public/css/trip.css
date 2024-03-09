@@ -1,8 +1,8 @@
+@charset "utf-8";
 /* 메인 - 컨텐츠 */
 .main_txt {display: flex; justify-content: space-between; align-items: center; padding: 20px 0;}
 .main_txt h3,
 .main_txt .btn {margin: 0;}
-
 .trip_detail .main .container_tripdetail {margin-top: 10px;}
 .trip_detail .main .container_tripdetail ul li {position: relative; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #D5DDE0; cursor: pointer;}
 .trip_detail .main .container_tripdetail ul li::before {content: ''; position: absolute; width: 30px; height: 30px; background: url("../img/common/ico_place.png") center/cover no-repeat;}
@@ -20,5 +20,4 @@
 .btn.btn_trip {background-color: #2fcc59;}
 .btn.btn_chklist {position: relative; width: 100px;}
 .btnadd_wrap .btn_add span {color: #fff;}
-
 .detail_wrap .list_box:last-child .map_cnt p{display: none;}
