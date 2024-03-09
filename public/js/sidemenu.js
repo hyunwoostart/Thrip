@@ -9,6 +9,7 @@ const closeBtn = document.querySelector('.btn_close');
     const editBtn = document.querySelector('.btn_retouch');
     const logoutBtn = document.querySelector('.btn_logout');
     if (!localStorage.getItem('token')) {
+        console.log(`cjdma`);
         editBtn.hidden = true;
         logoutBtn.hidden = true;
         info.addEventListener('click', () => {
@@ -23,12 +24,12 @@ const closeBtn = document.querySelector('.btn_close');
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
+            console.log(res.data);
             editBtn.hidden = false;
             logoutBtn.hidden = false;
             myName.textContent = res.data.result.username;
         } catch (error) {
             editBtn.hidden = true;
-            localStorage.clear();
             info.addEventListener('click', () => {
                 document.location.href = '/login';
             });

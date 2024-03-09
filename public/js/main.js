@@ -7,6 +7,7 @@ let arrObject = [];
     // 로그인 여부 확인
     if (localStorage.getItem('token')) {
         try {
+            console.log('first');
             // 사용자 인증
             const res = await axios({
                 method: 'GET',
@@ -87,20 +88,20 @@ let arrObject = [];
                                     let chkHtml;
                                     if (Boolean(isActive)) {
                                         chkHtml = `
-										<div class="input_chk" onclick="isChecked(${id})">
-										<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
-										<label for="check${id}">${listName}</label>
-										<input type="hidden" id="${id}" />
-										</div>
-										`;
+            							<div class="input_chk" onclick="isChecked(${id})">
+            							<input type="checkbox" class="checklist" id="check${id}" name="check${id}" checked />
+            							<label for="check${id}">${listName}</label>
+            							<input type="hidden" id="${id}" />
+            							</div>
+            							`;
                                     } else {
                                         chkHtml = `
-										<div class="input_chk" onclick="isChecked(${id})">
-										<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
-										<label for="check${id}">${listName}</label>
-										<input type="hidden" id="${id}" />
-										</div>
-										`;
+            							<div class="input_chk" onclick="isChecked(${id})">
+            							<input type="checkbox" class="checklist" id="check${id}" name="check${id}" />
+            							<label for="check${id}">${listName}</label>
+            							<input type="hidden" id="${id}" />
+            							</div>
+            							`;
                                     }
                                     div.insertAdjacentHTML('beforeend', chkHtml);
                                     document.querySelector('.trip_box').appendChild(div);
@@ -126,7 +127,6 @@ let arrObject = [];
                 }
             }
         } catch (error) {
-            // localStorage.clear();
             const info = document.querySelector('.my_info');
             info.addEventListener('click', () => {
                 document.location.href = '/login';
@@ -188,7 +188,7 @@ let arrObject = [];
 		<li>
 			<div class="best_cnt" onclick="best(${id})">
 				<img
-					src="../public/img/main/img_best01.png"
+					src="../public/img/main/img_best0${i + 1}.jpg"
 					alt=""
 				/>
 				<div class="best_txt">

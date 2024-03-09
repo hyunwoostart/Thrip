@@ -18,7 +18,7 @@ exports.findGroup = async (req, res) => {
 
 // BEST 일정 조회
 exports.best = async (req, res) => {
-    const result = await Group.findAll({ limit: 6 });
+    const result = await Group.findAll({ order: [['recCount', 'desc']], limit: 6 });
     res.json({ success: true, result, message: 'BEST 일정 조회 완료' });
 };
 
