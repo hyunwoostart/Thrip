@@ -53,6 +53,7 @@ let distance = 0;
 // 출발지 도착지 배열 담는 함수
 function pushArray(obj, array) {
     array.push(obj);
+    console.log(obj)
 }
 //좌표 입력받아서 거리 계산하는 함수
 function getDistance(lat1, lng1, lat2, lng2) {

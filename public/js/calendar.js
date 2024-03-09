@@ -292,12 +292,12 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
         groupMember = res.data.result.groupMember;
         dep = {
             year: Number(depY),
-            m: Number(depM) + 1,
+            m: Number(depM),
             date: Number(depD),
         };
         arr = {
             year: Number(arrY),
-            m: Number(arrM) + 1,
+            m: Number(arrM),
             date: Number(arrD),
         };
 
