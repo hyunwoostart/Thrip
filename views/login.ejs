@@ -17,7 +17,7 @@
             <!-- 헤더 -->
             <%- include('header.ejs') %>
             <!--// 헤더 -->
-            
+
             <!-- 공통 - 사이드 메뉴 -->
             <%- include('sidemenu.ejs') %>
             <!--// 공통 - 사이드 메뉴 -->
@@ -46,7 +46,7 @@
                 </div>
             </main>
             <!--// 컨텐츠 -->
-            
+
             <!-- 푸터 -->
             <%- include('footer.ejs') %>
             <!--// 푸터 -->
@@ -78,7 +78,7 @@
                 if (res.data.success) {
                     alert(`${res.data.result}님 환영합니다!`);
                     localStorage.setItem('token', res.data.token);
-                    window.history.back();
+                    location.href = document.referrer;
                 } else {
                     alert(res.data.message);
                 }

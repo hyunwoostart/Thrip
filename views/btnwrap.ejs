@@ -1,24 +1,38 @@
 <div class="btn_wrap">
     <ul>
-        <li class="on">
+        <li class="on" id="moBtnHome">
             <a href="/" class="ico_home">
                 <span class="blind">홈</span>
             </a>
         </li>
-        <li>
+        <li id="moBtnMap">
             <a href="/triplist" class="ico_maps">
                 <span class="blind">지도</span>
             </a>
         </li>
-        <li>
+        <li id="moBtnChat">
             <a href="/chat" class="ico_chat">
                 <span class="blind">채팅</span>
             </a>
         </li>
-        <li>
+        <li id="moBtnMy">
             <a href="/myPage" class="ico_my">
                 <span class="blind">나의 정보</span>
             </a>
         </li>
     </ul>
 </div>
+<script>
+    console.log(document.location.href);
+    const link = document.location.href;
+    if (link.includes('trip') || link.includes('checklist') || link.includes('calendar') || link.includes('map')) {
+        document.querySelector('#moBtnHome').classList.remove('on');
+        document.querySelector('#moBtnMap').classList.add('on');
+    } else if (link.includes('chat')) {
+        document.querySelector('#moBtnHome').classList.remove('on');
+        document.querySelector('#moBtnChat').classList.add('on');
+    } else if (link.includes('myPage') || link.includes('login') || link.includes('signup') || link.includes('find')) {
+        document.querySelector('#moBtnHome').classList.remove('on');
+        document.querySelector('#moBtnMy').classList.add('on');
+    }
+</script>

@@ -28,3 +28,7 @@ div .day {flex-direction: column;}
 .container_upcoming {padding: 40px 0 0 0;}
 .container_upcoming#prev {border-top: 1px solid #ddd; margin-top: 60px;}
 .trip_list .trip_schedule .btn_delete {position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border-style: none; background: transparent; cursor: pointer;}
+
+/* 캘린더 일정 표시 */
+.date {position: relative;}
+.date .day_circle {position: absolute; bottom: 20%; left: 50%; width: 6px; height: 6px; background-color: #278eff; border-radius: 50%; transform: translateX(-50%);}

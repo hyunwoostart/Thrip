@@ -53,7 +53,7 @@ let distance = 0;
 // 출발지 도착지 배열 담는 함수
 function pushArray(obj, array) {
     array.push(obj);
-    console.log(obj)
+    console.log(obj);
 }
 //좌표 입력받아서 거리 계산하는 함수
 function getDistance(lat1, lng1, lat2, lng2) {
@@ -335,7 +335,7 @@ let minHtml;
             tabForm = document.querySelectorAll('.schedule-form')[0];
             form = tabForm.querySelectorAll('.detail-schedule')[0];
         } else {
-            window.history.back();
+            location.href = document.referrer;
         }
     } catch (error) {
         console.log(error);

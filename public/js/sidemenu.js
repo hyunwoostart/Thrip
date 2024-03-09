@@ -9,7 +9,6 @@ const closeBtn = document.querySelector('.btn_close');
     const editBtn = document.querySelector('.btn_retouch');
     const logoutBtn = document.querySelector('.btn_logout');
     if (!localStorage.getItem('token')) {
-        console.log(`cjdma`);
         editBtn.hidden = true;
         logoutBtn.hidden = true;
         info.addEventListener('click', () => {
