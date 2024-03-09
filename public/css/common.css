@@ -189,7 +189,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 .btn_wrap ul li.on a.ico_my {background-image: url('../img/common/ico_onmy.svg');} 
 
 /* 내 여행 - 스케줄 박스 */
-.trip_schedule {padding: 18px 20px; margin-bottom: 30px; border: 1px solid #ececec; border-radius: 15px;}
+.trip_schedule {position: relative; padding: 18px 20px; margin-bottom: 30px; border: 1px solid #ececec; border-radius: 15px;}
 .trip_schedule h3 {margin-bottom: 4px;}
 .trip_schedule span {display: block;}
 .trip_schedule p {margin-top: 10px;}
