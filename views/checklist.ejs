@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>체크리스트</title>
+        <link rel="icon" href="../public/img/common/favicon.png" />
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/main.css" />
@@ -40,10 +41,28 @@
                     <div class="trip_supplies">
                         <h3>여행이름</h3>
                     </div>
-                    <button type="button" onclick="showInput()" class="btn" id="showBtn">+ 리스트 추가하기</button>
+                    <button
+                        type="button"
+                        onclick="showInput()"
+                        class="btn"
+                        id="showBtn"
+                    >
+                        + 리스트 추가하기
+                    </button>
                     <div class="addBox hide">
-                        <input type="text" placeholder="새 리스트 내용" id="addName" />
-                        <button type="button" onclick="addList()" class="btn" id="addBtn">등록</button>
+                        <input
+                            type="text"
+                            placeholder="새 리스트 내용"
+                            id="addName"
+                        />
+                        <button
+                            type="button"
+                            onclick="addList()"
+                            class="btn"
+                            id="addBtn"
+                        >
+                            등록
+                        </button>
                     </div>
                 </div>
             </main>
@@ -64,7 +83,8 @@
                             id: localStorage.getItem('groupId'),
                         },
                     });
-                    list.querySelector('h3').textContent = res2.data.result.groupName;
+                    list.querySelector('h3').textContent =
+                        res2.data.result.groupName;
                 } catch {
                     document.location.href = '/login';
                 }
@@ -105,7 +125,9 @@
                     url: '/api/schedule/updateChk',
                     data: {
                         id,
-                        isActive: Number(document.querySelector(`#check${id}`).checked),
+                        isActive: Number(
+                            document.querySelector(`#check${id}`).checked
+                        ),
                     },
                 });
             }
