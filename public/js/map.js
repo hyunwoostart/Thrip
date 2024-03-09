@@ -225,12 +225,12 @@ let minHtml;
                 document.querySelector('#wrap').appendChild(formDiv);
                 let html2 = `
 					<div class="detail-schedule">
+						<input type="hidden" class="category" value="${i + 1}" />
 						<div class="result"></div>
 						<div class="input_wrap">
 							<input type="number" class="index" value="1" readonly disabled />
 							<button type="button" onclick="deleteFunc(${i + 1}, 1)" class="btn_delete"></button>
 						</div>
-						<input type="hidden" class="category" value="${i + 1}" />
 						<div class="time_box">
 							<select name="divide" class="divide">
 								<option value="am">오전</option>
@@ -261,12 +261,12 @@ let minHtml;
                         if (category == i + 1) {
                             html2 = `
 							<div class="detail-schedule">
+								<input type="hidden" class="category" value="${i + 1}" />
 								<div class="result active">${duration(distance)}</div>
 								<div class="input_wrap">
 									<input type="number" class="index" value="${detailOrder}" readonly disabled/>
 									<button type="button" onclick="deleteFunc(${category}, ${num + 1})" class="btn_delete"></button>
 								</div>
-								<input type="hidden" class="category" value="${i + 1}" />
 								<div class="time_box">
 									<select name="divide" class="divide">
 										<option value="am">오전</option>
@@ -398,6 +398,7 @@ function insert() {
     // var target = tabForm.querySelectorAll('.schedule-form');
     var addCode = `
 		<div class="detail-schedule">
+			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
 			<div class="result"></div>
             <div class="input_wrap">
                 <input type="number" class="index" value="${tabIndex}" readonly disabled />
@@ -405,7 +406,6 @@ function insert() {
                     'category'
                 )}, ${tabIndex})" class="btn_delete"></button>
             </div>
-			<input type="hidden" class="category" value="${localStorage.getItem('category')}" />
 			<div class="time_box">
 				<select name="divide" class="divide">
 					<option value="am">오전</option>
@@ -432,6 +432,17 @@ function insert() {
 async function register() {
     if (!confirm('일정을 등록하시겠습니까?')) {
         return;
+    }
+    const require = document.querySelectorAll('.place_name');
+    for (let i = 0; i < require.length; i++) {
+        if (!require[i].value) {
+            alert('모든 일정을 등록해주세요.');
+            const tabNum = require[i].parentElement.parentElement.firstElementChild.value;
+            tabFunc(tabNum);
+            console.log(tabNum);
+            require[i].focus();
+            return;
+        }
     }
     try {
         const content = document.querySelectorAll('.detail-schedule');
