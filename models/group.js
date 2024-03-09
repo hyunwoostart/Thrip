@@ -30,6 +30,14 @@ const GroupModel = (sequelize) => {
         groupMemo: {
             type: DataTypes.STRING,
         },
+        recMember: {
+            type: DataTypes.JSON,
+            defaultValue: [],
+        },
+        recCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
     });
 };
 

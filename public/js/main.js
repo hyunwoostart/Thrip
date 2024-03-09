@@ -15,6 +15,11 @@ let arrObject = [];
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
+            document.querySelector('.login_wrap .username_txt').textContent = res.data.result.username + ' 님';
+            document.querySelectorAll('.login_on')[0].classList.remove('hide');
+            document.querySelectorAll('.login_on')[1].classList.remove('hide');
+            document.querySelectorAll('.login_off')[0].classList.add('hide');
+            document.querySelectorAll('.login_off')[1].classList.add('hide');
             // 내 여행 데이터 불러오기
             if (res.data.result.mySchedule[0]) {
                 let count = 0;
@@ -178,7 +183,7 @@ let arrObject = [];
         url: '/api/schedule/best',
     });
     for (let i = 0; i < bestRes.data.result.length; i++) {
-        const { id, groupName, dueDate } = bestRes.data.result[i];
+        const { id, groupName, dueDate, recCount } = bestRes.data.result[i];
         const bestHtml = `
 		<li>
 			<div class="best_cnt" onclick="best(${id})">
@@ -193,7 +198,7 @@ let arrObject = [];
 					</div>
 					<div class="rate_view">
 						<p>
-							<span>4.7<i></i></span>
+							<span><i></i>${recCount}</span>
 						</p>
 					</div>
 				</div>
@@ -329,7 +334,7 @@ document.querySelectorAll('.btn_wrap ul li').forEach(function (li) {
 //오늘을 기준으로 일주일 캘린더 만들기
 function makeCalender() {
     let calendarTable = document.querySelector('#trip_calendar_table');
-    const today = new Date('2024-03-30');
+    const today = new Date();
     //요일(오늘을 기준으로 요일 배열 재배치)
     const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
     const day = today.getDay();

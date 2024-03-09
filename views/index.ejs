@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Time Travel</title>
         <!-- <link rel="icon" href="../public/img/main/favicon.png" /> -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
@@ -26,13 +26,16 @@
                     <ul class="sub_menu">
                         <li>
                             <ul class="login_wrap">
-                                <li>
+                                <li class="login_off">
                                     <a href="/login" class="info_txt">로그인</a>
                                 </li>
-                                <li>
+                                <li class="login_off">
                                     <a href="/signup" class="info_txt">회원가입</a>
                                 </li>
-                                <!-- <li><a href="#none" class="info_txt">로그아웃</a></li> -->
+                                <li class="login_on hide"><a href="/myPage" class="info_txt username_txt"></a></li>
+                                <li class="login_on hide">
+                                    <a href="#none" onclick="logoutFunc()" class="info_txt">로그아웃</a>
+                                </li>
                             </ul>
                         </li>
                         <li>
