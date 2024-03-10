@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="../public/css/reset.css" />
         <link rel="stylesheet" href="../public/css/common.css" />
         <link rel="stylesheet" href="../public/css/chat.css" />
-        <link rel="stylesheet" href="../public/css/mediaquery.css">
+        <link rel="stylesheet" href="../public/css/mediaquery.css" />
     </head>
     <body>
         <div id="wrap" class="chat_wrap">
@@ -56,7 +56,6 @@
 
         <!-- 공통 - 사이드 메뉴 -->
         <script src="../public/js/sidemenu.js"></script>
-        <script src="../public/js/main.js"></script>
         <script>
             const socket = io();
             const form = document.querySelector('#chat_form');
@@ -133,14 +132,9 @@
                 const text = document.querySelector('#searchChat').value;
                 const count = document.querySelectorAll('.chatBox').length;
                 for (let i = 0; i < count; i++) {
-                    console.log(
-                        document.querySelectorAll('.chatBox')[i].querySelector('.enter').textContent.includes(text)
-                    );
                     if (document.querySelectorAll('.chatBox')[i].querySelector('.enter').textContent.includes(text)) {
-                        console.log(i, '있음');
                         document.querySelectorAll('.chatBox')[i].classList.remove('hide');
                     } else {
-                        console.log(i, '없음');
                         document.querySelectorAll('.chatBox')[i].classList.add('hide');
                     }
                 }

@@ -7,7 +7,6 @@ let arrObject = [];
     // 로그인 여부 확인
     if (localStorage.getItem('token')) {
         try {
-            console.log('first');
             // 사용자 인증
             const res = await axios({
                 method: 'GET',

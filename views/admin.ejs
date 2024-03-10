@@ -58,7 +58,6 @@
                     method: 'GET',
                     url: '/api/recommend/find',
                 });
-                console.log(res.data.result);
                 for (let i = 0; i < res.data.result.length; i++) {
                     const { id, place, memo, isActive } = res.data.result[i];
                     const list = document.querySelector('.list');
@@ -99,7 +98,6 @@
             }
             async function updateFunc(i) {
                 const active = document.querySelector(`#check${i}`).checked;
-                console.log(active);
                 let isActive;
                 if (active) {
                     isActive = 1;
