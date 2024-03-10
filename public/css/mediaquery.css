@@ -67,6 +67,8 @@
     .trip_list .container_upcoming ul,
     .btnadd_wrap {margin: 0 auto; width: 50%; justify-content: space-between;}
     .trip_list .container_upcoming ul li {width: 48%; margin-right: 0;}
+    .chat_wrap .container_chatinfo {max-width: 100%;}
+    .chat_wrap .chat_form {bottom: 0;}
     
     .btn_wrap {display: none;}
     .chat_form {padding: 0 20px; width: 100%;}
