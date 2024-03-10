@@ -23,7 +23,6 @@ const closeBtn = document.querySelector('.btn_close');
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-            console.log(res.data);
             editBtn.hidden = false;
             logoutBtn.hidden = false;
             myName.textContent = res.data.result.username;
@@ -57,13 +56,6 @@ closeBtn.addEventListener('click', (event) => {
     event.preventDefault();
     menuSide.style.display = 'none';
     document.body.style.overflow = 'auto';
-});
-
-// 모달 바깥 영역 클릭 시 모달 닫기
-document.addEventListener('click', (event) => {
-    if (!menuSide.contains(event.target) && event.target !== hamBtn) {
-        menuSide.style.display = 'none';
-    }
 });
 
 // 모달 내부 클릭 시 모달 닫힘 방지

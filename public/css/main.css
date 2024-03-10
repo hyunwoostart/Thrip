@@ -7,9 +7,6 @@
 .tab_menu li.on::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
 /* 내 여행 */
-
-.main_bg{height: 500px;}
-
 .trip_cnt .trip_calendar {width: 100%; margin-bottom: 24px;}
 .trip_cnt .trip_calendar .trip_calendar_line {display: flex; width: 100%; justify-content: space-evenly;color: gray;}
 .trip_cnt .trip_calendar .calCont {position: relative; text-align: center; font-weight: 700; width: 30px; height: 30px; line-height: 30px;}
@@ -43,7 +40,8 @@
 
 /* 카테고리 추천 */
 .container_category ul {display: flex; justify-content: space-between; width: 100%;}
-.container_category ul li .img_catewrap {padding: 10px; margin-bottom: 6px; border-radius: 15px; background: #ffcEbf;}
+.container_category ul li .img_catewrap {padding: 10px; margin-bottom: 6px; border-radius: 15px; background: #2fcc59;}
+.container_category ul li .img_catewrap img {padding: 10%;}
 .container_category ul li + li {margin-left: 28px;}
 .container_category ul li div a {text-align: center;}
 

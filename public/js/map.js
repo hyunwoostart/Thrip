@@ -53,7 +53,6 @@ let distance = 0;
 // 출발지 도착지 배열 담는 함수
 function pushArray(obj, array) {
     array.push(obj);
-    console.log(obj);
 }
 //좌표 입력받아서 거리 계산하는 함수
 function getDistance(lat1, lng1, lat2, lng2) {
@@ -76,7 +75,6 @@ var ps = new kakao.maps.services.Places();
 
 //검색하는 함수입니다.
 async function keyword(id) {
-    console.log('first');
     form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
     form.querySelector('.map').classList.remove('hide');
     map.relayout();
@@ -110,7 +108,6 @@ function displayMarker(place) {
     });
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function () {
-        // console.log(place.x);
         form.querySelector('.select').innerHTML = place.place_name;
         form.querySelector('.select').classList.add('active');
         // `<div>위치 : ${place.place_name}<br>위도 : ${place.y} <br> 경도 :${place.x} </div>`;
@@ -129,7 +126,6 @@ function displayMarker(place) {
         pushArray(obj, array);
         const prevForm = tabForm.querySelectorAll('.detail-schedule')[nowIndex - 2];
         if (nowIndex >= 2 && prevForm.querySelector('.obj_x').value) {
-            console.log('두개의 좌표 사이의 거리 측정 시작');
             distance = getDistance(
                 prevForm.querySelector('.obj_x').value,
                 prevForm.querySelector('.obj_y').value,
@@ -338,7 +334,6 @@ let minHtml;
             location.href = document.referrer;
         }
     } catch (error) {
-        console.log(error);
         document.location.href = '/';
     }
 })();
@@ -369,7 +364,6 @@ function deleteFunc(tab, id) {
     tabForm = document.querySelectorAll('.schedule-form')[tab - 1];
     form = tabForm.querySelectorAll('.detail-schedule')[id - 1];
     form.remove();
-    console.log();
     for (let i = id; i <= tabForm.querySelectorAll('.detail-schedule').length; i++) {
         form = tabForm.querySelectorAll('.detail-schedule')[i - 1];
         const prevForm = tabForm.querySelectorAll('.detail-schedule')[i - 2];
@@ -439,14 +433,12 @@ async function register() {
             alert('모든 일정을 등록해주세요.');
             const tabNum = require[i].parentElement.parentElement.firstElementChild.value;
             tabFunc(tabNum);
-            console.log(tabNum);
             require[i].focus();
             return;
         }
     }
     try {
         const content = document.querySelectorAll('.detail-schedule');
-        console.log(content);
         for (let i = 0; i < content.length; i++) {
             const category = Number(content[i].querySelector('.category').value);
             const tabLength = document
@@ -486,13 +478,11 @@ async function register() {
                 groupId: localStorage.getItem('groupId'),
                 tabLength,
             };
-            console.log(tabLength);
             const res = await axios({
                 method: 'POST',
                 url: '/api/schedule/detailWrite',
                 data,
             });
-            console.log(res);
         }
         document.location.href = '/tripdetail';
     } catch (error) {

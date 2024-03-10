@@ -124,7 +124,6 @@ $('.go-prev').on('click', function () {
     } else {
         month = month - 1;
     }
-    console.log(year, month);
     printCalendar(year, month);
     changeSelected(year, month);
 });
@@ -137,7 +136,6 @@ $('.go-next').on('click', function () {
     } else {
         month = month + 1;
     }
-    console.log(year, month);
     printCalendar(year, month);
     changeSelected(year, month);
     getSelectedDate();
@@ -155,7 +153,6 @@ function changeSelected(year, month) {
     selectedYearOption.removeAttribute('selected');
     targetYear.setAttribute('selected', 'selected');
     targetMonth.setAttribute('selected', 'selected');
-    console.log(targetYear, targetMonth)
 }
 
 //날짜 선택해서 띄우기
@@ -199,7 +196,6 @@ function selectDep() {
     document.querySelector('#selectDep').classList.add('hide');
     document.querySelector('#selectArr').classList.remove('hide');
     dep = {year: selectedDate.year,m: selectedDate.m,date: Number(selectedDate.date)};
-    console.log('dep', dep);
     var active = document.querySelector('.active');
     if (active) {
         active.classList.remove('active');
@@ -210,7 +206,6 @@ function selectDep() {
 function selectArr() {
     //도착일 선택
     arrDate = `${selectedDate.year}-${String(selectedDate.m + 1).padStart(2,'0')}-${String(selectedDate.date).padStart(2, '0')}`;
-    console.log(arrDate);
     arr = {year: selectedDate.year,m: selectedDate.m,date: Number(selectedDate.date)};
     //창 맨 위에 일정 띄우기
     document.querySelector('.depDate').textContent = `${String(dep.m + 1).padStart(2, '0')}월 ${String(dep.date).padStart(2, '0')}일`;
@@ -322,7 +317,6 @@ function addId(i) {
         groupMember.push(i);
         document.querySelector(`#resultBtn${i}`).classList.add('on');
     }
-    console.log(groupMember);
 }
 
 async function register() {
@@ -334,7 +328,6 @@ async function register() {
     }
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
-    console.log('stDate', stDate, 'endDate', endDate);
     const dueDate = (endDate.getTime() - stDate.getTime()) / (1000 * 60 * 60 * 24);
     const data = {
         depDate,
