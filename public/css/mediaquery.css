@@ -54,9 +54,7 @@
     .trip_supplies h3 {font-size: 1.4rem !important;}
 
     .container_best ul,
-    .container_upcoming ul {flex-wrap: wrap;}
-    .container_upcoming ul li {margin-right: 10px;}
-    .container_best ul {justify-content: space-between;}
+    .container_upcoming ul {flex-wrap: wrap; justify-content: space-between;}
     .container_best ul li {width: 32%;}
     
     .trip_cnt .trip_schedule {border: none;}
