@@ -10,6 +10,7 @@ const selectMonth = document.querySelector('#selectMonth');
 let groupMember = [];
 let bestId;
 let groupId;
+let myId;
 
 //연도와 월 select에 option 만드는 함수
 function makeSelect() {
@@ -240,16 +241,17 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
     resultBox.innerHTML = '';
     for (let i = 0; i < res.data.result.length; i++) {
         const { id, userId } = res.data.result[i];
-        const html = `
-			<button type="button" onclick="addId(${id})" class="result_id" id="resultBtn${id}">${userId}</button>
-			`;
-        resultBox.insertAdjacentHTML('beforeend', html);
-        if (groupMember.includes(id)) {
-            document.querySelector(`#resultBtn${id}`).classList.add('on');
+        if (myId != id) {
+            const html = `
+				<button type="button" onclick="addId(${id})" class="result_id" id="resultBtn${id}">${userId}</button>
+				`;
+            resultBox.insertAdjacentHTML('beforeend', html);
+            if (groupMember.includes(id)) {
+                document.querySelector(`#resultBtn${id}`).classList.add('on');
+            }
         }
     }
 });
-
 (async function () {
     try {
         const res = await axios({
@@ -260,6 +262,7 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
             },
         });
         const { id } = res.data.result;
+        myId = id;
         groupMember.push(id);
     } catch (error) {
         document.location.href = '/login';
@@ -292,12 +295,12 @@ document.querySelector('#searchBtn').addEventListener('click', async function (e
         groupMember = res.data.result.groupMember;
         dep = {
             year: Number(depY),
-            m: Number(depM) + 1,
+            m: Number(depM),
             date: Number(depD),
         };
         arr = {
             year: Number(arrY),
-            m: Number(arrM) + 1,
+            m: Number(arrM),
             date: Number(arrD),
         };
 
@@ -323,6 +326,12 @@ function addId(i) {
 }
 
 async function register() {
+    const nameBox = document.querySelector('#groupName');
+    if (!nameBox.value) {
+        alert('일정명을 입력해주세요.');
+        nameBox.focus();
+        return;
+    }
     const stDate = new Date(dep.year, dep.m, dep.date);
     const endDate = new Date(arr.year, arr.m, arr.date);
     console.log('stDate', stDate, 'endDate', endDate);
@@ -331,7 +340,7 @@ async function register() {
         depDate,
         arrDate,
         dueDate: dueDate + 1,
-        groupName: document.querySelector('#groupName').value,
+        groupName: nameBox.value,
         groupMember,
         groupMemo: document.querySelector('#groupMemo').value,
     };
