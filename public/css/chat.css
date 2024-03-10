@@ -22,7 +22,7 @@
 .chat_wrap .me .writer {display: none;} 
 
 .chat_wrap .message {line-height: 2; padding: 0.4rem 1rem; box-shadow: 0 4px 120px 0 rgba(58, 86, 78, 0.15);} 
-.chat_wrap .me .message {background: #278eff; border-radius: 0.8rem 0.8rem 0 0.8rem; max-width: 60vw; word-wrap: break-word; color: #fff;} 
+.chat_wrap .me .message {background: #278eff; border-radius: 0.8rem 0.8rem 0 0.8rem; max-width: 40vw; word-wrap: break-word; color: #fff;} 
 .chat_wrap .you .message {background: #fff; border-radius: 0.8rem 0.8rem 0.8rem 0; max-width: 60vw;} 
 .chat_wrap .me:last-child .message {margin-bottom: 50px;}
 
