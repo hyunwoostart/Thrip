@@ -50,7 +50,7 @@
 .calendar .container_schedule .ico_back {transform: rotate(180deg); background-image: url('../img/common/ico_arrowb.png'); display: block; width: 24px; height: 12px; background-size: cover; background-repeat: no-repeat;} 
 .calendar .container_schedule .schedule-form {padding: 20px 0;} 
 
-.map {width: 100%; height: 80vw;} 
+.map {width: 100%; height: 40vw;} 
 .detail-schedule {position: relative; padding-bottom: 20px;} 
 .detail-schedule input.index {padding-left: 0; margin-bottom: 0; border: none; background: transparent; font-weight: 700;} 
 
