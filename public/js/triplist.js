@@ -188,7 +188,6 @@ function calendarInit() {
         } else {
             month = month - 1;
         }
-        console.log(year, month);
         printCalendar(year, month);
         selected();
     });
@@ -200,7 +199,6 @@ function calendarInit() {
         } else {
             month = month + 1;
         }
-        console.log(year, month);
         printCalendar(year, month);
         selected();
     });

@@ -31,15 +31,12 @@ exports.recClick = async (req, res) => {
     if (find.recMember[0]) {
         for (let i = 0; i < find.recMember.length; i++) {
             memList.push(find.recMember[i]);
-            console.log(memList);
         }
     }
     if (memList.includes(userId)) {
         newList = memList.filter((id) => id != userId);
-        console.log('아이디 있음', newList);
     } else {
         memList.push(userId);
-        console.log('아이디 없음', memList);
         newList = memList;
     }
     const result = await Group.update({ recMember: newList, recCount: newList.length }, { where: { id: groupId } });

@@ -31,9 +31,7 @@ const list = document.querySelector('.container_tripdetail');
         list.insertAdjacentHTML('beforeend', listBox);
         for (let i = 0; i < res.data.result.length; i++) {
             const nowBox = document.querySelectorAll('.detail_wrap')[j];
-            // console.log(res.data.result[i]);
-            const { category, arrTime, distance, detailMemo, place } =
-                res.data.result[i];
+            const { category, arrTime, distance, detailMemo, place } = res.data.result[i];
             const showTime = arrTime.substring(0, 5);
             if (j === category - 1) {
                 let distanceHtml;
@@ -47,15 +45,11 @@ const list = document.querySelector('.container_tripdetail');
                         newDistance = `(약 ${distance}m)`;
                     }
                     if (hour >= 1) {
-                        distanceHtml = `다음 장소까지 이동 시간 <span>${hour.toFixed(
-                            0
-                        )}</span>시간 <span>${min.toFixed(
+                        distanceHtml = `다음 장소까지 이동 시간 <span>${hour.toFixed(0)}</span>시간 <span>${min.toFixed(
                             0
                         )}</span>분 ${newDistance}`;
                     } else {
-                        distanceHtml = `다음 장소까지 이동 시간 <span>${min.toFixed(
-                            0
-                        )}</span>분 ${newDistance}`;
+                        distanceHtml = `다음 장소까지 이동 시간 <span>${min.toFixed(0)}</span>분 ${newDistance}`;
                     }
                 }
                 html = `
@@ -76,14 +70,10 @@ const list = document.querySelector('.container_tripdetail');
                     const memo = document.createElement('p');
                     memo.className = 'list_memo hide';
                     memo.textContent = detailMemo;
-                    nowBox
-                        .querySelectorAll('.list_detail')
-                        [k].querySelector('.ico_accord')
-                        .after(memo);
+                    nowBox.querySelectorAll('.list_detail')[k].querySelector('.ico_accord').after(memo);
                 }
                 if (nowBox.querySelectorAll('.distance_text')[k - 1]) {
-                    nowBox.querySelectorAll('.distance_text')[k - 1].innerHTML =
-                        distanceHtml;
+                    nowBox.querySelectorAll('.distance_text')[k - 1].innerHTML = distanceHtml;
                 }
 
                 k++;
@@ -116,7 +106,6 @@ function openBox(list, box, x, y) {
     const nowList = document.querySelectorAll('.detail_wrap')[list];
     const nowBox = nowList.querySelectorAll('.list_box')[box];
     var mapOpened = document.querySelector('.on');
-    console.log(mapOpened);
     if (nowBox.classList.contains('on')) {
         // 선택한 박스의 지도가 틀어져있다면 지도를 닫는다.
         nowBox.classList.remove('on');
@@ -133,11 +122,7 @@ function openBox(list, box, x, y) {
             b.classList.remove('on');
             removeMapVer2(mapOpened);
         }
-        for (
-            let i = 0;
-            i < document.querySelectorAll('.list_memo').length;
-            i++
-        ) {
+        for (let i = 0; i < document.querySelectorAll('.list_memo').length; i++) {
             document.querySelectorAll('.list_memo')[i].classList.add('hide');
         }
         // 선택한 박스의 지도만 연다.

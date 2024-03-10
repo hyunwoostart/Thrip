@@ -23,7 +23,6 @@ const closeBtn = document.querySelector('.btn_close');
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-            console.log(res.data);
             editBtn.hidden = false;
             logoutBtn.hidden = false;
             myName.textContent = res.data.result.username;
