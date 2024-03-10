@@ -59,13 +59,6 @@ closeBtn.addEventListener('click', (event) => {
     document.body.style.overflow = 'auto';
 });
 
-// 모달 바깥 영역 클릭 시 모달 닫기
-document.addEventListener('click', (event) => {
-    if (!menuSide.contains(event.target) && event.target !== hamBtn) {
-        menuSide.style.display = 'none';
-    }
-});
-
 // 모달 내부 클릭 시 모달 닫힘 방지
 menuSide.addEventListener('click', (event) => {
     event.stopPropagation();

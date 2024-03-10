@@ -7,9 +7,6 @@
 .tab_menu li.on::after {content: ''; margin-top: 8px; display: block; width: 100%; height: 2px; background: #278eff;}
 
 /* 내 여행 */
-
-.main_bg{height: 500px;}
-
 .trip_cnt .trip_calendar {width: 100%; margin-bottom: 24px;}
 .trip_cnt .trip_calendar .trip_calendar_line {display: flex; width: 100%; justify-content: space-evenly;color: gray;}
 .trip_cnt .trip_calendar .calCont {position: relative; text-align: center; font-weight: 700; width: 30px; height: 30px; line-height: 30px;}

@@ -249,8 +249,10 @@ button.disable {background-color: #ccc; color: #333;}
 .btn_delete::before {content: ''; display: block; width: 30px; height: 30px; background:#ccc; border-radius: 8px;}
 .btn_delete::after {content: ''; display: block; width: 15px; position: relative; left: 8px; top: -16px; height: 3px; background: #fff;}
 .trip_list .trip_schedule .btn_delete {position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border-style: none; background: transparent; cursor: pointer;}
+.trip_list .container_calendar {padding-bottom: 0;}
 
 .main_wrap .btn_trip {background-color: #278eff;}
+.btnadd_wrap {padding-bottom: 40px;}
 
 /* 푸터 #footer */
 #footer {position: relative; background-color: #f6f6f6;}
