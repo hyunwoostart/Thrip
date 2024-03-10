@@ -9,7 +9,7 @@
                 },
             });
             if (check) {
-                document.location.href = '/';
+                document.location.href = history.back();
             }
         }
     } catch {
