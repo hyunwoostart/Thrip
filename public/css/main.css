@@ -40,7 +40,8 @@
 
 /* 카테고리 추천 */
 .container_category ul {display: flex; justify-content: space-between; width: 100%;}
-.container_category ul li .img_catewrap {padding: 10px; margin-bottom: 6px; border-radius: 15px; background: #ffcEbf;}
+.container_category ul li .img_catewrap {padding: 10px; margin-bottom: 6px; border-radius: 15px; background: #2fcc59;}
+.container_category ul li .img_catewrap img {padding: 10%;}
 .container_category ul li + li {margin-left: 28px;}
 .container_category ul li div a {text-align: center;}
 
