@@ -11,7 +11,7 @@ exports.find = (req, res) => {
     res.render('find');
 };
 exports.mypage = (req, res) => {
-    res.render('mypage');
+    res.render('myPage');
 };
 exports.checklist = (req, res) => {
     res.render('checklist');
