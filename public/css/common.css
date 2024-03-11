@@ -131,7 +131,7 @@ button {
     font-family: 'Pretendard', sans-serif !important;
 }
 
-body {position: relative; min-width: 320px; padding-bottom: 40px;} 
+body {position: relative; min-width: 320px;} 
 h3 {margin-bottom: 16px; font-size: 1.2rem; font-weight: 700;} 
 
 .hide,
@@ -144,8 +144,8 @@ input[type="checkbox"] {display: block; width: 100%; font-size: 1rem; font-famil
 .btn {width: 100%; margin: 20px 0 0 0; padding: 0; font-size: 1rem; font-family: 'Pretendard', sans-serif; line-height: 4rem; background: #278eff; color: #fff; border: none; border-radius: 10px; cursor: pointer;} 
 
 /* 공통 - 레이아웃 */
-#wrap {position: relative; overflow: hidden; padding-bottom: 52px;} 
-[class^="container_"] {padding-bottom: 40px; } 
+#wrap {position: relative; overflow: hidden;} 
+[class^="container_"] {padding-bottom: 40px;} 
 .main {margin-top: 10px; padding: 0 20px;}
 input[type="time"]::-webkit-calendar-picker-indicator {background: none;}
 
@@ -255,7 +255,7 @@ button.disable {background-color: #ccc; color: #333;}
 .btnadd_wrap {padding-bottom: 40px;}
 
 /* 푸터 #footer */
-#footer {position: relative; background-color: #f6f6f6;}
+#footer {position: relative; margin-top: 64px; background-color: #f6f6f6;}
 #footer h3 {font-size: 1.4rem;}
 #footer ul {position: relative; display: flex; justify-content: space-between; align-items: center; padding: 20px; max-width: 1200px; margin: 0 auto;}
 #footer ul span {margin-left: 10px;}
