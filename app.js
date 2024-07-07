@@ -4,10 +4,12 @@ const socketIo = require('socket.io');
 const db = require('./models');
 
 const app = express();
-const PORT = 8000;
+const PORT = 8100;
 const server = http.createServer(app);
 const io = socketIo(server);
 
+app.disable('Request URL')
+app.disable('x-powered-by')
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use('/public', express.static(__dirname + '/public'));
